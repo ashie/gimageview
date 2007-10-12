@@ -31,10 +31,18 @@ AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
-AC_PROG_RANLIB
 AC_PROG_YACC
 AC_ISC_POSIX
 AM_MAINTAINER_MODE
+
+
+dnl ******************************
+dnl libtool
+dnl ******************************
+AC_ENABLE_SHARED(yes)
+AC_ENABLE_STATIC(no)
+AC_LIBTOOL_WIN32_DLL
+AM_PROG_LIBTOOL
 
 
 dnl ******************************
@@ -72,15 +80,6 @@ case "$host" in
 esac
 AC_MSG_RESULT([$os_win32])
 AM_CONDITIONAL(OS_WIN32, test x"$os_win32" = x"yes")
-
-
-dnl ******************************
-dnl libtool
-dnl ******************************
-AC_ENABLE_SHARED(yes)
-AC_ENABLE_STATIC(no)
-AC_LIBTOOL_WIN32_DLL
-AM_PROG_LIBTOOL
 
 
 dnl ******************************
