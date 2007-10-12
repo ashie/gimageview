@@ -18,17 +18,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id$
+ * $Id: dirview2.c 1079 2007-10-12 03:15:19Z makeinu $
  */
 
 #include "dirview.h"
 
-#ifdef ENABLE_TREEVIEW
-
 #include <string.h>
 
 #include "charset.h"
-#include "dirview_priv.h"
 #include "dnd.h"
 #include "fileutil.h"
 #include "gfileutil.h"
@@ -38,6 +35,36 @@
 #include "gimv_thumb_win.h"
 #include "menu.h"
 #include "prefs.h"
+
+struct DirViewPrivate_Tag {
+   /* for DnD */
+   gint         hilit_dir;
+
+   guint        scroll_timer_id;
+   gint         drag_motion_x;
+   gint         drag_motion_y;
+
+   gint         auto_expand_timeout_id;
+
+   /* for mouse event */
+   gint         button_2pressed_queue; /* attach an action to
+                                          button release event */
+
+   guint        button_action_id;
+   guint        swap_com_id;       
+
+   GtkTreePath *drag_tree_row;
+   guint        adjust_tree_id;
+};
+
+typedef enum {
+   MouseActNone,
+   MouseActLoadThumb,
+   MouseActLoadThumbRecursive,
+   MouseActPopupMenu,
+   MouseActChangeTop,
+   MouseActLoadThumbRecursiveInOneTab
+} DirViewMouseAction;
 
 
 typedef enum {
@@ -2063,5 +2090,3 @@ dirview_create (const gchar *root_dir,
 
    return dv;
 }
-
-#endif /* ENABLE_TREEVIEW */

@@ -1,5 +1,11 @@
 2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
 
+	* src/dirview_priv.h: Removed.
+	* src/Makefile.am: Ditto
+	* src/dirview.c: Moved codes in dirview_priv.h to this file.
+
+2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
+
 	* src/charset.[ch], src/auto_completion.c: Remove USE_GTK2.
 	* src/Makefile.am, src/dirview.c, src/dirview2.c:
 	Move dirview2.c to dirview.c.
