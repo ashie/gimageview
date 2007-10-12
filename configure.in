@@ -116,7 +116,6 @@ PKG_CHECK_MODULES(GTK,
    [ AC_MSG_ERROR(Test for GTK+-2.0 failed. See the file 'INSTALL' for help) ])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
-AC_DEFINE(ENABLE_TREEVIEW, 1, [Define if you want to use GtkTreeView.])
 
 
 dnl ******************************

@@ -130,26 +130,6 @@ static const gchar *tab_pos_items[] = {
 };
 
 
-#ifndef ENABLE_TREEVIEW
-static const gchar *ctree_line_style_items[] = {
-   N_("None"),
-   N_("Solid"),
-   N_("Dotted"),
-   N_("Tabbed"),
-   NULL
-};
-
-
-static const gchar *ctree_expander_style_items[] = {
-   N_("None"),
-   N_("Square"),
-   N_("Triangle"),
-   N_("Circular"),
-   NULL
-};
-#endif /* ENABLE_TREEVIEW */
-
-
 static const gchar *thumbview_mouse_items[] = {
    N_("None"),
    N_("Popup menu"),
@@ -875,103 +855,6 @@ prefs_dirview_page (void)
                                          &config_changed->dirview_show_parent_dir);
    gtk_box_pack_start (GTK_BOX (vbox), toggle, FALSE, FALSE, 0);
 
-
-#ifndef ENABLE_TREEVIEW
-{
-   GtkWidget *hbox;
-   GtkWidget *label, *spinner;
-   GtkAdjustment *adj;
-   GtkWidget *option_menu;
-
-   /**********************************************
-    * Style Frame
-    **********************************************/
-   gimv_prefs_ui_create_frame (_("Style"), frame, vbox, main_vbox, FALSE);
-
-   /* tree line style */
-   hbox = gtk_hbox_new (FALSE, 0);
-   gtk_container_set_border_width(GTK_CONTAINER (hbox), 0);
-   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
-   label = gtk_label_new (_("Tree line style"));
-   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 5);
-   option_menu = create_option_menu_simple (ctree_line_style_items,
-                                            conf.dirview_line_style,
-                                            (gint *) &config_changed->dirview_line_style);
-   gtk_widget_set_usize (option_menu, 100, -1);
-   gtk_box_pack_start (GTK_BOX (hbox), option_menu, FALSE, FALSE, 5);
-
-   /* tree expander style */
-   hbox = gtk_hbox_new (FALSE, 0);
-   gtk_container_set_border_width(GTK_CONTAINER (hbox), 0);
-   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
-   label = gtk_label_new (_("Tree expander style"));
-   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 5);
-   option_menu = create_option_menu_simple (ctree_expander_style_items,
-                                            conf.dirview_expander_style,
-                                            (gint *) &config_changed->dirview_expander_style);
-   gtk_widget_set_usize (option_menu, 100, -1);
-   gtk_box_pack_start (GTK_BOX (hbox), option_menu, FALSE, FALSE, 5);
-
-
-   /**********************************************
-    * Drag and Drop Frame
-    **********************************************/
-   gimv_prefs_ui_create_frame (_("Drag and Drop"), frame, vbox, main_vbox, FALSE);
-
-   /* auto scroll */
-   toggle = gtkutil_create_check_button (_("Enable auto scroll."),
-                                         conf.dirview_auto_scroll,
-                                         gtkutil_get_data_from_toggle_cb,
-                                         &config_changed->dirview_auto_scroll);
-   gtk_box_pack_start (GTK_BOX (vbox), toggle, FALSE, FALSE, 0);
-
-   /* auto scroll interval */
-   hbox = gtk_hbox_new (FALSE, 5);
-   gtk_container_set_border_width (GTK_CONTAINER(hbox), 5);
-   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
-   label = gtk_label_new (_("Auto scroll interval"));
-   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-   adj = (GtkAdjustment *) gtk_adjustment_new (conf.dirview_auto_scroll_time,
-                                               0, 1000,
-                                               5.0, 10.0, 0.0);
-   spinner = gtkutil_create_spin_button (adj);
-   gtk_widget_set_usize(spinner, 70, -1);
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_int_cb),
-                       &config_changed->dirview_auto_scroll_time);
-   gtk_box_pack_start (GTK_BOX (hbox), spinner, FALSE, FALSE, 0);
-
-   label = gtk_label_new (_("[ms]"));
-   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-
-   /* auto expand */
-   toggle = gtkutil_create_check_button (_("Enable auto expand directory tree."),
-                                         conf.dirview_auto_expand,
-                                         gtkutil_get_data_from_toggle_cb,
-                                         &config_changed->dirview_auto_expand);
-   gtk_box_pack_start (GTK_BOX (vbox), toggle, FALSE, FALSE, 0);
- 
-   /* auto expand time */
-   hbox = gtk_hbox_new (FALSE, 5);
-   gtk_container_set_border_width (GTK_CONTAINER(hbox), 5);
-   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
-   label = gtk_label_new (_("Lag time for auto expand"));
-   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-   adj = (GtkAdjustment *) gtk_adjustment_new (conf.dirview_auto_expand_time,
-                                               0, 60000,
-                                               100.0, 500.0, 0.0);
-   spinner = gtkutil_create_spin_button (adj);
-   gtk_widget_set_usize(spinner, 70, -1);
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_int_cb),
-                       &config_changed->dirview_auto_expand_time);
-   gtk_box_pack_start (GTK_BOX (hbox), spinner, FALSE, FALSE, 0);
-
-   label = gtk_label_new (_("[ms]"));
-   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-}
-#endif /* ENABLE_TREEVIEW */
-
    gtk_widget_show_all (main_vbox);
 
    return main_vbox;
@@ -1199,21 +1082,6 @@ prefs_ui_dirview_apply (GimvPrefsWinAction action)
       dest = config_prechanged;
       break;
    }
-
-#ifndef ENABLE_TREEVIEW
-   {
-      GList *node;
-      for (node = gimv_thumb_win_get_list(); node; node = g_list_next (node)) {
-         GimvThumbWin *tw = node->data;
-         if (tw->dv) {
-            gtk_ctree_set_line_style (GTK_CTREE (tw->dv->dirtree),
-                                      dest->dirview_line_style);
-            gtk_ctree_set_expander_style (GTK_CTREE (tw->dv->dirtree),
-                                          dest->dirview_expander_style);
-         }
-      }
-   }
-#endif /* ENABLE_TREEVIEW */
 
    return FALSE;
 }
