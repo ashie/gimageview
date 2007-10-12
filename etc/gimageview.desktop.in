@@ -1,0 +1,7 @@
+[Desktop Entry]
+_Name=GImageView
+_Comment=Image Viewer
+Exec=gimv -wd
+Terminal=0
+Type=Application
+Icon=gimv.png

@@ -1,0 +1,498 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta content="text/html; charset=EUC-JP" http-equiv="Content-Type">
+<title>6. 設定</title>
+<link rel="stylesheet" href="./gimageview.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.45">
+<link rel="home" href="index.html" title="GImageView User's Manual">
+<link rel="up" href="index.html" title="GImageView User's Manual">
+<link rel="previous" href="05.html" title="5. マウスメニュー">
+<link rel="next" href="07.html" title="7. デフォルト キーバインド">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">6. 設定</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="05.html">前のページ</a>&#160;</td>
+<th width="60%" align="center">&#160;</th>
+<td width="20%" align="right">&#160;<a accesskey="n" href="07.html">次のページ</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1">
+<div class="titlepage"><div><h2 class="title" style="clear: both">
+<a name="06"></a>6. 設定</h2></div></div>
+<p class="para">
+設定ダイアログの各項目について説明します。
+</p>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="06-01"></a>6.1. 一般</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="File_Open_Window"></a>ファイルを開くウィンドウ</span></dt>
+<dd><p class="para">
+コマンドラインからファイルを開いた時、また、ファイルオープンダイアログから「了解」を押した際の展開先ウィンドウを設定します。
+「〜ウィンドウで開く」のような指定が無い箇所では、ここの指定に従って展開先が決まります。
+</p></dd>
+<dt><span class="term"><a name="Directory_Open_Window"></a>ディレクトリを開くウィンドウ</span></dt>
+<dd><p class="para">
+コマンドラインからディレクトリを開いた時の展開先ウィンドウを設定します。
+</p></dd>
+<dt><span class="term"><a name="Archive_Open_Window"></a>アーカイブを開くウィンドウ</span></dt>
+<dd><p class="para">
+コマンドラインからアーカイブを開いた時の展開先ウィンドウを設定します。
+</p></dd>
+<dt><span class="term"><a name="Scan_directories_recursively"></a>ディレクトリを再帰的に取得する</span></dt>
+<dd>
+<p class="para">
+コマンドラインでディレクトリを引数に取った時、<span class="emphasis"><i>常に</i></span>再帰的に取得するようになります。
+</p>
+<p class="para">
+コマンドラインオプション、-dR と同義です。
+</p>
+</dd>
+<dt><span class="term"><a name="Follow_symbolic_link"></a>シンボリックリンク先のディレクトリを読み込む / 読み込まない</span></dt>
+<dd><p class="para">
+再起的に取得する際に、シンボリックリンク先のディレクトリも読み込みこむかどうかです。</p></dd>
+<dt><span class="term"><a name="Interpolation_type_for_scaling"></a>スケーリング時の補完法</span></dt>
+<dd><p class="para">
+画像をスケーリング(拡大縮小)する際の、補完方法を指定します。以下の4種類から指定できます。
+<div class="itemizedlist"><ul>
+<li><p class="para">Nearest : 近似</p></li>
+<li><p class="para">Tiles : ????</p></li>
+<li><p class="para">Bilinear : ????</p></li>
+<li><p class="para">Hyperbolic : ハイパーボリック</p></li>
+</ul></div>
+</p></dd>
+<dt><span class="term"><a name="Open_thumbnail_window"></a>サムネイルウィンドウを開く</span></dt>
+<dd><p class="para">
+GImageView を起動した時、常にサムネイルウィンドウを開くかどうか、です。
+</p></dd>
+<dt><span class="term"><a name="Ignore_directory"></a>ディレクトリを無視する</span></dt>
+<dd><p class="para">
+引数にディレクトリを与えられた時、それを無視するようになります。
+</p></dd>
+<dt><span class="term"><a name="No_warning"></a>警告を無視する</span></dt>
+<dd><p class="para">
+コマンドラインから起動した時に表示される警告メッセージを抑制します。
+</p></dd>
+</dl></div>
+<div class="sect3">
+<div class="titlepage"><div><h4 class="title">
+<a name="06-01-01"></a>6.1.1. フィルタ</h4></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="Read_dotfiles"></a>ドットファイルを読み込む</span></dt>
+<dd><p class="para">
+.で始まる画像ファイルやディレクトリを開くかどうか、です。なお、ディレクトリビューに関しては(専用の設定 <a href="06.html#06-03-03" title="6.3.3. ディレクトリビュー">項6.3.3</a>)がありますので、ここの設定に従いません。
+</p></dd>
+<dt><span class="term"><a name="Ignore file name extension"></a>拡張子を無視する</span></dt>
+<dd><p class="para">
+ファイルの拡張子判別を行いません。細かく言いますと、 src/gimv_image.c の頭で宣言されている拡張子を持つファイルだけを読むか、 全てのファイルを読むか、です。
+</p></dd>
+</dl></div>
+</div>
+<div class="sect3">
+<div class="titlepage"><div><h4 class="title">
+<a name="06-01-02"></a>6.1.2. キャラクターセット</h4></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="Locale_character_set"></a>ロカールのキャラクターセット</span></dt>
+<dd><p class="para">
+画像につけるコメントのロカールキャラクターセットの定義です。
+</p></dd>
+<dt><span class="term"><a name="Internal_character_set"></a>内部キャラクターセット</span></dt>
+<dd><p class="para">
+GImageView で使用する、内部キャラクターセットの定義です。
+</p></dd>
+<dt><span class="term"><a name="Language_for_auto_detecting"></a>自動検出する言語</span></dt>
+<dd><p class="para">
+GImageView が自動検出する言語の設定です。
+</p></dd>
+<dt><span class="term"><a name="Character_set_of_file_name"></a>ファイル名のキャラクターセット</span></dt>
+<dd><p class="para">
+ファイル名変更などの際に用いられる、キャラクターセットです。
+</p></dd>
+</dl></div>
+</div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="06-02"></a>6.2. イメージウィンドウ</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="Save_window_state_on_exit"></a>終了時にウィンドウの状態を保存する</span></dt>
+<dd><p class="para">
+終了時のウィンドウサイズ、レイアウトなどを保存し、次回起動時に反映させるようになります。このオプションが OFF の場合、同枠内の設定で「ウィンドウサイズ、レイアウト、各バーの表示/非表示」などの初期状態を設定します。
+</p></dd>
+<dt><span class="term"><a name="Initial_window_size"></a>ウィンドウの初期サイズ</span></dt>
+<dd><p class="para">
+イメージウィンドウを生成した時の、初期サイズを決めます。
+</p></dd>
+<dt><span class="term"><a name="Auto_resize_to_image_size"></a>自動的に画像のサイズにリサイズする</span></dt>
+<dd>
+<p class="para">
+イメージウィンドウを生成した時、自動的に展開画像のイメージサイズにウィンドウをリサイズするようになります。
+</p>
+<p class="para">
+GImageViewの詳しい挙動を書きますと、まず上の「ウィンドウの初期サイズ」のサイズでイメージウィンドウが生成されます。その後、ここのオプションが有効になっていれば、展開した画像のサイズにイメージウィンドウが自動的にリサイズします。このように動作が2段階になりますので、処理時間は増えることになります。
+</p>
+</dd>
+<dt><span class="term"><a name="Open_each_file_in_separate_window"></a>ファイルごとに別のウィンドウを開く</span></dt>
+<dd><p class="para">
+毎回、ファイルごとに新規イメージウィンドウを作ります。展開したファイルの数だけイメージウィンドウが出来ることになります。また、それらのウィンドウは共有されることはありません。
+</p></dd>
+<dt><span class="term"><a name="Raise_window_when_open_image_in_shared_window"></a>共有ウィンドウで開くときは、前面に出す</span></dt>
+<dd><p class="para">
+サムネイル右クリックメニュー、<a href="05.html#open_shared_image_window" title="">共有ウィンドウで開く</a>から、共有イメージウィンドウを生成した場合に、ウィンドウを最前面に出すようにします。
+</p></dd>
+<dt><span class="term">メニューバー / ツールバー / プレーヤツールバー / ステータスバー / スクロールバーを表示</span></dt>
+<dd><p class="para">
+デフォルトで各種バーを表示します。これらの項目が有効になるには、<a href="06.html#Save_window_state_on_exit" title="">終了時にウィンドウの状態を保存する</a>が off になっていなければなりません。
+</p></dd>
+<dt><span class="term"><a name="Auto_resize_to_window_size_when_opening"></a>ファイルオープン時にウィンドウのサイズに合わせる</span></dt>
+<dd><p class="para">
+イメージウィンドウの設定、<a href="06.html#Auto_resize_to_image_size" title="">自動的に画像のサイズにリサイズする</a>とは逆に、画像を<a href="06.html#Initial_window_size" title="">ウィンドウの初期サイズ</a>にリサイズして表示します。
+</p></dd>
+<dt><span class="term"><a name="Keep_aspect_rario"></a>アスペクト比を保持</span></dt>
+<dd><p class="para">
+イメージウィンドウやプレビューなどで、画像ファイルを拡大縮小した時、アスペクト比(画像の縦横比率)を保持するようになります。
+</p></dd>
+<dt><span class="term"><a name="Default_Image_Scale"></a>デフォルトの画像拡大率</span></dt>
+<dd><p class="para">
+デフォルトの画像拡大率を指定します。
+</p></dd>
+<dt><span class="term"><a name="Keep_original_image_on_memory"></a>元の画像をメモリに保持する</span></dt>
+<dd><p class="para">
+イメージウィンドウやプレビューで表示した画像をメモリ上に保持するようになります。具体的な効果は、Tipsの「<a href="gimv_tips.html#gimv_tips_05" title="">イメージビューの描画を速くする</a>」を参照して下さい。
+</p></dd>
+</dl></div>
+<div class="sect3">
+<div class="titlepage"><div><h4 class="title">
+<a name="06-02-01"></a>6.2.1. マウスボタン</h4></div></div>
+<p class="para">
+マウスボタンの割り当てを設定します。機能と修飾キーの有無、ボタンのプレスかリリース、どちらかのタイミングを指定して下さい。
+</p>
+</div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="06-03"></a>6.3. サムネイルウィンドウ</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="Raise_window_when_opening_thumbnails"></a>サムネイルを開くときにウィンドウを前面に出す</span></dt>
+<dd>
+<p class="para">
+サムネイル展開終了時にウィンドウを前面に出すかどうか、です。
+</p>
+<p class="para">
+これは「ディレクトリの再帰読み込み」を行った時も有効です。この場合、各ディレクトリのサムネイル展開が終了するたびにサムネイルウィンドウが最前面に出てくるようになります。
+</p>
+</dd>
+<dt><span class="term"><a name="GUI_redraw_interval_while_loading"></a>ローディング時の再描画の間隔</span></dt>
+<dd>
+<p class="para">
+サムネイルを生成する時に、この間隔で描画を行うようになります。
+</p>
+<p class="para">
+具体的には、ここで指定した枚数ごとにサムネイルビューが再描画されます。Tipsの「<a href="gimv_tips.html#gimv_tips_01" title="">サムネイルビューの描画完了を速くする</a>」も参考にして下さい。
+</p>
+</dd>
+</dl></div>
+<div class="sect3">
+<div class="titlepage"><div><h4 class="title">
+<a name="06-03-01"></a>6.3.1. タブ</h4></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="Tab_Position"></a>タブの位置</span></dt>
+<dd>
+<p class="para">
+ウィンドウのタブ位置を指定します。
+</p>
+<p class="para">
+ただし、[設定 / サムネイルウィンドウ ] の<a href="06.html#Save_window_state_on_exit" title="">終了時にウィンドウの状態を保存する</a>が OFF 状態でないと、本項目は有効になりません。
+</p>
+</dd>
+<dt><span class="term"><a name="Move_to_new_tab_automatically"></a>自動的に新規タブに移動する</span></dt>
+<dd><p class="para">
+新しくタブが生成された時、そこに移動するようになります。
+</p></dd>
+<dt><span class="term"><a name="Show_close_button"></a>クローズボタンを表示</span></dt>
+<dd><p class="para">
+タブの右端にクローズボタンが表示されるようになります。
+</p></dd>
+<dt><span class="term"><a name="Show_full_path"></a>フルパスを表示する</span></dt>
+<dd><p class="para">
+通常、タブにはファイルのパスが全て表示されます。このオプションを外すことで、カレントディレクトリ名だけにすることが出来ます。タブの幅を押さえたい場合などに有効です。
+</p></dd>
+<dt><span class="term"><a name="pen_new_tab_whether_image_is_exist_or_not_in_the_directory"></a>画像が存在しないディレクトリを指定した場合もタブを開く</span></dt>
+<dd><p class="para">
+画像が存在しないディレクトリを指定した場合もタブを開くようになります。
+</p></dd>
+</dl></div>
+</div>
+<div class="sect3">
+<div class="titlepage"><div><h4 class="title">
+<a name="06-03-02"></a>6.3.2. サムネイルビュー</h4></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term">表示/非表示</span></dt>
+<dd><p class="para">
+サムネイルビュー内に、ディレクトリ、アーカイブを表示するかどうかです。
+</p></dd>
+<dt><span class="term"><a name="Default_display_mode"></a>デフォルト表示モード</span></dt>
+<dd><p class="para">
+サムネイルウィンドウのデフォルト表示モードを指定します。<a href="06.html#Save_window_state_on_exit" title="">終了時にウィンドウの状態を保存する</a>が off になっている必要があります。
+</p></dd>
+<dt><span class="term"><a name="Thumnail_Size"></a>サムネイルサイズ</span></dt>
+<dd><p class="para">
+デフォルトのサムネイルサイズを指定します。サムネイルウィンドウの状態を保存しない場合にのみ有効になります。
+</p></dd>
+</dl></div>
+<div class="sect4">
+<div class="titlepage"><div><h5 class="title">
+<a name="06-03-02-1"></a>6.3.2.1. サムネイルテーブル</h5></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="Minimum_Columns"></a>列数の最小値</span></dt>
+<dd><p class="para">
+サムネイルビューの列の最小値を指定します。
+</p></dd>
+<dt><span class="term"><a name="Maximum_Columns"></a>列数の最大値</span></dt>
+<dd><p class="para">
+サムネイルビューの列の最大値を指定します。
+</p></dd>
+<dt><span class="term"><a name="Row_Spacing"></a>行間の空白</span></dt>
+<dd><p class="para">
+サムネイルビューの行間の空白幅を指定します。
+</p></dd>
+<dt><span class="term"><a name="Column_Spacing"></a>列間の空白</span></dt>
+<dd><p class="para">
+サムネイルビューの列間の空白幅を指定します。
+</p></dd>
+<dt><span class="term"><a name="Centering"></a>センタリングする</span></dt>
+<dd><p class="para">
+サムネイルをセンタリングします。
+</p></dd>
+<dt><span class="term"><a name="Minimum_Border_Width"></a>サムネイルボタン / 横幅の最小値</span></dt>
+<dd><p class="para">
+サムネイルボタンの横幅の最小値を指定します。
+</p></dd>
+</dl></div>
+</div>
+<div class="sect4">
+<div class="titlepage"><div><h5 class="title">
+<a name="06-03-02-2"></a>6.3.2.2. リストビュー</h5></div></div>
+<p class="para">
+リストビューで表示する項目を指定します。右側のペインにある項目が表示項目です。
+</p>
+</div>
+<div class="sect4">
+<div class="titlepage"><div><h5 class="title">
+<a name="06-03-02-3"></a>6.3.2.3. 詳細ビュー</h5></div></div>
+<p class="para">
+リストビューで表示する項目を指定します。右側のペインにある項目が表示項目です。また、コラムタイトルの表示/非表示も設定できます。
+</p>
+</div>
+<div class="sect4">
+<div class="titlepage"><div><h5 class="title">
+<a name="06-03-02-4"></a>6.3.2.4. マウスボタン</h5></div></div>
+<p class="para">
+マウスボタンの割り当てを設定します。機能と修飾キーの有無、ボタンのプレスかリリース、どちらかのタイミングを指定して下さい。
+</p>
+</div>
+</div>
+<div class="sect3">
+<div class="titlepage"><div><h4 class="title">
+<a name="06-03-03"></a>6.3.3. ディレクトリビュー</h4></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="Show_dot_file"></a>ドットファイルを表示</span></dt>
+<dd><p class="para">
+ディレクトリビューにドットファイル「.」、「..」を表示します。
+</p></dd>
+<dt><span class="term"><a name="show_dotfiles_1"></a>ドットファイルを隠している場合も&quot;.&quot;ディレクトリを表示する</span></dt>
+<dd><p class="para">
+「ドットファイルを表示」するオプションが OFF の時でも、ディレクトリビューに&quot;.&quot;ディレクトリを表示します。
+
+</p></dd>
+<dt><span class="term"><a name="show_dotfiles_2"></a>ドットファイルを隠している場合も&quot;..&quot;ディレクトリを表示する</span></dt>
+<dd><p class="para">
+「ドットファイルを表示」するオプションが OFF の時でも、ディレクトリビューに&quot;..&quot;ディレクトリを表示します。
+</p></dd>
+<dt><span class="term"><a name="Set_expander_to_all_directory_Fast"></a>全てのディレクトリにツリー展開アイコンをセットする(高速)</span></dt>
+<dd>
+<p class="para">
+ディレクトリツリービュー上に表示されるディレクトリの、サブディレクトリの存在をチェックしません。つまり、全てのディレクトリの左側に[+]マークがつくようになります。サブディレクトリが存在するかどうかは、実際にディレクトリを展開する作業を行ったときに判明します。
+</p>
+<p class="para">
+サブディレクトリの存在チェックをしませんので、ツリーの展開が高速になります。
+</p>
+</dd>
+<dt><span class="term"><a name="Tree_line_style"></a>ツリーラインのスタイル</span></dt>
+<dd><p class="para">
+ディレクトリビューのツリーラインのスタイルを指定します。
+</p></dd>
+<dt><span class="term"><a name="Tree_expander_style"></a>ツリー展開アイコンのスタイル</span></dt>
+<dd><p class="para">
+ディレクトリビューのアイコンのスタイルを指定します。
+</p></dd>
+<dt><span class="term"><a name="Enable_auto_scroll"></a>オートスクロールを有効にする</span></dt>
+<dd><p class="para">
+サムネイルウィンドウなどから画像をドラッグした時、ディレクトリビューの上下端でディレクトリビューをオートスクロールするようになります。
+</p></dd>
+<dt><span class="term"><a name="Auto_scroll_interval"></a>オートスクロールの間隔</span></dt>
+<dd><p class="para">
+ディレクトリビューの上端でオートスクロールを始めるまでの秒数です。
+</p></dd>
+<dt><span class="term"><a name="Enable_auto_expand_directory_tree"></a>ツリーを自動的に展開する</span></dt>
+<dd><p class="para">
+サムネイルウィンドウなどから画像をドラッグした時、閉じているディレクトリを自動的に展開するようになります。
+</p></dd>
+<dt><span class="term"><a name="Lag_time_for_auto_expand"></a>ツリーを自動展開するまでの時間</span></dt>
+<dd><p class="para">
+ディレクトリビュー上でツリーを自動展開するまでの秒数です。
+</p></dd>
+</dl></div>
+</div>
+<div class="sect3">
+<div class="titlepage"><div><h4 class="title">
+<a name="06-03-04"></a>6.3.4. プレビュー</h4></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="Auto_resize_to_frame_size_when_open_image"></a>ファイルオープン時にフレームのサイズに合わせる</span></dt>
+<dd><p class="para">
+プレビュー展開時に、フレームのサイズに自動的にリサイズします。
+</p></dd>
+<dt><span class="term"><a name="Keep__aspect_rario"></a>アスペクト比を保存</span></dt>
+<dd><p class="para">
+プレビュー展開、拡大縮小時にアスペクト比を保存します。
+</p></dd>
+<dt><span class="term"><a name="Default__Image_Scale"></a>デフォルトの画像拡大率</span></dt>
+<dd><p class="para">
+デフォルトの画像拡大率を指定します。フレームのサイズに合わせない場合に有効になります。
+</p></dd>
+<dt><span class="term"><a name="Show_scrollbar"></a>スクロールバーを表示</span></dt>
+<dd><p class="para">
+スクロールバーを表示します。<a href="06.html#Save_window_state_on_exit" title="">終了時にウィンドウの状態を保存する</a> が off になっている場合に有効になります。
+</p></dd>
+<dt><span class="term"><a name="Keep__original_image_on_memory"></a>元の画像をメモリに保存する</span></dt>
+<dd><p class="para">
+展開する画像をメモリ上に保持するようになります。画像の拡大縮小時に、メモリ上から元画像を呼び出すようになるため、処理が高速化します。詳細はを「<a href="gimv_tips.html#gimv_tips_01" title="">サムネイルビューの描画完了を速くする</a>」ご覧下さい。
+</p></dd>
+</dl></div>
+<div class="sect4">
+<div class="titlepage"><div><h5 class="title">
+<a name="06-03-04-1"></a>6.3.4.1. マウスボタン</h5></div></div>
+<p class="para">
+マウスボタンの割り当てを設定します。機能と修飾キーの有無、ボタンのプレスかリリース、どちらかのタイミングを指定して下さい。
+</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="06-04"></a>6.4. スライドショー</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="Image_change_interval"></a>画像を切り替える間隔</span></dt>
+<dd><p class="para">
+スライドショーを実行した時、画像を送っていく時間を指定します。
+</p></dd>
+<dt><span class="term"><a name="Repeat_slide_show"></a>繰り返す</span></dt>
+<dd><p class="para">
+通常、スライドショーはサムネイルビュー内の画像を一巡したら終了しますが、それを繰り返すようになります。
+</p></dd>
+<dt><span class="term"><a name="Auto__resize_to_window_size"></a>自動的にウィンドウの大きさに合わせる</span></dt>
+<dd><p class="para">
+表示するファイルを、ウィンドウサイズにリサイズします。
+
+</p></dd>
+<dt><span class="term">表示/非表示</span></dt>
+<dd><p class="para">
+スライドショー時の、各種バーの表示/非表示を設定します。
+</p></dd>
+<dt><span class="term"><a name="slide_show_Back_Ground"></a>背景</span></dt>
+<dd><p class="para">
+スライドショー時の背景色を指定します。
+</p></dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="06-05"></a>6.5. サムネイルキャッシュ</h3></div></div>
+<p class="para">
+キャッシュについて、読込、書込のファイル形式を指定します。
+</p>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="06-06"></a>6.6. コメント</h3></div></div>
+<p class="para">
+コメント時に使用する、各種キー定義、ならびにキャラクターセットを指定します。
+</p>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="06-07"></a>6.7. 検索</h3></div></div>
+<p class="para">
+類似画像検索の、検索誤差を指定します。初期値は0.97、97%以上の合致率であればリストアップ、となります。詳細は、「<a href="gimv_tips.html#gimv_tips_10" title="">類似画像検索</a>」を見て下さい。
+</p>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="06-08"></a>6.8. ドラッグ&amp;ドロップ</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="Enable_DnD_to_external_proccess_Experimental"></a>外部プロセスへのDnDを有効</span></dt>
+<dd><p class="para">
+外部プロセスからのDnDを有効にします。
+</p></dd>
+<dt><span class="term"><a name="Enable_DnD_from_extenal_proccess_Experimental"></a>外部プロセスからのDnDを有効</span></dt>
+<dd><p class="para">
+外部プロセスからのDnDを有効にします。
+</p></dd>
+<dt><span class="term"><a name="Always_refresh_list_when_DnD_end"></a>DnD終了時に常にリストを更新する</span></dt>
+<dd><p class="para">
+DnD終了時に、常にリストを更新するようになります。
+</p></dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="06-09"></a>6.9. 外部プログラム</h3></div></div>
+<p class="para">
+GImageView から利用する、各種外部プログラムを指定します。
+</p>
+<div class="sect3">
+<div class="titlepage"><div><h4 class="title">
+<a name="06-09-1"></a>6.9.1. スクリプト</h4></div></div>
+<p class="para">
+GImageView から使用する、スクリプトのディレクトリパスを指定します。また、実行前にダイアログを表示するかどうかも指定できます。
+</p>
+</div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="06-10"></a>6.10. プラグイン</h3></div></div>
+<p class="para">
+GImageView が検索する、プラグインのディレクトリパスを指定します。
+</p>
+<p class="para">
+また、現在使用しているプラグインの一覧(画像保存系・アーカイバ系・サムネイル系)も表示されます。
+</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="05.html">前のページ</a>&#160;</td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">ホーム</a></td>
+<td width="40%" align="right">&#160;<a accesskey="n" href="07.html">次のページ</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left">5. マウスメニュー&#160;</td>
+<td width="20%" align="center"><a accesskey="u" href="index.html">上に戻る</a></td>
+<td width="40%" align="right">&#160;7. デフォルト キーバインド</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

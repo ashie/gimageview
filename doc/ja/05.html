@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta content="text/html; charset=EUC-JP" http-equiv="Content-Type">
+<title>5. マウスメニュー</title>
+<link rel="stylesheet" href="./gimageview.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.45">
+<link rel="home" href="index.html" title="GImageView User's Manual">
+<link rel="up" href="index.html" title="GImageView User's Manual">
+<link rel="previous" href="04.html" title="4. ツールバー">
+<link rel="next" href="06.html" title="6. 設定">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">5. マウスメニュー</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="04.html">前のページ</a>&#160;</td>
+<th width="60%" align="center">&#160;</th>
+<td width="20%" align="right">&#160;<a accesskey="n" href="06.html">次のページ</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1">
+<div class="titlepage"><div><h2 class="title" style="clear: both">
+<a name="05"></a>5. マウスメニュー</h2></div></div>
+<p class="para">
+ここではマウスの右クリック表示されるメニューのうち、ツールバーにしかないボタン(機能)について説明します。説明の無いボタン(機能)は、メニューバー、もしくはツールバーに同等の機能があります。機能については<a href="03.html" title="3. メニューバー">項3</a>、<a href="04.html" title="4. ツールバー">項4</a>を参照して下さい。
+</p>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="05-01"></a>5.1. サムネイルビュー</h3></div></div>
+<p class="para">
+サムネイルビュー上でのマウスメニューです。複数選択されている場合、選択されている全ての画像に対して有効です。
+</p>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="open_new_image_window"></a>新規ウィンドウで開く</span></dt>
+<dd><p class="para">
+選択中の画像を、新規にイメージウィンドウを作成して開きます。複数選択されている場合、その数だけイメージウィンドウが作成されます。
+</p></dd>
+<dt><span class="term"><a name="open_shared_image_window"></a>共有ウィンドウで開く</span></dt>
+<dd><p class="para">
+共有イメージウィンドウで開きます。共有イメージウィンドウを一つも作成していない場合、新規に作成します。既に共有イメージウィンドウが作成されている場合、そのウィンドウを再利用します。なお、このコマンドは複数選択時には使えません。
+</p></dd>
+<dt><span class="term"><a name="open_external_program"></a>外部プログラムで開く</span></dt>
+<dd><p class="para">
+選択中のファイルを登録した外部プログラムに渡します。外部プログラムのリストは、<a href="06.html#06-09" title="6.9. 外部プログラム">項6.9</a>を参照して下さい。
+</p></dd>
+<dt><span class="term"><a name="open_script"></a>スクリプト</span></dt>
+<dd><p class="para">
+選択中のファイルを登録したスクリプトに渡します。スクリプトの設定は、<a href="06.html#06-09" title="6.9. 外部プログラム">項6.9</a>を参照して下さい。
+</p></dd>
+<dt><span class="term"><a name="update_thumbnail_mouse_menu"></a>サムネイル再作成</span></dt>
+<dd><p class="para">
+サムネイルを再作成します。これは、と同様です。
+</p></dd>
+<dt><span class="term"><a name="remove_from_list"></a>リストから削除</span></dt>
+<dd>
+<p class="para">
+<span class="emphasis"><i>このコマンドはコレクションタブのみ有効です。</i></span>
+</p>
+<p class="para">
+リストから削除します。ファイル自体が削除されるわけではありません。また、このコマンドは複数選択時には使えません。
+</p>
+</dd>
+<dt><span class="term"><a name="file_property"></a>プロパティ</span></dt>
+<dd><p class="para">
+ファイルのプロパティを表示します。ファイルの権限や所有者などを変更できます。なお、このコマンドは複数選択時には使えません。
+</p></dd>
+<dt><span class="term"><a name="scan_exif_data"></a>コメントを編集</span></dt>
+<dd><p class="para">
+コメントを編集します。
+</p></dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="05-02"></a>5.2. タブ</h3></div></div>
+<p class="para">
+タブの部分で右クリックすると、現在表示しているタブのリストが表示されます。ここから任意のタブに移動することが可能です。
+</p>
+<p class="para">
+ディレクトリを再帰的に読み込んだ時など、大量のタブが生成された時に便利です。
+</p>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="05-03"></a>5.3. ディレクトリビュー</h3></div></div>
+<p class="para">
+ディレクトリビューでは、ディレクトリの複数選択は出来ません。そのため、各コマンドの実行対象は、必然的にマウスカーソル下のディレクトリになります。
+</p>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="mouse_directory_load_thumbnail"></a>サムネイルを読み込み</span></dt>
+<dd><p class="para">
+カーソル下のディレクトリを読み込み、サムネイルビューに表示します。初めてサムネイル表示する場合は新規にタブが生成され、既に読み込まれている場合は、そのタブがアクティブになります。
+</p></dd>
+<dt><span class="term"><a name="mouse_directory_load_thumbnail_recursively"></a>サムネイルを再帰的に読み込み</span></dt>
+<dd><p class="para">
+カーソル下のディレクトリ以下を再帰的に読み込みます。
+</p></dd>
+<dt><span class="term"><a name="mouse_directory_go_to_here"></a>トップをここに変更</span></dt>
+<dd><p class="para">
+カーソル下のディレクトリを、ディレクトリビューのトップにします。
+</p></dd>
+<dt><span class="term"><a name="mouse_directory_refresh_tree"></a>ツリー更新</span></dt>
+<dd><p class="para">
+ディレクトリビューを更新します。コマンドラインからディレクトリ操作(作成・移動・削除)を行った場合に、それらを反省させるために行います。
+</p></dd>
+<dt><span class="term"><a name="mouse_directory_property"></a>プロパティ</span></dt>
+<dd><p class="para">
+ディレクトリのプロパティを表示します。権限や所有者などを変更できます。
+</p></dd>
+<dt><span class="term"><a name="mouse_directory_new"></a>ディレクトリ作成</span></dt>
+<dd><p class="para">
+カーソル下のディレクトリ直下に、新規にディレクトリを生成します。
+</p></dd>
+<dt><span class="term"><a name="mouse_directory_name_edit"></a>ディレクトリ名変更</span></dt>
+<dd><p class="para">
+カーソル下のディレクトリ名を変更します。
+</p></dd>
+<dt><span class="term"><a name="mouse_directory_delete"></a>ディレクトリ削除</span></dt>
+<dd><p class="para">
+カーソル下のディレクトリを削除します。確認ダイアログの後、削除が実行されます。
+</p></dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="05-04"></a>5.4. プレビュー</h3></div></div>
+<p class="para">
+プレビュー上のマウスメニューは、サムネイルウィンドウの表示メニューとほぼ同じです。<a href="03.html#03-03" title="3.3. 表示">項3.3</a>を参照して下さい。
+</p>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="id2812627"></a>5.5. イメージビュー</h3></div></div>
+<p class="para">
+イメージビュー上のマウスメニューは、サムネイルウィンドウの表示メニュー、プレビュー上のマウスメニューとほぼ同じです。<a href="03.html#03-03" title="3.3. 表示">項3.3</a>を参照して下さい。
+</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="04.html">前のページ</a>&#160;</td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">ホーム</a></td>
+<td width="40%" align="right">&#160;<a accesskey="n" href="06.html">次のページ</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left">4. ツールバー&#160;</td>
+<td width="20%" align="center"><a accesskey="u" href="index.html">上に戻る</a></td>
+<td width="40%" align="right">&#160;6. 設定</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

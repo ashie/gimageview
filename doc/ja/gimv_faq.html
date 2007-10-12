@@ -1,0 +1,293 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta content="text/html; charset=EUC-JP" http-equiv="Content-Type">
+<title>8. GImageView FAQ</title>
+<link rel="stylesheet" href="./gimageview.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.45">
+<link rel="home" href="index.html" title="GImageView User's Manual">
+<link rel="up" href="index.html" title="GImageView User's Manual">
+<link rel="previous" href="07.html" title="7. デフォルト キーバインド">
+<link rel="next" href="gimv_tips.html" title="9. Tips">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">8. GImageView FAQ</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="07.html">前のページ</a>&#160;</td>
+<th width="60%" align="center">&#160;</th>
+<td width="20%" align="right">&#160;<a accesskey="n" href="gimv_tips.html">次のページ</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1">
+<div class="titlepage"><div><h2 class="title" style="clear: both">
+<a name="gimv_faq"></a>8. GImageView FAQ</h2></div></div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="gimv_faq_01"></a>8.1. 入手方法・インストール・起動</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="gimv_faq_01-01"></a>CVS 版に configure がないのだけど</span></dt>
+<dd><p class="para">
+パッケージの中に含まれる、autogen.sh を実行すると、configure が作成され、自動的にconfigure も実行されます。ただし、automake、autoconf のパッケージがインストールされている必要があります。
+</p></dd>
+<dt><span class="term"><a name="gimv_faq_01-02"></a>GImageView のサムネイルウィンドウ単体で起動したい</span></dt>
+<dd>
+<pre class="screen">
+$ <b>gimv -w</b>
+</pre>
+<p class="para">
+として起動してください。<span class="emphasis"><i>[編集・設定]・[一般 | 起動時 | サムネイルウィンドウを開く]</i></span>にチェックが入っている場合、-w の引数はいりません。
+</p>
+<pre class="screen">
+$ <b>gimv</b>
+</pre>
+<p class="para">
+だけで起動します。この後は、どこか適当なディレクトリ・ファイルを開くことで普通に動きます。
+</p>
+<p class="para">
+ランチャに登録する場合、gimv と単体で指定してやれば OK です。
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="gimv_faq_02"></a>8.2. 操作方法・設定</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="gimv_faq_02-01"></a>定義されているキーバインドを変更したい</span></dt>
+<dd>
+<p class="para">
+~/.gimv/keyconf を編集してください。次回起動時から有効になります。但し、メニューに表示されるキーバインドの内容は変わりません。ここを変えるには、ソースをいじる必要があります。
+</p>
+<p class="para">
+キーバインドを変更した場合、どういう挙動になるかは当人しか分かりません。<span class="emphasis"><i>at your own risk</i></span> でお願いします。
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="gimv_faq_03"></a>8.3. サムネイルウィンドウ</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="gimv_faq_03-01"></a>ステータスバーに表示されている、&quot;**/** files&quot;の意味は?</span></dt>
+<dd><p class="para">
+GImageView で開いているファイルの総数と、表示されてるタブ内の画像枚数です。そのディ
+レクトリ下に一体いくつの画像ファイルがあるか、でもあります。
+</p></dd>
+<dt><span class="term"><a name="gimv_faq_03-02"></a>ステータスバーに表示されている、&quot;**/** kB&quot;の意味は?</span></dt>
+<dd><p class="para">
+GImageView で開いているファイルの総容量と、表示されてるタブ内の画像の総容量です。そのディ
+レクトリ直下の下のファイルが、どのくらいディスクを食っているのか知ることができます。
+</p></dd>
+<dt><span class="term"><a name="gimv_faq_03-03"></a>ステータスバーに表示されている、&quot;**/** page&quot;の意味は?</span></dt>
+<dd>
+<p class="para">
+GImageView で開いているタブの総数と、現在表示しているタブの番号です。今、いくつタブを開いているのか、開いているタブは何番目なのかが分かります。
+</p>
+<p class="para">
+開いたディレクトリの階層が深ければ深いほど、タブの文字数が多くなります。階層によっては、「画面に 1タブしか表示できない」ということもあり得ます。このような時、ステータスバーの数字によって全体を把握することができます。番号は一番左側を 1 として、2,3,4...となっています。タブを閉じれば、自動的に番号が増減します。
+</p>
+</dd>
+<dt><span class="term"><a name="gimv_faq_03-04"></a>ツールバーの右にある、入力エントリはどうやって使うの?</span></dt>
+<dd>
+<p class="para">
+絶対パスでいろいろ指定してみて下さい。ディレクトリツリーが(表示させていればですが……)面白いことになると思います。
+</p>
+<p class="para">
+非常に説明し辛いのですが、ここは新規(ないしは既存の)タブをコマンドライン的に指定する所です。ディレクトリビューを表示させてない場合でも、ファイルオープンダイアログに頼ることなく、新規にタブを開く、既存のタブに移動することが可能です。
+</p>
+<p class="para">
+この入力エントリでは、TAB キーによる補完が聞きます。bash や tcsh や zsh と同じ気分でばんばん TAB してやって下さい。候補が1つしかない場合、勝手に補完されます。候補が多数ある場合、入力エントリ下に候補が一覧表示されます。この入力エントリでは、&quot;~/&quot;というユーザホームディレクトリの短絡指定は無視されます。<span class="emphasis"><i>必ず、絶対パスから指定</i></span>して下さい。
+</p>
+<p class="para">
+また、ここで個別のファイルを指定することは出来ません。それらに対する入力補完もききません。単一の画像を別ウィンドウで開きたい場合、一旦そのディレクトリをサムネイル表示させ、そこから中ボタンクリックや左ダブルクリックなどで開いて下さい。
+</p>
+<p class="para">
+入力エントリにフォーカスが移った場合、そこからフォーカスを戻す(キーボードショートカットを有効にする)には、以下の方法を取って下さい。
+</p>
+<div class="orderedlist"><ol type="1">
+<li><p class="para">ディレクトリビュー上で、どっかのディレクトリを左クリックして&quot;選択&quot;する。</p></li>
+<li><p class="para">サムネイルビューで、何らかの画像をクリック(選択・選択解除)する。</p></li>
+<li><p class="para">タブをクリックし、別のタブに移動する。</p></li>
+<li><p class="para">プレビューウィンドウで左クリック(ないしは、Shift+左クリック)して表示を変える。</p></li>
+<li><p class="para">Esc キーを押す。</p></li>
+</ol></div>
+<p class="para">
+GImageView から別のウィンドウに(たとえば rxvt とか)にフォーカスを移動させても、GImageView 上のフォーカスは切り替わりません。上述したような、何らかの操作を行わない限り、入力エントリからフォーカスが移ることはありませんので、注意して下さい。
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="gimv_faq_04"></a>8.4. タブ</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="gimv_faq_04-01"></a>現在開いているタブの一覧を表示するには</span></dt>
+<dd><p class="para">
+タブの部分を右クリックしてください。現在開かれているタブの一覧が表示されます。任意のタブに移動することもできます。
+</p></dd>
+<dt><span class="term"><a name="gimv_faq_04-02"></a>タブのフルパス表示を止める</span></dt>
+<dd><p class="para">
+<span class="emphasis"><i>[設定 | サムネイルウィンドウ | タブ]</i></span> の &quot;フルパスを表示(show full path)&quot;のチェックを外してください。ディレクトリ名だけがタブに表示されるようになります。この時、開いているタブのフルパスは、ステータスバーに表示されていますので、そちらで確認してください。
+</p></dd>
+<dt><span class="term"><a name="gimv_faq_04-03"></a>コレクションタブとは</span></dt>
+<dd>
+<p class="para">
+<span class="emphasis"><i>[ファイル | 新規コレクション]</i></span> から作ることが出来ます。または、どこのタブでもいいので画像を選択し、適当に DnD してください。
+</p>
+<p class="para">
+DnD メニューが現れましたね?
+</p>
+<p class="para">
+そこで、<span class="emphasis"><i>[新規タブで開く]</i></span> を選んでください。ドラッグしていた画像(複数の場合はそれら全部)が、新しいタブ(コレクションと名前が付いています)で開かれます。
+</p>
+<p class="para">
+作ったコレクションタブに新しい画像を追加するには、以下の方法があります。
+</p>
+<div class="orderedlist"><ol type="1">
+<li><p class="para">コレクションタブのタブの所に、DnDする</p></li>
+<li><p class="para">コレクションタブ内のサムネイルビューに DnD する (この場合、別のアプリケーションか、2つめ以降のgimvになります)</p></li>
+<li><p class="para">コレクションページを開いた状態で、ファイルオープンダイアログ(ツールバーの左端のボタン)からファイル を選択し、&quot;選択したファイルのサムネイル&quot;</p></li>
+</ol></div>
+<p class="para">
+なお、コレクションページへの DnD は、DnD メニューが表示されずに、いきなりファイルが追加されます。
+</p>
+<p class="para">
+コレクションした後は、任意ディレクトリに移動するなり、コピーするなりしましょう。コレクションされた画像はそれでひとまとまり、とされます。Ctrl クリックで任意の画像をクリックして行くよりも、コレクションタブに一旦集め、それらに対してファイル操作を行った方が、画像の整理効率が良くなると思います。
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="gimv_faq_05"></a>8.5. ディレクトリビュー</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="gimv_faq_05-01"></a>コンソールからディレクトリを増やした時に、ツリーに反映させる方法</span></dt>
+<dd><p class="para">
+ツリービューから、増やした親ディレクトリで [ツリー更新] を行えば反映されます。なお、ツリービュー右クリックメニューから [ディレクトリ作成] を行えば、即座に反映されるため、こちらを使ってディレクトリを増やした方が簡単です。
+</p></dd>
+<dt><span class="term"><a name="gimv_faq_05-02"></a>ディレクトリビュー右クリックメニュー、&quot;サムネイルを再帰的に読み込み&quot;について</span></dt>
+<dd>
+<p class="para">
+そのディレクトリ以下を再帰的に読み込みます。
+</p>
+<p class="para">
+そのディレクトリ以下を全て展開し、各ディレクトリごとにサムネイルタブを作る、ということです。ある一定の場所だけ展開する時に非常に便利です。ツリーもきちんと展開されます。
+</p>
+<p class="para">
+上位のディレクトリで(~/直下など)で再起的読み込みしてしまい、ディレクトリの読み込みが止まらなくなってしまった場合、ツールバーのストップボタンで止めるか、スキップボタンでそのディレクトリを飛ばしてください。この時、設定の &quot;ローディング時の再描画の間隔&quot; を大きめに 設定していると、反応が悪いです。
+</p>
+</dd>
+<dt><span class="term"><a name="gimv_faq_05-03"></a>ディレクトリビューにある「.」「..」とは</span></dt>
+<dd>
+<p class="para">
+例を挙げて説明します。
+</p>
+<pre class="screen">
+/home/〜
+    + cg
+       + .
+       + ..
+       + desktop
+       + favorite
+       |    + .   (1)
+       |    + ..  (2)
+       |    + web
+       |    + download
+       + tmp
+</pre>
+<p class="para">
+などとなっていたとしましょう。ここで、(1)の「.」をダブルクリックすると、
+</p>
+<pre class="screen">
+/home/〜
+   + web
+   + download
+</pre>
+<p class="para">
+と、そのディレクトリがルートディレクトリになります。これは、ディレクトリビューの右クリックメニュー、<span class="emphasis"><i>[トップをここに変更]</i></span> と同じ意味です。
+</p>
+<p class="para">
+そして(2)の「..」をダブルクリックしますと、
+</p>
+<pre class="screen">
+/home/〜
+   + desktop
+   + favorite
+   |    + web
+   |    + dl
+   + tmp
+</pre>
+<p class="para">
+と、その親ディレクトリがルートになります。
+</p>
+</dd>
+<dt><span class="term"><a name="gimv_faq_05-04"></a>タブウィンドウから、ディレクトリビューへの DnD で、ツリーの自動展開・ビューの上下方向自動スクロールを行うには</span></dt>
+<dd><p class="para">
+<span class="emphasis"><i>[設定 | サムネイルウィンドウ]</i></span> ・ <span class="emphasis"><i>[ドラッグ&amp;ドロップ]</i></span> の、<span class="emphasis"><i>[オートスクロール]</i></span> ・ <span class="emphasis"><i>[ツリーを自動的に展開する]</i></span> を ON にしてください。指定した秒数の経過と共に上下方向自動スクロール、ツリー自動展開機能が働きます。
+</p></dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="gimv_faq_06"></a>8.6. サムネイルビュー</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="gimv_faq_06-01"></a>起動時、新規タブ時のリストビュー方法を固定する</span></dt>
+<dd><p class="para">
+<span class="emphasis"><i>[設定 | サムネイルウィンドウ | サムネイルビュー | デフォルト表示モード]</i></span>にて指定できます。ただし、ここを有効にするには、「終了時にウィンドウ状態を保存する」がノンチェック(保存しない)であることが必要です。
+</p></dd>
+<dt><span class="term"><a name="gimv_faq_06-02"></a>サムネイルが妙に汚いです</span></dt>
+<dd><p class="para">
+サイズ違いのサムネイルキャッシュが読み込まれている可能性があります。とりあえず、サ
+ムネイル再作成を実行してください。
+</p></dd>
+<dt><span class="term"><a name="gimv_faq_06-03"></a>画像の一括選択・解除</span></dt>
+<dd><p class="para">
+<span class="emphasis"><i>[編集]</i></span>メニューの中にあります。マウスメニューにはありません。ショートカットが割り当てられていますので(Ctrl + A [N])、頻繁に利用する方はそちらを使う方がいいでしょう。
+</p></dd>
+<dt><span class="term"><a name="gimv_faq_06-04"></a>サムネイルをクリック(トグル)しても、色が変わりません</span></dt>
+<dd><p class="para">
+選択した際の色は、現在の gtk のテーマに依存します。色が変わらないのは、テーマの色設定のためと思われます。他のテーマにして試してみてください。
+</p></dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="gimv_faq_07"></a>8.7. イメージビュー</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="gimv_faq_07-01"></a>外部コマンドについて</span></dt>
+<dd>
+<p class="para">
+別ウィンドウにおける画像表示を、別のプログラムに任せます。
+</p>
+<p class="para">
+外部プログラムは、<span class="emphasis"><i>[設定 | 外部プログラム]</i></span> で設定してください。オリジナルのスクリプトなどを登録することもできます。
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="07.html">前のページ</a>&#160;</td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">ホーム</a></td>
+<td width="40%" align="right">&#160;<a accesskey="n" href="gimv_tips.html">次のページ</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left">7. デフォルト キーバインド&#160;</td>
+<td width="20%" align="center"><a accesskey="u" href="index.html">上に戻る</a></td>
+<td width="40%" align="right">&#160;9. Tips</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

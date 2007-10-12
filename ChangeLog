@@ -1,0 +1,2919 @@
+2005-01-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/image_view/gimv_xine.c, plugins/image_view/gimv_xine.h,
+	  plugins/image_view/gimv_xine_priv.c,
+	  plugins/image_view/gimv_xine_priv.h,
+	  plugins/image_view/prefs_xine.c:
+	Enabled to choose audio & video drivers for Xine view.
+
+2005-01-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_thumb_win.c: Fixed compile error on Gtk+-1.2.
+	Thanks reporting > shippo-san
+
+2004-12-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.27
+
+2004-12-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_thumb_win.[ch], po/ja.po: Added "Slideshow Options".
+
+2004-12-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_image_win.c: Don't change the file to the next if the current
+	file is movie and playing while slideshow.
+	This patch is contributed by Christian Hammers
+	<lathspell@users.sourceforge.net>. Thanks!
+
+2004-12-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_thumb_win.c: Added randamized slideshow.
+	This patch is contributed by Christian Hammers
+	<lathspell@users.sourceforge.net>. Thanks!
+
+2004-12-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/dirview2.c: Do not scroll the directory view automatically when
+	the selected directory is in the view.
+	Thank you for your suggestion! > sholmif
+
+2004-12-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_image_view.c: The bug that sometime same files are appeared
+	numbers of times on same thumbnail view has been fixed.
+	(Bug #1073316 Thanks reporting > shlomif).
+
+2004-12-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/archiver/tar-ext.c, plugins/archiver/zip-ext.c:
+	Escape path of files to extract.
+	(Bug #908528 & #1074746. Thanks reporting > magnade and nobody)	
+
+2004-10-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_dupl_finder.c: Sorry, wrong hash function was used...
+
+2004-10-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/image_view/Makefile.am, plugins/image_view/image_view_xine.c:
+	  plugins/image_view/xine_image_loader.[ch],
+	  plugins/image_view/prefs_xine.[ch], po/ja.po:
+	Added Xine image loader.
+	* plugins/image_view/prefs_mplayer.c: Fixed comment.
+
+2004-10-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/image_view/gimv_xine_priv.c: Fixed clash bug on creating movie
+	thumbnail.
+
+2004-10-03 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_image_win.c: "Auto resize to image size" didn't work
+	correctly when the "zoom" preference is set as "Do not change".
+	* src/gtkutils.c: Auto scaling feature of image views on over write
+	confirm dialog didn't work correctly.
+
+2004-09-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.26
+
+2004-09-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* po/ja.po, src/help.c: Upddate "Special Thanks".
+
+2004-09-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_image_win.c: Added gtk_object_class_add_signals().
+	* src/gimv_thumb_view.c: Do not use g_list_foreach() for destroying a
+	list.
+
+2004-09-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_thumb_view.c: Fixed broken sorting.
+
+2004-09-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* po/ja.po, src/gimv_image_view, src/gimv_image_win.c:
+	Fixed rotation label string (use "CCW" and "CW").
+	* src/prefs.c: Fixed default zoom type.
+
+2004-09-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* po/ja.po, src/gimv_image_view.c, src/prefs_ui//prefs_ui_etc.c,
+	  src/prefs_ui/prefs_ui_imagewin.c, src/prefs_ui/prefs_ui_thumbwin.c:
+	Added "Do not change" for default zoom and rotation.
+
+2004-09-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/plugins/rar-ext.c, src/plugins/zip-ext.c:
+	Added ".cbr" and ".cbz" extensions for comics archive.
+
+2004-09-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/exif_view.c, src/gimv_comment_view.c, src/gimv_dlist.c,
+	  src/gimv_elist.c, src/gimv_prefs_win.c, src/help.c,
+	  src/prefs_ui/prefs_ui_plugin.c:
+	Remove gtk_scrolled_window_set_shadow_type() when compile against
+	Gtk+-1.2.
+
+2004-09-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/argparse.c, src/gimv_image_view.c, src/gimv_image_win.c,
+	  src/gimv_slideshow.c, src/gimv_thumb_win.c, src/gtkutils.c,
+	  src/prefs.[ch], src/prefs_ui/prefs_ui_etc.c,
+	  src/prefs_ui/prefs_ui_imagewin.c, src/prefs_ui/prefs_ui_thumbwin.c:
+	Improved "Fit image size to window" feature.
+	This patch is contributed by Brent Baccala
+	<baccala@users.sourceforge.net>. Thanks!
+
+	* plugins/image_view/prefs_mplayer.c, plugins/image_view/prefs_xine.c,
+	  po/fr.po, po/ja.po, src/dirview2.c, src/exif_view.c,
+	  src/gimv_comment_view.c, src/gimv_dlist.c, src/gimv_elist.c,
+	  src/gimv_prefs_win.c:
+	Arranged layout of some prefs pages and shadow type.
+
+2004-09-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/prefs_ui/prefs_ui_imagewin.c: The bug that
+	gtkutil_get_data_from_adjustment_by_int_cb is used for float value is
+	fixed. Thanks reporting! > Brent Baccala <baccala@users.sourceforge.net>
+
+2004-09-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* po/fr.po, po/ja.po, src/argparse.c, src/gimv_image_view.c: Fixed typo.
+	Thanks reporting! > Brent Baccala <baccala@users.sourceforge.net>
+
+	* src/gimv_image_view.c: Fixed a bug that "fit to frame" feature is not
+	work correctly when "keep aspect" is unchecked is fixed.
+	Thanks reporting! > Brent Baccala <baccala@users.sourceforge.net>
+
+2004-09-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed many compile time warnings.
+	* src/dirview2.c, plugin/thumbnail_view/detailview2.c:
+	Do not emulate "button-press-event" and "button-release-event" for
+	"scroll-event" because this code cause unfortunate selection change.
+
+2004-08-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* gimageview.spec.in: Fixed a bug which fails to rebuild by latest RPM.
+	Thanks reporting! > Yukichi <shfukuzawa@jcom.home.ne.jp>
+
+2004-08-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* po/ja.po: Updated.
+
+2004-07-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_thumb_view.c: Sorry, I enbuged at previous fix.
+	* src/thumbnail_view_album.c: Minor fix.
+
+2004-07-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_thumb_view.c: Sorting thumbnails was broken.
+
+2004-06-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/dirview.h, src/dirview.c, src/dirview2.c:
+	Removed "window" from DirView to avoid confuse. Now some text entry
+	dialogs invoked from DirView are transient for toplevel window.
+	Thanks reporting! > ten10.
+
+2004-06-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_thumb_win.c: Fixed conflicted definition of cb_move_tab().
+	Thanks reporting! > tokumei_kibou-san.
+
+2004-06-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/fileload.c: Do not replace "Cancel" label on file browser with
+	"Close" because this code causes clash on latest Gtk+2.
+
+2004-05-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/dirview2: Removed GTK_DISABLE_DEPRECATED for compiling against
+	Gtk+-2.4.
+
+2004-05-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_zlist.c: Update contents when the widget is mapped.
+
+2004-05-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_zalbum.c, src/gimv_zalbum.h, src/thumbnail_view_album.c:
+	Fixed memory leak.
+
+2004-04-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/thumbnail_view/detailview.c, src/dirview.c, src/dirview2.c,
+	  src/fileload.[ch], src/gimv_thumb_view.[ch], src/gimv_thumb_win.[ch]:
+	GimvThumbView API is more refined.
+
+2004-04-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_zlist.[ch], src/gimv_zalbum.[ch]:
+	Added gimv_zlist_insert () and gimv_zalbum_insert().
+	* src/gtkutils.[ch]: Added gtkutil_list_insert_sorted().
+	* plugins/thumbnail_view/detailview.[ch],
+	  plugins/thumbnail_view/detailview2.c,
+	  src/gimv_thumb_view.[ch], src/gimv_thumb_win.[ch], src/prefs.c,
+	  src/prefs_ui/prefs_ui_thumbwin.c:
+	Refine many APIs and internal behavior of GimvThumbView.
+	
+
+2004-04-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_zlist.h: Fixed indent.
+
+2004-04-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/thumbnail_view/detailview.[ch],
+	  plugins/thumbnail_view/detailview2.c,
+	  src/gimv_thumb_view.[ch], src/thumbnail_view_album.c:
+	Refined GimvThumbViewPlugin API.
+
+2004-04-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/thumbnail_view/detailview.c, src/gimv_thumb_view.[ch],
+	  src/gimv_thumb_win.c, src/thumbnail_view_album.c:
+	Removed "resize" virtual function.
+
+2004-04-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/dirview2.c: Don't allow dropping files on separator.
+
+2004-04-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/plugins/Makefile.am,
+	  src/plugins/icon_widget.[ch], src/plugins/listview.c.[ch],
+	  src/plugins/listview_prefs.[ch], src/plugins/thumbtable.[ch],
+	  src/plugins/thumbtable_prefs.[ch]:
+	Removed obsolete implementation.
+
+2004-04-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_thumb_view.[ch], src/gimv_thumb_win.c:
+	Moved some members of GimvThumbView into GimvThumbViewPriv.
+
+2004-04-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_thumb_view.c: A wrong type checking is fixed.
+	* src/gimv_thumb_win.c: Added type checking for some object when layout
+	of thumbnail window is changed.
+
+2004-04-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/thumbnail_view/detailview.[ch],
+	  plugins/thumbnail_view/detailview2.c,
+	  plugins/thumbnail_view/listview.[ch],
+	  plugins/thumbnail_view/thumbtable.[ch],
+	  src/gimv_dupl_win.h, src/gimv_thumb_view.[ch]:
+	Some APIs are modified to receive a GimvThumbView object as first
+	argument. Also some other minor bug fixes are made.
+
+2004-04-09 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/image_loader/spi_image_loader.c,
+	  plugins/thumbnail_view/detailview.[ch], 
+	  plugins/thumbnail_view/detailview2.c,
+	  plugins/thumbnail_view/listview.[ch],
+	  plugins/thumbnail_view/thumbtable.[ch],
+	  src/gimv_thumb_view.[ch], src/gimv_thumb_win.h,
+	  src/thumbnail_view_album.c, src/prefs_ui/prefs_ui_thumbwin.c:
+	Added const key word for some variables. Removed "_func" suffix from
+	virtual functions in GimvThumbViewPlugin.
+
+2004-04-09 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/thumbnail_view/detailview.[ch],
+	  plugins/thumbnail_view/detailview2.c,
+	  plugins/thumbnail_view/listview.[ch],
+	  plugins/thumbnail_view/thumbtable.[ch],
+	  src/gimv_thumb_view.[ch],
+	  src/gimv_thumb_win.c,
+	  src/thumbnail_view_album.c:
+	GimvThumbView has been GtkObjectize.
+
+2004-04-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_image_view.h, src/gimv_thumb_view.h:
+	Incremented plguin interface version and fixed indent.
+	* src/gimv_thumb_view.c, src/prefs_ui/prefs_ui_thumbwin.c:
+	Minor fix.
+
+2004-04-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/thumbnail_view.[ch]: removed.
+	* plugins/thumbnail_view/detailview.[ch],
+	  plugins/thumbnail_view/listview.[ch],
+	  plugins/thumbnail_view/thumbtable.[ch],
+	  src/Makefile.am, src/dnd.c, src/fileload.c, src/gimv_dupl_win.h,
+	  src/gimv_thumb.c, src/gimv_thumb_view.[ch], src/gimv_thumb_win.[ch],
+	  src/thumbnail_view_albubum.c, src/prefs_ui/prefs_ui_thumbwin.c:
+	Moved src/thumbnail_view.[ch] to src/gimv_thumb_view.[ch].
+
+2004-04-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/thumbnail_view/detailview.c,
+	  plugins/thumbnail_view/detailview.h,
+	  plugins/thumbnail_view/detailview2.c,
+	  plugins/thumbnail_view/listview.c,
+	  plugins/thumbnail_view/listview.h,
+	  plugins/thumbnail_view/thumbtable.c,
+	  plugins/thumbnail_view/thumbtable.h,
+	  src/dirview.c, src/dnd.c, src/fileload.c, src/gimageview.h,
+	  src/gimv_dupl_win.[ch], src/gimv_plugin.c, src/gimv_thumb.[ch],
+	  src/gimv_thumb_win.[ch], src/thumbnail_view.[ch],
+	  src/thumbnail_view_album.c, src/prefs_ui/prefs_ui_thumbwin.c:
+	Added "Gimv" prefix for ThumbView.
+
+2004-04-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/thumbnail_view.c: expression such as "thumb->selected == select"
+	is dangerous.
+
+2004-04-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/image_view/image_view_xine.c,
+	  plugins/thumbnail_view/detailview.c,
+	  plugins/thumbnail_view/detailview.c,
+	  plugins/thumbnail_view/detailview2.c,
+	  plugins/thumbnail_view/listview.c,
+	  plugins/thumbnail_view/listview.h,
+	  plugins/thumbnail_view/thumbtable.c,
+	  plugins/thumbnail_view/thumbtable.h,
+	  src/compare_md5.c, src/compare_similar.c, src/gfileutil.c,
+	  src/gimv_dupl_finder.c, src/gimv_dupl_win.c, src/gimv_thumb.[ch],
+	  src/thumbnail_view.[ch]:
+	GimvThumb has been GtkObjectize.
+
+2004-04-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_image_win.c: Sorry, below change is too wrong!
+
+2004-04-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_image_win.c: Do not change the image automatically when the
+	slideshow interval is set to 0 sec (Debian bug #219213).
+	Thanks reporting! > Sudarshan Koushik <nsud@lycos.com>
+
+2004-04-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_thumb_win.c: Added hotkey for "remove file"
+	(Debian bug #198178).
+	Thanks reporting! > Christian Hammers <ch@debian.org>
+
+2004-03-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_prefs_win.c:
+	Changed position of "OK" button on preference window when compile
+	against Gtk+2.
+
+2004-03-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added preferences for image scale on slideshow.
+
+2004-03-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to open EXIF view from GimvImageWin.
+
+2004-03-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* configure.in
+	* lib/dllloader/pe_image.c: Check user_desc struct in asm/ldt.h.
+
+2004-03-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Use "GtkType" instead of "guint".
+	sizeof(guint) isn't always equal with sizeof(GtkType).
+	This patch is contributed by Tomoya TAKA <tomoya@olive.plala.or.jp>.
+	Thanks!
+
+2004-02-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.25
+
+2004-02-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed compile error on Gtk+-1.2.
+
+2004-02-25 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added Xinerama support.
+
+2004-02-25 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed orientation label (270 degree to -90 degree).
+
+2004-02-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed MPlayer support to adapt to latest MPlayer.
+	(Thakns reporting! > tkunze <tkunze@users.sourceforge.net>)
+
+2004-02-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Implemented GimvPrefs.
+
+2003-09-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Set scrolled window policy for comment view as GTK_POLICY_AUTOMATIC.
+	* Select first item of comment list when change file.
+	* Fixed typo in comment key.
+	(Thank you for reporting! > akira yamada <akira@arika.org>)
+
+2003-08-14 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.24
+
+2003-08-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Use normal windef.h when compile on MS-Windows.
+
+2003-08-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug which always apply "zoom out only" when the "Do not zoom in
+	when fit to window automatically" preference is enabled. This preference
+	is for a moment of changing image files.
+	* Added "Fit Width" and "Fit Height".
+
+2003-08-01 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Moved libexif and dlllaoder under $(top_srcdir)/lib.
+	* Updated libexif to 0.5.11.
+
+2003-08-01 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Minor fix.
+
+2003-07-25 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed file size format at tooltip of thumbnail table.
+	(Debian bug #198178)
+
+2003-07-25 MINAMI Hirokazu <h_minami@users.sourceforge.net>
+
+	* Added "property/bgimage" DnD target.
+
+2003-07-25 MINAMI Hirokazu <h_minami@users.sourceforge.net>
+
+	* Fixed uri-list format (Bug #773491).
+
+2003-07-25 sheepman <sheepman@tcn.zaq.ne.jp>
+
+	* Fixed double freeing bug of JPEG loader.
+
+2003-07-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified GimvImage and GimvAnim as GtkObject.
+
+2003-07-19 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/image_view/gimv_mplayer.c: The bug that sometimes fail to
+	detect file type (and fail to play) has been fixed.
+
+2003-07-13 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/image_view/gimv_mplayer.c: Resize window size when the movie 
+	is started to force fit the movie size to frame when using xv driver.
+	Software scaling is now only used when the x11 driver is used.
+	Added some error handlings.
+	* plugins/image_saver/*.[ch]
+	* plugins/thumbnail/*.[ch]
+	* src/gimv_image.[ch]
+	* src/gimv_image_saver.[ch]: Refactoring for GimvImageSaver.
+
+2003-07-13 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/image_view/gimv_xine.[ch]
+	* plugins/image_view/gimv_xine_priv.h
+	* plugins/image_view/image_view_xine.c: Removed 0.9.x support.
+
+2003-07-12 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_image_loader.c: Fixed potential clash bug.
+	* src/gimv_image_saver.[ch]: Refactoring (not completed yet).
+
+2003-07-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_nav_win.c: I've forgot to add gtk_object_class_add_signals().
+
+2003-07-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_image_loader.[ch]: Added GTimer.
+
+2003-07-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/dirview2.c: Plugged memory leak.
+
+2003-07-06 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/comment.[ch]
+	* src/commnet_view.[ch]
+	* src/gimv_cellrendererpixmap.[ch]: removed.
+	* src/gimv_comment.[ch]
+	* src/gimv_comment_view.[ch]
+	* src/gimv_cell_pixmap.[ch]: renamed from above files.
+
+2003-07-06 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/comment_view.[ch]: Minor improvement of UI.
+	* src/image_info.c: The bug that reference count of Comment is wronged
+	has been fixed.
+	* src/gimageview.c: minor fix.
+	* src/gimv_thumb_win.c: Key accelerator of "Refresh List" is changed to
+	"Ctrl + Shift + R"
+	* po/ja.po: updated
+
+2003-07-06 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/fileutil.c: Remove trailing slash when create directory.
+	(Thanks! > Douglas Brebner <douglas+mail@fang.demon.co.uk>).
+
+2003-07-05 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/nav_window.[ch]: removed.
+	* src/gimv_image_view.[ch]
+	* src/gimv_nav_win.[ch]: Renamed from nav_window. Renamed NavWindow to
+	GimvNavWindow, and reimplemented as GtkObject.
+	* src/gimv_image_win.c: use gdk_window_fullscreen() if compile against
+	gtk+-2.2 or later. Other minor fix.
+	* src/comment.h: minor fix.
+
+2003-07-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* image_saver.[ch]
+	* thumbnail.[ch]
+	* thumbnail_support.[ch]: removed
+	* gimv_image_saver.[ch]
+	* gimv_thumb.[ch]
+	* gimv_thumb_cache.[ch]: renamed from abeve files.
+	* plugins/image_saver/png_saver.c
+	* plugins/image_saver/pnm_saver.c
+	* plugins/image_saver/xvpics_saver.c
+	* plugins/image_view/image_view_mplayer.c
+	* plugins/image_view/image_view_xine.c
+	* plugins/thumbnail/ee.c
+	* plugins/thumbnail/gimv_thumb.c
+	* plugins/thumbnail/gqview.c
+	* plugins/thumbnail/konqueror-old.c
+	* plugins/thumbnail/konqueror.c
+	* plugins/thumbnail/nautilus-2.0.c
+	* plugins/thumbnail/nautilus.c
+	* plugins/thumbnail/xvpics.c
+	* src/Makefile.am
+	* src/gfileutil.c
+	* src/gimageview.c
+	* src/gimv_image.c
+	* src/gimv_image_info.c
+	* src/gimv_image_view.c
+	* src/gimv_image_view.h
+	* src/gimv_plugin.c
+	* src/gimv_thumb.c
+	* src/gimv_thumb.h
+	* src/gimv_thumb_win.c
+	* src/image_view_draw.c
+	* src/thumbnail_view.c
+	* src/thumbnail_view.h
+	* src/prefs_ui/prefs_ui_etc.c: Renamed ImageSaver, Thumbnail,
+	ThumbnailSupport to GimvImageSaver, GimvThumb, GimvThumbCache.
+	* src/prefs.h
+	* src/gimv_scrolled.h: fix indent.
+
+2003-06-27 Takuro Ashie <ashie@homa.ne.jp>
+
+	* gimv_image_win.[ch]: Removed "slideshow" member from GimvImageWin.
+	Added "show_fullscreen" and "hide_screen" signal.
+	* slideshow.[ch]: Removed.
+	* gimv_slideshow.[ch]: Added.
+	* gimv_thumb_win.[ch]
+	* gimageview.c: Renamed SlideShow to GimvSlideShow.
+
+2003-06-14 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/image_loader.[ch]: remove.
+	* plugins/image_loader/bmp.[ch]
+	* plugins/image_loader/imlib_loader.[ch]
+	* plugins/image_loader/jpeg_loader.c
+	* plugins/image_loader/mag.[ch]
+	* plugins/image_loader/mng.[ch]
+	* plguins/image_loader/pcx.[ch]
+	* plugins/image_loader/pixbuf_loader.[ch]
+	* plugins/image_loader/png_loader.[ch]
+	* plugins/image_loader/spi_image_loader.[ch]
+	* plugins/image_loader/svg.[ch]
+	* plugins/image_loader/tga.[ch]
+	* plugins/image_loader/wmf.[ch]
+	* plugins/image_loader/xbm.[ch]
+	* plugins/image_loader/xcf.[ch]
+	* plugins/image_loader/xvpics.[ch]
+	* plugins/image_viwe/mplayer_image_loader.[ch]
+	* src/Makefile.am
+	* src/exif_view.c
+	* src/gimv_image.c
+	* src/gimv_image_loader.[ch]
+	* src/thumbnail.c: Renamed ImageLoader to GimvImageLoader.
+
+2003-06-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.23
+
+2003-06-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/image_view/jpeg_loader.c: Plugged memory leak.
+
+2003-06-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/image_view/image_view_xine.c: Fixed compile error.
+
+2003-06-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/dirview.c: Fixed compile error.
+	* src/gimv_image_win.c
+	* src/gimv_image_view.c: The bug arround auto fit feature has been fixed.
+
+2003-06-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* NEW
+	* doc/ja/NEW.ja: Fixed typo.
+	* plugins/archiver/rar-ext.c
+	* plugins/archiver/tar-ext.c
+	* src/comment.[ch]
+	* src/gimageview.h
+	* src/gimv_image_view.c
+	* src/image_info.[ch]
+	* src/thumbnail_view.h: Refined interface of ImageInfo.
+	* src/thumbnail.c: Removed GimvImage.
+	* src/dirview.c
+	* src/driview2.c
+	* src/dirview_priv.h
+	* src/thumbnail_window.c: Ensure to avoid gtk_main_iteration().
+
+2003-06-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* gimv_image_view.[ch]: Never show the image when the window isn't
+	realized.
+	* gimv_image_win.[ch]
+	* slideshow.c
+	* thumbnail_view.c: Changed GimvImageWin as GtkObject.Fixed clash bug
+	of slideshow.
+
+2003-06-09 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/image_view/image_view_mplayer.c
+	* plugins/image_view/image_view_xine.c
+	* src/fileload.[ch]
+	* src/gimageview.[ch]
+	* src/gimv_image_view.[ch]
+	* src/gimv_image_win.[ch]
+	* src/gimv_pluginc.c
+	* src/gtkutils.c
+	* src/image_view_draw.c
+	* src/nav_window.[ch]
+	* src/slidshow.[ch]
+	* src/thumbnail_view.c
+	* src/thumbnail_window.[ch]
+	* src/prefs_ui/prefs_ui_imagewin.c
+	* src/prefs_ui/prefs_ui_movie.c
+	* src/prefs_ui/prefs_ui_thumbwin.c: fixed naming rule of ImageView and
+	ImageWindow to GimvImageView and GimvImageWin.
+	* src/image_view.[ch]
+	* src/image_window.[ch]: removed.
+
+2003-06-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.22
+
+2003-06-03 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/prefs.[ch]
+	* src/image_view.c
+	* src/thumbnail_window.c
+	* src/prefs_ui/prefs_ui_imagewin.c
+	* src/prefs_ui/prefs_ui_thumbwin.c: Auto rotation prefs has been
+	separated to image window and preview.
+
+2003-06-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_plugin.h: inclement plugin interface version.
+	* src/gtkutils.c
+	* src/image_view.[ch]
+	* src/image_window.[ch]
+	* src/prefs.[ch]
+	* src/slideshow.c
+	* src/thumbnail_window.c
+	* src/prefs_ui/prefs_ui_imagewin.c
+	* src/prefs_ui/prefs_ui_thumbwin.c: Refine interface of ImageView.
+
+2003-06-01 Frank Fischer <frank_fischer@gmx.de>
+
+	* src/image_view.c
+	* src/prefs_ui/prefs_ui_imageview.c: Automatic rotation by EXIF data.
+
+2003-06-01 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/comment.c
+	* src/gimv_mime_types.[ch]
+	* src/image_info.c: Fiexed detecting file name extension as
+	case-insensitive (Thanks! > Ricky Faulstich <Ricky@Faulstich.com>).
+
+2003-06-01 Takuro Ashie <ashie@homa.ne.jp>
+
+	* README
+	* doc/ja/README.ja
+	* src/thumbnail_window.c: Fixed typo.
+	(Thanks! > Joseph Harnish <bigjoe@linuxmail.org>)
+
+2003-05-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.21
+
+2003-05-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed clash bug of ImageView.
+
+2003-05-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed clash bug of SimilarWin and changing window layout of thumbnail
+	window.
+	* Updated README and README.jp
+
+2003-05-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed compile error of plugins/image_view/gimv_mplayer.c.
+
+2003-05-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed compile error. Thanks! > Sugaya <sygaya@suri.it.okayama-u.ac.jp>
+	and Yamaguchi.
+
+2003-05-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added English README and TODO
+	* Minor fixes.
+
+2003-05-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified button_pressed, button_released, button_clicked cb_funcs of
+	ImageView as signal.
+	* Modified SimilarWin as GtkObject.
+
+2003-05-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Changed directory layout.
+	* intltoolize.
+
+2003-05-19 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.20
+
+2003-05-18 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed scaling bug of image view.
+	* Enabled to cancel creating a thumbnail.	
+
+2003-05-18 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed compile error of WMF loader.
+
+2003-05-18 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled scalable loading on image view.
+	JPEG loading become more faster when scale down.
+	* Other minor fix.
+
+2003-05-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Two new duplicates finders are added. One is "md5sum" and another one
+	is "File Size".
+
+2003-05-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added rotation indicator in toolbar of image window.
+
+2003-05-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gtk_prop.c: use fork(2) and pipe(2) instead of popen(3).
+
+2003-05-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Now "Load recursively in one tab" action can be attached to mouse
+	button.
+
+2003-05-15 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Do not zoom in when fit to frame automatically.
+	This behavior can be changed by preference.
+	* Minor bug fixes.	
+
+2003-05-14 Takuro Ashie <ashie@homa.ne.jp>
+
+	* JPEG loader has been added. These codes are fetched from
+	libgnomeui-2.2.0.1.
+
+2003-05-13 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Check plugin interface version when load plugins.
+	* Now GimvXine doesn't create our own thread. It uses gdk event filter
+	instead of it.
+
+2003-05-12 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Set focus to the suitable thumbnail when files are deleted.
+
+2003-05-12 Takuro Ashie <ashie@homa.ne.jp>
+
+	* GtkTreeViewColumn is now resizable. Other minor fix.
+
+2003-05-12 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added "Slideshow (selected)" and "Slideshow (from the selected)".
+
+2003-05-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Translate scroll-event to button-press-event when gimv is compiled
+	against Gtk+2 for compatibility.
+
+2003-05-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Embed icon when compile gimv on windows.
+
+2003-04-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Moved widget/*.[ch] to src/ and added "gimv_" prefix.
+
+2003-04-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed to set attributes of columns of detail view on Gtk+2.
+
+2003-04-15 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed to synchronize display mode menu of thumbnail window when
+	activate by key accel.
+
+2003-04-13 Takuro Ashie <ashie@homa.ne.jp>
+
+	* override MPlayer config file by $(datadir)/gimageview/mplayerrc.
+	Main purpose of this modification is to force disable GUI and fullscreen
+	stuff of MPlayer.
+
+2003-04-13 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to play audio with visualizer.
+
+2003-04-09 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to store mime types in plugins.
+
+2003-04-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Separated preference of thumbnail views to ~/.gimv/pluginrc.
+	* Refined plugin interface.
+	* Added GimvMimeType.
+	* Renamed some files.
+
+2003-04-05 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to compile GimvXine against gtk+-linux-fb-2.0.
+	* Rename some files.
+
+2003-04-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed GimvMPlayer to enabled to compile without X.
+	Now we can use MPlayer plugin on linux-fb backend.
+
+2003-04-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed to compile src directory befor plugins directory.
+
+2003-04-03 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Refine plugin interface.
+	* Rename "Thumbnail 2" mode to "Album" mode.
+
+2003-04-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_mplayer.c: minor fixes.
+
+2003-04-01 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Reimplement image view embeders as plugin.
+
+2003-04-01 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed buffer size and refresh rate of GimvMPlayer.
+	* Fixed clash bug of xine view.
+
+2003-03-31 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added "Action" menu to thumbnail window.
+	* Added some key binding to directory view on thumbnail window.
+	CTRL + Cursor Left, CTRL * Cursor Up: Change top directory to parent
+	CTRL + Cursor Right, CTRL * Cursor Down: Change top directory to selected
+	* Added "Use default directories list to search susie plugins" and
+	"Use default directories list to search scripts" preference.
+	* Minor fixes.
+
+2003-03-31 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Reimplement image loaders and IO streamers as plugin.
+	* Clean up src/plugin.c
+
+2003-03-30 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to compile against linux-fb backend by
+	"--with-gtk2=gtk+-linux-fb-2.0" configure option.
+	* Added "Use default directories list to search plugins" preference.
+
+2003-03-30 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added m4/gtk.m4
+
+2003-03-30 Masahiro Sakai <s01397ms@sfc.keio.ac.jp>
+
+	* Merged cygwin patch.
+
+2003-02-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.14
+
+2003-02-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The problem which cannot detect pause on MPlayer-0.90rc3 has been
+	fixed.
+
+2003-02-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug which freeze when load broken bitmap file has been fixed.
+	(Thanks as usual :-) > Jin Suh <jinssuh@yahoo.com>)
+
+2003-02-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Iterate main loop when create thumbnail using MPlayer.
+
+2003-01-31 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to rename file name and show image when over write the file.
+	* Position of dialog window has been modified.
+
+2003-01-30 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to create movie's thumbnail using MPlayer.
+
+2003-01-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added UI for preference of movie.
+	* The bug which cannot create image file's thumbnail on image view has
+	been fixed.
+
+2003-01-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug which cannot load a OS/2 type bitmap correctly has been fixed.
+	(Thanks! > Jin Suh <jinssuh@yahoo.com>)
+	* Modified some Xine depended code.
+	* By the suggestion from Thorsten Schnier <thorsten@schnier.net>,
+	modified to reset image rotation when change file on image view.
+
+2003-01-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added MPlayer support.
+
+2003-01-27 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Separate Xine depended code from image_view.[ch].
+
+2003-01-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed double freeing bug in rename mode.
+
+2003-01-13 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.13
+
+2003-01-13 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Add show/hide menu for player.
+
+2003-01-12 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug which dosen't handle completion event correctly has been
+	fixed.
+
+2003-01-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed seeking bug in GimvXine for xine-0.9.
+
+2003-01-10 Migrec <migrec@online.fr>
+
+	* po/fr.po: Update (Thanks! > Migrec).
+
+2003-01-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Add movie toolbar. Previous "Player toolbar" has been modified to
+	"Slideshow Player".
+	* The bug which cannot display movie on fullscreen mode has been fixed.
+
+2003-01-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.12
+
+2003-01-06 Takuro Ashie <ashie@homa.ne.jp>
+
+	* By the request from John Mellor <John@Kungfu-tse.net>, add WMF
+	(Windows Meta File) loader (depend on libwmf).
+
+2003-01-06 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug which "Load recursively in one tab" didn't work correctry when
+	the directory is already opened by normal "Directory mode" has been
+	fixed.
+
+2003-01-05 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Support Xine-1 API (Back port from HEAD).
+
+2002-12-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.11
+
+2002-12-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* By the suggestion from seepman <sheepman@tcn.zaq.ne.jp>, modified to
+	reset image position on image view when change image file.
+
+2002-12-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added "Load thumbnail recursively in one tab" item to directory view's
+	popup menu.
+
+2002-12-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug which ignore "Continuance play" preference has been fixed.
+
+2002-12-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug which cannot send button_release_event when double click the
+	mouse on direcotry view has been fixed.
+
+2002-12-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug which cannot open japanese file or directory from location
+	entry has been fixed.
+
+2002-12-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed Scrlled class's scrollbar bug on Gtk+-2.1 (Wrong object type
+	was spefified).
+
+2002-11-26 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Plugged a memory leak.
+
+2002-11-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.10
+
+2002-11-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added "Tool" menu on thumbnail window.
+	* Enabled to call background setting of GNOME & KDE from "Tool" menu.
+
+2002-11-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed clash bug in 32bit Bitmap loading (Thanks! Jin Suh)
+	* Added some key bind to image view.
+	* Added "Ignore Alpha Channel" item to menu of image view.
+
+2002-11-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified to update old thumbnail automaticallly.
+
+2002-11-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified to show warning dialog when drop files to not permited
+	directory.
+	* Added locked folder icon (merge from Pornview).
+
+2002-11-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed processing symbolic link in tar file (Not completed).
+
+2002-11-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Bug fixes.
+
+2002-11-19 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified to apply "fit to window" soon when "Ok" or "Apply" button on
+	the preference window is pressed.
+
+2002-11-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* By the indication from TAM, fixed clash bug in bzip2 loader.
+
+2002-11-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.9
+
+2002-11-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* By the indication from Sholmi Fish, the bug which cannot send
+	button_release_event when double click the mouse on "Thumbnail" mode has
+	been fixed.
+
+2002-11-15 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Improverd response while loading an image (merge from HEAD).
+	* Minor bug fixes.
+
+2002-11-14 Takuro Ashie <ashie@homa.ne.jp>
+
+	* By the indication from matsu, the bug which cause clash when start
+	gimv from under hidden directory has been fixed.
+
+2002-11-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/comment.c: Plugged memory leak.
+
+2002-11-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug which ignore "Show column title" on "Detail View" prference
+	has been fixed.
+
+2002-11-09 Takuro Ashie <ashie@homa.ne.jp>
+
+	* widget/zalbum.c
+	* widget/zlist.c: Avoid useless drawing.
+
+2002-11-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.8
+
+2002-11-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The stupid bug that the source file is deleted when fail to copy the
+	file to different file system has been fixed.
+
+2002-11-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Bugs arround mouse button prefference for directory view has been
+	fixed.
+	* The bug that "." and ".." on directory view is not work correctly has
+	been fixed.
+	* Fixed sensitivity problem on thumbnail window while loading.
+	* The bug which cause clash when open preference window by key
+	accelerator on Gtk+2 has been fixed.(Probably, it is Gtk+2's bug.)
+
+2002-11-05 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that some widget on preference window is not displayed has
+	been fixed.
+	* The bug which ignore the "fit to frame" preference for slideshow has
+	been fixed.
+
+
+2002-11-05 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The problem which cannot do "make distcheck" has been fixed.
+
+2002-11-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.7
+
+2002-11-03 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug which move chache file and comment file in spite of having
+	cancel file operation.
+	* Remove file when move file to differenct file system.
+
+2002-11-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The probrem which cannot disable key accelerators on entry of rename
+	mode has been fixed. (Gtk+-2.0)
+	* Fixed to convert character set correctly on entry of rename mode
+	(Gtk+-2.0)
+	* The probrem that moveing focus from thumbnail to other thumbanil is not
+	work correctly has been fixed. (Gtk+2)
+
+2002-11-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.6
+
+2002-10-31 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Almost completed to porting to GtkTreeView.
+
+2002-10-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* dstack_list.[ch]
+	* editable_list.[ch]: Reimplement as widget.
+	* Clean up.
+
+2002-10-25 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that auto completion of japanese direcotry on location entry
+	is not work correctly has been fixed.(Gtk+2)
+	* Added "Infomation" page on preference window.
+	* Porting navigation tree/UI of directory preference/UI of plugin
+	information on preference window to GtkTreeView.
+	* Clean up.
+
+2002-10-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Clean up.
+
+2002-10-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that thumbnail will be always created when open an image in
+	image widnow has been fixed.
+
+2002-10-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified behavior of selection of "Detail" mode.(Gtk+2)
+
+2002-10-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified focusing stuff.
+	* Almost completed to porting "Detail" mode to GtkTreeView.
+	* Changed GtkPixmap to GtkImage (Gtk+2).
+	* Bug fix.
+
+2002-10-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that cannnot use seek bar of image window by mouse has been
+	fixed (Gtk+2).
+	* Reimplement "Detail" mode by GtkTreeView.
+
+2002-10-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Porting comment view/EXIF view/Result window of searching similar
+	image to GtkTreeView (Gtk+2)
+
+2002-10-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Clean up.
+
+2002-10-15 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Clean up Susie plugin related codes.
+	* Added an UI of preference for Susie plugin directory.
+
+2002-10-14 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified to output ~/.gimv/gimvrc by locale character set.
+	* Modified to convert character set of string on window title and status
+	bar to internal character set.
+	* Modified to convert character set of string on Searching similar
+	window to internal character set.
+	* Fixed character set of file name in comment data.
+	* Porting directory view to GtkTreeView has been almost completed.
+	* Use GtkFileSelection for file copy/move/link dialog.
+	* Fixed treatment of multi bytes character on ZAlbum widget.
+	* Adjust text position on thumbnail table view (Gtk+2).
+	* Adjust text position on "Detail + thumbnail" mode.
+	* Clean up.
+
+2002-10-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modify to convert command line argument help to locale charset.
+
+2002-10-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Minor fixes.
+
+2002-10-05 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed configure.in.
+	* Started reimplementing directory view using GtkTreeView.
+
+2002-10-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added "Clear cache" menu item in main menu of thumbnail window.
+	* Modified to create thumbnail if it isn't exist when opne the image in
+	image window.
+
+2002-10-03 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed indent.
+
+2002-10-03 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added "Edit Comment" menu item in main menu of image window.
+
+2002-10-03 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed bug in recursive loading.
+	* Added $ID.
+	* Fixed indent.
+
+2002-09-25 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added new sort menu items.
+	* The bug that peimage_destroy in SPI loader is never called when
+	peimage_load faild has been fixed (Thanks! Kazuki Iwamoto)
+	* Added Left/Middle/Right description to mouse preference (Thanks! knee)
+	* Moved thumbnail display modes related to sources to
+	$(top_srcdir)/plugins/thumbnail_view
+
+2002-09-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version 0.2.5
+
+2002-09-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Changed default thumbnail display mode to "Thumbnail2"
+
+2002-09-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* dirview.c: Modified to highlight directory which is already scaned.
+
+2002-09-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* dirview.c: Modified to use GTK_STATE_PRELIGHT style when the mouse
+	pointer is over the row while DnD.
+
+2002-09-15 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that the thumbnail created by the image view is not reflected
+	in a thumbnail view has been fixed.
+
+2002-09-15 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that the scrollber on preview is displayed regardless of 
+	preference has been fixed.
+	* minor fixes.
+
+2002-09-14 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added gimv original PNG loader.
+	* Enabled to display image size on "detail" view.
+	* The bug that treatment of alpha channel is broken has been fixed.
+	* Fixed compile problem which apparent when SPI loader is enabled.
+	(Thanks! Shitamori)
+	* minor fixes
+
+2002-09-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added muose button preference for directory view.
+
+2002-09-05 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified design of image loader.
+
+2002-09-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to change background color of image window.
+
+2002-09-03 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Improved performance of creating thumbnail.
+
+2002-09-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version 0.2.4
+
+2002-08-31 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Install directory of document has been changed to $(datadir)/doc
+
+2002-08-30 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified to fit windows size to image correctly whether scrollbar is
+	visible or not.
+
+2002-08-30 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added auto hide cursor stuff on fullscreen.
+
+2002-08-30 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that back ground color on slidshow was not set correctly has
+	been fixed.
+
+2002-08-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added key accelerators to fullscreen of image window.
+
+2002-08-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified fullscreen stuff of image window.
+	* Renamed old fullscreen stuff to "Maximize".
+
+2002-08-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Minor fixes.
+
+2002-08-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/image_window.c: The bug that the program clash when resize the
+	image window when no image was shown has been fixed.
+
+2002-08-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* configure.in: fixed.
+
+2002-08-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* gimageview.spec.in: Updated.
+	* Moved image loader sources to $(top_srcdir)/plugins/image_loader/
+
+2002-08-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Moved widget related sources to $(top_srcdir)/widget/
+
+2002-08-26 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Support saving Nautilus-1.0.6 thumbnail.
+
+2002-08-26 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified to check functions of libmng by configure.
+
+2002-08-25 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed link2abs() and file_util_conv_rel_path_to_abs() (renamed to
+	relpath2abs).
+
+2002-08-25 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Support Nautilus-2.0 thumbnail.
+
+2002-08-25 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Improved compatibility of xvpics thumbanail.
+	* Modified to check png_get_header_ver() by configure.
+
+2002-08-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	* improved librsvg detection.
+
+2002-08-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified to save key accelerators.
+
+2002-08-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/pixbuf_anim.[ch]: separate gimv_anim.c.
+	* src/pixbuf_loader.[ch]: separate from pixbuf_utils.c.
+
+2002-08-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that resizing window was not work correctly when "Auto
+	resize to image size" and "Auto resize to window size when opening"
+	were both enabled has been fixed.
+
+2002-08-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* m4/gtk-2.0.m4: deleted.
+	* m4/pkg.m4: added.
+
+2002-08-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed clash bug in SVG loader.
+	* Support librsvg-2.0 (when compile against Gtk+-2.0).
+	* The clash bug in animation GIf loader has been fixe (Gtk+-2.0)
+
+2002-08-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that both gdk-pixbuf-1.0 and 2.0 were linked when compile
+	against Gtk+-2.0 has been fixed.
+	* Update xml-i18n-tools
+
+2002-07-15 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed configure.in
+
+2002-07-06 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The clash bug on openning image window has been fixed.
+
+2002-07-05 Takuro Ashie <ashie@homa.ne.jp>
+
+	* By the suggestion from ns, panning image preference has been added to
+	mouse preference of image window and preview.
+
+2002-07-01 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that libmng.h was included compulsory whether mng support was
+	enabled or not has been fixed.
+
+2002-07-01 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.3
+
+2002-06-30 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed problem that delete button in preference->common->filter is not
+	work collectly.
+
+2002-06-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added temporary gzip and bzip2 support.
+	To enable this feature, you should add "gz" and "bz2" suffix in
+	preference->common->filter.
+
+2002-06-27 Takuro Ashie <ashie@homa.ne.jp>
+
+	* By the suggestion from dac, enabled to load the thumbnails there
+	where you look on the list.
+
+2002-06-25 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed rotating animation image.
+
+2002-06-18 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Support MNG/JNG (libmng required).
+
+2002-06-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Support animation GIF (gdk-pixbuf 2.0).
+
+2002-06-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/help.c
+	* po/ja.po: Fixed typo.
+
+2002-06-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Support animation GIF (gdk-pixbuf 1.0).
+
+2002-06-09 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that comment file isn't renamed when moving image file has
+	been fixed.
+
+2002-06-06 Guillaume Libersat <glibersat@linux62.com>
+
+	* po/fr.po: Added (Thanks for tranlating).
+
+2002-05-31 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.2
+
+2002-05-31 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to open image window without image.
+	* Replaced COPYING.jp to new translation.
+
+2002-05-30 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that reference count of ImageInfo was wrong when use
+	iamge_info_get_url has been fixed.
+	* Minor improvement.
+
+2002-05-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug in searching autoplay mrl has been fixed.
+	* Enabled to hold an image list by ImageView itself.
+	* Bug fix.
+
+2002-05-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that "-e" option is not work correctly when directory is
+	specified has been fixed.
+	* Fixed PCX loader.
+
+2002-05-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added menu for movie on preview and image window.
+	* Attach player toolbar to movie file when open the movie in image
+	window.
+	* Support Xine's auto play plugin.
+
+2002-05-27 Takuro Ashie <ashie@homa.ne.jp>
+
+	* configure.in: Bug fix.
+
+2002-05-26 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added preference of delay time for auto save of movie's thumbnail.
+	* The bug that enter key is not enabled on location entry when using
+	Gtk+-2.0 has been fixed,
+	* Bugfix.
+
+2002-05-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The problem that the UI for plugin's directory was broken has been
+	fixed.
+
+2002-05-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to save thumbnail for movie files.
+
+2002-05-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug which stall when open empty image window has been fixed.
+	* The bug which ignore minimum cell size preference when loadable image
+	is not exist on ZAlbum has been fixed.
+
+2002-05-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Support movie files using Xine.
+
+2002-05-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* SUpport SVG format (depend on librsvg).
+
+2002-05-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* By the suggestion from Tritesse, bind PageDown,PageUp,Home,End key to
+	changing image, and cursor key to panning image.
+
+2002-05-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* xml-i18n-toolize
+	* Added desktop file.
+
+2002-05-18 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that user defined comment entry was not displayed in japanese
+	has been fixed.
+
+2002-05-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Improved Gtk+-2.0 support.
+
+2002-05-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added "centering" preference for "Thumbnail" mode.
+
+2002-05-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Improved Gtk+-2.0 support.
+	* Modified to use gtk_object_sink() when compile against Gtk+-2.0.
+	* The problem that the DnD function in "List" and "Detail" mode was not
+	enabled has been fixed.
+
+2002-05-15 Takuro Ashie <ashie@homa.ne.jp>
+
+	* By the indication from katsu, the problem that the program depend on
+	both imlib and gdk-pixbuf has been fixed.
+
+2002-05-12 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Put array GtkTargetEntry for DnD together to src/dnd.c
+
+2002-05-09 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Now the interface which related to file has been modified to using
+	ImageInfo on ImageWindow, ImageView, and SlideShow.
+	The interface which use file name is obsolete.
+
+2002-05-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.1
+
+2002-05-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The problem which will crash if it closes immediately after opening
+	an image window has been fixed.
+
+2002-05-06 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Set widget name for each window or component module.
+	So, now style can be set up by $(datadir)/share/gtkrc or ~/.gimv/gtkrc
+	finely.
+
+2002-05-05 Takuro Ashie <ashie@homa.ne.jp>
+
+	* gtkrc: New file.
+	* Makefile.am
+	* src/Makefile.am
+	* src/gimageview.c: $(gimv_datadir)/gtkrc will be parsed on start up.
+	* src/thumbnail_view.c
+	* src/thumbnail_window.[ch]: Tab label style will be changed to "ACTIVE"
+	while loading.
+
+2002-05-05 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/thumbnail_view.c: Fixed a bug which crash when close the "Find
+	similar -resolut-" window after change thumbnail size.
+
+2002-05-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/scrolled.[ch]: Now auto scroll speed will be accelerated according
+	to the amount of mouse movements.
+
+2002-05-03 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/prefs.[ch]
+	* src/thumbview_list.[ch]
+	* src/thumbview_table2.[ch]
+	* src/zlist.[ch]: Fixed "List2" mode.
+
+2002-05-03 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/scrolled.c: Fixed horizontal auto scroll function.
+	Enabled to change auto scroll resolution.
+	* src/zlist.c: Improved performance of region selection by mouse
+	dragging. 
+	* src/thumbview_table2.c: Auto scroll resolution has been modified.
+
+2002-05-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* po/jap.po: Updated
+	* src/zalbum.[ch]: Enabled to show a label on right of a image.
+	Minor bugs has been fixed.
+	* src/zlist.[ch]: Fixed bugs in horizontal list. Enabled to change
+	horizontal <-> vertical list.
+	* src/thumbview_table2.[ch]: Added "List2" mode.
+
+2002-04-30 Takuro Ashie <ashie@homa.ne.jp>
+
+	* gimageview.spec.in: By the indication from ns <cza06074@nifty.com>,
+	fixed typo. 
+
+2002-04-25 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.0
+
+2002-04-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Now image window state will be saved when exit program.
+	* Modified default settings.
+
+2002-04-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.2.0-pre1
+
+2002-04-19 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that tab title of archive mode tab become directory name has
+	been fixed.
+	* Thumbnail size and display mode will be saved on exiting program.
+	* The problem which will cause crash if an archive file is opened in a
+	setup which displays a full path on a tab name has been fixed.
+	* Other minor fix.
+
+2002-04-19 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that tab title always become full path regardless of value in
+	preference has been fixed.
+
+2002-04-18 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added window to display result of finding similar images.
+
+2002-04-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified Comment Object to GtkObject.
+	* Enabled to sync comment data between all comment view for same comment.
+	* The bug which cannot cancel loading when "Open in New Window"
+	is selected has been fixed.
+	* Other minor fix.
+
+2002-04-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Now widgets will not be swap if top level windows is different between
+	source and destination on component DnD.
+	* The buffer over flow bug in preference window for GQview thumbnail
+	cache has been fixed.
+	* Enabled to open comment view in separate window.
+
+2002-04-14 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.1.106 (may be last 0.1.x version)
+
+2002-04-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Now comment file will be also move/copy/link when move/copy/link image
+	files.
+	* Minor bug fixes.
+
+2002-04-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added GUI for preference for converting character set.
+	* Use TextView instead of TextEntry when use Gtk+-2.0.
+
+2002-04-09 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added wrapper function for nl_langinfo(CODESET) and libcharset
+	* Enbled to handle iconv() directory when use Gtk+-1.x.
+	* In the environment without iconv, it was made to perform character
+	code conversion by itself for japanese.
+	* Now comment file will be saved by ISO-2022-JP on japanese locale.
+
+2002-04-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added $(DESTDIR) to each install directory.
+
+2002-04-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The file name was changed into UTF-8 at the time of Gtk+-2.0 use.
+
+2002-04-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that a cell may not be drawn by the right position in the
+	thumbnail 2 mode is corrected.
+
+2002-04-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.1.105 (develop version)
+
+2002-04-01 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Minor fixes
+	* Added file operation related menu to main menu on thumbnail window.
+	* Sensitivity of the main menu of a thumbnail window will be changed
+	according to the situation.
+
+2002-03-31 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to change sepalate type of thumbnail window.
+	* Set icons to main windows.
+
+2002-03-31 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The clash bug when DnD on Gtk+-1.2.8 or belower has been fixed.
+
+2002-03-30 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to swap each compnent on thumbnai view by DnD.
+
+2002-03-30 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed region select function on ZList widget.Enabled Control mask ans
+	Shift mask.
+	* Fixed handling font on ZList widget.
+	* The bug that scrollbar and actual display is not correspond has been
+	fixed.
+	* Other minor fixes.
+
+2002-03-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added region select funtion by mouse drag to ZList widget.
+
+2002-03-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added auto scroll function to Scrolled widget.
+
+2002-03-27 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that scrolled widget is not drawn correctly on Gtk+-2.0
+	has been fixed.
+
+2002-03-27 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/prefs_ui_common.[ch]
+	* src/prefs_ui_etc.[ch]
+	* src/prefs_ui_imagewin.[ch]
+	* src/prefs_ui_plugin.[ch]
+	* src/prefs_ui_progs.[ch]: New file. Sepalate from prefs_win.c.
+
+2002-03-27 Takuro Ashie <ashie@homa.ne.jp>
+
+	* GUI for key definition preference of comment has been fixed.
+
+2002-03-26 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug in comment view has been fixed.
+	* The action at the time of top directory change of a directory view is
+	changed.
+	* Modified to return the index of the cell instead of the pointer to the
+	cell for cell_select signal on ZList widget.
+	* The action for mouse button on "Detail" view has been modified.
+	* The bug tha the sorting item at the time of sorting by column title
+	click is not correspond to display has been fixed.
+	* The bug which will clash at the time of archive opening if a tab is
+	closed before list acquisition has been fixed.
+
+2002-03-25 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified image view as a composite widget.
+	* Sensitivity of the menu/button of the list move relation of an image
+	view was changed according to the situation.
+
+2002-03-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added key list setting of comment/modified GUI.
+
+2002-03-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/archiver/Makefile.am
+	* plugins/image_saver/Makefile.am
+	* plugins/thumbnail/Makefile.am: The bug that the installation directory
+	of plug-in was set to libdir has been fixed.
+	* Makefile.am
+	* doc/Makefile.am: The installation directory of an icon was specified
+	by gimv_docdir.
+	* src/pixmaps/Makefile.am: The installation directory of an icon was
+	specified by gimv_icondir.
+	* Modified gimageview.spec.in.
+
+2002-03-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* configure.in: Made gdk-pixbuf and EXIF support as default.
+
+2002-03-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.1.104 (develop version)
+
+2002-03-23 Takuro Ashie <ashie@homa.ne.jp> 
+ 
+        * The gettext related file which forgets to commit to CVS is added.
+
+2002-03-22 Takuro Ashie <ashie@homa.ne.jp> 
+
+        * It was made for all dialog windows to take out directly under a mouse.
+
+2002-03-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Assigned accelerator keys to display mode change.(Alt + 1¡Á8)
+
+2002-03-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Also assigned Shift + F10 key to directory view and thumbnail view.
+	* Assigned some short cut key.
+	* Enabled to scaling image by fixing a center on the image view.
+
+2002-03-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that file selection may not be performed correctly on
+	"Thumbnail2" mode has been fixed.
+	* Enabled to open popup menu on image view by Shift + F10 key as
+	widnow :-).
+
+2002-03-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.1.103 (develop version)
+
+2002-03-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The default was returned to thumbnail mode, because file selection may
+	not be performed correctly on "Thumbnail2" mode.
+
+2002-03-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.1.102 (develop version)
+
+2002-03-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added key preference for show/hide scrollbar of image view.
+	* Update ja.po
+
+2002-03-19 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled zoom keys on navigate window.
+	* Enabled to move display potision by cursor key on navigate window.
+	* The bug that auto completion key is not recognized correctly when
+	modification key is not set has been fixed.
+
+2002-03-19 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added navigate window on image view.
+
+2002-03-19 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Revived scrollbar of image view.
+	* Added navigate button on image view.
+	* In the directory view, expander will be set to all directories by the
+	default.
+
+2002-03-18 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/thumbview_table2.c
+	* src/zalbum.[ch]: Enabled to set mask for pixmaps.
+	* src/thumbnail_view.c: Fixed sensitivity of a popup menu.
+
+2002-03-18 Takuro Ashie <ashie@homa.ne.jp>
+
+	* libexif/Makefile.am: The problem that EXIF related files is not
+	included in package by "make dist" when --enable-exif is diabled has
+	been fixed.
+
+2002-03-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.1.101 (develop version)
+
+2002-03-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Working to make Thumbnail2 mode...
+	* added some method to zlist and zalbum classes.
+	* The bug that the destructor of a parent class is not called by zlist
+	and zalbum widget has been fixed.
+	* Fixed scrolled,zlist,zalbum widgets to enable compile against
+	Gtk+-2.0.
+	* Other minor fixes for scrolled,zlist,zalbum widgets.
+
+2002-03-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to display thumbnails on Thumbnail2 mode.
+
+2002-03-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/scrolled.[ch]
+	* src/zalbum.[ch]
+	* src/zlist.[ch]
+	* src/thumbview_table2.[ch]: New file
+	* src/thumbnai_view.c: Added Thumbnail2 mode (working)
+
+2002-03-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to display also parent directory in the case of a setup which
+	displays a directory.
+	* The bug which number of sequences of a thumbnail table may not suit to
+	screen size has been fixed.
+	* Added auto completion key more 2 slot except TAB (can set by
+	common_auto_completion1,2 prefs in ~/.gimv/keyconf file).
+	* After escaping from the callback function, it was made to perform
+	operation to the mouse button of a thumbnail view.
+
+2002-03-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug to which a value will go out on the way if there are some ":"
+	character has been fixed.
+	* Making comment view...
+	* Enable to edit options when execute external programs.
+	* Update ja.po.
+
+2002-03-15 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/comment.c: The bug that some wrong default value is set has been
+	fixed.
+	* src/comment_view.c: Changed key entry to combo.
+
+2002-03-14 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Updated to gettext-0.10.40.
+	* The bug that IconWidget label string is not terminated by NULL has
+	been fixed.
+	* Working to port to Gtk+-2.0
+
+2002-03-13 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to enter default values to some comment data automaticaly.
+	* Working to port to Gtk+-2.0
+
+2002-03-12 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Started porting to Gtk+-2.0.
+
+2002-03-12 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/prefs_win.c
+	* src/comment.c
+	* src/comment_view.c: Modified data structure.
+
+2002-03-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* gimv.desktop
+	* src/pixmaps/gimv_icon.xpm: New file
+	* Makefile.am
+	* src/pixmaps/Makefile.am: Added new files.
+	* src/image_view.c: Buf fix.
+
+2002-03-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.1.100 (develop version)
+
+2002-03-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/image_window.c
+	* src/dirview.c
+	* src/comment_view.c: Bug fix.
+
+2002-02-25 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.1.99 (develop version)
+
+2002-02-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	*  By the indication from kazuki iwamoto, converted character set of
+	INSTALL.jp from ISO-2022-JP to EUC-JP
+	* Minor bug fixe.
+
+2002-02-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Minor bug fix.
+
+2002-02-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* libexif/Makefile.am
+	* libexif/exif-byte-order.[ch]
+	* libexif/exif-content.[ch]
+	* libexif/exif-data.[ch]
+	* libexif/exif-entry.[ch]
+	* libexif/exif-format.[ch]
+	* libexif/exif-i18n.h
+	* libexif/exif-result.h
+	* libexif/exif-tag.[ch]
+	* libexif/exif-utils.[ch]
+	* libexif/jpeg-data.[ch]
+	* libexif/jpeg-marker.[ch]
+	* src/exif_view.[ch]: New files.Added EXIF support.
+
+2002-02-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	*  By the indication from katsu, the bug which stall when open image
+	after move the file by other software has been fixed.
+	* Added alpha channel support.(Back ground color is fixed to white)
+
+2002-02-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/xcf.[ch]: New file.Added xcf support.
+
+2002-02-19 Takuro Ashie <ashie@homa.ne.jp>
+
+	*  By the indication from komtsu, changed initial diretory of
+	directory view to current working directory.If directory is specified
+	by command line arguemnt, the initial direcotry will be set to last of
+	specified directories.
+	* By the indication from komtsu, the problem which can drop files to
+	same tab has been fixed.
+	* Updated to libtool-1.4.2
+	* acinclude.m4: New file.Merged libtool.m4.
+	
+2002-02-18 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.1.98 (develop version)
+
+2002-02-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* By the indication from jissama, the problem which cannot operate
+	a location entry when loading thumbnail has been fixed.
+	* Merged SGML document maintained by nyan2.
+	* By the indication from horam, the problem which the INSTALL.jp was
+	not inclueded in package has been fixed.
+	* By the indication from horam, the problem which cannot rebuild using
+	gimageview.spec.in has been fixed.
+	* Enabled to open HTML document from "Manual" in "Help" menu.
+
+2002-02-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to specify directory when execute slideshow from command line
+	("-d" and "-R" option).
+	* By the indication from jissama, the problem which may not open files
+	if a picture is changed in an image view when loading thumbnail.
+
+2002-02-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.1.97 (develop version)
+
+2002-02-14 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added filtering preference.
+
+2002-02-13 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified to display splash logo on start up (can be disabled by
+	--disable-splash option in configure).
+	* Added "Move" menu on image window.
+	* Added logo on about window.
+
+2002-02-12 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Merged RPM spec file maitained by nyan2 and horam.
+
+2002-02-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.1.96 (develop version)
+
+2002-02-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that reference relation between FRArchive and ImageInfo was
+	conflicted is fixed.
+	* The crush bug in calculation of icon_widget size has been fixed.
+	* Update ja.po
+
+2002-02-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version-0.1.95 (develop version)
+
+2002-02-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fixed bug in opening archive file from commnad line.
+	* Other minor fix.
+	* Modified some icon.
+
+2002-02-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added TGA image loader.
+
+2002-02-05 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enable to specify interval of slideshow by command line argument
+	"-W (--wait)".
+	* Enabled to open archive when specified by argument.(Still broken)
+	* Enabled to open archive from file open dialog.
+	* The bug that reference relation between FRArchive and ImageInfo was
+	conflicted is fixed.
+
+2002-02-05 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added preference for list view.
+
+2002-02-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Update archiver code based on file-roler-0.5.
+	* Now comment view is modifying.
+	* The crush bug in reading plugin preferences.
+
+2002-02-03 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified to save plugin preferences under ~/.gimv/pluginrc/
+
+2002-01-31 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Implement MAG image loader.
+	* The crush bug in about window and preference window has been fixed.
+
+2002-01-30 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Bind slideshow funtions to player toolbar.
+
+2002-01-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added player toolbar in image window.
+
+2002-01-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/slideshow.[ch]: Separate from image_window.[ch].
+	* src/dirview.c: The bug in changing top directory is fixed temporary.
+	* src/dirview.[ch]
+	* src/thumbnail_view.[ch]
+	* src/menu.c
+	* src/gfileutil.c: Fixed memory leaks.
+	* src/pixmaps/next_t.xpm
+	* src/pixmaps/prev_t.xpm
+	* src/pixmaps/ff.xpm
+	* src/pixmaps/rw.xpm
+	* src/pixmaps/play.xpm
+	* src/pixmaps/pause.xpm
+	* src/pixmaps/stop2.xpm
+	* src/pixmaps/eject.xpm: New files.
+
+2002-01-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The crush bug that searching similar image in tab that have direcotry
+	or archive file has been fixed.
+
+2002-01-27 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added mouse button preference for thumbnail view.
+	* Adde preference for preview.
+
+2002-01-27 Takuro Ashie <ashie@homa.ne.jp>
+
+        * src/argparse.c: The bug that long command line argument with value
+        isn't parsed correctly has been fixed. (Thanks!! Kazuki Iwamoto)
+
+2002-01-26 Takuro Ashie <ashie@homa.ne.jp>
+
+	*  Adde mouse button preference for preview.
+	*  Adde mouse button preference for image window.
+
+2002-01-25 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/prefs_ui_thumbwin.[ch]: Separate from prefs_win.[ch]
+	* Added mouse button preference UI for preview.
+
+2002-01-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Added "Scripts" in right click menu in thumbnail view such as Nautilus.
+	* Modified to take sensitivity when processing archive file. Also added
+	error handling.
+
+2002-01-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Changed from array for to hash table for admining display mode of
+	thumbnail view.
+	* Now moving files to different file system has been modified to copying
+	(Deleting source directory code has been removed).
+	* The problem that status bar is diplayed behind
+        time has been fixed.
+
+2002-01-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Fatal bug in PCX loader has been fixed.
+	* Added Windows/OS2 Bitmap loader. It support also bit field compression
+	and 32bit image.
+
+2002-01-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified to take sensitive for changeing top diretory when building
+	directory tree. 
+	* Added preference of searching directory list for plugin.
+	* Bug fix.
+
+2002-01-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Modified reference relation between  FRArchive and ImageInfo.
+	* Fetching information from archive member.
+	* Modified to delete temporary file for the archive file when FRArchive
+	object is completely deleted.
+	* Added preference of searching image.
+	* Other minor tuning/bug fixes.
+
+2002-01-19 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Minor tuning/bug fixes.
+
+2002-01-18 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to change show/hide directory and archive file in thumbnail view.
+	* Many minor tuning.
+	
+2002-01-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Supported saving thumbnail cache of archive member image
+	(GImageView type only).
+	* Fixed to set expander in directory view after expand tree.
+	* Other minor fixes.
+
+2002-01-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Implemented rename mode.
+
+2002-01-15 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Show/hide preview tab.
+	* Now detect extension of archive file.
+	* Integrate thumbview_free() to thumbview_delete().
+	* Enable to create thumbnail of image in archive.
+	* The bug in searching already opened tab has been fixed.
+
+2002-01-14 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to show/save additonal data for image in text file.
+	
+2002-01-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Enabled to open archive in thumbnail view.
+
+2002-01-09 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugin/archive/Makefile.am
+	* plugin/archive/lha-ext.[ch]
+	* plugin/archive/rar-ext.[ch]
+	* plugin/archive/tar-ext.[ch]
+	* plugin/archive/zip-ext.[ch]
+	* src/file-data.[ch]
+	* src/fr-archive.[ch]
+	* src/fr-command.[ch]
+	* src/fr-process.[ch]: New file (Taken from file-roler).
+	* configure.in
+	* plugin/Makefile.am
+	* src/plugin.[ch]: Temporary external archiver plugin support.
+
+2002-01-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/Makefile.am
+	* src/thumbview_detail.c
+	* src/gimv_image.[ch]: Minor fixed.
+	* src/similar.[ch]: New file. (Taken from GQview)
+	* src/thumbnail_view.[ch]
+	* src/thumbnail_window.[ch]: Added funtions to search similar image.
+
+2002-01-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gim_image.[ch]
+	* src/image_saver.[ch]
+	* plugins/image_saver/Makefile.am
+	* plugins/image_saver/png_saver.c
+	* plugins/image_saver/pnm_saver.c
+	* plugins/image_saver/xvpics_saver.c: Implemented the image_saver.
+	* src/pixbuf_utils.[ch]: Removed saving image fuctions.
+	* src/help.c: Added infomation about libpng and gdk-pixbuf in system
+	information.
+
+2002-01-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Minor fix.
+
+2002-01-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Mearge some fixes from Version-0.1.3 branch to trunk.
+	
+2001-01-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version 0.1.7 (Version-0.1.3 Branch. Bug fix release)
+
+2002-01-01 Takuro Ashie <ashie@homa.ne.jp>
+
+	(Version-0.1.3 Branch)
+	* src/prefs.[ch]
+	* src/prefs_win.c: Added preference about following symblic. 
+	* src/image_window.c: The crush bug in image window has been fixed.
+	* src/gfileutils.c
+	* po/POTFILES.in
+	* po/ja.po: Update
+
+2001-12-30 Takuro Ashie <ashie@homa.ne.jp>
+
+	(Version-0.1.3 Branch)
+	* src/dnd.c
+	* src/fileload.c
+        * src/dirview.c: The crush bug when DnD end in directory view has been
+	fixed.
+        * src/gfileutil.c
+ 	* src/prefs.[ch]: The option that do not follow symbolic link in
+	recursive direcotry searching has been added.
+
+2001-12-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	(Version-0.1.3 Branch)
+        * src/gimageview.c
+	* src/thumbnail_view.c
+        * src/thumbnail_window.c
+	* src/thumbnail_view.c: The bug that cannot drop to collection tab has
+	been fixed.
+	The bug that all sensitivity is lost when open collection tab from main
+	menu has been fixed.
+
+2001-12-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version 0.1.6 (Version-0.1.3 Branch. Bug fix release)
+
+2001-12-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	(Version-0.1.3 Branch)
+	* Modified to open thumbnail window if no arguments is specified.
+	* The bug that thumbnail loading cannot be canceled has been fixed.
+	* Some default prefereces has been modified.
+	* Modified to open image in thumbnail window by single click.
+	* Now can load next or previous image in thumbnail window by mouse
+	button clicking.
+	* Other minor fixes.
+
+2001-12-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/dither.[ch]: New file.
+	* src/pixbuf_utils.[ch]: Temporary support for saving xvpics image.
+	* plugins/xvpics.c: Temporary support for saving xvpics thumbnail.
+	* src/image_info.[ch]
+	* src/thumbnail.[ch]: Now thumbnail related functions has been returned
+	to thumbnail.[ch].
+	* plugins/ee.c
+	* plugins/gimv_thumb.c
+	* plugins/gqview.c
+	* plugins/konqueror-old.c
+	* plugins/konqueror.c
+	* plugins/nautilus.c
+	* src/thumbview_table.c
+	* src/prefs_win.c
+	* src/thumbnail_support.[ch]: Minor fix.
+
+2001-12-22 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gfileutil.c
+	* src/image_info.[ch]
+	* src/thumbnail.[ch]
+	* src/thumbnvil_view.c
+	* src/thumbvuew_detail.c
+	* src/thumbnail_support.[ch]: Other cache related funtions also has been
+	replaced to new one.
+
+2001-12-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/image_info.[ch]
+	* src/thumbnail_support.[ch]: Cache writing functions has been replaced
+	to newer one.
+	* src/prefs.[ch]
+	* src/prefs_win.c: Interface of cache writing preference has been modified. 
+
+2001-12-19 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/image_info.[ch]
+	* src/thumbnail_support.[ch]: Cache reading functions has been replaced
+	to newer one. 
+	* src/prefs.[ch]
+	* src/prefs_win.c: Interface of cache reading preference has been modified. 
+
+2001-12-18 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/thumbnail_view.c: Enabled to open image by single click when
+	preview or shared window is already opened.
+	* src/prefs.[ch]
+	* src/prefs_win.c: Added preference of web browser.
+	* src/help.c: Radio button that changes some infomation has benn added
+	in about window.
+	Modified to open web browser when URL of GImageView web site is pressed.
+	* src/thumbview_detail.c: Memory leak/crush bug has benn fixed.
+
+2001-12-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Marge some fixes from Version-0.1.3 branch to HEAD.
+
+2001-12-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/fileutil.c: Memory leaks has been fixed.(Version 0.1.3 branch)
+	* src/dnd.c: Minor fix.(Version 0.1.3 branch)
+
+2001-12-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/dnd.c: Minor fix.(Version 0.1.3 branch)
+
+2001-12-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Minor memory leaks has been fixed.(Version 0.1.3 branch)
+
+2001-12-10 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Minor memory leaks has been fixed.(Version 0.1.3 branch)
+
+2001-12-09 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version 0.1.5 (Version 0.1.3 branch. Bug fix release.)
+
+2001-12-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Some memory leaks has been fixed.(Version 0.1.3 branch)
+
+2001-12-06 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Minor fix.
+
+2001-12-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gfileutil.[ch]
+	* src/thumbnail_support.c: Bug that KDE-2.2 thumbnail support cannnot
+	be enabled has been fixed.(Version 0.1.3 branch)
+
+2001-11-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Version 0.1.4 (Version 0.1.3 branch. This is the bug fix release.)
+
+2001-11-27 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Location entry's position has been modified.
+
+2001-11-24 Takuro Ashie <ashie@homa.ne.jp>
+
+	* Temporary KDE-2.2 thumbnail support.(Version 0.1.3 branch)
+	* Minor bug fix.(Version 0.1.3 branch)
+
+2001-11-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* The bug that preference of thumbnail cache reading cannot be disabled
+	has benn fixed.
+	* The bug that cannot to move or copy files to symbolic link has been
+	fixed.
+	* Support tab dropping to thumbnail view area.
+	* Some bugs of location entry has been fixed.
+
+2001-11-16 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/prefs.[ch]
+	* src/prefs_win.c
+	* src/thumbview_detail.[ch]: Now data order in detail view has been
+	reordable.
+	* src/image_info.c: bug fix
+
+2001-11-14 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/prefs_win.c: Added tree view in preference window.
+
+2001-11-14 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/thumbview_table.c: bug fix
+
+2001-11-13 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gtk_prop.[ch]: New file (taken from XFce)
+	* src/dirview.c
+	* src/thumbnail_view.c: Added "file property" window.
+
+2001-11-13 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/dirview.c
+	* src/icon.c:
+	* src/pixmaps/Makefile.am
+	* src/pixmaps/folder-up.xpm: New file
+	* src/pixmaps/folder-go.xpm: New file
+	* src/pixmaps/folder-link.xpm: New file
+	* src/pixmaps/folder-link-open.xpm: New file
+	* Added icons for link file(directory), "." and ".." directories.
+
+2001-11-12 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/fileload.c
+	* src/thumbnail_view.[ch]
+	* src/thumbnail_window.[ch]
+	* src/thumbview_detail.[ch]
+	* src/thumbview_list.[ch]
+	* src/thumbview_tale.[ch]
+	* Now thumbnail will not be loaded if specified display mode doesn't
+	require it.
+	* Modified tab DnD.
+	
+2001-11-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/image_info.[ch]
+	* src/thumbnail.[ch]
+	* src/thumbnail_view.[ch]
+	* src/thumbview_detail.c
+	* src/thumbview_list.c
+	* src/thumbview_table.c: Moved static thumbnail data from Thumbnail
+	structure to ImageInfo structure.
+
+2001-11-11 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/auto-completion.c
+        * src/thumbnail_window.c: Fixed some bugs in location entry.
+        * src/dnd.c
+        * src/gfileutil.c
+        * src/thumbnail_view.[ch]: Added "Copy (Move) to..." menu item
+        to popup menu. Disable tab DnD when mouse button is pressed.
+        
+2001-11-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* version 0.1.3
+
+2001-11-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* thumview_detail.c: Fixed buffer over flow bug.
+
+2001-11-06 Takuro Ashie <ashie@homa.ne.jp>
+
+	* thumbnail_view.c
+        * thumbnai_window.c: Fixed problem that can't drag scrollbar of
+        thumbnail view at some platform.
+
+2001-11-05 Takuro Ashie <ashie@homa.ne.jp>
+
+	* version 0.1.2
+
+2001-10-05 - 2001-11-05
+
+	* omit ;-(
+
+2001-10-05 Takuro Ashie <ashie@homa.ne.jp>
+
+	* version 0.1.1
+
+2001-09-08 - 2001-10-05
+
+	* omit ;-(
+
+2001-09-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/prefs.c
+	* src/thumbnail_support.[ch]
+	* src/thumbview_detail.c: Display "Cahche type" info on detail view.
+	* src/menu.[ch]: Add menu_popup_modal (). This is similer to
+	gnome_popup_menu_do_popup_modal ().
+
+2001-09-06 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/fileload.c: Fix clash bug in file brawser.
+
+2001-09-04 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/dnd.[ch]
+	* src/thumbnail_view.[ch]
+	* src/thumbview_detail.c
+	* src/thumbview_table.c: Add DnD src set. Sync thumbnail selection info
+	at all display mode.
+	* src/thumbnail_window.c: Add "Refresh List" menu item.
+
+2001-09-03 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/dnd.[ch]: new file.
+	* src/dirview.[ch]
+	* src/image_view.[ch]
+	* src/thumbnail_view.[ch]
+	* src/thumbview_detail.c
+	* src/thumbview_table.c: Add drag and drop stuff (currentry, supported
+	dest side only).
+
+2001-09-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* version 0.1.0
+
+2001-09-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/prefs.c: fix duplicate key bind.
+	* src/thumbview_detail.c: brash up code. minor bug fix.
+	* src/thumbview_table.c: brash up code.
+
+2001-09-01 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/dirview.h: Add DirView struct (not used yet).
+	* src/dirview.c
+	* src/thumbnail_view.c
+	* src/thumbnail_window.[ch]: brash up code.
+	
+2001-08-31 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/thumbnail_window.c: Add "Move tab" menu item to main menu.
+	* src/thumbnail_view.[ch]: Add "/Remove from List" menu item to thumbnail
+	popup menu. Modify thumbview_free ().
+	* src/ja.po: update
+	
+2001-08-30 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/help.c: Modify "About" window.
+	* src/thumbview_detail.c: Add column title button's callback function for
+	file sort.
+	* src/prefs.c
+	* src/thumbnail_window.c: Add popup menu to notebook.
+	* configure.in: minor fix
+
+2001-08-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* po/POTFILES.in
+	* po/ja.po: update
+
+2001-08-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimageview.c
+	* src/thumbnail_window.c: Fix clash bug. Modify to allocate
+	disp_mode_labels array on start up.
+
+2001-08-29 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/argparse.c
+	* src/image_view.c
+	* src/image_window.c
+	* src/prefs.[ch]
+	* src/prefs_win.c
+	* src/thumbnail_window.c
+	* src/thumbnail_view.c
+	* src/thumbnail_tanble.c: Modify config paramater names. Add some config.
+
+2001-08-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/prefs.[ch]
+	* src/prefs_win.c
+	* src/thumbnail_window.c: Save pane size on exit.
+
+2001-08-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/thumbnail_view.c
+	* src/thumbnail_window.c: Modify widget sensitivity on thumbnail loading.
+
+2001-08-27 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/prefs.[ch]
+	* src/prefs_win.c
+	* src/thumbnail_window.c: Modify to save thumbnail window state on exit.
+
+2001-08-26 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/thumbnail_view.[ch]
+	* src/thumbnail_window.[ch]
+	* src/thumbview_table.[ch]
+	* src/thumbview_detal.[ch]: Fix thumbnail display mode independent code.
+
+2001-08-17 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/Makefile.am
+	* src/image_view.[ch]: new file.
+	* src/fileload.[ch]
+	* src/image_window.[ch]: separate image_view module to image_view.[ch]
+	* src/thumbnail_window.[ch]
+	* src/thumbnail_view.[ch]: add image preview.
+	* src/gimageview.[ch]: minor fix.
+	
+2001-08-14 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/thumbnail_window.c: Add tab close button.
+	* src/image_window.[ch]
+	* src/thumbnail_view.[ch]
+	* src/thumbnail_window.[ch]
+	* src/thumbview_list.[ch]
+	* src/thumbview_table.[ch]: Delete ThumbDispMode type. To mode specify, 
+	now using mode label instead of ThumbDispMode.
+
+2001-08-13 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/fileload.c
+	* src/thumbnail_view.[ch]: Directory open stuff has been modified. 
+	If specified directory is already opend, switch to the page.
+	* src/thumbnail_window.[ch]: enabled to toggle show/hide directory
+	view dynamically.
+
+2001-08-12 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/fileload.c
+	* src/image_window.[ch]: Image drawing stuff has been  modified.
+
+2001-08-08 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/thumbnail.[ch]
+	* src/thumbview_detail.[ch]
+	* src/thumbview_table.ch[ch]: added
+	* fileutil.c: added uid2str(), gid2str(), size2str(), time2sr(),
+	mode2str() from G-thumB's code. (for detail mode)
+	* argparse.c: minor fix
+	
+2001-08-07 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/thumbnail_table.[ch]: remove
+	* src/thumbnail_view.[ch]: Move thumbnail_table.[ch] to
+	thumbnail_view.[ch]
+	* src/prefs_win.[ch]: newfile
+	* src/thumbnail_widnow.c: reject to destroy thumnail window while file
+	loadig.
+
+2001-08-06 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/fileload.c
+	* src/thumbnail_table.[ch]: Modified file loading.
+	* src/prefs.[ch]: Enabled changing GUI redraw interval while loading
+	(trade off between performance and sensitivity).
+
+2001-08-02 Takuro Ashie <ashie@homa.ne.jp>
+
+	* version 0.0.3 (0.0.2-branch)
+	* minor bug fix.
+
+2001-07-31 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/image_window.c: minor fix
+	* src/listview.[ch]: minor fix
+	* src/Makefile.am
+	* src/fileload.c
+	* src/thumbnail_tablel.[ch] 
+	* src/thumbnail_window.[ch]: Functions related to thumbnail table has
+	been separated to thumbnail_table.[ch]. "Detail + Thumbnail" display
+	mode has been added.
+
+2001-07-30  Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/thumbnail_table.[ch]
+	* src/thumbnail_window.[ch]: added file list view.
+
+2001-07-29  Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/listview.[ch]
+	* src/thumbnail_widnow.c
+	* src/pixmaps/folder.xpm
+	* src/pixmaps/folder-open.xpm: Added directory view. Fixed clash bug.
+
+2001-07-28  Takuro Ashie <ashie@homa.ne.jp>
+
+	* version 0.0.2
+
+2001-07-28  Takuro Ashie <ashie@homa.ne.jp>
+
+	* configure.in
+	* acconfig.h: minor fix.
+	* po/ja.po: update ja.po.
+	* src/image_window.c: fix calculation of window size.
+
+2001-07-27  Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/image_window.c
+	* src/thumbnail_window.c
+	* src/prefs.[ch]: added key config feature and fix some bugs.
+
+2001-07-26  Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/thumbnail_window.[ch]: added fullscreen mode for thumbnail window.
+
+2001-07-25  Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/thumbnail_support.[ch]
+	* src/prefs.[ch]: add GImageView thumbnail cache type and disable Nautilus
+	cache writing.
+
+2001-07-23  Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/prefs.[ch]: gimvrc format changed a little.
+
+2001-07-23  Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/file.[ch]: removed
+	* src/fileload.[ch]: added
+	* po/POTFILES.in
+	* src/Makefile.am
+	* src/gimageview.c
+	* src/image_window.h
+	* src/thumbnail_window.[ch]: moved file.[ch] to fileload.[ch]
+
+2001-07-22  Takuro Ashie <ashie@homa.ne.jp>
+
+	* configure.in
+	* src/Makefile.am
+	* src/file.[ch]
+	* src/fileutil.[ch]
+	* src/pixbuf-utils.[ch]
+	* src/image_window.c
+	* src/menu.[ch]
+	* src/prefs.[ch]
+	* src/thumbnail_support.[ch]
+	* src/thumbnail_window.c
+	* src/gimv_image.[ch]: fixed gdk-pixbuf support, and added ppm save
+	function for gdk-pixbuf. Cleanup thumbnail_support.[ch].
+
+2001-07-17  Takuro Ashie <ashie@homa.ne.jp>
+
+	* configure.in
+	* acconfig.h
+	* src/Makefile.am
+	* src/file.c
+	* src/gimageview.[ch]
+	* src/prefs.[ch]
+	* src/pixbuf-utils.[ch]
+	* src/image_window.c
+	* src/thumbnail_support.[ch]
+	* src/thumbnail_window.c
+	* src/gimv_image.[ch]: added gdk-pixbuf support.
+
+2001-07-01  Takuro Ashie <ashie@homa.ne.jp>
+
+	* version 0.0.1
+	* initial release.
+

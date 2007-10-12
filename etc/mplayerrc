@@ -1,0 +1,3 @@
+# MPlayer config file for GImvMPlayer.
+fs = no
+gui = no

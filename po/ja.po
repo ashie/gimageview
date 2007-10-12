@@ -1,0 +1,4759 @@
+# GImageView
+# Copyright (C) 2001 Free Software Foundation, Inc.
+# Takuro Ashie <ashie@homa.ne.jp>, 2001.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: GImageView 0.1.99\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-12-28 13:26+0900\n"
+"PO-Revision-Date: 2004-12-28 13:27+0900\n"
+"Last-Translator: Takuro Ashie <ashie@homa.ne.jp>\n"
+"Language-Team: Japanese <ashie@homa.ne.jp>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=EUC-JP\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: etc/gimageview.desktop.in.h:1 plugins/thumbnail/gimv_thumb.c:84
+msgid "GImageView"
+msgstr "GImageView"
+
+#: etc/gimageview.desktop.in.h:2
+msgid "Image Viewer"
+msgstr "画像閲覧ソフト"
+
+#. file load
+#: src/argparse.c:39
+msgid "Scan directory at start up"
+msgstr "ディレクトリを読み込む"
+
+#: src/argparse.c:40
+msgid "Scan directory recursively (use with \"-d\")"
+msgstr "ディレクトリを再帰的に取得(\"-d\"と共に使用)"
+
+#: src/argparse.c:41
+msgid "Read dotfile when scanning directory (use with \"-d\")"
+msgstr "ディレクトリ走査時にドットファイルも読み込む"
+
+#. Ignore filename extension or not
+#: src/argparse.c:42 src/prefs_ui/prefs_ui_common.c:809
+msgid "Ignore file name extension"
+msgstr "拡張子を無視する"
+
+#. image window
+#: src/argparse.c:45
+msgid "Specify image scale on image window [%]"
+msgstr "イメージビューでの画像拡大率を指定(%)"
+
+#: src/argparse.c:46
+msgid "Keep original image on memory or not"
+msgstr "元の画像をメモリに保持するか否か"
+
+#: src/argparse.c:47
+msgid "Show menu bar on image view window"
+msgstr "イメージビューにメニューバーを表示"
+
+#: src/argparse.c:48
+msgid "Show tool bar on image view window"
+msgstr "イメージビューにツールバーを表示"
+
+#.
+#: src/argparse.c:51
+msgid "Open empty image window at start up"
+msgstr "空のイメージウィンドウを開く"
+
+#: src/argparse.c:52
+msgid "Open thumbnail window at start up"
+msgstr "サムネイルウィンドウを開く"
+
+#. default window
+#: src/argparse.c:55
+msgid "Open all images in imageview window"
+msgstr "全ての画像をイメージビューで開く"
+
+#: src/argparse.c:56
+msgid "Open all images in thumbnail window"
+msgstr "全ての画像をサムネイルビューで開く"
+
+#: src/argparse.c:57
+msgid "Open images files in slide show"
+msgstr "画像をスライドショーで開く"
+
+#: src/argparse.c:58
+msgid "Interval of slideshow (use with \"-S\") [sec]"
+msgstr "スライドショーの画像切替え間隔 (\"-Sと共に使用\") [sec]"
+
+#. etc
+#: src/argparse.c:61
+msgid "Print version infomation"
+msgstr "バージョン情報を表示"
+
+#: src/argparse.c:62
+msgid "Show this message"
+msgstr "このメッセージを表示"
+
+#: src/argparse.c:141
+#, c-format
+msgid "Unknown option: \"-%s\"\n"
+msgstr "未知のオプション: \"-%s\"\n"
+
+#: src/argparse.c:161
+msgid ""
+"Copyright (C) 2001 Takuro Ashie\n"
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"Copyright (C) 2001 Takuro Ashie\n"
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+
+#: src/argparse.c:186
+#, c-format
+msgid ""
+"Copyright (C) 2001 Takuro Ashie\n"
+"\n"
+"Usage: %s [OPTION...] [Image Files...]\n"
+"\n"
+msgstr ""
+"Copyright (C) 2001 Takuro Ashie\n"
+"\n"
+"Usage: %s [オプション...] [画像ファイル名...]\n"
+"\n"
+
+#. error
+#: src/argparse.c:261
+#, c-format
+msgid "Unknown option: \"--%s\"\n"
+msgstr "未知のオプション: \"--%s\"\n"
+
+#: src/argparse.c:317
+#, c-format
+msgid "Unknown option: \"-%c\"\n"
+msgstr "未知のオプション: \"-%c\"\n"
+
+#: src/charset.c:145 src/prefs_ui/prefs_ui_imagewin.c:138
+#: src/prefs_ui/prefs_ui_thumbwin.c:135 src/prefs_ui/prefs_ui_thumbwin.c:144
+#: src/prefs_ui/prefs_ui_thumbwin.c:154 src/prefs_ui/prefs_ui_thumbwin.c:168
+#: src/prefs_ui/prefs_ui_thumbwin.c:179
+msgid "None"
+msgstr "なし"
+
+#: src/charset.c:146
+msgid "Japanese"
+msgstr "日本語"
+
+#: src/compare_filesize.c:60
+msgid "File Size"
+msgstr "ファイルサイズ"
+
+#: src/compare_md5.c:152
+msgid "md5sum"
+msgstr "md5sum"
+
+#: src/compare_similar.c:305
+msgid "Similarity"
+msgstr "類似度"
+
+#: src/dirview.c:212
+msgid "/_Load Thumbnail"
+msgstr "/サムネイル読み込み(_L)"
+
+#: src/dirview.c:213
+msgid "/Load Thumbnail re_cursively"
+msgstr "/サムネイルを再帰的に読み込み(_C)"
+
+#: src/dirview.c:214
+msgid "/Load Thumbnail recursively in _one tab"
+msgstr "/サムネイルを1タブ内に再帰読み込み(_C)"
+
+#: src/dirview.c:215 src/dirview.c:218 src/dirview.c:220 src/dnd.c:64
+#: src/dnd.c:68 src/gimv_image_view.c:281 src/gimv_image_view.c:283
+#: src/gimv_image_view.c:286 src/gimv_image_view.c:303
+#: src/gimv_image_view.c:337 src/gimv_image_view.c:339
+#: src/gimv_image_win.c:308 src/gimv_image_win.c:318 src/gimv_image_win.c:320
+#: src/gimv_thumb_win.c:467 src/gimv_thumb_win.c:483 src/gimv_thumb_win.c:498
+#: src/gimv_thumb_win.c:518 src/gimv_thumb_win.c:520 src/gimv_thumb_view.c:185
+#: src/gimv_thumb_view.c:188 src/gimv_thumb_view.c:194
+msgid "/---"
+msgstr "/---"
+
+#: src/dirview.c:216
+msgid "/_Go to here"
+msgstr "/トップをここに変更(_G)"
+
+#: src/dirview.c:217
+msgid "/_Refresh Tree"
+msgstr "/ツリー更新(_R)"
+
+#: src/dirview.c:219 src/gimv_thumb_view.c:189
+msgid "/_Property..."
+msgstr "/プロパティ(_P)..."
+
+#: src/dirview.c:221
+msgid "/_Make Directory..."
+msgstr "/ディレクトリ作成(_M)..."
+
+#: src/dirview.c:222
+msgid "/Re_name Directory..."
+msgstr "/ディレクトリ名変更(_N)..."
+
+#: src/dirview.c:223
+msgid "/_Delete Directory..."
+msgstr "/ディレクトリ削除(_D)..."
+
+#: src/dirview.c:1526 src/fileload.c:442 src/gimv_thumb_view.c:1079
+#, c-format
+msgid "Permission denied: %s"
+msgstr "許可がありません : %s"
+
+#. gtk_object_remove_data (GTK_OBJECT (archive), "progress-bar");
+#: src/dirview.c:1529 src/exif_view.c:246 src/exif_view.c:253
+#: src/fileload.c:444 src/fileload.c:587 src/fileload.c:597 src/fileload.c:718
+#: src/gfileutil.c:463 src/gfileutil.c:477 src/gfileutil.c:499
+#: src/gfileutil.c:546 src/gfileutil.c:676 src/gfileutil.c:698
+#: src/gfileutil.c:729 src/gfileutil.c:740 src/gfileutil.c:751
+#: src/gfileutil.c:792 src/gfileutil.c:803 src/gfileutil.c:987
+#: src/gfileutil.c:1003 src/gfileutil.c:1055 src/gfileutil.c:1067
+#: src/gfileutil.c:1082 src/gfileutil.c:1148 src/gfileutil.c:1200
+#: src/gfileutil.c:1214 src/gfileutil.c:1233 src/gfileutil.c:1247
+#: src/gfileutil.c:1483 src/gfileutil.c:1490 src/gfileutil.c:1631
+#: src/gfileutil.c:1721 src/gfileutil.c:1725 src/gfileutil.c:1808
+#: src/gfileutil.c:1828 src/gfileutil.c:1866 src/gfileutil.c:1888
+#: src/gfileutil.c:1897 src/gfileutil.c:1927 src/gfileutil.c:1952
+#: src/gtkutils.c:460 src/prefs_ui/prefs_ui_common.c:182
+#: src/prefs_ui/prefs_ui_etc.c:194 src/prefs_ui/prefs_ui_etc.c:200
+#: src/prefs_ui/prefs_ui_etc.c:401 src/gimv_thumb_view.c:1016
+#: src/gimv_thumb_view.c:1081 src/gimv_thumb_view.c:2435
+#: plugins/image_view/image_view_xine.c:725
+#: plugins/image_view/image_view_xine.c:737
+#: plugins/image_view/image_view_xine.c:763
+msgid "Error!!"
+msgstr "エラー!!"
+
+#: src/dirview.c:1988 src/dirview.c:1989 src/dirview.c:1990
+msgid "Home"
+msgstr "ホーム"
+
+#: src/dirview.c:1998 src/dirview.c:1999 src/dirview.c:2000
+#: src/gimv_elist.c:985
+msgid "Up"
+msgstr "上へ"
+
+#: src/dirview.c:2008 src/dirview.c:2009 src/dirview.c:2010
+msgid "Refresh"
+msgstr "更新"
+
+#: src/dirview.c:2018
+msgid "Dotfile"
+msgstr "ドットファイル"
+
+#: src/dirview.c:2019 src/dirview.c:2020
+msgid "Show/Hide dotfile"
+msgstr "ドットファイル表示/非表示"
+
+#: src/dnd.c:63
+msgid "/Open in new tab"
+msgstr "/新規タブで開く"
+
+#: src/dnd.c:65
+msgid "/Move"
+msgstr "/移動"
+
+#: src/dnd.c:66
+msgid "/Copy"
+msgstr "/コピー"
+
+#: src/dnd.c:67
+msgid "/Symbolic Link"
+msgstr "/シンボリックリンク"
+
+#: src/dnd.c:69
+msgid "/Cancel"
+msgstr "/キャンセル"
+
+#: src/exif_view.c:147
+#, c-format
+msgid "%s EXIF data"
+msgstr "%s EXIFデータ"
+
+#. button
+#.
+#. * 2004-06-17 Takuro Ashie <ashie@homa.ne.jp>
+#. * This code causes clash on latest Gtk+2.
+#.
+#.
+#. * Change the Cancel buttons caption to Close.
+#.
+#: src/exif_view.c:159 src/fileload.c:1079
+msgid "Close"
+msgstr "閉じる"
+
+#: src/exif_view.c:239
+msgid "Tag"
+msgstr "タグ"
+
+#: src/exif_view.c:239 src/gimv_comment_view.c:531
+msgid "Value"
+msgstr "値"
+
+#: src/exif_view.c:246 src/exif_view.c:253
+msgid "EXIF data not found."
+msgstr "EXIFデータは存在しません．"
+
+#. Thumbnail page
+#. radio button
+#. *********************************************
+#. * Thumbnail Frame
+#. *********************************************
+#: src/exif_view.c:344 src/gimv_dupl_win.c:281
+#: plugins/image_view/prefs_mplayer.c:303 plugins/image_view/prefs_xine.c:256
+msgid "Thumbnail"
+msgstr "サムネイル"
+
+#: src/fileload.c:204
+msgid "*Loading Image Files* - GImageView - "
+msgstr "*画像ファイルロード中* - GImageView - "
+
+#. label
+#: src/fileload.c:210
+msgid "Now Opening Image Files..."
+msgstr "画像ファイルをロード中 ..."
+
+#. cancel button
+#: src/fileload.c:223 src/gimv_thumb_win.c:1609 src/gtk_prop.c:223
+#: src/gtkutils.c:671
+msgid "Skip"
+msgstr "スキップ"
+
+#. stop button
+#. close button
+#: src/fileload.c:230 src/gimv_image_view.c:2192 src/gimv_image_view.c:2193
+#: src/gimv_image_win.c:1008 src/gimv_thumb_win.c:1621 src/gimv_dupl_win.c:306
+msgid "Stop"
+msgstr "中止"
+
+#: src/fileload.c:311 src/gfileutil.c:185 src/gfileutil.c:187
+#, c-format
+msgid "filename = %s\n"
+msgstr "filename = %s\n"
+
+#: src/fileload.c:315
+#, c-format
+msgid "The file is archive: %s\n"
+msgstr "このファイルはアーカイブです: %s\n"
+
+#: src/fileload.c:496
+#, c-format
+msgid "No image files in this directory: %s\n"
+msgstr "このディレクトリには画像ファイルが存在しません: %s\n"
+
+#: src/fileload.c:588
+msgid "Command not found!!\n"
+msgstr "コマンドが存在しません\n"
+
+#: src/fileload.c:591
+msgid "Canceled"
+msgstr "キャンセルされました"
+
+#: src/fileload.c:592
+msgid ""
+"Processing the archive file was\n"
+"canceled by user."
+msgstr ""
+"アーカイブファイルの処理はユーザーによって\n"
+"キャンセルされました"
+
+#: src/fileload.c:596
+msgid "An error occured while processing archive file...\n"
+msgstr "アーカイブファイルを処理中にエラーが発生しました...\n"
+
+#: src/fileload.c:598
+msgid ""
+"An error occured while processing\n"
+"archive file..."
+msgstr ""
+"アーカイブファイル処理中にエラーが\n"
+"発生しました"
+
+#: src/fileload.c:719
+msgid "Cannot load this archive file.\n"
+msgstr "このアーカイブファイルを開く事ができません\n"
+
+#: src/fileload.c:952
+msgid "File name not specified!!\n"
+msgstr "ファイル名が指定されていません!!\n"
+
+#: src/fileload.c:974
+msgid "Not an image (or unsupported) file!!\n"
+msgstr "サポートされていない形式です: %s\n"
+
+#: src/fileload.c:1013
+msgid "Load file(s)"
+msgstr "ファイルを開く"
+
+#: src/fileload.c:1056
+msgid "Open selected files"
+msgstr "選択したファイルを開く"
+
+#: src/fileload.c:1063
+msgid "Thumbnail for selected files"
+msgstr "選択したファイルのサムネイル"
+
+#: src/gfileutil.c:152 src/gfileutil.c:154
+#, c-format
+msgid "scandir = %s\n"
+msgstr "scandir  = %s\n"
+
+#: src/gfileutil.c:200 src/gfileutil.c:202
+#, c-format
+msgid "dirname = %s\n"
+msgstr "dirname  = %s\n"
+
+#: src/gfileutil.c:461 src/gfileutil.c:738 src/gfileutil.c:985
+#: src/gfileutil.c:1198
+#, c-format
+msgid ""
+"Can't find source file :\n"
+"%s"
+msgstr ""
+"元のファイルが存在しません :\n"
+"%s"
+
+#: src/gfileutil.c:474 src/gfileutil.c:496
+#, c-format
+msgid ""
+"Can't move file : %s\n"
+"Permission denied: %s\n"
+msgstr ""
+"ファイルを移動できません : %s\n"
+"許可がありません : %s\n"
+
+#: src/gfileutil.c:545 src/gfileutil.c:1001
+#, c-format
+msgid ""
+"Same file :\n"
+"%s"
+msgstr ""
+"同じファイルです :\n"
+"%s"
+
+#: src/gfileutil.c:553 src/gfileutil.c:1231 src/gfileutil.c:1887
+#, c-format
+msgid "File exist : %s"
+msgstr "ファイルが存在します : %s"
+
+#: src/gfileutil.c:554
+msgid "ERROR!!"
+msgstr "エラー!!"
+
+#: src/gfileutil.c:558 src/gfileutil.c:1009
+#, c-format
+msgid ""
+"The file exists : %s\n"
+"Overwrite?"
+msgstr ""
+"ファイルは存在します : %s\n"
+"上書きしますか?"
+
+#: src/gfileutil.c:561 src/gfileutil.c:1012 src/gimv_thumb_view.c:2413
+msgid "File exist!!"
+msgstr "ファイルは存在します!!"
+
+#: src/gfileutil.c:673
+#, c-format
+msgid ""
+"Faild to remove file :\n"
+"%s"
+msgstr ""
+"ファイル削除に失敗しました :\n"
+"%s"
+
+#: src/gfileutil.c:694
+#, c-format
+msgid ""
+"Faild to move file :\n"
+"From : %s\n"
+"To : %s"
+msgstr ""
+"ファイル移動に失敗しました :\n"
+"移動元 : %s\n"
+"移動先 : %s"
+
+#: src/gfileutil.c:727
+#, c-format
+msgid "%s is link!!.\n"
+msgstr "%s はリンクです!!\n"
+
+#: src/gfileutil.c:749
+#, c-format
+msgid "%s is not directory!!.\n"
+msgstr "%s はディレクトリではありません!!\n"
+
+#: src/gfileutil.c:788
+#, c-format
+msgid ""
+"Can't copy directory : %s\n"
+"Permission denied: %s\n"
+msgstr ""
+"ファイルをコピーできません : %s\n"
+"許可がありません : %s\n"
+
+#: src/gfileutil.c:801
+#, c-format
+msgid "File exists!! : %s\n"
+msgstr "ファイルが存在します : %s\n"
+
+#: src/gfileutil.c:872
+msgid "Copy directory"
+msgstr "ディレクトリをコピー"
+
+#: src/gfileutil.c:895 src/gfileutil.c:1389
+#, c-format
+msgid "Copying %s ..."
+msgstr "コピー中 %s ..."
+
+#: src/gfileutil.c:901
+msgid "Copying directory"
+msgstr "ディレクトリコピー"
+
+#: src/gfileutil.c:1053
+#, c-format
+msgid ""
+"Can't open file for read :\n"
+"%s"
+msgstr ""
+"ファイルを読み込み用に開くことができません :\n"
+"%s"
+
+#: src/gfileutil.c:1065
+#, c-format
+msgid ""
+"Can't open file for write :\n"
+"%s"
+msgstr ""
+"ファイルを書き込み用に開くことができません :\n"
+"%s"
+
+#: src/gfileutil.c:1080
+#, c-format
+msgid ""
+"An error occured while copying file :\n"
+"%s"
+msgstr ""
+"ファイルコピー中にエラーが発生しました :\n"
+"%s"
+
+#: src/gfileutil.c:1144
+#, c-format
+msgid ""
+"Can't copy file : %s\n"
+"Permission denied: %s\n"
+msgstr ""
+"ファイルをコピーできません : %s\n"
+"許可がありません : %s\n"
+
+#: src/gfileutil.c:1211
+#, c-format
+msgid ""
+"Can't create link : %s\n"
+"Permission denied: %s\n"
+msgstr ""
+"リンクを作成できません : %s\n"
+"許可がありません : %s\n"
+
+#: src/gfileutil.c:1243
+#, c-format
+msgid ""
+"Faild to create link :\n"
+"From : %s\n"
+"To : %s"
+msgstr ""
+"リンクの作成に失敗しました :\n"
+"リンク元 : %s\n"
+"リンク先 : %s"
+
+#: src/gfileutil.c:1368
+#, c-format
+msgid "Moving %s ..."
+msgstr "移動中 %s ..."
+
+#: src/gfileutil.c:1369
+msgid "Moving files"
+msgstr "ファイル移動"
+
+#: src/gfileutil.c:1390
+msgid "Copying files"
+msgstr "ファイルコピー"
+
+#: src/gfileutil.c:1424
+#, c-format
+msgid "Creating Link %s ..."
+msgstr "リンク作成中 %s ..."
+
+#: src/gfileutil.c:1425
+msgid "Creating Links"
+msgstr "リンク作成中"
+
+#: src/gfileutil.c:1481
+#, c-format
+msgid "Directory doesn't exist!!: %s"
+msgstr "ディレクトリが存在しません : %s"
+
+#: src/gfileutil.c:1488
+#, c-format
+msgid "Permission denied!!: %s"
+msgstr "許可がありません!!: %s"
+
+#: src/gfileutil.c:1559
+msgid "Move files to..."
+msgstr "ディレクトリへ移動"
+
+#: src/gfileutil.c:1560
+msgid "Move files to: "
+msgstr "ディレクトリへ移動 : "
+
+#: src/gfileutil.c:1563
+msgid "Copy files to..."
+msgstr "ディレクトリへコピー"
+
+#: src/gfileutil.c:1564
+msgid "Copy files to: "
+msgstr "ディレクトリへコピー : "
+
+#: src/gfileutil.c:1567
+msgid "Link files to..."
+msgstr "ディレクトリへリンク"
+
+#: src/gfileutil.c:1568
+msgid "Link files to: "
+msgstr "ディレクトリへリンク : "
+
+#: src/gfileutil.c:1630
+#, c-format
+msgid "Directory not exist : %s"
+msgstr "ディレクトリが存在しません : %s"
+
+#: src/gfileutil.c:1638
+#, c-format
+msgid ""
+"%s is symbolic link.\n"
+"Remove link ?"
+msgstr ""
+"%s はシンボリックリンクです\n"
+"リンクを削除しますか?"
+
+#: src/gfileutil.c:1640 src/gfileutil.c:1652 src/gfileutil.c:1663
+msgid "Confirm Deleting Directory"
+msgstr "ディレクトリ削除 確認"
+
+#: src/gfileutil.c:1650
+#, c-format
+msgid ""
+"Delete %s\n"
+"OK?"
+msgstr ""
+"%s を削除します。\n"
+"よろしいですか?"
+
+#: src/gfileutil.c:1660
+#, c-format
+msgid ""
+"%s is not empty\n"
+"Delete all files under %s ?"
+msgstr ""
+"%s は空ではありません\n"
+"%s 以下のファイルを全て削除しますか?"
+
+#: src/gfileutil.c:1692 src/gfileutil.c:1793
+#, c-format
+msgid "Deleting %s ..."
+msgstr "削除中 %s ..."
+
+#: src/gfileutil.c:1719
+#, c-format
+msgid ""
+"Faild to remove directory :\n"
+"%s is not empty."
+msgstr ""
+"ディレクトリ削除に失敗しました :\n"
+"%s は空ではありません"
+
+#: src/gfileutil.c:1724
+#, c-format
+msgid "Faild to remove directory : %s"
+msgstr "ディレクトリ削除に失敗しました : %s"
+
+#: src/gfileutil.c:1757
+#, c-format
+msgid ""
+"Delete these %d files.\n"
+"OK?"
+msgstr ""
+"これら %d ファイルを削除します。\n"
+"よろしいですか?"
+
+#: src/gfileutil.c:1760
+msgid "Confirm Deleting Files"
+msgstr "ファイル削除 確認"
+
+#: src/gfileutil.c:1769
+msgid "Delete File"
+msgstr "ファイル削除"
+
+#: src/gfileutil.c:1770
+msgid "Deleting Files"
+msgstr "ファイル削除中"
+
+#: src/gfileutil.c:1807 src/gfileutil.c:1865
+#, c-format
+msgid "Permission denied : %s"
+msgstr "許可がありません : %s"
+
+#: src/gfileutil.c:1826
+#, c-format
+msgid ""
+"Faild to delete file :\n"
+"%s"
+msgstr ""
+"ファイル削除に失敗しました :\n"
+"%s"
+
+#: src/gfileutil.c:1870
+msgid "Make directory"
+msgstr "ディレクトリ作成"
+
+#: src/gfileutil.c:1871 src/gfileutil.c:1937
+msgid "New directory name: "
+msgstr "新規ディレクトリ名: "
+
+#: src/gfileutil.c:1884
+#, c-format
+msgid "Directory exist : %s"
+msgstr "ディレクトリが存在します : %s"
+
+#: src/gfileutil.c:1896
+#, c-format
+msgid "Faild to create directory : %s"
+msgstr "ディレクトリ作成に失敗しました : %s"
+
+#: src/gfileutil.c:1926
+#, c-format
+msgid "Directory not exist :%s"
+msgstr "ディレクトリが存在しません : %s"
+
+#: src/gfileutil.c:1936
+msgid "Rename directory"
+msgstr "ディレクトリ名変更"
+
+#: src/gfileutil.c:1951
+#, c-format
+msgid "Faild to rename directory : %s"
+msgstr "ディレクトリ名変更に失敗しました : %s"
+
+#: src/gimageview.c:230
+msgid "No image file is specified!!"
+msgstr "画像ファイルが指定されていません!!"
+
+#: src/gimageview.c:232
+msgid "If you want to scan directory, use \"-d\" option."
+msgstr "ディレクトリをスキャンしたい場合は \"-d\" を付加して下さい"
+
+#: src/gimageview.c:237
+msgid "No window is opened!! Quiting..."
+msgstr "ウィンドウが開かれていません!! 終了します..."
+
+#: src/gimv_comment.c:74
+msgid "Subject"
+msgstr "題名"
+
+#: src/gimv_comment.c:75
+msgid "Date"
+msgstr "日付"
+
+#: src/gimv_comment.c:76
+msgid "Location"
+msgstr "場所"
+
+#: src/gimv_comment.c:77
+msgid "Model"
+msgstr "モデル"
+
+#: src/gimv_comment.c:78
+msgid "Comment Time"
+msgstr "コメント作成日時"
+
+#: src/gimv_comment.c:79
+msgid "URL"
+msgstr "URL"
+
+#: src/gimv_comment.c:80
+msgid "Path in Archive"
+msgstr "アーカイブ内パス"
+
+#: src/gimv_comment.c:81 src/gimv_dupl_win.c:124
+msgid "Modification Time"
+msgstr "更新日時"
+
+#: src/gimv_comment.c:82
+msgid "Image Type"
+msgstr "画像タイプ"
+
+#: src/gimv_comment.c:83
+msgid "Image Size"
+msgstr "画像サイズ"
+
+#: src/gimv_comment.c:417
+msgid "Can't open comment file for read."
+msgstr "コメントファイルを読み込み用に開くことができません"
+
+#: src/gimv_comment.c:788 plugins/thumbnail/gimv_thumb.c:261
+msgid "cannot make dir\n"
+msgstr "ディレクトリを作成できません\n"
+
+#: src/gimv_comment.c:794
+msgid "Can't open comment file for write."
+msgstr "コメントファイルを書き込み用に開くことができません"
+
+#: src/gimv_comment_view.c:531
+msgid "Key"
+msgstr "キー"
+
+#: src/gimv_comment_view.c:533
+msgid "Data"
+msgstr "データ"
+
+#: src/gimv_comment_view.c:618
+msgid "Key: "
+msgstr "キー:"
+
+#: src/gimv_comment_view.c:630
+msgid "Value: "
+msgstr "値:"
+
+#. "Note" page
+#: src/gimv_comment_view.c:674
+msgid "Note"
+msgstr "ノート"
+
+#: src/gimv_comment_view.c:1101 src/gimv_comment_view.c:1104
+msgid "_Save"
+msgstr "保存(_S)"
+
+#. GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
+#: src/gimv_comment_view.c:1112 src/gimv_comment_view.c:1115
+msgid "_Reset"
+msgstr "リセット(_R)"
+
+#. GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
+#: src/gimv_comment_view.c:1123 src/gimv_comment_view.c:1126
+msgid "_Delete"
+msgstr "削除(_D)"
+
+#: src/gimv_comment_view.c:1174
+#, c-format
+msgid "Edit Comment (%s)"
+msgstr "コメントを編集 (%s)"
+
+#: src/gimv_comment_view.c:1213 src/gimv_comment_view.c:1216
+msgid "_Prev"
+msgstr "前へ(_P)"
+
+#: src/gimv_comment_view.c:1224 src/gimv_comment_view.c:1227
+msgid "_Next"
+msgstr "次へ(_N)"
+
+#: src/gimv_image_view.c:277 src/gimv_image_view.c:296
+#: src/gimv_image_view.c:320 src/gimv_image_view.c:331
+#: src/gimv_image_win.c:304
+msgid "/tear"
+msgstr "/tear"
+
+#: src/gimv_image_view.c:278 src/gimv_image_win.c:305
+msgid "/_Zoom"
+msgstr "/ズーム(_Z)"
+
+#: src/gimv_image_view.c:279 src/gimv_image_win.c:306
+msgid "/_Rotate"
+msgstr "/回転(_R)"
+
+#: src/gimv_image_view.c:280 src/gimv_image_win.c:307
+msgid "/Ignore _Alpha Channel"
+msgstr "/アルファチャンネルを無視"
+
+#: src/gimv_image_view.c:282 src/gimv_image_win.c:294
+msgid "/M_ovie"
+msgstr "/動画(_O)"
+
+#: src/gimv_image_view.c:284 src/gimv_image_win.c:319
+msgid "/_View modes"
+msgstr "/表示モード(_V)"
+
+#: src/gimv_image_view.c:285
+msgid "/Show _Scrollbar"
+msgstr "/スクロールバーを表示(_S)"
+
+#: src/gimv_image_view.c:287
+msgid "/Create _Thumbnail"
+msgstr "/サムネイル作成(_T)"
+
+#: src/gimv_image_view.c:288
+msgid "/Memory _Buffer"
+msgstr "/メモリバッファ(_B)"
+
+#: src/gimv_image_view.c:297
+msgid "/Zoom _In"
+msgstr "/拡大(_I)"
+
+#: src/gimv_image_view.c:298
+msgid "/Zoom _Out"
+msgstr "/縮小(_O)"
+
+#: src/gimv_image_view.c:299
+msgid "/_Fit to Window"
+msgstr "/ウィンドウの大きさに合わせる(_F)"
+
+#: src/gimv_image_view.c:300
+msgid "/_Fit _Width"
+msgstr "/幅を合わせる(_W)"
+
+#: src/gimv_image_view.c:301
+msgid "/_Fit _Height"
+msgstr "/高さを合わせる(_H)"
+
+#: src/gimv_image_view.c:302
+msgid "/Keep _aspect ratio"
+msgstr "/アスペクト比を保持(_A)"
+
+#: src/gimv_image_view.c:304
+msgid "/10%(_1)"
+msgstr "/10%(_1)"
+
+#: src/gimv_image_view.c:305
+msgid "/25%(_2)"
+msgstr "/25%(_2)"
+
+#: src/gimv_image_view.c:306
+msgid "/50%(_3)"
+msgstr "/50%(_3)"
+
+#: src/gimv_image_view.c:307
+msgid "/75%(_4)"
+msgstr "/75%(_4)"
+
+#: src/gimv_image_view.c:308
+msgid "/100%(_5)"
+msgstr "/100%(_5)"
+
+#: src/gimv_image_view.c:309
+msgid "/125%(_6)"
+msgstr "/125%(_6)"
+
+#: src/gimv_image_view.c:310
+msgid "/150%(_7)"
+msgstr "/150%(_7)"
+
+#: src/gimv_image_view.c:311
+msgid "/175%(_8)"
+msgstr "/175%(_8)"
+
+#: src/gimv_image_view.c:312
+msgid "/200%(_9)"
+msgstr "/200%(_9)"
+
+#: src/gimv_image_view.c:321
+msgid "/Rotate 90 degrees CW"
+msgstr "/時計回りに90°回転"
+
+#: src/gimv_image_view.c:322
+msgid "/Rotate 90 degrees CCW"
+msgstr "/反時計回りに90°回転"
+
+#: src/gimv_image_view.c:323
+msgid "/Rotate 180 degrees"
+msgstr "/180度回転"
+
+#: src/gimv_image_view.c:332
+msgid "/_Play"
+msgstr "/再生(_P)"
+
+#: src/gimv_image_view.c:333
+msgid "/_Stop"
+msgstr "/停止(_S)"
+
+#: src/gimv_image_view.c:334
+msgid "/P_ause"
+msgstr "/一時停止(_A)"
+
+#: src/gimv_image_view.c:335
+msgid "/_Forward"
+msgstr "/早送り(_F)"
+
+#: src/gimv_image_view.c:336
+msgid "/_Reverse"
+msgstr "巻戻し(_R)"
+
+#: src/gimv_image_view.c:338
+msgid "/_Continuance"
+msgstr "/連続再生(_C)"
+
+#: src/gimv_image_view.c:340
+msgid "/_Eject"
+msgstr "取り出し(_E)"
+
+#: src/gimv_image_view.c:2106
+#, c-format
+msgid "File not exist: %s\n"
+msgstr "ファイルは存在しません: %s\n"
+
+#: src/gimv_image_view.c:2108
+#, c-format
+msgid "Not an image (or unsupported) file: %s\n"
+msgstr "サポートされていない形式です: %s\n"
+
+#: src/gimv_image_view.c:2171
+msgid "RW"
+msgstr "前へ"
+
+#: src/gimv_image_view.c:2172
+msgid "Reverse"
+msgstr "巻戻し"
+
+#: src/gimv_image_view.c:2181 src/gimv_image_view.c:2182
+#: src/gimv_image_win.c:999
+msgid "Play"
+msgstr "再生"
+
+#: src/gimv_image_view.c:2202
+msgid "FF"
+msgstr "次へ"
+
+#: src/gimv_image_view.c:2203
+msgid "Forward"
+msgstr "早送り"
+
+#: src/gimv_image_view.c:2212 src/gimv_image_view.c:2213
+msgid "Eject"
+msgstr "Eject"
+
+#: src/gimv_image_view.h:40
+msgid "Default Image Viewer"
+msgstr "デフォルト画像ビューア"
+
+#: src/gimv_image_win.c:273 src/gimv_thumb_win.c:380
+msgid "/_File"
+msgstr "/ファイル(_F)"
+
+#: src/gimv_image_win.c:274 src/gimv_thumb_win.c:381
+msgid "/_File/_Open..."
+msgstr "/ファイル(_F)/開く(_O)..."
+
+#: src/gimv_image_win.c:275
+msgid "/_File/Open _Image Window"
+msgstr "/ファイル(_F)/新規イメージウィンドウ(_I)"
+
+#: src/gimv_image_win.c:276
+msgid "/_File/Open _Thumbnail Window"
+msgstr "/ファイル(_F)/新規サムネイルウィンドウ(_T)"
+
+#: src/gimv_image_win.c:277 src/gimv_image_win.c:279 src/gimv_thumb_win.c:385
+msgid "/_File/---"
+msgstr "/ファイル(_F)/---"
+
+#: src/gimv_image_win.c:278
+msgid "/_File/Memory _Buffer"
+msgstr "/ファイル(_F)/メモリバッファ(_B)"
+
+#: src/gimv_image_win.c:280
+msgid "/_File/_Close"
+msgstr "/ファイル(_F)/閉じる(_C)"
+
+#: src/gimv_image_win.c:281 src/gimv_thumb_win.c:388
+msgid "/_File/_Quit"
+msgstr "/ファイル(_F)/終了(_Q)"
+
+#: src/gimv_image_win.c:283 src/gimv_thumb_win.c:390
+msgid "/_Edit"
+msgstr "/編集(_E)"
+
+#: src/gimv_image_win.c:284
+msgid "/_Edit/Edit _Comment..."
+msgstr "/編集(_E)/コメントを編集(_C)..."
+
+#: src/gimv_image_win.c:285
+msgid "/_Edit/Scan E_XIF Data..."
+msgstr "/編集(_E)/EXIFデータを検索(_X)..."
+
+#: src/gimv_image_win.c:286
+msgid "/_Edit/Create _Thumbnail"
+msgstr "/編集(_E)/サムネイル作成(_T)"
+
+#: src/gimv_image_win.c:287 src/gimv_thumb_win.c:393 src/gimv_thumb_win.c:397
+#: src/gimv_thumb_win.c:406
+msgid "/_Edit/---"
+msgstr "/編集(_E)/---"
+
+#: src/gimv_image_win.c:288 src/gimv_thumb_win.c:407
+msgid "/_Edit/_Options..."
+msgstr "/編集(_E)/設定(_O)..."
+
+#: src/gimv_image_win.c:290 src/gimv_thumb_win.c:409
+msgid "/_View"
+msgstr "/表示(_V)"
+
+#: src/gimv_image_win.c:292
+msgid "/_Move"
+msgstr "/移動(_M)"
+
+#: src/gimv_image_win.c:296 src/gimv_thumb_win.c:448
+msgid "/_Help"
+msgstr "/ヘルプ(_H)"
+
+#: src/gimv_image_win.c:309 src/gimv_thumb_win.c:487
+msgid "/_Menu Bar"
+msgstr "/メニューバー(_M)"
+
+#: src/gimv_image_win.c:310
+msgid "/_Tool Bar"
+msgstr "/ツールバー(_T)"
+
+#: src/gimv_image_win.c:311
+msgid "/Slide Show _Player"
+msgstr "/スライドショープレーヤ(_P)"
+
+#: src/gimv_image_win.c:312 src/gimv_thumb_win.c:490
+msgid "/St_atus Bar"
+msgstr "/ステータスバー(_A)"
+
+#: src/gimv_image_win.c:313
+msgid "/_Scroll Bar"
+msgstr "/スクロールバー(_S)"
+
+#: src/gimv_image_win.c:314 src/gimv_thumb_win.c:493
+msgid "/_Player"
+msgstr "/プレーヤ(_P)"
+
+#: src/gimv_image_win.c:315 src/gimv_thumb_win.c:494
+msgid "/_Player/_Show"
+msgstr "/プレーヤ(_P)/表示(_S)"
+
+#: src/gimv_image_win.c:316 src/gimv_thumb_win.c:495
+msgid "/_Player/_Hide"
+msgstr "/プレーヤ(_P)/非表示(_H)"
+
+#: src/gimv_image_win.c:317 src/gimv_thumb_win.c:496
+msgid "/_Player/_Auto"
+msgstr "/プレーヤ(_P)/自動(_A)"
+
+#: src/gimv_image_win.c:321
+msgid "/_Fit to Image"
+msgstr "画像の大きさに合わせる(_F)"
+
+#: src/gimv_image_win.c:322 src/gimv_thumb_win.c:500
+msgid "/Ma_ximize"
+msgstr "/最大化(_X)"
+
+#: src/gimv_image_win.c:323
+msgid "/F_ull Screen"
+msgstr "/全画面(_U)"
+
+#: src/gimv_image_win.c:330
+msgid "/_Next"
+msgstr "次へ(_N)"
+
+#: src/gimv_image_win.c:331
+msgid "/_Previous"
+msgstr "前へ(_P)"
+
+#: src/gimv_image_win.c:332
+msgid "/_First"
+msgstr "/最初へ(_F)"
+
+#: src/gimv_image_win.c:333
+msgid "/_Last"
+msgstr "/最後へ(_L)"
+
+#: src/gimv_image_win.c:577 src/gimv_thumb_win.c:751
+msgid "New Window"
+msgstr "新規ウィンドウ"
+
+#: src/gimv_image_win.c:789 src/prefs_ui/prefs_ui_imagewin.c:60
+msgid "90 degrees CCW"
+msgstr "90°反時計回り"
+
+#: src/gimv_image_win.c:790 src/prefs_ui/prefs_ui_imagewin.c:59
+msgid "0 degrees"
+msgstr "0°"
+
+#: src/gimv_image_win.c:791 src/prefs_ui/prefs_ui_imagewin.c:62
+msgid "90 degrees CW"
+msgstr "90°時計回り"
+
+#: src/gimv_image_win.c:792 src/prefs_ui/prefs_ui_imagewin.c:61
+msgid "180 degrees"
+msgstr "180°"
+
+#: src/gimv_image_win.c:802 src/gimv_thumb_win.c:1550
+msgid "Open"
+msgstr "開く"
+
+#: src/gimv_image_win.c:803 src/gimv_image_win.c:804 src/gimv_thumb_win.c:1551
+#: src/gimv_thumb_win.c:1552
+msgid "File Open"
+msgstr "ファイルを開く"
+
+#: src/gimv_image_win.c:812 src/gimv_thumb_win.c:1561
+msgid "Prefs"
+msgstr "設定"
+
+#: src/gimv_image_win.c:813 src/gimv_image_win.c:814 src/gimv_prefs_win.c:810
+#: src/gimv_thumb_win.c:1562 src/gimv_thumb_win.c:1563
+#: src/prefs_ui/prefs_ui_etc.c:582
+msgid "Preference"
+msgstr "設定"
+
+#: src/gimv_image_win.c:824 src/gimv_image_win.c:990 src/gimv_thumb_win.c:1574
+msgid "Prev"
+msgstr "前"
+
+#: src/gimv_image_win.c:825 src/gimv_image_win.c:826
+msgid "Previous Image"
+msgstr "前の画像"
+
+#: src/gimv_image_win.c:836 src/gimv_image_win.c:1017
+#: src/gimv_image_win.c:1018 src/gimv_thumb_win.c:1585
+msgid "Next"
+msgstr "次"
+
+#: src/gimv_image_win.c:837 src/gimv_image_win.c:838
+msgid "Next Image"
+msgstr "次の画像"
+
+#: src/gimv_image_win.c:850 src/gimv_image_win.c:851 src/gimv_image_win.c:852
+msgid "No Zoom"
+msgstr "等倍"
+
+#: src/gimv_image_win.c:860 src/gimv_image_win.c:861 src/gimv_image_win.c:862
+#: src/prefs_ui/prefs_ui_imagewin.c:142 src/prefs_ui/prefs_ui_thumbwin.c:185
+msgid "Zoom in"
+msgstr "拡大"
+
+#: src/gimv_image_win.c:870 src/gimv_image_win.c:871 src/gimv_image_win.c:872
+#: src/prefs_ui/prefs_ui_imagewin.c:143 src/prefs_ui/prefs_ui_thumbwin.c:186
+msgid "Zoom out"
+msgstr "縮小"
+
+#: src/gimv_image_win.c:880 src/gimv_image_win.c:881 src/gimv_image_win.c:882
+msgid "Zoom fit"
+msgstr "フィット"
+
+#: src/gimv_image_win.c:900
+msgid "X Scale"
+msgstr "X軸スケール"
+
+#: src/gimv_image_win.c:915
+msgid "Y Scale"
+msgstr "Y軸スケール"
+
+#: src/gimv_image_win.c:921 src/gimv_image_win.c:922 src/gimv_image_win.c:923
+msgid "Zoom"
+msgstr "ズーム"
+
+#: src/gimv_image_win.c:936
+msgid "Rotate"
+msgstr "回転"
+
+#: src/gimv_image_win.c:936
+msgid "Rotate the image"
+msgstr "画像を回転"
+
+#: src/gimv_image_win.c:944
+msgid "Resize"
+msgstr "リサイズ"
+
+#: src/gimv_image_win.c:945 src/gimv_image_win.c:946
+msgid "Fit Window Size to Image"
+msgstr "ウィンドウの大きさを画像に合わせる"
+
+#: src/gimv_image_win.c:955
+msgid "Full"
+msgstr "全画面"
+
+#: src/gimv_image_win.c:956 src/gimv_image_win.c:957
+msgid "Fullscreen"
+msgstr "全画面"
+
+#: src/gimv_image_win.c:981 src/gimv_image_win.c:982
+msgid "First"
+msgstr "最初"
+
+#: src/gimv_image_win.c:991
+msgid "Previous"
+msgstr "Previous"
+
+#: src/gimv_image_win.c:1000
+msgid "Play Slide Show"
+msgstr "スライドショー開始"
+
+#: src/gimv_image_win.c:1009
+msgid "Stop Slide Show"
+msgstr "スライドショー停止"
+
+#: src/gimv_image_win.c:1026 src/gimv_image_win.c:1027
+msgid "Last"
+msgstr "最後"
+
+#: src/gimv_image_win.c:1138
+#, c-format
+msgid "%s (%s) - %s - "
+msgstr "\"%s (%s) - %s - "
+
+#: src/gimv_image_win.c:1141
+#, c-format
+msgid "* %s (%s) - %s - *"
+msgstr "* %s (%s) - %s - *"
+
+#: src/gimv_image_win.c:1146
+#, c-format
+msgid "- %s -"
+msgstr "- %s -"
+
+#: src/gimv_image_win.c:1148
+#, c-format
+msgid "* - %s - *"
+msgstr "* - %s - *"
+
+#: src/gimv_image_win.c:1162
+msgid "NONE"
+msgstr "NONE"
+
+#: src/gimv_image_win.c:1163
+msgid "UNKNOWN"
+msgstr "UNKNOWN"
+
+#: src/gimv_image_win.c:1189
+#, c-format
+msgid "%s (Buffer ON)"
+msgstr "%s (Buffer ON)"
+
+#: src/gimv_image_win.c:1191
+#, c-format
+msgid "%s (Buffer OFF)"
+msgstr "%s (Buffer OFF)"
+
+#: src/gimv_image_win.c:1196
+msgid "(Buffer ON)"
+msgstr "(Buffer ON)"
+
+#: src/gimv_image_win.c:1198
+msgid "(Buffer OFF)"
+msgstr "(Buffer OFF)"
+
+#: src/gimv_prefs_ui_utils.c:124
+msgid "Normal"
+msgstr "普通"
+
+#: src/gimv_prefs_ui_utils.c:125
+msgid "Shift"
+msgstr "Shift"
+
+#: src/gimv_prefs_ui_utils.c:126
+msgid "Control"
+msgstr "Control"
+
+#: src/gimv_prefs_ui_utils.c:127
+msgid "Mod1"
+msgstr "Mod1"
+
+#: src/gimv_prefs_ui_utils.c:189
+#, c-format
+msgid "Mouse Button %d (Wheel up)"
+msgstr "マウスボタン %d (ホイールアップ)"
+
+#: src/gimv_prefs_ui_utils.c:191
+#, c-format
+msgid "Mouse Button %d (Wheel down)"
+msgstr "マウスボタン %d (ホイールダウン)"
+
+#: src/gimv_prefs_ui_utils.c:193
+#, c-format
+msgid "Mouse Button %d Double Click"
+msgstr "マウスボタン %d ダブルクリック"
+
+#: src/gimv_prefs_ui_utils.c:196 src/prefs_ui/prefs_ui_thumbwin.c:125
+msgid "Left"
+msgstr "左"
+
+#: src/gimv_prefs_ui_utils.c:196
+msgid "Middle"
+msgstr "中"
+
+#: src/gimv_prefs_ui_utils.c:196 src/prefs_ui/prefs_ui_thumbwin.c:126
+msgid "Right"
+msgstr "右"
+
+#: src/gimv_prefs_ui_utils.c:198
+#, c-format
+msgid "Mouse Button %d (%s)"
+msgstr "マウスボタン %d (%s)"
+
+#: src/gimv_prefs_ui_utils.c:243
+msgid "Pressed"
+msgstr "プレス"
+
+#: src/gimv_prefs_ui_utils.c:246
+msgid "Released"
+msgstr "リリース"
+
+#: src/gimv_prefs_ui_utils.c:386
+msgid "Select directory"
+msgstr "ディレクトリを選択"
+
+#. show directory
+#: src/gimv_prefs_ui_utils.c:420 src/prefs_ui/prefs_ui_thumbwin.c:746
+msgid "Directory"
+msgstr "ディレクトリ"
+
+#: src/gimv_prefs_ui_utils.c:454
+msgid "Directory to add : "
+msgstr "追加するディレクトリ : "
+
+#: src/gimv_prefs_ui_utils.c:463
+msgid "Select"
+msgstr "選択"
+
+#: src/gimv_prefs_win.c:65
+msgid "/Infomation"
+msgstr "/情報"
+
+#: src/gimv_prefs_win.c:66
+msgid "/Common"
+msgstr "/一般"
+
+#: src/gimv_prefs_win.c:67
+msgid "/Common/Filtering"
+msgstr "/一般/フィルタ"
+
+#: src/gimv_prefs_win.c:68
+msgid "/Common/Character set"
+msgstr "/一般/キャラクターセット"
+
+#: src/gimv_prefs_win.c:70
+msgid "/Image Window"
+msgstr "/イメージウィンドウ"
+
+#: src/gimv_prefs_win.c:71
+msgid "/Image Window/Image"
+msgstr "/イメージウィンドウ/画像"
+
+#: src/gimv_prefs_win.c:72
+msgid "/Image Window/Mouse Buttton"
+msgstr "/イメージウィンドウ/マウスボタン"
+
+#: src/gimv_prefs_win.c:74
+msgid "/Thumbnail Window"
+msgstr "/サムネイルウィンドウ"
+
+#.
+#. {N_("/Thumbnail Window/Toolbar"),   0, NULL, NULL, prefs_thumbview_toolbar_page, NULL},
+#.
+#: src/gimv_prefs_win.c:78
+msgid "/Thumbnail Window/Tab"
+msgstr "/サムネイルウィンドウ/タブ"
+
+#: src/gimv_prefs_win.c:79
+msgid "/Thumbnail Window/Thumbnail View"
+msgstr "/サムネイルウィンドウ/サムネイルビュー"
+
+#: src/gimv_prefs_win.c:80
+msgid "/Thumbnail Window/Thumbnail View/Mouse Buttton"
+msgstr "/サムネイルウィンドウ/サムネイルビュー/マウスボタン"
+
+#: src/gimv_prefs_win.c:81
+msgid "/Thumbnail Window/Thumbnail View/Album"
+msgstr "/サムネイルウィンドウ/サムネイルビュー/アルバム"
+
+#: src/gimv_prefs_win.c:83
+msgid "/Thumbnail Window/Directory View"
+msgstr "/サムネイルウィンドウ/ディレクトリビュー"
+
+#: src/gimv_prefs_win.c:84
+msgid "/Thumbnail Window/Directory View/Mouse Buttton"
+msgstr "/サムネイルウィンドウ/ディレクトリビュー/マウスボタン"
+
+#: src/gimv_prefs_win.c:85
+msgid "/Thumbnail Window/Preview"
+msgstr "/サムネイルウィンドウ/プレビュー"
+
+#: src/gimv_prefs_win.c:86
+msgid "/Thumbnail Window/Preview/Mouse Buttton"
+msgstr "/サムネイルウィンドウ/プレビュー/マウスボタン"
+
+#: src/gimv_prefs_win.c:88
+msgid "/Movie and Audio"
+msgstr "/動画と音声"
+
+#: src/gimv_prefs_win.c:90
+msgid "/Slide Show"
+msgstr "/スライドショー"
+
+#: src/gimv_prefs_win.c:91
+msgid "/Thumbnail Cache"
+msgstr "/サムネイルキャッシュ"
+
+#: src/gimv_prefs_win.c:92
+msgid "/Comment"
+msgstr "/コメント"
+
+#: src/gimv_prefs_win.c:93
+msgid "/Search"
+msgstr "/検索"
+
+#: src/gimv_prefs_win.c:94
+msgid "/Drag and Drop"
+msgstr "/ドラッグ & ドロップ"
+
+#: src/gimv_prefs_win.c:95
+msgid "/External Program"
+msgstr "/外部プログラム"
+
+#: src/gimv_prefs_win.c:96
+msgid "/External Program/Scripts"
+msgstr "/外部プログラム/スクリプト"
+
+#: src/gimv_prefs_win.c:98
+msgid "/Plugin"
+msgstr "/プラグイン"
+
+#: src/gimv_prefs_win.c:99
+msgid "/Plugin/Image Loader"
+msgstr "/プラグイン/画像読み込み"
+
+#: src/gimv_prefs_win.c:100
+msgid "/Plugin/Image Saver"
+msgstr "/プラグイン/画像保存"
+
+#: src/gimv_prefs_win.c:101
+msgid "/Plugin/IO Stream"
+msgstr "/プラグイン/入出力ストリーム"
+
+#: src/gimv_prefs_win.c:102
+msgid "/Plugin/Archiver"
+msgstr "/プラグイン/アーカイバ"
+
+#: src/gimv_prefs_win.c:103
+msgid "/Plugin/Thumbnail"
+msgstr "/プラグイン/サムネイル"
+
+#: src/gimv_prefs_win.c:104
+msgid "/Plugin/Image View"
+msgstr "/プラグイン/イメージビュー"
+
+#: src/gimv_prefs_win.c:105
+msgid "/Plugin/Thumbnail View"
+msgstr "/プラグイン/サムネイルビュー"
+
+#. dialog buttons
+#. button
+#. OK Button
+#. ok buttons
+#: src/gimv_prefs_win.c:863 src/gtkutils.c:763 src/gtkutils.c:1062
+#: src/help.c:728 src/prefs_ui/prefs_ui_etc.c:149
+msgid "OK"
+msgstr "了解"
+
+#: src/gimv_prefs_win.c:874
+msgid "Apply"
+msgstr "適用"
+
+#. cancel button
+#: src/gimv_prefs_win.c:883 src/gtk_prop.c:204 src/gtkutils.c:375
+#: src/gtkutils.c:688 src/gtkutils.c:865 src/gtkutils.c:1070
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: src/gimv_thumb_win.c:382
+msgid "/_File/New _Image Window"
+msgstr "/ファイル(_F)/新規イメージウィンドウ(_I)"
+
+#: src/gimv_thumb_win.c:383
+msgid "/_File/New _Window"
+msgstr "/ファイル(_F)/新規ウィンドウ(_W)"
+
+#: src/gimv_thumb_win.c:384
+msgid "/_File/New _Tab"
+msgstr "/ファイル(_F)/新規タブ(_T)"
+
+#: src/gimv_thumb_win.c:386
+msgid "/_File/Close Ta_b"
+msgstr "/ファイル(_F)/タブを閉じる(_B)"
+
+#: src/gimv_thumb_win.c:387
+msgid "/_File/_Close Window"
+msgstr "/ファイル(_F)/ウィンドウを閉じる(_C)"
+
+#: src/gimv_thumb_win.c:391
+msgid "/_Edit/_Select All"
+msgstr "/編集(_E)/全て選択(_S)"
+
+#: src/gimv_thumb_win.c:392
+msgid "/_Edit/U_nselect All"
+msgstr "/編集(_E)/全て選択解除(N)"
+
+#: src/gimv_thumb_win.c:394
+msgid "/_Edit/_Refresh List"
+msgstr "/編集(_E)/リスト更新(_R)"
+
+#: src/gimv_thumb_win.c:395
+msgid "/_Edit/Reload _Cache"
+msgstr "/編集(_E)/キャッシュ再読込(_C)"
+
+#: src/gimv_thumb_win.c:396
+msgid "/_Edit/_Update All Thumbnail"
+msgstr "/編集(_E)/全てのサムネイルを再作成(_U)"
+
+#.
+#. {N_("/_Edit/Clear cache for _this tab"), NULL,     cb_clear_cache,   CLEAR_CACHE_TAB, NULL},
+#.
+#: src/gimv_thumb_win.c:401
+msgid "/_Edit/R_ename..."
+msgstr "/編集(_E)/ファイル名変更(_E)..."
+
+#: src/gimv_thumb_win.c:402
+msgid "/_Edit/Co_py Files To..."
+msgstr "/編集(_E)/ディレクトリへコピー(_P)..."
+
+#: src/gimv_thumb_win.c:403
+msgid "/_Edit/_Move Files To..."
+msgstr "/編集(_E)/ディレクトリへ移動(_M)..."
+
+#: src/gimv_thumb_win.c:404
+msgid "/_Edit/_Link Files To..."
+msgstr "/編集(_E)/ディレクトリへリンク(_L)..."
+
+#: src/gimv_thumb_win.c:405
+msgid "/_Edit/Remo_ve file..."
+msgstr "/編集(_E)/ファイル削除(_V)..."
+
+#: src/gimv_thumb_win.c:411 src/gimv_thumb_win.c:491
+msgid "/_Tab"
+msgstr "/タブ(_T)"
+
+#: src/gimv_thumb_win.c:412
+msgid "/_Tab/_Tab Position"
+msgstr "/タブ(_T)/タブの位置(_T)"
+
+#: src/gimv_thumb_win.c:413
+msgid "/_Tab/_Tab Position/_Top"
+msgstr "/タブ(_T)/タブの位置(_T)/上(_T)"
+
+#: src/gimv_thumb_win.c:414
+msgid "/_Tab/_Tab Position/_Bottom"
+msgstr "/タブ(_T)/タブの位置(_T)/下(_B)"
+
+#: src/gimv_thumb_win.c:415
+msgid "/_Tab/_Tab Position/_Left"
+msgstr "/タブ(_T)/タブの位置(_T)/左(_L)"
+
+#: src/gimv_thumb_win.c:416
+msgid "/_Tab/_Tab Position/_Right"
+msgstr "/タブ(_T)/タブの位置(_T)/右(_R)"
+
+#: src/gimv_thumb_win.c:417 src/gimv_thumb_win.c:422
+msgid "/_Tab/---"
+msgstr "/タブ(_T)/---"
+
+#: src/gimv_thumb_win.c:418
+msgid "/_Tab/_First Page"
+msgstr "/タブ(_T)/最初のページ(_F)"
+
+#: src/gimv_thumb_win.c:419
+msgid "/_Tab/_Last Page"
+msgstr "/タブ(_T)/最後のページ(_L)"
+
+#: src/gimv_thumb_win.c:420
+msgid "/_Tab/_Next Page"
+msgstr "/タブ(_T)/次のページ(_N)"
+
+#: src/gimv_thumb_win.c:421
+msgid "/_Tab/_Previous Page"
+msgstr "/タブ(_T)/前のページ(_P)"
+
+#: src/gimv_thumb_win.c:423
+msgid "/_Tab/Move tab for_ward"
+msgstr "/タブ(_T)/タブを前方へ移動(_W)"
+
+#: src/gimv_thumb_win.c:424
+msgid "/_Tab/Move tab _backward"
+msgstr "/タブ(_T)/タブを後方へ移動(_B)"
+
+#: src/gimv_thumb_win.c:425
+msgid "/_Tab/_Detach tab"
+msgstr "/タブ(_T)/タブを切り離す(_D)"
+
+#: src/gimv_thumb_win.c:427
+msgid "/_Action"
+msgstr "/アクション(_A)"
+
+#: src/gimv_thumb_win.c:428
+msgid "/_Action/_Focus"
+msgstr "/アクション(_A)/フォーカス(_F)"
+
+#: src/gimv_thumb_win.c:429
+msgid "/_Action/_Focus/_Directory View"
+msgstr "/アクション(_A)/フォーカス(_F)/ディレクトリビュー(_D)"
+
+#: src/gimv_thumb_win.c:430
+msgid "/_Action/_Focus/_Thumbnail View"
+msgstr "/アクション(_A)/フォーカス(_F)/サムネイルビュー(_T)"
+
+#: src/gimv_thumb_win.c:431
+msgid "/_Action/_Focus/_Preview"
+msgstr "/アクション(_A)/フォーカス(_F)/プレビュー(_P)"
+
+#: src/gimv_thumb_win.c:432
+msgid "/_Action/_Focus/_Location Entry"
+msgstr "/アクション(_A)/フォーカス(_F)/ロケーションエントリ(_L)"
+
+#: src/gimv_thumb_win.c:434
+msgid "/_Action/_Directory View"
+msgstr "/アクション(_A)/ディレクトリビュー(_D)"
+
+#: src/gimv_thumb_win.c:435
+msgid "/_Action/_Thumbnail View"
+msgstr "/アクション(_A)/サムネイルビュー(_T)"
+
+#: src/gimv_thumb_win.c:436
+msgid "/_Action/_Preview"
+msgstr "/アクション(_A)/プレビュー(_P)"
+
+#: src/gimv_thumb_win.c:437
+msgid "/_Action/_Preview/_Next"
+msgstr "/アクション(_A)/プレビュー(_P)/次へ(_N)"
+
+#: src/gimv_thumb_win.c:438
+msgid "/_Action/_Preview/_Previous"
+msgstr "/アクション(_A)/プレビュー(_P)/前へ(_P)"
+
+#: src/gimv_thumb_win.c:441
+msgid "/Too_l"
+msgstr "/ツール(_L)"
+
+#: src/gimv_thumb_win.c:442
+msgid "/Too_l/_Clear all cache"
+msgstr "/ツール(_L)/全てのキャッシュをクリア(_A)"
+
+#: src/gimv_thumb_win.c:443 src/gimv_thumb_win.c:445
+msgid "/Too_l/---"
+msgstr "/ツール(_L)/---"
+
+#: src/gimv_thumb_win.c:444
+msgid "/Too_l/_Find duplicates"
+msgstr "/ツール(_L)/重複画像検索(_F)"
+
+#: src/gimv_thumb_win.c:446
+msgid "/Too_l/_Wallpaper setting"
+msgstr "/ツール(_L)/壁紙設定(_W)"
+
+#: src/gimv_thumb_win.c:456
+msgid "/_Sort File List"
+msgstr "/ファイルソート(_S)"
+
+#: src/gimv_thumb_win.c:457
+msgid "/_Layout"
+msgstr "/レイアウト(_L)"
+
+#: src/gimv_thumb_win.c:458
+msgid "/_Layout/Layout_0"
+msgstr "/レイアウト/レイアウト_0"
+
+#: src/gimv_thumb_win.c:459
+msgid "/_Layout/Layout_1"
+msgstr "/レイアウト/レイアウト_1"
+
+#: src/gimv_thumb_win.c:460
+msgid "/_Layout/Layout_2"
+msgstr "/レイアウト/レイアウト_2"
+
+#: src/gimv_thumb_win.c:461
+msgid "/_Layout/Layout_3"
+msgstr "/レイアウト/レイアウト_3"
+
+#: src/gimv_thumb_win.c:462
+msgid "/_Layout/Layout_4"
+msgstr "/レイアウト/レイアウト_4"
+
+#: src/gimv_thumb_win.c:463
+msgid "/_Layout/_Custom"
+msgstr "/レイアウト/カスタム(_C)"
+
+#: src/gimv_thumb_win.c:464
+msgid "/_Layout/---"
+msgstr "/レイアウト(_L)/---"
+
+#: src/gimv_thumb_win.c:465
+msgid "/_Layout/Window _Composition"
+msgstr "/レイアウト(_L)/ウィンドウ構成"
+
+#: src/gimv_thumb_win.c:469
+msgid "/S_lideshow"
+msgstr "/スライドショー(_L)"
+
+#: src/gimv_thumb_win.c:470
+msgid "/Slideshow Opt_ions"
+msgstr "/スライドショーオプション(I)"
+
+#: src/gimv_thumb_win.c:471
+msgid "/Slideshow Opt_ions/Start from the _first"
+msgstr "/スライドショーオプション(_I)/最初から開始(_F)"
+
+#: src/gimv_thumb_win.c:472
+msgid "/Slideshow Opt_ions/Start from the se_lected"
+msgstr "/スライドショーオプション(_I)/選択画像から開始(_L)"
+
+#: src/gimv_thumb_win.c:474
+msgid "/Slideshow Opt_ions/_Random order"
+msgstr "/スライドショーオプション(_I)/ランダム順(_R)"
+
+#: src/gimv_thumb_win.c:476 src/gimv_thumb_win.c:478
+msgid "/Slideshow Opt_ions/---"
+msgstr "/スライドショーオプション(_I)/---"
+
+#: src/gimv_thumb_win.c:477
+msgid "/Slideshow Opt_ions/_Selected only"
+msgstr "/スライドショーオプション(_I)/選択画像のみ(_S)"
+
+#: src/gimv_thumb_win.c:479
+msgid "/Slideshow Opt_ions/Images _and movies"
+msgstr "/スライドショーオプション(_I)/画像と動画(_A)"
+
+#: src/gimv_thumb_win.c:480
+msgid "/Slideshow Opt_ions/_Images only"
+msgstr "/スライドショーオプション(_I)/画像のみ(_I)"
+
+#: src/gimv_thumb_win.c:481
+msgid "/Slideshow Opt_ions/_Movies only"
+msgstr "/スライドショーオプション(_I)/動画のみ(_M)"
+
+#: src/gimv_thumb_win.c:485
+msgid "/_Directory View"
+msgstr "/ディレクトリビュー(_D)"
+
+#: src/gimv_thumb_win.c:486
+msgid "/_Preview"
+msgstr "/プレビュー(_P)"
+
+#: src/gimv_thumb_win.c:488
+msgid "/T_ool Bar"
+msgstr "/ツールバー(_O)"
+
+#: src/gimv_thumb_win.c:489
+msgid "/Dir_View Tool Bar"
+msgstr "/ディレクトリビューツールバー(_V)"
+
+#: src/gimv_thumb_win.c:492
+msgid "/Ta_b (Preview)"
+msgstr "/タブ (プレビュー)(_B)"
+
+#: src/gimv_thumb_win.c:509
+msgid "/by _Name"
+msgstr "/名前(_N)"
+
+#: src/gimv_thumb_win.c:510
+msgid "/by _Access Time"
+msgstr "/参照日時(_A)"
+
+#: src/gimv_thumb_win.c:511
+msgid "/by _Modification Time"
+msgstr "/更新日時(_M)"
+
+#: src/gimv_thumb_win.c:512
+msgid "/by _Change Time"
+msgstr "/状態変更日時(_C)"
+
+#: src/gimv_thumb_win.c:513
+msgid "/by _Size"
+msgstr "/サイズ(_S)"
+
+#: src/gimv_thumb_win.c:514
+msgid "/by _Type"
+msgstr "/種類(_T)"
+
+#: src/gimv_thumb_win.c:515
+msgid "/by Image _Width"
+msgstr "/画像幅(_W)"
+
+#: src/gimv_thumb_win.c:516
+msgid "/by Image _Height"
+msgstr "/画像高さ(_H)"
+
+#: src/gimv_thumb_win.c:517
+msgid "/by Image Ar_ea"
+msgstr "/画像面積(_E)"
+
+#: src/gimv_thumb_win.c:519
+msgid "/_Reverse Order"
+msgstr "/逆順(_R)"
+
+#: src/gimv_thumb_win.c:521
+msgid "/Case _insensitive"
+msgstr "/大文字小文字を区別しない(_I)"
+
+#: src/gimv_thumb_win.c:522
+msgid "/_Directory insensitive"
+msgstr "/ディレクトリを区別しない(_D)"
+
+#: src/gimv_thumb_win.c:654
+msgid " -Thumbnail Window-"
+msgstr "- サムネイルウィンドウ -"
+
+#: src/gimv_thumb_win.c:935
+#, c-format
+msgid "Composition %d"
+msgstr "構成%d"
+
+#: src/gimv_thumb_win.c:1575 src/gimv_thumb_win.c:1576
+msgid "Go to previous page"
+msgstr "前のページへ"
+
+#: src/gimv_thumb_win.c:1586 src/gimv_thumb_win.c:1587
+msgid "Go to next page"
+msgstr "次のページへ"
+
+#: src/gimv_thumb_win.c:1598
+msgid "Reload"
+msgstr "再読込"
+
+#: src/gimv_thumb_win.c:1599 src/gimv_thumb_win.c:1600
+msgid "Reload Cache"
+msgstr "キャッシュ再読込"
+
+#: src/gimv_thumb_win.c:1610 src/gimv_thumb_win.c:1611
+msgid "Skip creating current thumbnail table"
+msgstr "現ページのサムネイル作成をスキップ"
+
+#: src/gimv_thumb_win.c:1622 src/gimv_thumb_win.c:1623
+msgid "Stop creating thumbnails"
+msgstr "サムネイル作成を中止"
+
+#: src/gimv_thumb_win.c:1639
+msgid "Thumbnail Size"
+msgstr "サムネイルサイズ"
+
+#: src/gimv_thumb_win.c:1649
+msgid "Quit"
+msgstr "終了"
+
+#: src/gimv_thumb_win.c:1650 src/gimv_thumb_win.c:1651
+msgid "Exit this program"
+msgstr "このプログラムを終了"
+
+#. create image view and attach to comment view notebook
+#. Show Preview or not
+#: src/gimv_thumb_win.c:2078 src/prefs_ui/prefs_ui_thumbwin.c:468
+msgid "Preview"
+msgstr "プレビュー"
+
+#: src/gimv_thumb_win.c:3521
+msgid "Empty"
+msgstr "Empty"
+
+#: src/gimv_thumb_win.c:3528 src/gimv_thumb_win.c:3631
+#, c-format
+msgid "%d/%d files"
+msgstr "%d/%d files"
+
+#: src/gimv_thumb_win.c:3562
+#, c-format
+msgid "Dir View: %s"
+msgstr "Dir View: %s"
+
+#: src/gimv_thumb_win.c:3564
+#, c-format
+msgid "Archive View: %s"
+msgstr "Archive View: %s"
+
+#: src/gimv_thumb_win.c:3579
+msgid "Collection View"
+msgstr "Collection View"
+
+#: src/gimv_thumb_win.c:3589
+msgid "Loading in another tab..."
+msgstr "他のタブでロード中..."
+
+#: src/gimv_thumb_win.c:3597
+#, c-format
+msgid "%d/%d page  %d/%d files  %ld/%ld kB"
+msgstr "%d/%d page  %d/%d files  %d/%d kB"
+
+#: src/gimv_thumb_win.c:3830
+msgid "New Tab"
+msgstr "新規タブ"
+
+#: src/gimv_thumb_win.c:3872
+#, c-format
+msgid "NewTab %d"
+msgstr "新規タブ%d"
+
+#: src/gtk_prop.c:191
+msgid "Properties"
+msgstr "プロパティ"
+
+#. ok and cancel buttons
+#: src/gtk_prop.c:203
+msgid "Ok"
+msgstr "了解"
+
+#: src/gtk_prop.c:224
+msgid "All"
+msgstr "全て"
+
+#. date and size page
+#: src/gtk_prop.c:241
+msgid "Info"
+msgstr "情報"
+
+#: src/gtk_prop.c:246
+msgid "Name :"
+msgstr "ファイル名 :"
+
+#: src/gtk_prop.c:283
+msgid "Type :"
+msgstr "種類 :"
+
+#: src/gtk_prop.c:305
+#, c-format
+msgid "%ld Bytes"
+msgstr "%ld バイト"
+
+#: src/gtk_prop.c:307
+msgid "Size :"
+msgstr "サイズ :"
+
+#: src/gtk_prop.c:319
+msgid "Access Time :"
+msgstr "参照日時 :"
+
+#: src/gtk_prop.c:331
+msgid "Modification Time :"
+msgstr "更新日時 :"
+
+#: src/gtk_prop.c:343
+msgid "Change Time :"
+msgstr "状態変更日時 :"
+
+#: src/gtk_prop.c:352
+msgid "Permissions"
+msgstr "パーミッション"
+
+#: src/gtk_prop.c:356 src/gtk_prop.c:483
+msgid "Owner :"
+msgstr "所有者 :"
+
+#: src/gtk_prop.c:357 src/gtk_prop.c:389 src/gtk_prop.c:420
+msgid "Read"
+msgstr "読み込み"
+
+#: src/gtk_prop.c:363 src/gtk_prop.c:395 src/gtk_prop.c:426
+msgid "Write"
+msgstr "書き込み"
+
+#: src/gtk_prop.c:369 src/gtk_prop.c:401 src/gtk_prop.c:432
+msgid "Execute"
+msgstr "実行"
+
+#: src/gtk_prop.c:375
+msgid "Set UID"
+msgstr "Set UID"
+
+#: src/gtk_prop.c:388 src/gtk_prop.c:494
+msgid "Group :"
+msgstr "グループ :"
+
+#: src/gtk_prop.c:407
+msgid "Set GID"
+msgstr "Set GID"
+
+#: src/gtk_prop.c:419
+msgid "Other :"
+msgstr "その他 :"
+
+#: src/gtk_prop.c:438
+msgid "Sticky"
+msgstr "Sticky"
+
+#: src/gtk_prop.c:472
+msgid "Owner"
+msgstr "所有者"
+
+#: src/gtk_prop.c:477 src/gtk_prop.c:488
+msgid "unknown"
+msgstr "不明"
+
+#. buttons
+#: src/gtkutils.c:344 src/gtkutils.c:652
+msgid "Yes"
+msgstr "はい"
+
+#: src/gtkutils.c:355 src/gtkutils.c:662
+msgid "Yes to All"
+msgstr "全てはい"
+
+#: src/gtkutils.c:365
+msgid "No"
+msgstr "いいえ"
+
+#: src/gtkutils.c:458
+#, c-format
+msgid "The file exists : %s"
+msgstr "ファイルが存在します : %s"
+
+#: src/gtkutils.c:550
+msgid "Show destination"
+msgstr "上書き先を表示"
+
+#: src/gtkutils.c:557
+msgid "Show both images"
+msgstr "両方を表示"
+
+#: src/gtkutils.c:565
+msgid "Show source"
+msgstr "上書き元を表示"
+
+#: src/gtkutils.c:638
+msgid "Rename"
+msgstr "ファイル名変更"
+
+#: src/gtkutils.c:679
+msgid "Skip all"
+msgstr "全てスキップ"
+
+#: src/gtkutils.c:1200 src/prefs_ui/prefs_ui_etc.c:989
+#: src/prefs_ui/prefs_ui_imagewin.c:351 src/prefs_ui/prefs_ui_imagewin.c:366
+msgid "Choose Color"
+msgstr "色選択"
+
+#: src/help.c:78
+#, c-format
+msgid ""
+"Copyright (C) 2001 %s <%s>\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2, or (at your option)\n"
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"See the GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 59 Temple Place - Suite 330, Boston,\n"
+"MA 02111-1307, USA."
+msgstr ""
+"Copyright (C) 2001 %s <%s>\n"
+"\n"
+"本プログラムはフリー・ソフトウェアです。あなたは、Free Software\n"
+"Foundation が公表したGNU 一般公有使用許諾の「バージョン２」或い\n"
+"はそれ以降の各バージョンの中からいずれかを選択し、そのバージョン\n"
+"が定める条項に従って本プログラムを再頒布または変更することができ\n"
+"ます。\n"
+"\n"
+"本プログラムは有用とは思いますが、頒布にあたっては、市場性及び特\n"
+"定目的適合性についての暗黙の保証を含めて、いかなる保証も行ないま\n"
+"せん。詳細についてはGNU 一般公有使用許諾書をお読みください。\n"
+"\n"
+"あなたは、本プログラムと一緒にGNU 一般公有使用許諾の写しを受け取っ\n"
+"ているはずです。そうでない場合は、Free Software Foundation, Inc.,\n"
+"675 Mass Ave, Cambridge, MA 02111-1307, USA へ手紙を書いてくだ\n"
+"さい。"
+
+#: src/help.c:95
+msgid ""
+"Main Program :\n"
+"    Takuro Ashie <ashie@homa.ne.jp>\n"
+"Document :\n"
+"    Nyan2 <t-nyan2@nifty.com>\n"
+"Logo :\n"
+"    eins <eins@milk.freemail.ne.jp>\n"
+"Translate :\n"
+"\n"
+"Special Thanks :\n"
+"    horam\n"
+"    TAM\n"
+"    Hiroyuki Komatsu\n"
+"    Kazuki Iwamoto\n"
+"    katsu\n"
+"    kourin\n"
+"    jissama\n"
+"    shitamori\n"
+"    knee\n"
+"    matsu\n"
+"    Shlomi Fish\n"
+"    Jin Suh\n"
+"    sheepman\n"
+"    MINAMI Hirokazu\n"
+"    Brent Baccala\n"
+"    Christian Hammers\n"
+"    And all GImageView users"
+msgstr ""
+"メインプログラム :\n"
+"    Takuro Ashie <ashie@homa.ne.jp>\n"
+"ドキュメント :\n"
+"    Nyan2 <t-nyan2@nifty.com>\n"
+"ロゴ :\n"
+"    eins <eins@milk.freemail.ne.jp>\n"
+"翻訳 :\n"
+"    Takuro Ashie <ashie@homa.ne.jp>\n"
+"\n"
+"Special Thanks :\n"
+"    horamさん\n"
+"    TAMさん\n"
+"    小松弘幸さん\n"
+"    岩本一樹さん\n"
+"    katsuさん\n"
+"    こ〜りんさん\n"
+"    じっさまさん\n"
+"    下森さん\n"
+"    kneeさん\n"
+"    matsuさん\n"
+"    Shlomi Fishさん\n"
+"    Jin Suhさん\n"
+"    MINAMI Hirokazuさん\n"
+"    Brent Baccalaさん\n"
+"    Christian Hammersさん\n"
+"    そして全てのGImageViewユーザーの皆様"
+
+#: src/help.c:128
+msgid "/_Manual"
+msgstr "/マニュアル(_M)"
+
+#: src/help.c:129
+msgid "/_Document"
+msgstr "/ドキュメント(_D)"
+
+#: src/help.c:130
+msgid "/_Document/_HTML"
+msgstr "/ドキュメント(_D)/_HTML"
+
+#: src/help.c:131
+msgid "/_Document/Plain _Text"
+msgstr "/ドキュメント(_D)/プレーンテキスト(_T)"
+
+#: src/help.c:132
+msgid "/_About"
+msgstr "/GImageViewについて(_A)"
+
+#: src/help.c:446
+#, c-format
+msgid ""
+"Plugin Name : %s\n"
+"Version : %s\n"
+"Author : %s\n"
+"\n"
+msgstr ""
+"プラグイン名 : %s\n"
+"バージョン : %s\n"
+"作者 : %s\n"
+"\n"
+
+#: src/help.c:524
+#, c-format
+msgid ""
+"Operating System : %s %s %s\n"
+"GTK+ version : %d.%d.%d\n"
+msgstr ""
+"オペレーティングシステム : %s %s %s\n"
+"GTK+バージョン : %d.%d.%d\n"
+
+#: src/help.c:533
+#, c-format
+msgid "libmng version : %s\n"
+msgstr "libmng バージョン : %s\n"
+
+#: src/help.c:539
+#, c-format
+msgid "gdk-pixbuf version : %s\n"
+msgstr "gdk-pixbuf バージョン : %s\n"
+
+#: src/help.c:545
+#, c-format
+msgid "librsvg version : %s\n"
+msgstr "librsvg バージョン : %s\n"
+
+#: src/help.c:619
+msgid "Web Site: "
+msgstr "WEBサイト: "
+
+#: src/help.c:673
+msgid "License"
+msgstr "ライセンス"
+
+#: src/help.c:680
+msgid "Authors"
+msgstr "作者"
+
+#: src/help.c:688
+msgid "System Info"
+msgstr "システム情報"
+
+#: src/help.c:695 plugins/image_loader/prefs_spi.c:225
+msgid "Plugin Info"
+msgstr "プラグイン情報"
+
+#: src/help.c:716
+#, c-format
+msgid "About %s"
+msgstr "%s について"
+
+#: src/prefs.c:523
+#, c-format
+msgid ""
+"Can't open rc file: %s\n"
+"Use default setting ..."
+msgstr ""
+"設定ファイルを開くことができません: %s\n"
+"デフォルト設定を使用します ..."
+
+#: src/prefs.c:591
+#, c-format
+msgid "Directory \"%s\" not found. Created it ..."
+msgstr "ディレクトリ \"%s\" が見付かりません。作成します ..."
+
+#: src/prefs.c:594
+#, c-format
+msgid "\"%s\" found, but it's not directory. Abort creating ..."
+msgstr "\"%s\" はディレクトリではありません。 作成を中断します ..."
+
+#: src/prefs.c:603
+msgid "Can't open rc file for write."
+msgstr "設定ファイルを書き込み用に開くことができません"
+
+#: src/prefs_ui/prefs_ui_common.c:71
+msgid "Image View"
+msgstr "イメージビュー"
+
+#: src/prefs_ui/prefs_ui_common.c:72
+msgid "Thumbnail View"
+msgstr "サムネイルビュー"
+
+#: src/prefs_ui/prefs_ui_common.c:79
+msgid "Nearest"
+msgstr "Nearest"
+
+#: src/prefs_ui/prefs_ui_common.c:80
+msgid "Tiles"
+msgstr "Tiles"
+
+#: src/prefs_ui/prefs_ui_common.c:81
+msgid "Bilinear"
+msgstr "Bilinear"
+
+#: src/prefs_ui/prefs_ui_common.c:82
+msgid "Hyperbolic"
+msgstr "Hyperbolic"
+
+#: src/prefs_ui/prefs_ui_common.c:89
+msgid "Never convert"
+msgstr "変換しない"
+
+#: src/prefs_ui/prefs_ui_common.c:90
+msgid "Locale"
+msgstr "ロカール"
+
+#: src/prefs_ui/prefs_ui_common.c:91
+msgid "Auto detect"
+msgstr "自動検出"
+
+#: src/prefs_ui/prefs_ui_common.c:92
+msgid "Any"
+msgstr "その他"
+
+#: src/prefs_ui/prefs_ui_common.c:139 src/prefs_ui/prefs_ui_common.c:147
+#: src/prefs_ui/prefs_ui_common.c:154 src/prefs_ui/prefs_ui_etc.c:171
+#: src/prefs_ui/prefs_ui_etc.c:179 src/prefs_ui/prefs_ui_etc.c:186
+msgid "Error"
+msgstr "エラー"
+
+#: src/prefs_ui/prefs_ui_common.c:140
+msgid ""
+"String includes invalid character!\n"
+"Only ASCII is available."
+msgstr ""
+"文字列には使用不可能な文字が含まれています!\n"
+"ASCII文字のみが使用可能です．"
+
+#: src/prefs_ui/prefs_ui_common.c:148 src/prefs_ui/prefs_ui_etc.c:180
+msgid "Sorry, cannot include \",\" character!"
+msgstr "\",\"を含めることはできません!"
+
+#: src/prefs_ui/prefs_ui_common.c:155 src/prefs_ui/prefs_ui_etc.c:187
+msgid "Sorry, cannot include \";\" character!"
+msgstr "\";\"を含めることはできません!"
+
+#: src/prefs_ui/prefs_ui_common.c:181 src/prefs_ui/prefs_ui_etc.c:400
+#, c-format
+msgid "\"%s\" is already defined."
+msgstr "\"%s\"は既に定義されています．"
+
+#: src/prefs_ui/prefs_ui_common.c:243 src/prefs_ui/prefs_ui_common.c:281
+#: src/prefs_ui/prefs_ui_common.c:775 src/prefs_ui/prefs_ui_etc.c:682
+msgid "Enable"
+msgstr "有効"
+
+#: src/prefs_ui/prefs_ui_common.c:243 src/prefs_ui/prefs_ui_common.c:284
+#: src/prefs_ui/prefs_ui_common.c:774 src/prefs_ui/prefs_ui_common.c:775
+msgid "Disable"
+msgstr "無効"
+
+#: src/prefs_ui/prefs_ui_common.c:244 src/prefs_ui/prefs_ui_common.c:427
+#: src/prefs_ui/prefs_ui_etc.c:261 src/prefs_ui/prefs_ui_etc.c:430
+msgid "System defined"
+msgstr "システム定義"
+
+#: src/prefs_ui/prefs_ui_common.c:288 src/prefs_ui/prefs_ui_common.c:430
+#: src/prefs_ui/prefs_ui_etc.c:259 src/prefs_ui/prefs_ui_etc.c:433
+msgid "User defined"
+msgstr "ユーザー定義"
+
+#. *********************************************
+#. * Default Open Window Frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_common.c:549
+msgid "Default Open Window"
+msgstr "ウィンドウの設定"
+
+#. File Open Window Selection
+#: src/prefs_ui/prefs_ui_common.c:561
+msgid "File Open Window"
+msgstr "ファイルを開くウィンドウ"
+
+#. Directory Open Window Selection
+#: src/prefs_ui/prefs_ui_common.c:573
+msgid "Directory Open Window"
+msgstr "ディレクトリを開くウィンドウ"
+
+#. Archive Open Window Selection
+#: src/prefs_ui/prefs_ui_common.c:585
+msgid "Archive Open Window"
+msgstr "アーカイブを開くウィンドウ"
+
+#. *********************************************
+#. * Scan Directory Frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_common.c:601
+msgid "Directory scan"
+msgstr "ディレクトリ走査"
+
+#. Ignore filename extension or not
+#: src/prefs_ui/prefs_ui_common.c:604
+msgid "Scan directories recursively"
+msgstr "ディレクトリを再帰的に取得する"
+
+#. follow symbolic link
+#: src/prefs_ui/prefs_ui_common.c:611
+msgid "Follow symbolic link"
+msgstr "シンボリックリンク先のディレクトリを読み込む"
+
+#: src/prefs_ui/prefs_ui_common.c:615
+msgid "Do not follow symbolic link"
+msgstr "リンク先のディレクトリを読み込まない"
+
+#: src/prefs_ui/prefs_ui_common.c:624
+msgid "Do not follow link to parent directory"
+msgstr "親ディレクトリへのリンクを読み込まない"
+
+#. *********************************************
+#. * Image Frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_common.c:652 src/prefs_ui/prefs_ui_etc.c:907
+#: src/prefs_ui/prefs_ui_imagewin.c:397 src/prefs_ui/prefs_ui_thumbwin.c:1024
+msgid "Image"
+msgstr "画像"
+
+#: src/prefs_ui/prefs_ui_common.c:658
+msgid "Interpolation type for scaling"
+msgstr "スケーリング時の補間法"
+
+#. *********************************************
+#. * Start up Frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_common.c:669
+msgid "Start up"
+msgstr "起動時"
+
+#. Open thumbnail window or not
+#: src/prefs_ui/prefs_ui_common.c:672
+msgid "Open thumbnail window"
+msgstr "サムネイルウィンドウを開く"
+
+#. Scan (or not) Directory
+#: src/prefs_ui/prefs_ui_common.c:679
+msgid "Ignore directory"
+msgstr "ディレクトリを無視する"
+
+#. No warning
+#: src/prefs_ui/prefs_ui_common.c:686
+msgid "No warning"
+msgstr "警告を表示しない"
+
+#: src/prefs_ui/prefs_ui_common.c:710
+msgid "Extension"
+msgstr "拡張子"
+
+#: src/prefs_ui/prefs_ui_common.c:710
+msgid "File Type"
+msgstr "ファイルタイプ"
+
+#: src/prefs_ui/prefs_ui_common.c:710 src/prefs_ui/prefs_ui_etc.c:613
+msgid "Status"
+msgstr "状態"
+
+#. *********************************************
+#. * Image Types Frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_common.c:719
+msgid "File Types"
+msgstr "ファイルタイプ"
+
+#: src/prefs_ui/prefs_ui_common.c:740
+msgid "Extension: "
+msgstr "拡張子 :"
+
+#: src/prefs_ui/prefs_ui_common.c:758
+msgid "File Type: "
+msgstr "ファイルタイプ: "
+
+#. Ignore filename extension or not
+#: src/prefs_ui/prefs_ui_common.c:801
+msgid "Read dotfiles"
+msgstr "ドットファイルを読み込む"
+
+#. *********************************************
+#. * Common Frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_common.c:838
+msgid "Common"
+msgstr "一般"
+
+#: src/prefs_ui/prefs_ui_common.c:849
+msgid "Locale character set: "
+msgstr "ロカールのキャラクターセット : "
+
+#: src/prefs_ui/prefs_ui_common.c:866
+msgid "Internal character set: "
+msgstr "内部キャラクターセット : "
+
+#: src/prefs_ui/prefs_ui_common.c:882
+msgid "Language for auto detecting"
+msgstr "自動検出する言語"
+
+#. *********************************************
+#. * Filename Frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_common.c:893
+msgid "File name"
+msgstr "ファイル名"
+
+#: src/prefs_ui/prefs_ui_common.c:898
+msgid "Character set of file name"
+msgstr "ファイル名のキャラクターセット"
+
+#: src/prefs_ui/prefs_ui_etc.c:140
+msgid "Preference - Cache Writing -"
+msgstr "設定 - キャッシュ-書き込み -"
+
+#: src/prefs_ui/prefs_ui_etc.c:172
+msgid ""
+"Key string includes invalid character!\n"
+"Only ASCII (except space) is available."
+msgstr ""
+"キー名は使用不可能な文字を含んでいます!\n"
+"空白を除くASCII文字のみが使用可能です．"
+
+#: src/prefs_ui/prefs_ui_etc.c:193
+msgid "\"Key name\" must be defined."
+msgstr "「キー名」は定義しなければいけません．"
+
+#: src/prefs_ui/prefs_ui_etc.c:199
+msgid "\"Display name\" must be defined."
+msgstr "「表示名」は定義しなければいけません．"
+
+#: src/prefs_ui/prefs_ui_etc.c:539
+msgid "Cache reading"
+msgstr "キャッシュ読込"
+
+#: src/prefs_ui/prefs_ui_etc.c:540
+msgid "Available cache type"
+msgstr "利用可能なキャッシュタイプ"
+
+#: src/prefs_ui/prefs_ui_etc.c:541
+msgid "Cache type to use"
+msgstr "使用するキャッシュタイプ"
+
+#. *********************************************
+#. *  Cache writing frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_etc.c:553
+msgid "Cache writing"
+msgstr "キャッシュ書込"
+
+#: src/prefs_ui/prefs_ui_etc.c:562
+msgid "Cache type for save"
+msgstr "キャッシュ書込タイプ"
+
+#: src/prefs_ui/prefs_ui_etc.c:611
+msgid "Key Name"
+msgstr "キー名"
+
+#: src/prefs_ui/prefs_ui_etc.c:612
+msgid "Displayed Name"
+msgstr "表示名"
+
+#: src/prefs_ui/prefs_ui_etc.c:614 src/prefs_ui/prefs_ui_etc.c:690
+#: src/prefs_ui/prefs_ui_imagewin.c:315 src/prefs_ui/prefs_ui_thumbwin.c:536
+msgid "Auto"
+msgstr "自動"
+
+#: src/prefs_ui/prefs_ui_etc.c:615 src/prefs_ui/prefs_ui_etc.c:698
+msgid "Display"
+msgstr "表示"
+
+#. *********************************************
+#. * Key Name definition frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_etc.c:626
+msgid "Key Name Definition"
+msgstr "キー定義"
+
+#: src/prefs_ui/prefs_ui_etc.c:650
+msgid "Key Name: "
+msgstr "キー名 : "
+
+#: src/prefs_ui/prefs_ui_etc.c:667
+msgid "Displayed Name: "
+msgstr "表示名 : "
+
+#: src/prefs_ui/prefs_ui_etc.c:683 src/prefs_ui/prefs_ui_etc.c:691
+#: src/prefs_ui/prefs_ui_etc.c:699 src/prefs_ui/prefs_ui_progs.c:66
+#: src/prefs_ui/prefs_ui_progs.c:104 src/prefs_ui/prefs_ui_progs.c:259
+msgid "TRUE"
+msgstr "有効"
+
+#: src/prefs_ui/prefs_ui_etc.c:683 src/prefs_ui/prefs_ui_etc.c:691
+#: src/prefs_ui/prefs_ui_etc.c:699 src/prefs_ui/prefs_ui_progs.c:68
+#: src/prefs_ui/prefs_ui_progs.c:259
+msgid "FALSE"
+msgstr "無効"
+
+#. *********************************************
+#. * Charset Frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_etc.c:726
+msgid "Character set"
+msgstr "キャラクターセット"
+
+#: src/prefs_ui/prefs_ui_etc.c:732
+msgid "Character set: "
+msgstr "キャラクターセット : "
+
+#. *********************************************
+#. *  Find duplicates
+#. *********************************************
+#: src/prefs_ui/prefs_ui_etc.c:768
+msgid "Find duplicates"
+msgstr "重複画像検索"
+
+#: src/prefs_ui/prefs_ui_etc.c:775 src/gimv_dupl_win.c:122
+msgid "Accuracy"
+msgstr "精度"
+
+#. *********************************************
+#. *  Behabior of selecting
+#. *********************************************
+#: src/prefs_ui/prefs_ui_etc.c:790
+msgid "Behabior when select thumbnail on result window"
+msgstr "検索結果ウィンドウのサムネイル選択時の挙動"
+
+#: src/prefs_ui/prefs_ui_etc.c:797
+msgid "Select the thumbnail on thumbnail view"
+msgstr "サムネイルビューのサムネイルを選択"
+
+#: src/prefs_ui/prefs_ui_etc.c:803
+msgid "Show the image in preview"
+msgstr "画像をプレビューに表示"
+
+#: src/prefs_ui/prefs_ui_etc.c:809
+msgid "Show the image in new window"
+msgstr "画像を新規ウィンドウに表示"
+
+#: src/prefs_ui/prefs_ui_etc.c:815
+msgid "Show the image in shared window"
+msgstr "画像を共有ウィンドウに表示"
+
+#: src/prefs_ui/prefs_ui_etc.c:851
+msgid "Image change interval"
+msgstr "画像を切り替える間隔"
+
+#: src/prefs_ui/prefs_ui_etc.c:863 plugins/image_view/prefs_xine.c:311
+msgid "[sec]"
+msgstr "[秒]"
+
+#. repeat
+#: src/prefs_ui/prefs_ui_etc.c:867
+msgid "Repeat slide show"
+msgstr "繰り返す"
+
+#. *********************************************
+#. * Show/Hide Frame
+#. *********************************************
+#. Show/Hide frame
+#. *********************************************
+#. * Show/Hide Frame
+#. *********************************************
+#. *********************************************
+#. * Shoe/Hide Frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_etc.c:877 src/prefs_ui/prefs_ui_imagewin.c:240
+#: src/prefs_ui/prefs_ui_thumbwin.c:445 src/prefs_ui/prefs_ui_thumbwin.c:740
+#: src/prefs_ui/prefs_ui_thumbwin.c:848
+msgid "Show/Hide"
+msgstr "表示/非表示"
+
+#. Show Menubar or not
+#: src/prefs_ui/prefs_ui_etc.c:880
+msgid "Show menubar"
+msgstr "メニューバーを表示"
+
+#. Show Toolbar or not
+#. show/hide toolbar
+#: src/prefs_ui/prefs_ui_etc.c:886 src/prefs_ui/prefs_ui_thumbwin.c:851
+msgid "Show toolbar"
+msgstr "ツールバーを表示"
+
+#. Show Player toolbar or not
+#: src/prefs_ui/prefs_ui_etc.c:892
+msgid "Show player toolbar"
+msgstr "プレーヤツールバーを表示"
+
+#. Show Statusbar or not
+#: src/prefs_ui/prefs_ui_etc.c:898
+msgid "Show statusbar"
+msgstr "ステータスバーを表示"
+
+#. Zoom menu
+#. Default zoom action menu
+#. Zoom menu
+#: src/prefs_ui/prefs_ui_etc.c:916 src/prefs_ui/prefs_ui_imagewin.c:406
+#: src/prefs_ui/prefs_ui_thumbwin.c:1033
+msgid "Zoom:"
+msgstr "ズーム:"
+
+#. Rotate menu
+#. Rotate on image change
+#. Rotate menu
+#: src/prefs_ui/prefs_ui_etc.c:931 src/prefs_ui/prefs_ui_imagewin.c:421
+#: src/prefs_ui/prefs_ui_thumbwin.c:1048
+msgid "Rotation:"
+msgstr "回転:"
+
+#. Keep Aspect Ratio
+#: src/prefs_ui/prefs_ui_etc.c:946
+msgid "Keep aspect rario"
+msgstr "アスペクト比を保持"
+
+#: src/prefs_ui/prefs_ui_etc.c:956 src/prefs_ui/prefs_ui_imagewin.c:446
+#: src/prefs_ui/prefs_ui_thumbwin.c:1076
+msgid "Default Image Scale"
+msgstr "デフォルトの画像拡大率"
+
+#: src/prefs_ui/prefs_ui_etc.c:967 src/prefs_ui/prefs_ui_imagewin.c:457
+#: src/prefs_ui/prefs_ui_thumbwin.c:1086
+msgid "%"
+msgstr "%"
+
+#. *********************************************
+#. * Back Ground Frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_etc.c:977 src/prefs_ui/prefs_ui_imagewin.c:338
+msgid "Back Ground"
+msgstr "背景"
+
+#: src/prefs_ui/prefs_ui_etc.c:983
+msgid "Use specified color"
+msgstr "指定色を使う"
+
+#. *********************************************
+#. *  File Operation frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_etc.c:1019
+msgid "File operation"
+msgstr "ファイル操作"
+
+#. Drag and Drop to external proccess
+#: src/prefs_ui/prefs_ui_etc.c:1022
+msgid "Enable DnD to external proccess (Experimental)"
+msgstr "外部プロセスへの DnD を有効 (実験段階)"
+
+#. Drag and Drop from external proccess
+#: src/prefs_ui/prefs_ui_etc.c:1029
+msgid "Enable DnD from extenal proccess (Experimental)"
+msgstr "外部プロセスからの DnD を有効 (実験段階)"
+
+#. Always refresh list when DnD end
+#: src/prefs_ui/prefs_ui_etc.c:1036
+msgid "Always refresh list when DnD end"
+msgstr "DnD 終了時に常にリストを更新する"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:63 src/prefs_ui/prefs_ui_imagewin.c:72
+msgid "Do not change"
+msgstr "変更しない"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:65
+msgid "Automatic EXIF"
+msgstr "EXIFデータに応じる"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:71
+msgid "Default image scale"
+msgstr "デフォルトの画像拡大率"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:73
+msgid "Fit image to window"
+msgstr "ウィンドウの大きさに合わせる"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:74
+msgid "Fit image to window (zoom out only)"
+msgstr "ウィンドウの大きさに合わせる(拡大しない)"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:75
+msgid "Fit image to width"
+msgstr "画像をフレーム幅に合わせる"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:76
+msgid "Fit image to height"
+msgstr "画像をフレーム高さに合わせる"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:139 src/prefs_ui/prefs_ui_thumbwin.c:180
+msgid "Next image"
+msgstr "次の画像"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:140 src/prefs_ui/prefs_ui_thumbwin.c:181
+msgid "Previous image"
+msgstr "前の画像"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:141 src/prefs_ui/prefs_ui_thumbwin.c:155
+#: src/prefs_ui/prefs_ui_thumbwin.c:171 src/prefs_ui/prefs_ui_thumbwin.c:184
+msgid "Popup menu"
+msgstr "ポップアップメニュー"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:144 src/prefs_ui/prefs_ui_thumbwin.c:187
+msgid "Fit image size to frame"
+msgstr "画像をフレームに合わせる"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:145 src/prefs_ui/prefs_ui_thumbwin.c:188
+msgid "Rotate CCW"
+msgstr "反時計回りに回転"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:146 src/prefs_ui/prefs_ui_thumbwin.c:189
+msgid "Rotate CW"
+msgstr "時計回りに回転"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:147 src/prefs_ui/prefs_ui_thumbwin.c:190
+msgid "Open navigate window"
+msgstr "ナビゲートウィンドウを開く"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:148 src/prefs_ui/prefs_ui_thumbwin.c:191
+msgid "Scroll up"
+msgstr "上へスクロール"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:149 src/prefs_ui/prefs_ui_thumbwin.c:192
+msgid "Scroll down"
+msgstr "下へスクロール"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:150 src/prefs_ui/prefs_ui_thumbwin.c:193
+msgid "Scroll left"
+msgstr "左へスクロール"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:151 src/prefs_ui/prefs_ui_thumbwin.c:194
+msgid "Scroll right"
+msgstr "右へスクロール"
+
+#. *********************************************
+#. * Window Frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_imagewin.c:175 src/prefs_ui/prefs_ui_thumbwin.c:399
+msgid "Window"
+msgstr "ウィンドウ"
+
+#. Save window state on exit
+#: src/prefs_ui/prefs_ui_imagewin.c:178 src/prefs_ui/prefs_ui_thumbwin.c:402
+msgid "Save window state on exit"
+msgstr "終了時にウィンドウの状態を保存する"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:189
+msgid "Initial window size: "
+msgstr "ウィンドウの初期サイズ"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:192 src/prefs_ui/prefs_ui_thumbwin.c:412
+msgid "width"
+msgstr "幅"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:204 src/prefs_ui/prefs_ui_thumbwin.c:423
+msgid "height"
+msgstr "高さ"
+
+#. Auto resize window to image size
+#: src/prefs_ui/prefs_ui_imagewin.c:217
+msgid "Auto resize to image size"
+msgstr "自動的に画像のサイズにリサイズする"
+
+#. Open New Window or not
+#: src/prefs_ui/prefs_ui_imagewin.c:224
+msgid "Open each file in separate window"
+msgstr "ファイルごとに別のウィンドウを開く"
+
+#. Raise window or not
+#: src/prefs_ui/prefs_ui_imagewin.c:231
+msgid "Raise window when open image in shared window"
+msgstr "共有ウィンドウで開くときは、前面に出す"
+
+#. Show Menubar or not
+#: src/prefs_ui/prefs_ui_imagewin.c:255 src/prefs_ui/prefs_ui_thumbwin.c:484
+msgid "Menubar"
+msgstr "メニューバー"
+
+#. Show Toolbar or not
+#: src/prefs_ui/prefs_ui_imagewin.c:263 src/prefs_ui/prefs_ui_thumbwin.c:492
+msgid "Toolbar"
+msgstr "ツールバー"
+
+#. Show Player toolbar or not
+#: src/prefs_ui/prefs_ui_imagewin.c:271
+msgid "Slide show player"
+msgstr "スライドショープレーヤ"
+
+#. Show Statusbar or not
+#: src/prefs_ui/prefs_ui_imagewin.c:279 src/prefs_ui/prefs_ui_thumbwin.c:500
+msgid "Statusbar"
+msgstr "ステータスバー"
+
+#. Show Scrollbar or not
+#: src/prefs_ui/prefs_ui_imagewin.c:287
+msgid "Scrollbar"
+msgstr "スクロールバー"
+
+#. player
+#: src/prefs_ui/prefs_ui_imagewin.c:295 src/prefs_ui/prefs_ui_thumbwin.c:516
+msgid "Player toolbar :"
+msgstr "プレーヤツールバー :"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:299 src/prefs_ui/prefs_ui_thumbwin.c:520
+msgid "Show"
+msgstr "表示"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:307 src/prefs_ui/prefs_ui_thumbwin.c:528
+msgid "Hide"
+msgstr "非表示"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:345
+msgid "Specify back ground color"
+msgstr "背景色を指定"
+
+#: src/prefs_ui/prefs_ui_imagewin.c:360
+msgid "Specify back ground color of fullscreen"
+msgstr "フルスクリーンの背景色を指定"
+
+#. Keep Aspect Ratio
+#: src/prefs_ui/prefs_ui_imagewin.c:436 src/prefs_ui/prefs_ui_thumbwin.c:1066
+msgid "Keep aspect ratio"
+msgstr "アスペクト比を保持"
+
+#. keep original image on memory or not
+#: src/prefs_ui/prefs_ui_imagewin.c:461 src/prefs_ui/prefs_ui_thumbwin.c:1098
+msgid "Keep original image on memory"
+msgstr "元の画像をメモリに保持する"
+
+#: src/prefs_ui/prefs_ui_movie.c:91
+msgid "Default view mode for movie and audio: "
+msgstr "動画と音声用のデフォルト表示モード : "
+
+#: src/prefs_ui/prefs_ui_movie.c:108
+msgid "No movie plugins are available."
+msgstr "利用可能な動画用プラグインが存在しません"
+
+#: src/prefs_ui/prefs_ui_plugin.c:70
+msgid "Directories list to search plugins"
+msgstr "プラグインを検索するディレクトリのリスト"
+
+#: src/prefs_ui/prefs_ui_plugin.c:71
+msgid "Select plugin directory"
+msgstr "プラグインディレクトリを選択"
+
+#: src/prefs_ui/prefs_ui_plugin.c:75
+msgid "Use default directories list to search plugins"
+msgstr "デフォルトのプラグイン検索ディレクトリを使用"
+
+#: src/prefs_ui/prefs_ui_plugin.c:104
+msgid "Plugin Name"
+msgstr "プラグイン名"
+
+#: src/prefs_ui/prefs_ui_plugin.c:104
+msgid "Version"
+msgstr "バージョン"
+
+#: src/prefs_ui/prefs_ui_plugin.c:104
+msgid "Module Name"
+msgstr "モジュール名"
+
+#: src/prefs_ui/prefs_ui_plugin.c:219
+msgid "Image Loader Plugins"
+msgstr "画像読み込みプラグイン"
+
+#: src/prefs_ui/prefs_ui_plugin.c:225
+msgid "Image Saver Plugins"
+msgstr "画像保存プラグイン"
+
+#: src/prefs_ui/prefs_ui_plugin.c:231
+msgid "IO Stream Plugins"
+msgstr "入出力ストリームプラグイン"
+
+#: src/prefs_ui/prefs_ui_plugin.c:237
+msgid "Archiver Plugins"
+msgstr "アーカイバプラグイン"
+
+#: src/prefs_ui/prefs_ui_plugin.c:243
+msgid "Thumbnail Cache Plugins"
+msgstr "サムネイルキャッシュプラグイン"
+
+#: src/prefs_ui/prefs_ui_plugin.c:249
+msgid "Image View Embeder Plugins"
+msgstr "イメージビュープラグイン"
+
+#: src/prefs_ui/prefs_ui_plugin.c:255
+msgid "Thumbnail View Embeder Plugins"
+msgstr "サムネイルビュープラグイン"
+
+#: src/prefs_ui/prefs_ui_progs.c:192
+msgid "Program Name"
+msgstr "プログラム名"
+
+#: src/prefs_ui/prefs_ui_progs.c:193
+msgid "Command"
+msgstr "コマンド"
+
+#: src/prefs_ui/prefs_ui_progs.c:194 src/prefs_ui/prefs_ui_progs.c:258
+msgid "Dialog"
+msgstr "ダイアログ"
+
+#. *********************************************
+#. *  Viewer/Editor frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_progs.c:209
+msgid "Graphic Viewer/Editor"
+msgstr "画像ビューア/エディタ"
+
+#: src/prefs_ui/prefs_ui_progs.c:230
+msgid "Program Name: "
+msgstr "プログラム名: "
+
+#: src/prefs_ui/prefs_ui_progs.c:245 src/prefs_ui/prefs_ui_progs.c:272
+#: src/prefs_ui/prefs_ui_progs.c:300
+msgid "Command: "
+msgstr "コマンド: "
+
+#. *********************************************
+#. *  Web Browser frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_progs.c:266
+msgid "Web Browser"
+msgstr "WEBブラウザ"
+
+#. *********************************************
+#. *  Text Viewer frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_progs.c:287
+msgid "Text Viewer"
+msgstr "テキストビューア"
+
+#. use internal text viewer or not
+#: src/prefs_ui/prefs_ui_progs.c:291
+msgid "Use internal viewer"
+msgstr "内部ビューアを使う"
+
+#: src/prefs_ui/prefs_ui_progs.c:334
+msgid "Directories list to search scripts"
+msgstr "スクリプトを検索するディレクトリのリスト"
+
+#: src/prefs_ui/prefs_ui_progs.c:335
+msgid "Select scripts directory"
+msgstr "スクリプトディレクトリを選択"
+
+#: src/prefs_ui/prefs_ui_progs.c:339
+msgid "Use default directories list to search scripts"
+msgstr "デフォルトのスクリプト検索ディレクトリを使用"
+
+#. Show dialog
+#: src/prefs_ui/prefs_ui_progs.c:348
+msgid "Show dialog befor execute script"
+msgstr "スクリプト実行前にダイアログを表示"
+
+#. *********************************************
+#. * Thumbnail Album Frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_thumbalbum.c:47 src/thumbnail_view_album.c:70
+msgid "Album"
+msgstr "アルバム"
+
+#. Row Spacing spinner
+#: src/prefs_ui/prefs_ui_thumbalbum.c:60
+msgid "Row Spacing"
+msgstr "行間の空白"
+
+#. Column Spacing spinner
+#: src/prefs_ui/prefs_ui_thumbalbum.c:74
+msgid "Column Spacing"
+msgstr "列間の空白"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:106
+msgid "Layout0"
+msgstr "レイアウト0"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:107
+msgid "Layout1"
+msgstr "レイアウト1"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:108
+msgid "Layout2"
+msgstr "レイアウト2"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:109
+msgid "Layout3"
+msgstr "レイアウト3"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:110
+msgid "Layout4"
+msgstr "レイアウト4"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:111
+msgid "Custom"
+msgstr "カスタム"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:117 src/gimv_dupl_win.c:288
+msgid "Icon"
+msgstr "アイコン"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:118
+msgid "Text"
+msgstr "テキスト"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:119
+msgid "Both"
+msgstr "両方"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:127
+msgid "Top"
+msgstr "上"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:128
+msgid "Bottom"
+msgstr "下"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:136
+msgid "Solid"
+msgstr "実線"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:137
+msgid "Dotted"
+msgstr "点線"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:138
+msgid "Tabbed"
+msgstr "タブ"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:145
+msgid "Square"
+msgstr "四角"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:146
+msgid "Triangle"
+msgstr "三角"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:147
+msgid "Circular"
+msgstr "丸"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:156
+msgid "Open (Auto select window)"
+msgstr "開く(Windowを自動選択)"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:157
+msgid "Open (Auto & Force)"
+msgstr "開く(自動 & 強制)"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:158
+msgid "Open in preview"
+msgstr "プレビューで開く"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:159
+msgid "Open in preview (Force)"
+msgstr "プレビューで開く (強制)"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:160 src/prefs_ui/prefs_ui_thumbwin.c:183
+msgid "Open in new window"
+msgstr "新規ウィンドウで開く"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:161 src/prefs_ui/prefs_ui_thumbwin.c:182
+msgid "Open in shared window"
+msgstr "共有ウィンドウで開く"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:162
+msgid "Open in shared window (Force)"
+msgstr "共有ウィンドウで開く (強制)"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:169
+msgid "Load thumbnails"
+msgstr "サムネイル読み込み"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:170
+msgid "Load thumbnails recursively"
+msgstr "サムネイルを再帰的に読み込み"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:172
+msgid "Change top directory"
+msgstr "トップディレクトリを変更"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:173
+msgid "Load recursively in a tab"
+msgstr "1タブ内に再帰読み込み"
+
+#. Toolbar Style
+#: src/prefs_ui/prefs_ui_thumbwin.c:435
+msgid "Default Layout"
+msgstr "レイアウト"
+
+#. Show Directory or not
+#: src/prefs_ui/prefs_ui_thumbwin.c:460
+msgid "Directory view"
+msgstr "ディレクトリビュー"
+
+#. Show Preview Tab or not
+#: src/prefs_ui/prefs_ui_thumbwin.c:476
+msgid "Preview Tab"
+msgstr "プレビュータブ"
+
+#. Show Tab or not
+#. *********************************************
+#. * Tab Frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_thumbwin.c:508 src/prefs_ui/prefs_ui_thumbwin.c:660
+msgid "Tab"
+msgstr "タブ"
+
+#. Raise window or not
+#: src/prefs_ui/prefs_ui_thumbwin.c:557
+msgid "Raise window when opening thumbnails"
+msgstr "サムネイルを開くときにウィンドウを前面に出す"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:570
+msgid "Toolbar Style"
+msgstr "ツールバーのスタイル"
+
+#. "Loading" frame
+#: src/prefs_ui/prefs_ui_thumbwin.c:580
+msgid "Loading"
+msgstr "ローディング"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:587
+msgid "GUI redraw interval while loading: Every"
+msgstr "ローディング時の再描画の間隔: "
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:598
+msgid "files"
+msgstr "ファイル毎"
+
+#. show detail of progress
+#: src/prefs_ui/prefs_ui_thumbwin.c:602
+msgid "Show detail of loading progress"
+msgstr "ローディングの詳細情報を表示"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:627
+msgid "Not implemented yet."
+msgstr "未実装"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:665
+msgid "Tab Position"
+msgstr "タブの位置"
+
+#. Move to new tab automatically or not
+#: src/prefs_ui/prefs_ui_thumbwin.c:678
+msgid "Move to new tab automatically"
+msgstr "自動的に新規タブに移動する"
+
+#. show tab close button
+#: src/prefs_ui/prefs_ui_thumbwin.c:685
+msgid "Show close button"
+msgstr "クローズボタンを表示"
+
+#. show full path in tab
+#: src/prefs_ui/prefs_ui_thumbwin.c:695
+msgid "Show full path"
+msgstr "フルパスを表示する"
+
+#. force open tab
+#: src/prefs_ui/prefs_ui_thumbwin.c:705
+msgid "Open new tab whether image is exist or not in the directory"
+msgstr "画像が存在しないディレクトリを指定した場合もタブを開く"
+
+#. show archive
+#: src/prefs_ui/prefs_ui_thumbwin.c:753
+msgid "Archive"
+msgstr "アーカイブ"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:766
+msgid "Default display mode"
+msgstr "デフォルト表示モード"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:782
+msgid "Thumnail Size"
+msgstr "サムネイルサイズ"
+
+#. show/hide dot file
+#: src/prefs_ui/prefs_ui_thumbwin.c:858
+msgid "Show dot file"
+msgstr "ドットファイルを表示"
+
+#. show/hide dot file
+#: src/prefs_ui/prefs_ui_thumbwin.c:865
+msgid "Show \".\" directory whether hide dotfile or not."
+msgstr "ドットファイルを隠している場合も \".\" ディレクトリを表示する"
+
+#. show/hide dot file
+#: src/prefs_ui/prefs_ui_thumbwin.c:872
+msgid "Show \"..\" directory whether hide dotfile or not."
+msgstr "ドットファイルを隠している場合も \"..\" ディレクトリを表示する"
+
+#. *********************************************
+#. * Style Frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_thumbwin.c:889
+msgid "Style"
+msgstr "スタイル"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:895
+msgid "Tree line style"
+msgstr "ツリーラインのスタイル"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:907
+msgid "Tree expander style"
+msgstr "ツリー展開アイコンのスタイル"
+
+#. *********************************************
+#. * Drag and Drop Frame
+#. *********************************************
+#: src/prefs_ui/prefs_ui_thumbwin.c:919
+msgid "Drag and Drop"
+msgstr "ドラッグ & ドロップ"
+
+#. auto scroll
+#: src/prefs_ui/prefs_ui_thumbwin.c:922
+msgid "Enable auto scroll."
+msgstr "オートスクロールを有効にする"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:932
+msgid "Auto scroll interval"
+msgstr "オートスクロールの間隔"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:944 src/prefs_ui/prefs_ui_thumbwin.c:970
+msgid "[ms]"
+msgstr "[ミリ秒]"
+
+#. auto expand
+#: src/prefs_ui/prefs_ui_thumbwin.c:948
+msgid "Enable auto expand directory tree."
+msgstr "ツリーを自動的に展開する"
+
+#: src/prefs_ui/prefs_ui_thumbwin.c:958
+msgid "Lag time for auto expand"
+msgstr "ツリーを自動展開するまので時間"
+
+#. Show Scrollbar or not
+#: src/prefs_ui/prefs_ui_thumbwin.c:1090
+msgid "Show scrollbar"
+msgstr "スクロールバーを表示"
+
+#: src/gimv_dupl_win.c:121 src/thumbnail_view_album.c:790
+#: plugins/thumbnail_view/detailview.c:121
+msgid "Name"
+msgstr "ファイル名"
+
+#: src/gimv_dupl_win.c:123 plugins/thumbnail_view/detailview.c:122
+msgid "Size (byte)"
+msgstr "サイズ (バイト)"
+
+#. window
+#: src/gimv_dupl_win.c:181
+msgid "Find Duplicates - result"
+msgstr "重複画像検索 - 結果"
+
+#. Select All
+#: src/gimv_dupl_win.c:297
+msgid "Select All"
+msgstr "全て選択"
+
+#: src/gimv_dupl_win.c:409
+msgid "Finding similar images..."
+msgstr "重複画像を検索中..."
+
+#: src/gimv_dupl_win.c:426
+msgid "Completed"
+msgstr "完了"
+
+#: src/text_viewer.c:71
+#, c-format
+msgid "Can't open text file: %s\n"
+msgstr "テキストファイルを開くことができません : %s\n"
+
+#: src/text_viewer.c:117
+msgid "File Name: "
+msgstr "ファイル名: "
+
+#: src/gimv_thumb_view.c:180
+msgid "/_Open"
+msgstr "/開く(_O)"
+
+#: src/gimv_thumb_view.c:181
+msgid "/Open in New _Window"
+msgstr "/新規ウィンドウで開く(_W)"
+
+#: src/gimv_thumb_view.c:182
+msgid "/Open in S_hared Window"
+msgstr "/共有ウィンドウで開く(_H)"
+
+#: src/gimv_thumb_view.c:183
+msgid "/Open in E_xternal Program"
+msgstr "/外部プログラムで開く(_X)"
+
+#: src/gimv_thumb_view.c:184
+msgid "/_Scripts"
+msgstr "/スクリプト(_S)"
+
+#: src/gimv_thumb_view.c:186
+msgid "/_Update Thumbnail"
+msgstr "サムネイル再作成(_U)"
+
+#: src/gimv_thumb_view.c:187
+msgid "/Remo_ve from List"
+msgstr "リストから削除(_V)"
+
+#: src/gimv_thumb_view.c:191
+msgid "/Scan E_XIF Data..."
+msgstr "/EXIFデータを検索(_X)..."
+
+#: src/gimv_thumb_view.c:193
+msgid "/_Edit Comment..."
+msgstr "/コメントを編集(_C)..."
+
+#: src/gimv_thumb_view.c:195
+msgid "/Re_name..."
+msgstr "/ファイル名変更(_N)..."
+
+#: src/gimv_thumb_view.c:196
+msgid "/_Copy Files To..."
+msgstr "/ディレクトリへコピー(_C)..."
+
+#: src/gimv_thumb_view.c:197
+msgid "/_Move Files To..."
+msgstr "/ディレクトリへ移動(_M)..."
+
+#: src/gimv_thumb_view.c:198
+msgid "/_Link Files To..."
+msgstr "/ディレクトリへリンク(_L)..."
+
+#: src/gimv_thumb_view.c:199
+msgid "/_Remove file..."
+msgstr "ファイル削除(_R)..."
+
+#: src/gimv_thumb_view.c:478
+msgid "Execute command"
+msgstr "コマンドを実行"
+
+#: src/gimv_thumb_view.c:479 src/gimv_thumb_view.c:548
+msgid "Please enter options:"
+msgstr "オプションを入力して下さい :"
+
+#: src/gimv_thumb_view.c:547
+msgid "Execute script"
+msgstr "スクリプトを実行"
+
+#: src/gimv_thumb_view.c:1016
+msgid "No files specified!!"
+msgstr "ファイルが指定されていません!!"
+
+#: src/gimv_thumb_view.c:2378
+msgid "Rename a file"
+msgstr "ファイル名変更"
+
+#: src/gimv_thumb_view.c:2379
+msgid "New file name: "
+msgstr "新規ファイル名: "
+
+#: src/gimv_thumb_view.c:2407
+#, c-format
+msgid ""
+"File exist : %s\n"
+"\n"
+"Overwrite?"
+msgstr ""
+"ファイルは存在します : %s\n"
+"\n"
+"上書きしますか?"
+
+#: src/gimv_thumb_view.c:2429
+#, c-format
+msgid ""
+"Faild to rename file :\n"
+"%s"
+msgstr ""
+"ファイル名変更に失敗しました :\n"
+"%s"
+
+#: src/gimv_thumb_view.c:2448
+#, c-format
+msgid "Faild to rename cache file :%s\n"
+msgstr "キャッシュファイル名変更に失敗しました : %s\n"
+
+#: src/gimv_thumb_view.c:2458
+#, c-format
+msgid "Faild to rename comment file :%s\n"
+msgstr "コメントファイル名変更に失敗しました : %s\n"
+
+#: src/gimv_thumb_view.c:3659 src/gimv_thumb_view.c:3735
+#, c-format
+msgid "Collection %d"
+msgstr "コレクション %d"
+
+#: src/gimv_thumb_view.c:3729
+#, c-format
+msgid "%s (Collection)"
+msgstr "%s (コレクション)"
+
+#: src/thumbnail_view_album.c:86
+msgid "Album 2"
+msgstr "アルバム2"
+
+#: src/thumbnail_view_album.c:102
+msgid "Album 3"
+msgstr "アルバム3"
+
+#: src/thumbnail_view_album.c:716
+#, c-format
+msgid "Name : %s"
+msgstr "ファイル名 : %s"
+
+#: src/thumbnail_view_album.c:735
+#, c-format
+msgid "Size : %s bytes"
+msgstr "サイズ : %s バイト"
+
+#: src/thumbnail_view_album.c:737
+#, c-format
+msgid "%s bytes"
+msgstr "%s バイト"
+
+#: src/thumbnail_view_album.c:753
+msgid "Time : "
+msgstr "時間 : "
+
+#: src/thumbnail_view_album.c:772
+#, c-format
+msgid "Type: %s"
+msgstr "種類 : %s"
+
+#: src/thumbnail_view_album.c:791
+msgid "Size"
+msgstr "サイズ"
+
+#: src/thumbnail_view_album.c:792
+msgid "Time"
+msgstr "時間"
+
+#: src/thumbnail_view_album.c:793 plugins/thumbnail_view/detailview.c:123
+msgid "Type"
+msgstr "ファイルタイプ"
+
+#: plugins/archiver/lha-ext.c:52
+msgid "LHA archive support"
+msgstr "LHAアーカイブサポート"
+
+#: plugins/archiver/lha-ext.c:54 plugins/archiver/rar-ext.c:54
+#: plugins/archiver/tar-ext.c:89 plugins/archiver/zip-ext.c:57
+#: plugins/image_loader/bmp.c:130 plugins/image_loader/imlib_loader.c:176
+#: plugins/image_loader/mag.c:93 plugins/image_loader/mng.c:136
+#: plugins/image_loader/pcx.c:92 plugins/image_loader/pixbuf_loader.c:255
+#: plugins/image_loader/png_loader.c:76
+#: plugins/image_loader/spi_image_loader.c:53 plugins/image_loader/svg.c:80
+#: plugins/image_loader/tga.c:112 plugins/image_loader/wmf.c:80
+#: plugins/image_loader/xbm.c:92 plugins/image_loader/xcf.c:270
+#: plugins/image_loader/xvpics.c:50 plugins/image_saver/png_saver.c:49
+#: plugins/image_saver/pnm_saver.c:51 plugins/image_saver/xvpics_saver.c:49
+#: plugins/image_view/image_view_mplayer.c:240
+#: plugins/image_view/image_view_xine.c:265 plugins/io_stream/gimv_bz_io.c:59
+#: plugins/io_stream/gimv_gzip_io.c:66 plugins/thumbnail/ee.c:109
+#: plugins/thumbnail/gimv_thumb.c:99 plugins/thumbnail/gqview.c:107
+#: plugins/thumbnail/konqueror-old.c:105 plugins/thumbnail/nautilus.c:78
+#: plugins/thumbnail/nautilus-2.0.c:80 plugins/thumbnail/xvpics.c:83
+#: plugins/thumbnail_view/detailview.c:96
+msgid "Takuro Ashie"
+msgstr "Takuro Ashie"
+
+#: plugins/archiver/rar-ext.c:52
+msgid "RAR archive support"
+msgstr "RARアーカイブサポート"
+
+#: plugins/archiver/tar-ext.c:87
+msgid "TAR archive support"
+msgstr "TARアーカイブサポート"
+
+#: plugins/archiver/zip-ext.c:55
+msgid "ZIP archive support"
+msgstr "ZIPアーカイブサポート"
+
+#: plugins/image_loader/bmp.c:101 plugins/image_loader/bmp.c:108
+#: plugins/image_loader/bmp.c:115
+msgid "Windows Bitmap Image"
+msgstr ""
+
+#: plugins/image_loader/bmp.c:128
+msgid "Windows Bitmap Image Loader"
+msgstr "Windows Bitmap画像ローダ"
+
+#: plugins/image_loader/imlib_loader.c:84
+#: plugins/image_loader/imlib_loader.c:91
+#: plugins/image_loader/imlib_loader.c:98
+#: plugins/image_loader/pixbuf_loader.c:121
+#: plugins/image_loader/pixbuf_loader.c:128
+#: plugins/image_loader/pixbuf_loader.c:135
+msgid "The BMP image format"
+msgstr ""
+
+#: plugins/image_loader/imlib_loader.c:105
+#: plugins/image_loader/pixbuf_loader.c:142
+msgid "The GIF image format"
+msgstr ""
+
+#: plugins/image_loader/imlib_loader.c:112
+#: plugins/image_loader/pixbuf_loader.c:156
+msgid "The JPEG image format"
+msgstr ""
+
+#: plugins/image_loader/imlib_loader.c:119
+#: plugins/image_loader/pixbuf_loader.c:163
+msgid "The PNG image format"
+msgstr ""
+
+#: plugins/image_loader/imlib_loader.c:126
+#: plugins/image_loader/pixbuf_loader.c:170
+msgid "Portable Any Map Image"
+msgstr ""
+
+#: plugins/image_loader/imlib_loader.c:133
+#: plugins/image_loader/pixbuf_loader.c:177
+msgid "The PBM image format"
+msgstr ""
+
+#: plugins/image_loader/imlib_loader.c:140
+#: plugins/image_loader/pixbuf_loader.c:184
+msgid "The PGM image format"
+msgstr ""
+
+#: plugins/image_loader/imlib_loader.c:147
+#: plugins/image_loader/pixbuf_loader.c:191
+msgid "The PPM image format"
+msgstr ""
+
+#: plugins/image_loader/imlib_loader.c:154
+#: plugins/image_loader/pixbuf_loader.c:219
+msgid "The TIFF image format"
+msgstr ""
+
+#: plugins/image_loader/imlib_loader.c:161
+#: plugins/image_loader/pixbuf_loader.c:240
+msgid "The XPM image format"
+msgstr ""
+
+#: plugins/image_loader/imlib_loader.c:174
+msgid "Imlib1 Image Loader"
+msgstr "Imlib1 画像ローダ"
+
+#: plugins/image_loader/mag.c:91
+msgid "MAG Image Loader"
+msgstr "MAG画像ローダ"
+
+#: plugins/image_loader/mng.c:134
+msgid "MNG Image Loader"
+msgstr "MNG画像ローダ"
+
+#: plugins/image_loader/pcx.c:90
+msgid "PCX Image Loader"
+msgstr "PCX画像ローダ"
+
+#: plugins/image_loader/pixbuf_loader.c:114
+msgid "The ANI image format"
+msgstr ""
+
+#: plugins/image_loader/pixbuf_loader.c:149
+msgid "The ICO image format"
+msgstr ""
+
+#: plugins/image_loader/pixbuf_loader.c:198
+#: plugins/image_loader/pixbuf_loader.c:205
+msgid "The Sun raster image format"
+msgstr ""
+
+#: plugins/image_loader/pixbuf_loader.c:212
+msgid "The Targa image format"
+msgstr ""
+
+#: plugins/image_loader/pixbuf_loader.c:226
+msgid "The WBMP image format"
+msgstr ""
+
+#: plugins/image_loader/pixbuf_loader.c:233
+msgid "The XBM image format"
+msgstr ""
+
+#: plugins/image_loader/pixbuf_loader.c:253
+msgid "GdkPixbuf Image Loader"
+msgstr "GdkPixbuf 画像ローダ"
+
+#: plugins/image_loader/png_loader.c:74
+msgid "PNG Image Loader"
+msgstr "PNG画像ローダ"
+
+#: plugins/image_loader/prefs_spi.c:60
+msgid "/Plugin/Susie plugin"
+msgstr "/プラグイン/Susieプラグイン"
+
+#: plugins/image_loader/prefs_spi.c:68
+msgid "/Plugin/Susie plugin/Import filter"
+msgstr "/プラグイン/Susieプラグイン/インポートフィルタ"
+
+#: plugins/image_loader/prefs_spi.c:76
+msgid "/Plugin/Susie plugin/Archive extractor"
+msgstr "/プラグイン/Susieプラグイン/アーカイブエクストラクタ"
+
+#: plugins/image_loader/prefs_spi.c:192
+msgid "Directories list to search susie plugins"
+msgstr "Susieプラグインを検索するディレクトリのリスト"
+
+#: plugins/image_loader/prefs_spi.c:193
+msgid "Select susie plugin directory"
+msgstr "Susieプラグインのディレクトリを選択"
+
+#: plugins/image_loader/prefs_spi.c:197
+msgid "Use default directories list to search susie plugins"
+msgstr "デフォルトのSusieプラグイン検索ディレクトリを使用"
+
+#: plugins/image_loader/prefs_spi.c:225
+msgid "File Name"
+msgstr "ファイル名"
+
+#: plugins/image_loader/prefs_spi.c:316
+msgid "Import filters"
+msgstr "インポートフィルタ"
+
+#: plugins/image_loader/prefs_spi.c:339
+msgid "Archive Extractor"
+msgstr "アーカイブエクストラクタ"
+
+#: plugins/image_loader/spi_image_loader.c:51
+msgid "Susie Plugin Image Loader"
+msgstr "Susieプラグイン画像ローダ"
+
+#: plugins/image_loader/svg.c:78
+msgid "SVG Image Loader"
+msgstr "SVG画像ローダ"
+
+#: plugins/image_loader/tga.c:110
+msgid "TGA Image Loader"
+msgstr "TGA画像ローダ"
+
+#: plugins/image_loader/wmf.c:78
+msgid "WMF Image Loader"
+msgstr "WMF画像ローダ"
+
+#: plugins/image_loader/xbm.c:90
+msgid "XBM Image Loader"
+msgstr "XBM画像ローダ"
+
+#: plugins/image_loader/xcf.c:268
+msgid "XCF Image Loader"
+msgstr "XCF画像ローダ"
+
+#: plugins/image_loader/xvpics.c:48
+msgid "XV thumbnail Image Loader"
+msgstr "XVサムネイル画像ローダ"
+
+#: plugins/image_saver/png_saver.c:47
+msgid "PNG Image Saver"
+msgstr "PNG画像セーバ"
+
+#: plugins/image_saver/pnm_saver.c:49
+msgid "PNM Image Saver"
+msgstr "PNM画像セーバ"
+
+#: plugins/image_saver/xvpics_saver.c:47
+msgid "XVPICS Image Saver"
+msgstr "XVPICS画像セーバ"
+
+#: plugins/image_view/image_view_mplayer.c:77
+msgid "Movie Player (MPlayer)"
+msgstr "動画 (MPlayer)"
+
+#: plugins/image_view/image_view_mplayer.c:238
+msgid "MPlayer Embeder & Movie Frame Loader"
+msgstr "MPlayer埋め込み & 動画フレーム読み込み"
+
+#: plugins/image_view/image_view_xine.c:102
+msgid "Movie Player (Xine)"
+msgstr "動画 (Xine)"
+
+#: plugins/image_view/image_view_xine.c:263
+msgid "Xine Embeder & Movie Frame Loader"
+msgstr "Xine埋め込み & 動画フレーム読み込み"
+
+#: plugins/image_view/image_view_xine.c:725
+msgid "Please stop first."
+msgstr "まずは停止させて下さい"
+
+#: plugins/image_view/image_view_xine.c:737
+msgid "No available plugin found."
+msgstr "有効なプラグインは見つかりませんでした"
+
+#: plugins/image_view/image_view_xine.c:742
+msgid "Available plugins"
+msgstr "利用可能なプラグイン"
+
+#: plugins/image_view/image_view_xine.c:742
+msgid "Plugin: "
+msgstr "プラグイン: "
+
+#: plugins/image_view/image_view_xine.c:763
+msgid "No available MRL found."
+msgstr "有効なMRLは見つかりませんでした"
+
+#: plugins/image_view/prefs_mplayer.c:69
+msgid "/Movie and Audio/MPlayer"
+msgstr "/動画と音声/MPlayer"
+
+#. *********************************************
+#. * Driver Frame
+#. *********************************************
+#: plugins/image_view/prefs_mplayer.c:253
+msgid "Driver"
+msgstr "ドライバ"
+
+#. video driver combo
+#: plugins/image_view/prefs_mplayer.c:264 plugins/image_view/prefs_xine.c:187
+#: plugins/image_view/prefs_xine.c:215
+msgid "Video driver : "
+msgstr "ビデオドライバ : "
+
+#. audio driver combo
+#: plugins/image_view/prefs_mplayer.c:282 plugins/image_view/prefs_xine.c:197
+#: plugins/image_view/prefs_xine.c:233
+msgid "Audio driver : "
+msgstr "オーディオドライバ : "
+
+#. use this feature or not
+#: plugins/image_view/prefs_mplayer.c:306
+msgid "Enable creating thumbnail of movie using MPlayer"
+msgstr "MPlayerを使用して動画のサムネイルを作成する"
+
+#: plugins/image_view/prefs_mplayer.c:318 plugins/image_view/prefs_xine.c:273
+msgid "Stream position : "
+msgstr "ストリームの位置 : "
+
+#: plugins/image_view/prefs_mplayer.c:332 plugins/image_view/prefs_xine.c:287
+msgid "[%]"
+msgstr "[%]"
+
+#: plugins/image_view/prefs_xine.c:45
+msgid "/Movie and Audio/Xine"
+msgstr "/動画と音声/Xine"
+
+#. *********************************************
+#. * Driver Frame
+#. *********************************************
+#: plugins/image_view/prefs_xine.c:177
+msgid "Driver (Not implemented yet)"
+msgstr "ドライバ (未実装)"
+
+#. use this feature or not
+#: plugins/image_view/prefs_xine.c:260
+msgid "Enable creating thumbnail of movie using Xine"
+msgstr "Xineを使用して動画のサムネイルを作成する"
+
+#: plugins/image_view/prefs_xine.c:297
+msgid "Delay time to create thumbnail from starting play : "
+msgstr "再生開始からサムネイル作成までの遅延時間 : "
+
+#: plugins/io_stream/gimv_bz_io.c:57
+msgid "BZIP2 Compressed Stream Support"
+msgstr "BZIP2圧縮ストリームサポート"
+
+#: plugins/io_stream/gimv_gzip_io.c:64
+msgid "GZIP Compressed Stream Support"
+msgstr "GZIP圧縮ストリームサポート"
+
+#: plugins/thumbnail/ee.c:83
+msgid "Electric Eyes (Preview)"
+msgstr "Electric Eyes (プレビュー)"
+
+#: plugins/thumbnail/ee.c:89
+msgid "Electric Eyes (Icon)"
+msgstr "Electric Eyes (アイコン)"
+
+#: plugins/thumbnail/ee.c:95
+msgid "Electric Eyes (Mini)"
+msgstr "Electric Eyes (ミニ)"
+
+#: plugins/thumbnail/ee.c:107
+msgid "Electric Eyes thumbnail support"
+msgstr "Electric Eyesサムネイルサポート"
+
+#: plugins/thumbnail/ee.c:187 plugins/thumbnail/gqview.c:242
+#: plugins/thumbnail/konqueror-old.c:189
+#, c-format
+msgid "save cache: %s\n"
+msgstr "save cache: %s\n"
+
+#: plugins/thumbnail/gimv_thumb.c:97
+msgid "GImageView thumbnail support"
+msgstr "GImageViewサムネイルサポート"
+
+#: plugins/thumbnail/gimv_thumb.c:247
+msgid "image size invalid\n"
+msgstr "画像サイズが不正です\n"
+
+#: plugins/thumbnail/gimv_thumb.c:254
+msgid "cache size invalid\n"
+msgstr "キャッシュサイズが不正です\n"
+
+#: plugins/thumbnail/gimv_thumb.c:380
+msgid "GImageVIew thumbnail size"
+msgstr "GImageViewサムネイルサイズ"
+
+#: plugins/thumbnail/gqview.c:93
+msgid "GQview"
+msgstr "GQview"
+
+#: plugins/thumbnail/gqview.c:105
+msgid "GQview thumbnail support"
+msgstr "GQviewサムネイルサポート"
+
+#: plugins/thumbnail/gqview.c:326
+msgid "GQview thumbnail size"
+msgstr "GQviewサムネイルサイズ"
+
+#: plugins/thumbnail/konqueror-old.c:79
+msgid "Konqueror old (Large)"
+msgstr "古いKonqueror (大)"
+
+#: plugins/thumbnail/konqueror-old.c:85
+msgid "Konqueror old (Medium)"
+msgstr "古いKonqueror (中)"
+
+#: plugins/thumbnail/konqueror-old.c:91
+msgid "Konqueror old (Small)"
+msgstr "古いKonqueror (小)"
+
+#: plugins/thumbnail/konqueror-old.c:103
+msgid "Konqueror(KDE2.1.x or belower) thumbnail support"
+msgstr "Konqueror(KDE2.1.x以前)サムネイルサポート"
+
+#: plugins/thumbnail/konqueror.c:81
+msgid "Konqueror (Large)"
+msgstr "Konqueror (大)"
+
+#: plugins/thumbnail/konqueror.c:87
+msgid "Konqueror (Medium)"
+msgstr "Konqueror (中)"
+
+#: plugins/thumbnail/konqueror.c:93
+msgid "Konqueror (Small)"
+msgstr "Konqueror (小)"
+
+#: plugins/thumbnail/konqueror.c:106
+msgid "Konqueror(KDE2.2 or higher) thumbnail support"
+msgstr "Konqueror(KDE2.2以降)サムネイルサポート"
+
+#: plugins/thumbnail/nautilus.c:65
+msgid "Nautilus"
+msgstr "Nautilus"
+
+#: plugins/thumbnail/nautilus.c:76
+msgid "Nautilus thumbnail support"
+msgstr "Nautilusサムネイルサポート"
+
+#: plugins/thumbnail/nautilus-2.0.c:67
+msgid "Nautilus-2.0"
+msgstr "Nautilus-2.0"
+
+#: plugins/thumbnail/nautilus-2.0.c:78
+msgid "Nautilus-2.0 thumbnail support"
+msgstr "Nautilus-2.0サムネイルサポート"
+
+#: plugins/thumbnail/xvpics.c:70
+msgid "XV thumbnail"
+msgstr "XVサムネイル"
+
+#: plugins/thumbnail/xvpics.c:81
+msgid "XV thumbnail support"
+msgstr "XVサムネイルサポート"
+
+#: plugins/thumbnail_view/detailview.c:41
+msgid "Detail"
+msgstr "詳細"
+
+#: plugins/thumbnail_view/detailview.c:57
+msgid "Detail + Icon"
+msgstr "詳細 + アイコン"
+
+#: plugins/thumbnail_view/detailview.c:73
+msgid "Detail + Thumbnail"
+msgstr "詳細 + サムネイル"
+
+#: plugins/thumbnail_view/detailview.c:94
+msgid "Thumbnail View Detail Mode"
+msgstr "サムネイルビュー 詳細モード"
+
+#: plugins/thumbnail_view/detailview.c:124
+msgid "Cache type"
+msgstr "キャッシュタイプ"
+
+#: plugins/thumbnail_view/detailview.c:125
+msgid "Access time"
+msgstr "参照日時"
+
+#: plugins/thumbnail_view/detailview.c:126
+msgid "Modification time"
+msgstr "更新日時"
+
+#: plugins/thumbnail_view/detailview.c:127
+msgid "Change time"
+msgstr "状態変更日時"
+
+#: plugins/thumbnail_view/detailview.c:128
+msgid "User"
+msgstr "ユーザー"
+
+#: plugins/thumbnail_view/detailview.c:129
+msgid "Group"
+msgstr "グループ"
+
+#: plugins/thumbnail_view/detailview.c:130
+msgid "Mode"
+msgstr "モード"
+
+#: plugins/thumbnail_view/detailview.c:131
+msgid "Image size"
+msgstr "画像サイズ"
+
+#: plugins/thumbnail_view/detailview.c:335
+msgid "Unknwon"
+msgstr "不明"
+
+#: plugins/thumbnail_view/detailview_prefs.c:56
+msgid "/Thumbnail Window/Thumbnail View/Detail View"
+msgstr "/サムネイルウィンドウ/サムネイルビュー/詳細ビュー"
+
+#: plugins/thumbnail_view/detailview_prefs.c:108
+msgid "Column Order"
+msgstr "コラムの順序"
+
+#: plugins/thumbnail_view/detailview_prefs.c:109
+msgid "Possible columns"
+msgstr "利用可能コラム"
+
+#: plugins/thumbnail_view/detailview_prefs.c:110
+msgid "Displayed columns"
+msgstr "表示するコラム"
+
+#. show/hide column title
+#: plugins/thumbnail_view/detailview_prefs.c:121
+msgid "Show Column Title"
+msgstr "コラムタイトルを表示する"
+
+#: src/gimv_elist.c:997
+msgid "Down"
+msgstr "下へ"
+
+#: src/gimv_elist.c:1024
+msgid "New"
+msgstr "新規"
+
+#: src/gimv_elist.c:1028
+msgid "Add"
+msgstr "追加"
+
+#: src/gimv_elist.c:1032
+msgid "Change"
+msgstr "変更"
+
+#: src/gimv_elist.c:1036
+msgid "Delete"
+msgstr "削除"
+
+#~ msgid "Xine Embeder"
+#~ msgstr "Xine埋め込み"
+
+#~ msgid "/Rotate -90 deg"
+#~ msgstr "/-90度"
+
+#~ msgid "-90"
+#~ msgstr "-90"
+
+#~ msgid "0"
+#~ msgstr "0"
+
+#~ msgid "90"
+#~ msgstr "90"
+
+#~ msgid "180"
+#~ msgstr "180"
+
+#~ msgid "Do not zoom in when fit to window automatically."
+#~ msgstr "自動的にサイズを合わせる際に拡大しない"
+
+#~ msgid "Default Zoom: "
+#~ msgstr "デフォルトのズーム方法: "
+
+#~ msgid "Default Rotation: "
+#~ msgstr "デフォルトの回転方法: "
+
+#~ msgid "Auto resize to window size"
+#~ msgstr "自動的にウィンドウの大きさに合わせる"
+
+#~ msgid "Auto resize to window size when opening"
+#~ msgstr "ファイルオープン時にウィンドウのサイズに合わせる"
+
+#~ msgid "Auto resize to frame size when open image"
+#~ msgstr "ファイルオープン時にフレームのサイズに合わせる"
+
+#~ msgid "/_File/_New Collection"
+#~ msgstr "/ファイル(_F)/新規コレクション(_N)"
+
+#~ msgid "Rename Mode"
+#~ msgstr "リネームモード"
+
+#~ msgid "Thumbnail View Thumbnail Mode"
+#~ msgstr "サムネイルビュー サムネイルモード"
+
+#~ msgid ""
+#~ "File not exist!!:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "ファイルは存在しません!!:\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "Permission denied!!:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "許可がありません!!:\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "File exist!!:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "ファイルは存在します!!\n"
+#~ "%s"
+
+#~ msgid "Faild to rename!!"
+#~ msgstr "ファイル名変更に失敗しました!!"
+
+#~ msgid "List (Icon)"
+#~ msgstr "リスト (アイコン)"
+
+#~ msgid "List (Thumbnail)"
+#~ msgstr "リスト (サムネイル)"
+
+#~ msgid "Thumbnail View List Mode"
+#~ msgstr "サムネイルビュー リストモード"
+
+#~ msgid "/Thumbnail Window/Thumbnail View/List View"
+#~ msgstr "/サムネイルウィンドウ/サムネイルビュー/リストビュー"
+
+#~ msgid "Data Order on List View (Thumbnail)"
+#~ msgstr "リスト(サムネイル)で表示するデータ"
+
+#~ msgid "Possible data"
+#~ msgstr "利用可能な項目"
+
+#~ msgid "Displayed data"
+#~ msgstr "表示する項目"
+
+#~ msgid "/Thumbnail Window/Thumbnail View/Thumbnail Table"
+#~ msgstr "/サムネイルウィンドウ/サムネイルビュー/サムネイルテーブル"
+
+#~ msgid "Thumbnail Table"
+#~ msgstr "サムネイルテーブル"
+
+#~ msgid "Minimum Columns"
+#~ msgstr "列数の最小値"
+
+#~ msgid "Maximum Columns"
+#~ msgstr "列数の最大値"
+
+#~ msgid "Centering"
+#~ msgstr "センタリングする"
+
+#~ msgid "Thumbnail Button"
+#~ msgstr "サムネイルボタン"
+
+#~ msgid "Minimum Border Width"
+#~ msgstr "縁幅の最小値"
+
+#~ msgid "270"
+#~ msgstr "270"
+
+#~ msgid "IFD 0"
+#~ msgstr "メイン情報 0"
+
+#~ msgid "IFD 1"
+#~ msgstr "メイン情報 1"
+
+#~ msgid "Exif IFD"
+#~ msgstr "サブ情報"
+
+#~ msgid "GPS IFD"
+#~ msgstr "GPS測定情報"
+
+#~ msgid "Interoperability"
+#~ msgstr "ExifR98情報"
+
+#~ msgid "Clear"
+#~ msgstr "クリア"
+
+#~ msgid "There is no duplicating image."
+#~ msgstr "重複する画像はありません．"
+
+#~ msgid "/Movie/MPlayer"
+#~ msgstr "/動画/MPlayer"
+
+#~ msgid "/Movie/Xine"
+#~ msgstr "/動画/Xine"
+
+#~ msgid "BZ Compressed Stream Support"
+#~ msgstr "BZ圧縮ストリームサポート"
+
+#~ msgid "/Movie"
+#~ msgstr "/動画"
+
+#~ msgid "Image Types"
+#~ msgstr "画像タイプ"
+
+#~ msgid "Image Type: "
+#~ msgstr "画像タイプ :"
+
+#~ msgid "Thumbnail2"
+#~ msgstr "サムネイル2"
+
+#~ msgid "List2 (Icon)"
+#~ msgstr "リスト2 (アイコン)"
+
+#~ msgid "List2 (Thumbnail)"
+#~ msgstr "リスト2 (サムネイル)"
+
+#~ msgid "/_Focus"
+#~ msgstr "/フォーカス(_F)"
+
+#~ msgid "/_View modes/_Image"
+#~ msgstr "/表示モード(_V)/画像(_I)"
+
+#~ msgid "/_View modes/Movie(_Xine)"
+#~ msgstr "/表示モード(_V)/動画(_Xine)"
+
+#~ msgid "/Search _media..."
+#~ msgstr "/メディアを検索(_M)..."
+
+#~ msgid "Pause"
+#~ msgstr "一時停止"
+
+#~ msgid "Xine version : %s\n"
+#~ msgstr "Xine バージョン : %s\n"
+
+#~ msgid "/_Edit/Clear cache for _this tab"
+#~ msgstr "/編集(_E)/このタブのキャッシュをクリア(_T)"
+
+#, fuzzy
+#~ msgid "Sorry, cannot include \"%c\" character!"
+#~ msgstr "\",\"を含めることはできません!"
+
+#~ msgid "List View"
+#~ msgstr "リストビュー"
+
+#~ msgid "Detail View"
+#~ msgstr "詳細ビュー"
+
+#~ msgid "Directory View"
+#~ msgstr "ディレクトリビュー"
+
+#~ msgid "Scripts"
+#~ msgstr "スクリプト"
+
+#~ msgid "Open in New Collection"
+#~ msgstr "新規コレクションで開く"
+
+#~ msgid "Set expander to all directory (Fast)"
+#~ msgstr "全てのディレクトリにツリー展開アイコンをセットする(高速)"
+
+#~ msgid "/_Full Screen"
+#~ msgstr "/全画面(_F)"
+
+#, fuzzy
+#~ msgid "/_Repeat"
+#~ msgstr "/回転(_R)"
+
+#~ msgid "MRL: "
+#~ msgstr "MRL: "
+
+#~ msgid "/_Movie"
+#~ msgstr "/動画(_M)"
+
+#~ msgid "/_FF"
+#~ msgstr "/早送り(_F)"
+
+#, fuzzy
+#~ msgid "/_Movie/_Stop"
+#~ msgstr "/移動(_M)"
+
+#, fuzzy
+#~ msgid "/_Movie/_Pause"
+#~ msgstr "/移動(_M)"
+
+#~ msgid "/_Property"
+#~ msgstr "/プロパティ(_P)"
+
+#~ msgid "/Property"
+#~ msgstr "/プロパティ"
+
+#~ msgid "/_Edit/Options"
+#~ msgstr "/編集(_E)/設定"
+
+#~ msgid "/Menu Bar"
+#~ msgstr "/メニューバー"
+
+#~ msgid "/Status Bar"
+#~ msgstr "/ステータスバー"
+
+#~ msgid "/Tab"
+#~ msgstr "/タブ"
+
+#~ msgid "/S_tatus Bar"
+#~ msgstr "/ステータスバー(_T)"
+
+#~ msgid "Insert"
+#~ msgstr "挿入"
+
+#~ msgid "Motorola"
+#~ msgstr "モトローラ"
+
+#~ msgid "Intel"
+#~ msgstr "インテル"
+
+#~ msgid "Other"
+#~ msgstr "その他"
+
+#~ msgid "Uncompressed"
+#~ msgstr "未圧縮"
+
+#~ msgid "JPEG compression"
+#~ msgstr "JPEG圧縮"
+
+#~ msgid "DSC"
+#~ msgstr "DSC"
+
+#~ msgid "-"
+#~ msgstr "-"
+
+#~ msgid "Y"
+#~ msgstr "Y"
+
+#~ msgid "Cb"
+#~ msgstr "Cb"
+
+#~ msgid "Cr"
+#~ msgstr "Cr"
+
+#~ msgid "R"
+#~ msgstr "R"
+
+#~ msgid "G"
+#~ msgstr "G"
+
+#~ msgid "B"
+#~ msgstr "B"
+
+#, fuzzy
+#~ msgid "reserved"
+#~ msgstr "プレス"
+
+#~ msgid "Not defined"
+#~ msgstr "未定義"
+
+#, fuzzy
+#~ msgid "Daylight"
+#~ msgstr "右"
+
+#~ msgid "Inch"
+#~ msgstr "インチ"
+
+#, fuzzy
+#~ msgid "Manual"
+#~ msgstr "/マニュアル(_M)"
+
+#, fuzzy
+#~ msgid "Normal program"
+#~ msgstr "外部プログラム"
+
+#~ msgid "top - left"
+#~ msgstr "上 - 左"
+
+#~ msgid "top - right"
+#~ msgstr "上 - 右"
+
+#~ msgid "bottom - right"
+#~ msgstr "下 - 右"
+
+#~ msgid "bottom - left"
+#~ msgstr "下 - 左"
+
+#~ msgid "left - top"
+#~ msgstr "左 - 上"
+
+#~ msgid "right - top"
+#~ msgstr "右 - 上"
+
+#~ msgid "right - bottom"
+#~ msgstr "右 - 下"
+
+#~ msgid "left - bottom"
+#~ msgstr "左 - 下"
+
+#~ msgid "centered"
+#~ msgstr "中心"
+
+#~ msgid "YCbCr4:2:2"
+#~ msgstr "YCbCr4:2:2"
+
+#~ msgid "YCbCr4:2:0"
+#~ msgstr "YCbCr4:2:0"
+
+#~ msgid "RGB"
+#~ msgstr "RGB"
+
+#~ msgid "YCbCr"
+#~ msgstr "YCbCr"
+
+#~ msgid "sRGB"
+#~ msgstr "sRGB"
+
+#~ msgid "Compression"
+#~ msgstr "圧縮"
+
+#, fuzzy
+#~ msgid "Document Name"
+#~ msgstr "/ドキュメント(_D)"
+
+#~ msgid "Image Description"
+#~ msgstr "画像タイトル"
+
+#~ msgid "Manufacturer"
+#~ msgstr "メーカー名"
+
+#, fuzzy
+#~ msgid "Strip Offsets"
+#~ msgstr "スクリプト"
+
+#~ msgid "Orientation"
+#~ msgstr "画素の並び"
+
+#~ msgid "Resolution Unit"
+#~ msgstr "解像度単位"
+
+#, fuzzy
+#~ msgid "Date and Time"
+#~ msgstr "更新日時"
+
+#, fuzzy
+#~ msgid "YCbCr Positioning"
+#~ msgstr "タブの位置"
+
+#, fuzzy
+#~ msgid "Exif Version"
+#~ msgstr "バージョン"
+
+#, fuzzy
+#~ msgid "User Comment"
+#~ msgstr "コメント"
+
+#, fuzzy
+#~ msgid "Color Space"
+#~ msgstr "列間の空白"
+
+#, fuzzy
+#~ msgid "Scene Type"
+#~ msgstr "キャッシュタイプ"
+
+#~ msgid "Alt"
+#~ msgstr "Alt"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Copyright (C) 2001 %s <%s>\n"
+#~ msgstr ""
+#~ "%s\n"
+#~ "\n"
+#~ "Copyright (C) 2001 %s <%s>\n"
+
+#~ msgid "No image files specified!!\n"
+#~ msgstr "画像ファイルが指定されていません!!\n"
+
+#~ msgid "Not implemented yet ;-("
+#~ msgstr "未実装 ;-("
+
+#~ msgid "Use GImageView cache."
+#~ msgstr "GImageViewのキャッシュを使用"
+
+#~ msgid "Use Nautilus cache."
+#~ msgstr "Nautilusのキャッシュを使用"
+
+#~ msgid "Use Konqueror cache (Large)"
+#~ msgstr "Konquerorのキャッシュ(大)を使用"
+
+#~ msgid "Use Konqueror cache (Medium)"
+#~ msgstr "Konquerorのキャッシュ(中)を使用"
+
+#~ msgid "Use Konqueror cache (Small)"
+#~ msgstr "Konquerorのキャッシュ(小)を使用"
+
+#~ msgid "Use GQview cache"
+#~ msgstr "GQviewのキャッシュを使用"
+
+#~ msgid "Use Electric Eyes cache (Preview)"
+#~ msgstr "Electric Eyesのキャッシュ(プレビュー)を使用"
+
+#~ msgid "Use Electric Eyes cache (Icon)"
+#~ msgstr "Electric Eyesのキャッシュ(アイコン)を使用"
+
+#~ msgid "Use Electric Eyes cache (Mini)"
+#~ msgstr "Electric Eyesのキャッシュ(ミニ)を使用"
+
+#~ msgid "Enable Picview fix"
+#~ msgstr "Picview用の修正を有効"
+
+#~ msgid "Use XV thumbnail"
+#~ msgstr "XVのキャッシュを使用"
+
+#~ msgid "/_Help/_About"
+#~ msgstr "/ヘルプ(_H)/GImageViewについて"
+
+#~ msgid "Right click for tab list"
+#~ msgstr "右クリックでタブリストを表示"
+
+#~ msgid ""
+#~ "%s is directory!!.\n"
+#~ "Not support copying directoryat this version of GImageView."
+#~ msgstr ""
+#~ "%s はディレクトリです!!\n"
+#~ "このバージョンではディレクトリのコピーはサポートしていません"
+
+#~ msgid ""
+#~ "%s is directory!!.\n"
+#~ "\n"
+#~ "Not support copying directory at this version of GImageView."
+#~ msgstr ""
+#~ "%s はディレクトリです!!\n"
+#~ "このバージョンではディレクトリのコピーはサポートしていません"
+
+#~ msgid "/Image Buffer"
+#~ msgstr "/画像バッファ"
+
+#~ msgid "Refresh List"
+#~ msgstr "リスト更新"
+
+#~ msgid "Refresh list"
+#~ msgstr "リスト更新"
+
+#~ msgid "ICON"
+#~ msgstr "アイコン"
+
+#~ msgid "TEXT"
+#~ msgstr "テキスト"
+
+#~ msgid "BOTH"
+#~ msgstr "両方"
+
+#~ msgid "LEFT"
+#~ msgstr "左"
+
+#~ msgid "RIGHT"
+#~ msgstr "右"
+
+#~ msgid "TOP"
+#~ msgstr "上"
+
+#~ msgid "BOTTOM"
+#~ msgstr "下"
+
+#~ msgid "/_Edit/Cut out current page"
+#~ msgstr "/編集(_E)/現在のページを切り出す"
+
+#~ msgid "[pixel]"
+#~ msgstr "[pixel]"
+
+#~ msgid "/_Preference"
+#~ msgstr "/設定(_P)"
+
+#~ msgid "/_Preference/Options"
+#~ msgstr "/設定(_P)/オプション"
+
+#~ msgid "/_File/Open"
+#~ msgstr "/ファイル(_F)/開く"
+
+#~ msgid "Use .xvpic"
+#~ msgstr ".xvpicを使用"
+
+#, fuzzy
+#~ msgid "Skip creating current thumbanil table"
+#~ msgstr "サムネイル作成を中止"
+
+#~ msgid "/_View/tear"
+#~ msgstr "/表示(_V)/tear"
+
+#~ msgid "/_View/Zoom"
+#~ msgstr "/表示(_V)/ズーム"
+
+#~ msgid "/_View/Zoom/tear"
+#~ msgstr "/表示(_V)/ズーム/tear"
+
+#~ msgid "/_View/Zoom/Zoom In"
+#~ msgstr "/表示(_V)/ズーム/拡大"
+
+#~ msgid "/_View/Zoom/Zoom Out"
+#~ msgstr "/表示(_V)/ズーム/縮小"
+
+#~ msgid "/_View/Zoom/Fit to Window"
+#~ msgstr "/表示(_V)/ズーム/ウィンドウの大きさに合わせる"
+
+#~ msgid "/_View/Zoom/Keep aspect ratio"
+#~ msgstr "/表示(_V)/ズーム/アスペクト比を保持"
+
+#~ msgid "/_View/Zoom/---"
+#~ msgstr "/表示(_V)/ズーム/---"
+
+#~ msgid "/_View/Zoom/10%"
+#~ msgstr "/表示(_V)/ズーム/10%"
+
+#~ msgid "/_View/Zoom/25%"
+#~ msgstr "/表示(_V)/ズーム/25%"
+
+#~ msgid "/_View/Zoom/50%"
+#~ msgstr "/表示(_V)/ズーム/50%"
+
+#~ msgid "/_View/Zoom/75%"
+#~ msgstr "/表示(_V)/ズーム/75%"
+
+#~ msgid "/_View/Zoom/100%"
+#~ msgstr "/表示(_V)/ズーム/100%"
+
+#~ msgid "/_View/Zoom/125%"
+#~ msgstr "/表示(_V)/ズーム/125%"
+
+#~ msgid "/_View/Zoom/150%"
+#~ msgstr "/表示(_V)/ズーム/150%"
+
+#~ msgid "/_View/Zoom/175%"
+#~ msgstr "/表示(_V)/ズーム/175%"
+
+#~ msgid "/_View/Zoom/200%"
+#~ msgstr "/表示(_V)/ズーム/200%"
+
+#~ msgid "/_View/Rotate"
+#~ msgstr "/表示(_V)/回転"
+
+#~ msgid "/_View/Rotate/tear"
+#~ msgstr "/表示(_V)/回転/tear"
+
+#~ msgid "/_View/Rotate/Rotate 90 deg"
+#~ msgstr "/表示(_V)/回転/90度"
+
+#~ msgid "/_View/Rotate/Rotate -90 deg"
+#~ msgstr "/表示(_V)/回転/-90度"
+
+#~ msgid "/_View/Rotate/Rotate 180 deg"
+#~ msgstr "/表示(_V)/回転/180度"
+
+#~ msgid "/_View/---"
+#~ msgstr "/表示(_V)/---"
+
+#~ msgid "/_View/Menu Bar"
+#~ msgstr "/表示(_V)/メニューバー"
+
+#~ msgid "/_View/Status Bar"
+#~ msgstr "/表示(_V)/ステータスバー"
+
+#~ msgid "/_View/Scroll Bar"
+#~ msgstr "/表示(_V)/スクロールバー"
+
+#~ msgid "/_View/Full Screen"
+#~ msgstr "/表示(_V)/全画面"
+
+#~ msgid "/Zoom/Zoom In"
+#~ msgstr "/ズーム/拡大"
+
+#~ msgid "/Zoom/Keep aspect ratio"
+#~ msgstr "/ズーム/アスペクト比を保持"
+
+#~ msgid "/Close"
+#~ msgstr "/閉じる"
+
+#~ msgid "/_View/Sort File List/by Name"
+#~ msgstr "/表示(_V)/ファイルソート/名前"
+
+#~ msgid "/_View/Sort File List/by Access Time"
+#~ msgstr "/表示(_V)/ファイルソート/参照日時"
+
+#~ msgid "/_View/Sort File List/by Change Time"
+#~ msgstr "/表示(_V)/ファイルソート/状態変更日時"
+
+#~ msgid "/_View/Sort File List/by Size"
+#~ msgstr "/表示(_V)/ファイルソート/サイズ"
+
+#~ msgid "/_View/Sort File List/by Type"
+#~ msgstr "/表示(_V)/ファイルソート/種類"
+
+#~ msgid "/_View/Sort File List/---"
+#~ msgstr "/表示(_V)/ファイルソート/---"
+
+#~ msgid "/_View/Sort File List/Reverse Order"
+#~ msgstr "/表示(_V)/ファイルソート/逆順"
+
+#~ msgid "/_View/Slideshow"
+#~ msgstr "/表示(_V)/スライドショー"
+
+#~ msgid "/_View/Tab"
+#~ msgstr "/表示(_V)/タブ"
+
+#~ msgid "/Zoom/tear"
+#~ msgstr "/ズーム/tear"
+
+#~ msgid "/_View/Toggle Menubar"
+#~ msgstr "/表示(_V)/メニューバートグル"

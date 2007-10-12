@@ -1,0 +1,97 @@
+Version-0.2.27
+
+	* スライドショー用のオプションを幾つか追加
+	  (Thanks! > Christian Hammers <lathspell@users.sourceforge.net>)
+	* 動画サムネイル用にXine画像ローダを追加 (実験段階)
+	* 同じファイルが同じサムネイルビューに何度も出現するバグを修正
+	  (Thanks reporting > shlomif)
+	* ファイル名に "[" を持つアーカイブ内ファイルを開けるようにした
+	* その他細かい修正
+
+Version-0.2.26
+
+	* サムネイルビュー再描画のパフォーマンスを改善
+	* 「画像サイズをウィンドウに合わせる」機能の設定を改善
+	  (Thanks! > Brent Baccala <baccala@users.sourceforge.net>)
+	* 64bit環境でのバグを修正
+	  (Thanks! > Tomoya TAKA <tomoya@olive.plala.or.jp>)
+	* イメージビューからEXIFビューを開けるようにした
+	* スライドショーの画像スケール設定を追加
+	* サムネイルビューの古いサマリモードを削除
+	  (「リスト」及び「サムネイル」モード)
+	* Gtk+-2.4でのコンパイル時エラーを修正
+	* その他細かい修正，改善
+
+Version-0.2.25
+
+	* 最新のMPlayerへの適合
+	* Xieneramaサポート
+	* 「270度」を「-90度」へ修正
+	* コメントビューのユーザビリティに関する細かい修正
+
+Version-0.2.24
+
+	* ズームアウトのみの自動フィット機能を修正
+	* 「幅を合わせる」と「高さを合わせる」を追加
+	* MPlayerが再生に失敗することがあるバグを修正
+	* JPEGローダの2重freeバグを修正
+	(Thanks! > sheepman <sheepman@tcn.zaq.ne.jp>)
+	* DnDサポートのバグを修正
+	(Thanks! > MINAMI Hirokazu <h_minami@users.sourceforge.net>)
+	* ディレクトリ作成時にパス名末尾のスラッシュを削除
+	(Thanks! > Douglas Brebner <douglas+mail@fang.demon.co.uk>).
+	* libexifを0.5.11に更新
+	* その他コードの修正
+
+Version-0.2.23
+
+	* スライドショーのクラッシュバグを修正
+	* JPEGローダのメモリリークを修正
+	* その他の細かい修正
+
+Version-0.2.22
+
+	* EXIFデータを見て自動的に画像を回転するようにした．
+	 (Frank Fischer <frank_fischer@gmx.de>さんより提供． Thanks!)
+	* 拡張子の判別で大文字小文字を区別していたバグを修正．
+	 (Thanks! > Ricky Faulstich <Ricky@Faulstich.com>さん)
+	* typoを修正 (Thanks! > Ricky Faulstich <Ricky@Faulstich.com>さん)
+
+Version-0.2.21
+
+	* コンパイルエラーを修正
+
+Version-0.2.20
+
+	* イメージローダ，IOストリーマ，イメージビュー，サムネイルビューをプラグ
+	  イン化
+	* Gtk+-2.0 の linux-fb バックエンドでコンパイルできるようにした
+	  (「--with-gtk2=gtk+-linux-fb-2.0」configureオプション)
+	* 酒井政裕氏のCygwinパッチをマージ
+	* サムネイルウィンドウのディレクトリビューにキーバインドを追加
+		CTRL + Cursor Left
+		CTRL + Cursor Up: トップディレクトリを親ディレクトリに変更
+		CTRL + Cursor Right
+		CTRL + Cursor Down: トップディレクトリを選択ディレクトリに変更
+	* 「サムネイル2」モードを「アルバム」に名称変更
+	* 「アルバム」モードにキーバインドを追加
+		SHIFT + Cursor: フォーカスされた画像を選択 & 表示
+	* ディレクトリリストの設定を簡素化
+	* 「サムネイルを1タブ内に再帰読み込み」をマウスアクションにバインドでき
+	  るようにした
+	* 自動的にフレームサイズに合わせる際に，デフォルトでは拡大しないようにし
+	  た
+	* JPEGローダを追加．ほとんどのコードは libgnome-ui より拝借．
+	  JPEGファイルのサムネイル作成がGdkPixbufによるロードよりも高速化された．
+	* 「スライドショー(選択ファイル)」と「スライドショー(選択ファイルから)」
+	  を追加
+	* MPlayerの設定を $(datadir)/gimageview/mplayerrc で上書きできるようにし
+	  た
+	* 音声の再生及び音声再生のビジュアライザを追加
+	  (ビジュアライザはXineビューのみ).
+	* ファイルが削除された時に，適切なサムネイルにフォーカスが当たるようにし
+	  た
+	* イメージウィンドウのツールバーに回転インジケーターを追加
+	* 新しい重複画像検索を追加 (「md5sum」と「ファイルサイズ」)
+	* Xineビューのクラッシュバグを修正
+	* その他の細かい修正
