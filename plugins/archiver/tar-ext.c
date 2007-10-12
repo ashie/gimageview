@@ -39,9 +39,8 @@
 #include "tar-ext.h"
 
 
-static void fr_command_tar_class_init  (FRCommandTarClass *class);
+G_DEFINE_TYPE (FRCommandTar, fr_command_tar, FR_COMMAND_TYPE)
 
-static void fr_command_tar_init        (FRCommand *afile);
 
 static void fr_command_tar_destroy     (GtkObject *object);
 
@@ -92,11 +91,6 @@ GimvPluginInfo gimv_plugin_info =
    get_mime_type: NULL,
    get_prefs_ui:  NULL,
 };
-
-
-/* Parent Class */
-
-static FRCommandClass *parent_class = NULL;
 
 
 /* -- list -- */
@@ -718,7 +712,6 @@ fr_command_tar_class_init (FRCommandTarClass *class)
    FRCommandClass *afc;
    GtkObjectClass *object_class;
 
-   parent_class = gtk_type_class (FR_COMMAND_TYPE);
    object_class = (GtkObjectClass*) class;
    afc = (FRCommandClass*) class;
 
@@ -732,8 +725,10 @@ fr_command_tar_class_init (FRCommandTarClass *class)
 
  
 static void 
-fr_command_tar_init (FRCommand *comm)
+fr_command_tar_init (FRCommandTar *tar_comm)
 {
+   FRCommand *comm = FR_COMMAND(tar_comm);
+
    comm->propAddCanUpdate             = TRUE; 
    comm->propExtractCanAvoidOverwrite = FALSE;
    comm->propExtractCanSkipOlder      = FALSE;
@@ -750,32 +745,8 @@ fr_command_tar_destroy (GtkObject *object)
    g_return_if_fail (IS_FR_COMMAND_TAR (object));
 
    /* Chain up */
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      (* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
-}
-
-
-GtkType
-fr_command_tar_get_type ()
-{
-   static guint fr_command_tar_type = 0;
-
-   if (!fr_command_tar_type) {
-      GtkTypeInfo fr_command_tar_info = {
-         "FRCommandTar",
-         sizeof (FRCommandTar),
-         sizeof (FRCommandTarClass),
-         (GtkClassInitFunc) fr_command_tar_class_init,
-         (GtkObjectInitFunc) fr_command_tar_init,
-         /* reserved_1 */ NULL,
-         /* reserved_2 */ NULL,
-         (GtkClassInitFunc) NULL,
-      };
-      fr_command_tar_type = gtk_type_unique (fr_command_get_type(), 
-                                             &fr_command_tar_info);
-   }
-
-   return fr_command_tar_type;
+   if (GTK_OBJECT_CLASS (fr_command_tar_parent_class)->destroy)
+      GTK_OBJECT_CLASS (fr_command_tar_parent_class)->destroy (object);
 }
 
 

@@ -1,5 +1,13 @@
 2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
 
+	* plugins/archiver/zip-ext.c, plugins/archiver/lha-ext.c,
+	  plugins/archiver/rar-ext.c, plugins/archiver/tar-ext.c,
+	  plugins/image_view/gimv_xine.c, plugins/image_view/gimv_xine_priv.h,
+	  plugins/image_view/gimv_mplayer.c:
+	Use G_DEFINE_TYPE.
+
+2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
+
 	* src/gimv_thumb.c, src/gimv_elist.c, src/gimv_image_win.c,
 	  src/gimv_comment.c, src/gimv_image_loader.c, src/gimv_dlist.c,
 	  src/gimv_image.c, src/fr-command.c, src/gimv_dupl_win.c,

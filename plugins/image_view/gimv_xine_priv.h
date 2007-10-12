@@ -66,8 +66,6 @@
 #endif
 
 #include "intl.h"
-#include "gtk2-compat.h"
-
 
 
 /*

@@ -107,8 +107,6 @@ typedef struct  GetDriversContext_Tag
 
 
 /* object class */
-static void     gimv_mplayer_class_init    (GimvMPlayerClass *class);
-static void     gimv_mplayer_init          (GimvMPlayer      *player);
 static void     gimv_mplayer_destroy       (GtkObject        *object);
 
 /* widget class */
@@ -152,7 +150,6 @@ static void     process_line_identify      (ChildContext     *context,
                                             gboolean          is_stderr);
 
 
-static GtkWidgetClass *parent_class = NULL;
 static gint gimv_mplayer_signals[LAST_SIGNAL] = {0};
 
 static GHashTable *player_context_table = NULL;
@@ -160,33 +157,7 @@ static GHashTable *vo_drivers_table     = NULL;
 static GHashTable *ao_drivers_table     = NULL;
 
 
-GtkType
-gimv_mplayer_get_type (void)
-{
-   static GtkType gimv_mplayer_type = 0;
-
-   if (!gimv_mplayer_type) {
-      static const GTypeInfo gimv_mplayer_info = {
-         sizeof (GimvMPlayerClass),
-         NULL,               /* base_init */
-         NULL,               /* base_finalize */
-         (GClassInitFunc)    gimv_mplayer_class_init,
-         NULL,               /* class_finalize */
-         NULL,               /* class_data */
-         sizeof (GimvMPlayer),
-         0,                  /* n_preallocs */
-         (GInstanceInitFunc) gimv_mplayer_init,
-      };
-
-      gimv_mplayer_type
-         = g_type_register_static (GTK_TYPE_WIDGET,
-                                   "GimvMPlayer",
-                                   &gimv_mplayer_info,
-                                   0);
-   }
-
-   return gimv_mplayer_type;
-}
+G_DEFINE_TYPE (GimvMPlayer, gimv_mplayer, GTK_TYPE_WIDGET)
 
 
 static void
@@ -197,8 +168,6 @@ gimv_mplayer_class_init (GimvMPlayerClass *class)
 
    object_class = (GtkObjectClass *) class;
    widget_class = (GtkWidgetClass *) class;
-
-   parent_class = gtk_type_class (gtk_widget_get_type ());
 
    gimv_mplayer_signals[PLAY_SIGNAL]
       = g_signal_new ("play",
@@ -343,8 +312,8 @@ gimv_mplayer_destroy (GtkObject *object)
 
    /* FIXME: free player->args */
 
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      GTK_OBJECT_CLASS (parent_class)->destroy (object);
+   if (GTK_OBJECT_CLASS (gimv_mplayer_parent_class)->destroy)
+      GTK_OBJECT_CLASS (gimv_mplayer_parent_class)->destroy (object);
 }
 
 
@@ -402,8 +371,8 @@ gimv_mplayer_unrealize (GtkWidget *widget)
       gimv_mplayer_stop (player);
    }
 
-   if (parent_class->unrealize)
-      (*parent_class->unrealize) (widget);
+   if (GTK_WIDGET_CLASS(gimv_mplayer_parent_class)->unrealize)
+      GTK_WIDGET_CLASS(gimv_mplayer_parent_class)->unrealize (widget);
 }
 
 
