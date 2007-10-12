@@ -9,9 +9,9 @@ bin_PROGRAMS = gimv
 gimv_SOURCES = \
 	gimv_dlist.c gimv_dlist.h \
 	gimv_elist.c gimv_elist.h \
-	gimv_paned.c gimv_paned.h \
-	gimv_hpaned.c gimv_hpaned.h \
-	gimv_vpaned.c gimv_vpaned.h \
+	gimv_paned.h \
+	gimv_hpaned.h \
+	gimv_vpaned.h \
 	gimv_cell_pixmap.c gimv_cell_pixmap.h \
 	gimv_marshal.c gimv_marshal.h \
 	gimv_scrolled.c gimv_scrolled.h \
