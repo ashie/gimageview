@@ -1,5 +1,9 @@
 2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
 
+	* src/gimv_anim.c, src/gimv_image.c: Remove imlib related code.
+
+2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
+
 	* configure.in: Remove --with-gtk2 option.
 
 2005-01-28 Takuro Ashie <ashie@homa.ne.jp>
