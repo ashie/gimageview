@@ -60,9 +60,7 @@ static GList *ac_alternatives   = NULL;
 static GtkWidget *ac_window     = NULL;
 static GtkWidget *ac_clist      = NULL;
 static GtkWidget *ac_entry      = NULL;
-#ifdef ENABLE_TREEVIEW
 static GtkListStore *ac_list_store = NULL;
-#endif /*  ENABLE_TREEVIEW */
 
 static void 
 ac_dir_free (void)
@@ -323,7 +321,6 @@ ac_window_key_press_cb (GtkWidget *widget,
 }
 
 
-#ifdef ENABLE_TREEVIEW
 static void
 cb_tree_cursor_changed (GtkTreeView *treeview, gpointer data)
 {
@@ -349,29 +346,6 @@ cb_tree_cursor_changed (GtkTreeView *treeview, gpointer data)
 
    gtk_editable_set_position (GTK_EDITABLE (ac_entry), -1);
 }
-#else /* ENABLE_TREEVIEW */
-static void 
-ac_clist_select_row_cb (GtkCList *clist,
-                        gint row, 
-                        gint column,
-                        GdkEventButton *event,
-                        gpointer *data)
-{
-   gchar *text;
-   gchar *full_path;
-
-   auto_compl_hide_alternatives ();
-
-   gtk_clist_get_text (GTK_CLIST (ac_clist), row, column, &text);
-   full_path = g_strconcat (ac_dir, "/", text, NULL);
-   gtk_entry_set_text (GTK_ENTRY (ac_entry), full_path);
-   g_free (full_path);
-
-#ifdef USE_GTK2
-   gtk_editable_set_position (GTK_EDITABLE (ac_entry), -1);
-#endif
-}
-#endif /* ENABLE_TREEVIEW */
 
 
 /* displays a list of alternatives under the entry widget. */
@@ -381,40 +355,27 @@ auto_compl_show_alternatives (GtkWidget *entry)
    gint x, y, w, h;
    GList *scan;
    gint n, width;
+   GtkTreeIter iter;
 
    if (ac_window == NULL) {
       GtkWidget *scroll;
       GtkWidget *frame;
+      GtkTreeViewColumn *col;
+      GtkCellRenderer *render;
 
       ac_window = gtk_window_new (GTK_WINDOW_POPUP);
 
-#ifdef ENABLE_TREEVIEW
-      {
-         GtkTreeViewColumn *col;
-         GtkCellRenderer *render;
+      ac_list_store = gtk_list_store_new (1, G_TYPE_STRING);
+      ac_clist = gtk_tree_view_new_with_model (GTK_TREE_MODEL (ac_list_store));
+      gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (ac_clist), TRUE);
+      gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (ac_clist), FALSE);
 
-         ac_list_store = gtk_list_store_new (1, G_TYPE_STRING);
-         ac_clist = gtk_tree_view_new_with_model (GTK_TREE_MODEL (ac_list_store));
-         gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (ac_clist), TRUE);
-         gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (ac_clist), FALSE);
-
-         col = gtk_tree_view_column_new();
-         render = gtk_cell_renderer_text_new ();
-         gtk_tree_view_column_pack_start (col, render, FALSE);
-         gtk_tree_view_column_add_attribute (col, render, "text", 0);
-
-         gtk_tree_view_append_column (GTK_TREE_VIEW (ac_clist), col);
-      }
-#else /* ENABLE_TREEVIEW */
-      {
-         GdkFont *font;
-         gint row_height;
-         ac_clist = gtk_clist_new (1);
-         font = gtk_style_get_font (GTK_WIDGET (ac_clist)->style);
-         row_height = (font->ascent  + font->descent  + CLIST_ROW_PAD); 
-         gtk_clist_set_row_height (GTK_CLIST (ac_clist), row_height);
-      }
-#endif /* ENABLE_TREEVIEW */
+      col = gtk_tree_view_column_new();
+      render = gtk_cell_renderer_text_new ();
+      gtk_tree_view_column_pack_start (col, render, FALSE);
+      gtk_tree_view_column_add_attribute (col, render, "text", 0);
+ 
+      gtk_tree_view_append_column (GTK_TREE_VIEW (ac_clist), col);
 
       scroll = gtk_scrolled_window_new (NULL, NULL);
       gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scroll),
@@ -437,72 +398,39 @@ auto_compl_show_alternatives (GtkWidget *entry)
                           GTK_SIGNAL_FUNC(ac_window_key_press_cb),
                           NULL);
 
-#ifdef ENABLE_TREEVIEW
       g_signal_connect (G_OBJECT (ac_clist),
                         "cursor_changed",
                         G_CALLBACK (cb_tree_cursor_changed),
                         NULL);
-#else /* ENABLE_TREEVIEW */
-      gtk_signal_connect (GTK_OBJECT (ac_clist), 
-                          "select_row", 
-                          GTK_SIGNAL_FUNC(ac_clist_select_row_cb), 
-                          NULL);
-#endif /* ENABLE_TREEVIEW */
    }
 
    ac_entry = entry;
    width = 0;
    n = 0;
 
-#ifdef ENABLE_TREEVIEW
-   {
-      GtkTreeIter iter;
-
-      gtk_list_store_clear (ac_list_store);
-
-      for (scan = ac_alternatives; scan; scan = scan->next) {
-         gtk_list_store_append (ac_list_store, &iter);
-         gtk_list_store_set (ac_list_store, &iter,
-                             0, g_basename (scan->data),
-                             -1);
-
-         if (n == 0) {
-            GtkTreeSelection *selection;
-            GtkTreePath *treepath;
-            selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (ac_clist));
-            treepath = gtk_tree_model_get_path (GTK_TREE_MODEL (ac_list_store),
-                                                &iter);
-            gtk_tree_selection_select_path (selection, treepath);
-            gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (ac_clist),
-                                          treepath, NULL,
-                                          TRUE, 0.0, 0.0);
-            gtk_tree_path_free (treepath);
-         }
-
-         n++;
-      }
-   }
-#else /* ENABLE_TREEVIEW */
-   gtk_clist_freeze (GTK_CLIST (ac_clist));
-   gtk_clist_clear (GTK_CLIST (ac_clist));
+   gtk_list_store_clear (ac_list_store);
 
    for (scan = ac_alternatives; scan; scan = scan->next) {
-      gchar *text[] = {NULL, NULL};
+      gtk_list_store_append (ac_list_store, &iter);
+      gtk_list_store_set (ac_list_store, &iter,
+                          0, g_basename (scan->data),
+                          -1);
 
-      text[0] = (gchar *) g_basename (scan->data);
-
-      gtk_clist_append (GTK_CLIST (ac_clist), text);
-      width = MAX (width,
-                   gdk_string_width (
-                      gtk_style_get_font (GTK_WIDGET (ac_clist)->style), 
-                      text[0]));
+      if (n == 0) {
+         GtkTreeSelection *selection;
+         GtkTreePath *treepath;
+         selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (ac_clist));
+         treepath = gtk_tree_model_get_path (GTK_TREE_MODEL (ac_list_store),
+                                             &iter);
+         gtk_tree_selection_select_path (selection, treepath);
+         gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (ac_clist),
+                                       treepath, NULL,
+                                       TRUE, 0.0, 0.0);
+         gtk_tree_path_free (treepath);
+      }
 
       n++;
    }
-
-   gtk_clist_set_column_width (GTK_CLIST (ac_clist), 0, width);
-   gtk_clist_thaw (GTK_CLIST (ac_clist));
-#endif /* ENABLE_TREEVIEW */
 
    gdk_window_get_geometry (entry->window, &x, &y, &w, &h, NULL);
    gdk_window_get_deskrelative_origin (entry->window, &x, &y);
