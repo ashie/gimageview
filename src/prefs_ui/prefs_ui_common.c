@@ -611,11 +611,6 @@ prefs_common_page (void)
                                                          _("Do not follow symbolic link"));
    gtk_box_pack_start (GTK_BOX (vbox), radio1, FALSE, FALSE, 0);
 
-#ifndef USE_GTK2
-   gtk_widget_set_uposition (GTK_WIDGET(radio0), 40, -1);
-   gtk_widget_set_uposition (GTK_WIDGET(radio1), 40, -1);
-#endif
-
    radio2 = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (radio1),
                                                          _("Do not follow link to parent directory"));
    /* not implemented yet

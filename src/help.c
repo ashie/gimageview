@@ -210,64 +210,25 @@ cb_progurl_clicked (GtkWidget *widget, gchar *url)
 static void
 set_copyleft_str (void)
 {
+   GtkTextBuffer *buffer;
    gchar buf[BUF_SIZE];
 
    g_snprintf (buf, BUF_SIZE, _(license),
                GIMV_PROG_AUTHOR, GIMV_PROG_ADDRESS);
 
-#ifdef USE_GTK2
-   {
-      GtkTextBuffer *buffer;
+   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (info_win.text_box));
+   gtk_text_buffer_set_text (buffer, "\0", -1);
 
-      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (info_win.text_box));
-      gtk_text_buffer_set_text (buffer, "\0", -1);
-   }
-#else
-   {
-      gint len;
-
-      gtk_text_set_point (GTK_TEXT (info_win.text_box), 0);
-      len = gtk_text_get_length (GTK_TEXT (info_win.text_box));
-
-      if (len > 0) {
-         gtk_text_forward_delete (GTK_TEXT (info_win.text_box), len);
-      }
-   }
-#endif
-
-   if (buf && *buf) {
-#ifdef USE_GTK2
-      {
-         GtkTextBuffer *buffer;
-
-         buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (info_win.text_box));
-         gtk_text_buffer_set_text (buffer, buf, -1);
-      }
-#else
-      {
-         GdkFont *font;
-
-         if (conf.textentry_font && *conf.textentry_font)
-            font = gdk_fontset_load (conf.textentry_font);
-         else
-            font = NULL;
-
-         gtk_text_freeze (GTK_TEXT (info_win.text_box));
-         gtk_text_insert (GTK_TEXT (info_win.text_box),
-                          font, NULL, NULL, buf, strlen (buf));
-         gtk_text_thaw (GTK_TEXT (info_win.text_box));
-
-         if (font)
-            gdk_font_unref (font);
-      }
-#endif
-   }
+   if (buf && *buf)
+      gtk_text_buffer_set_text (buffer, buf, -1);
 }
 
 
 static void
 cb_gimv_info_change_text (GtkWidget *widget, gchar *text)
 {
+   GtkTextBuffer *buffer;
+
    g_return_if_fail (info_win.text_box);
 
    if (!text) {
@@ -275,54 +236,11 @@ cb_gimv_info_change_text (GtkWidget *widget, gchar *text)
       return;
    }
 
-#ifdef USE_GTK2
-   {
-      GtkTextBuffer *buffer;
+   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (info_win.text_box));
+   gtk_text_buffer_set_text (buffer, "\0", -1);
 
-      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (info_win.text_box));
-      gtk_text_buffer_set_text (buffer, "\0", -1);
-   }
-#else
-   {
-      guint len;
-
-      gtk_text_set_point (GTK_TEXT (info_win.text_box), 0);
-      len = gtk_text_get_length (GTK_TEXT (info_win.text_box));
-
-      if (len > 0) {
-         gtk_text_forward_delete (GTK_TEXT (info_win.text_box), len);
-      }
-   }
-#endif
-
-   if (text && *text) {
-#ifdef USE_GTK2
-      {
-         GtkTextBuffer *buffer;
-
-         buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (info_win.text_box));
+   if (text && *text)
          gtk_text_buffer_set_text (buffer, text, -1);
-      }
-#else
-      {   /********** convert charset **********/
-         GdkFont *font;
-
-         if (conf.textentry_font && *conf.textentry_font)
-            font = gdk_fontset_load (conf.textentry_font);
-         else
-            font = NULL;
-
-         gtk_text_freeze (GTK_TEXT (info_win.text_box));
-         gtk_text_insert (GTK_TEXT (info_win.text_box),
-                          font, NULL, NULL, _(text), strlen (text));
-         gtk_text_thaw (GTK_TEXT (info_win.text_box));
-
-         if (font)
-            gdk_font_unref (font);
-
-      }
-#endif
-   }
 }
 
 
@@ -634,23 +552,14 @@ gimvhelp_create_info_widget (void)
    info_win.scrolled_win = scrolledwin;
    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(scrolledwin),
                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-#ifdef USE_GTK2
    gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolledwin),
                                        GTK_SHADOW_IN);
-#endif /* USE_GTK2 */
    gtk_box_pack_start (GTK_BOX (vbox),
                        scrolledwin, TRUE, TRUE, 0);
    gtk_container_set_border_width (GTK_CONTAINER (scrolledwin), 5);
    gtk_widget_show (scrolledwin);
 
-#ifdef USE_GTK2
    text = gtk_text_view_new ();
-#else
-   text = gtk_text_new (gtk_scrolled_window_get_hadjustment
-                        (GTK_SCROLLED_WINDOW (scrolledwin)),
-                        gtk_scrolled_window_get_vadjustment
-                        (GTK_SCROLLED_WINDOW (scrolledwin)));
-#endif
    gtk_container_add (GTK_CONTAINER (scrolledwin), text);
    info_win.text_box = text;
    set_copyleft_str ();

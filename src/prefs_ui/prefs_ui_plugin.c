@@ -104,6 +104,7 @@ create_plugin_admin_widget (GList *plugin_list)
    gchar *titles[] = {N_("Plugin Name"), N_("Version"), N_("Module Name")};
    gint titles_num = sizeof (titles)/ sizeof (gchar *);
    gchar *text[32];
+   GtkListStore *store;
 
    hbox = gtk_hbox_new (FALSE, 0);
    gtk_container_set_border_width(GTK_CONTAINER(hbox), 0);
@@ -111,81 +112,53 @@ create_plugin_admin_widget (GList *plugin_list)
    scrollwin = gtk_scrolled_window_new (NULL, NULL);
    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrollwin),
                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-#ifdef USE_GTK2
    gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrollwin),
                                        GTK_SHADOW_IN);
-#endif /* USE_GTK2 */
    gtk_container_set_border_width(GTK_CONTAINER(scrollwin), 5);
    gtk_box_pack_start (GTK_BOX (hbox), scrollwin, TRUE, TRUE, 0);
    gtk_widget_set_usize (scrollwin, -1, 200);
 
-#ifdef ENABLE_TREEVIEW
-   {
-      GtkListStore *store;
-
-      store = gtk_list_store_new (titles_num,
-                                  G_TYPE_STRING,
-                                  G_TYPE_STRING,
-                                  G_TYPE_STRING);
-      clist = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
-      gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (clist), TRUE);
-      gtk_container_add (GTK_CONTAINER (scrollwin), clist);
-
-      /* set columns */
-      for (i = 0; i < titles_num; i++) {
-         GtkTreeViewColumn *col;
-         GtkCellRenderer *render;
-
-         col = gtk_tree_view_column_new();
-         gtk_tree_view_column_set_resizable (col, TRUE);
-         gtk_tree_view_column_set_title (col, _(titles[i]));
-         if (i == 0) {
-            gtk_tree_view_column_set_sizing(col, GTK_TREE_VIEW_COLUMN_FIXED);
-            gtk_tree_view_column_set_fixed_width (col, 200);
-         }
-         render = gtk_cell_renderer_text_new ();
-         gtk_tree_view_column_pack_start (col, render, TRUE);
-         gtk_tree_view_column_add_attribute (col, render, "text", i);
-         gtk_tree_view_append_column (GTK_TREE_VIEW (clist), col);
-      }
-
-      for (list = plugin_list; list; list = g_list_next (list)) {
-         GModule *module = list->data;
-         GtkTreeIter iter;
-
-         text[0] = _(gimv_plugin_get_name (module));
-         text[1] = _(gimv_plugin_get_version_string (module));
-         text[2] = _(gimv_plugin_get_module_name (module));
-
-         gtk_list_store_append (store, &iter);
-         gtk_list_store_set (store, &iter,
-                             0, text[0],
-                             1, text[1],
-                             2, text[2],
-                             -1);
-      }
-   }
-#else /* ENABLE_TREEVIEW */
-   clist = gtk_clist_new (titles_num);
-   for (i = 0; i < titles_num; i++) {
-      gtk_clist_set_column_title (GTK_CLIST (clist), i, _(titles[i]));
-      gtk_clist_set_column_auto_resize (GTK_CLIST (clist), i, TRUE);
-   }
-   gtk_clist_column_titles_show (GTK_CLIST (clist));
-   gtk_clist_set_selection_mode (GTK_CLIST (clist), GTK_SELECTION_SINGLE);
+   store = gtk_list_store_new (titles_num,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING,
+                               G_TYPE_STRING);
+   clist = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
+   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (clist), TRUE);
    gtk_container_add (GTK_CONTAINER (scrollwin), clist);
 
-   /* set default value */
+   /* set columns */
+   for (i = 0; i < titles_num; i++) {
+      GtkTreeViewColumn *col;
+      GtkCellRenderer *render;
+
+      col = gtk_tree_view_column_new();
+      gtk_tree_view_column_set_resizable (col, TRUE);
+      gtk_tree_view_column_set_title (col, _(titles[i]));
+      if (i == 0) {
+         gtk_tree_view_column_set_sizing(col, GTK_TREE_VIEW_COLUMN_FIXED);
+         gtk_tree_view_column_set_fixed_width (col, 200);
+      }
+      render = gtk_cell_renderer_text_new ();
+      gtk_tree_view_column_pack_start (col, render, TRUE);
+      gtk_tree_view_column_add_attribute (col, render, "text", i);
+      gtk_tree_view_append_column (GTK_TREE_VIEW (clist), col);
+   }
+
    for (list = plugin_list; list; list = g_list_next (list)) {
       GModule *module = list->data;
+      GtkTreeIter iter;
 
       text[0] = _(gimv_plugin_get_name (module));
       text[1] = _(gimv_plugin_get_version_string (module));
       text[2] = _(gimv_plugin_get_module_name (module));
 
-      gtk_clist_append (GTK_CLIST (clist), text);
+      gtk_list_store_append (store, &iter);
+      gtk_list_store_set (store, &iter,
+                          0, text[0],
+                          1, text[1],
+                          2, text[2],
+                          -1);
    }
-#endif /* ENABLE_TREEVIEW */
 
    return hbox;
 }

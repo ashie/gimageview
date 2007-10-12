@@ -104,11 +104,7 @@ static ConfParam param_common [] = {
    {"charset_locale",           D_STRING, "default", &conf.charset_locale},
    {"charset_internal",         D_STRING, "default", &conf.charset_internal},
    {"charset_auto_detect_lang", D_ENUM,   "0",       &conf.charset_auto_detect_lang},
-#ifdef USE_GTK2
    {"charset_filename_mode",    D_ENUM,   "1",       &conf.charset_filename_mode},
-#else
-   {"charset_filename_mode",    D_ENUM,   "0",       &conf.charset_filename_mode},
-#endif
    {"charset_filename",         D_STRING, "default", &conf.charset_filename},
 
    /* filter */

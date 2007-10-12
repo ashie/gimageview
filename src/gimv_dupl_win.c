@@ -37,10 +37,8 @@ struct GimvDuplWinPriv_Tag
 
    GList            *thumb_list;
 
-#ifdef USE_GTK2
    GtkTreeViewColumn *pixmap_col;
    GtkCellRenderer   *pixmap_renderer;
-#endif /* USE_GTK2 */
 };
 
 static void gimv_dupl_win_init       (GimvDuplWin      *sw);
