@@ -129,10 +129,8 @@ fr_process_init (FRProcess *fr_proc)
 
    fr_proc->use_standard_locale = TRUE;
 
-#ifdef USE_GTK2
    gtk_object_ref (GTK_OBJECT (fr_proc));
    gtk_object_sink (GTK_OBJECT (fr_proc));
-#endif
 }
 
 

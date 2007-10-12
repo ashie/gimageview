@@ -201,10 +201,8 @@ dnd_file_operation (const gchar *dest_dir, GdkDragContext *context,
                                   n_menu_items, "<DnDPop>",
                                   NULL);
 
-#ifdef USE_GTK2
    gtk_object_ref (GTK_OBJECT (dnd_popup));
    gtk_object_sink (GTK_OBJECT (dnd_popup));
-#endif
 
    /* popup menu */
    action = menu_popup_modal (dnd_popup, NULL, NULL, NULL, NULL);

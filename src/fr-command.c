@@ -149,10 +149,8 @@ fr_command_init (FRCommand *comm)
    comm->filename = NULL;
    comm->file_list = NULL;
 
-#ifdef USE_GTK2
    gtk_object_ref (GTK_OBJECT (comm));
    gtk_object_sink (GTK_OBJECT (comm));
-#endif
 }
 
 
