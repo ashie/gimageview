@@ -1,5 +1,13 @@
 2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
 
+	* src/gimv_dlist.c, src/gimv_dupl_win.c, src/gimv_dupl_finder.c,
+	  src/menu.[ch], src/prefs.c, src/text_viewer.c, src/help.c,
+	  prefs_ui/prefs_ui_common.c, prefs_ui/prefs_ui_plugin.c,
+	  src/gimv_elist.c:
+	Remove USE_GTK2.
+
+2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
+
 	* src/dnd.c, src/exif_view.c, src/fr-archive.c, src/fr-command.c,
 	  src/fr-process.c, src/gimv_comment.c, src/gimv_comment_view.c:
 	Remove USE_GTK2.

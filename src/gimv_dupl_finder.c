@@ -183,10 +183,8 @@ gimv_dupl_finder_init (GimvDuplFinder *finder)
    finder->timer_id     = 0;
    finder->idle_id      = 0;
 
-#ifdef USE_GTK2
    gtk_object_ref (GTK_OBJECT (finder));
    gtk_object_sink (GTK_OBJECT (finder));
-#endif
 }
 
 

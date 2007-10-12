@@ -46,22 +46,14 @@ text_viewer_load_file (TextViewer *text_viewer, gchar *filename)
    FILE *textfile;
    gchar *tmpstr;
    gchar buf[BUF_SIZE];
+   GtkTextBuffer *buffer;
+   gchar *text;
 
    g_return_val_if_fail (text_viewer && filename, FALSE);
 
    if (text_viewer->filename) {
-#ifdef USE_GTK2
-      {
-         GtkTextBuffer *buffer;
-         buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_viewer->textbox));
-         gtk_text_buffer_set_text (buffer, "\0", -1);
-      }
-#else
-      {
-         GtkText *text = GTK_TEXT (text_viewer->textbox);
-         gtk_text_backward_delete (text, gtk_text_get_length(text));
-      }
-#endif
+      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_viewer->textbox));
+      gtk_text_buffer_set_text (buffer, "\0", -1);
       g_free (text_viewer->filename);
       text_viewer->filename = NULL;
    }
@@ -72,45 +64,19 @@ text_viewer_load_file (TextViewer *text_viewer, gchar *filename)
       return FALSE;
    }
 
-#ifdef USE_GTK2
-   {
-      GtkTextBuffer *buffer;
-      gchar *text;
+   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_viewer->textbox));
 
-      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_viewer->textbox));
-
-      text = g_strdup ("");
-      while (fgets (buf, sizeof(buf), textfile)) {
-         gchar  *tmpstr, *prev;
-         tmpstr = charset_to_internal (buf, NULL, NULL,
-                                       CHARSET_TO_INTERNAL_LOCALE);
-         prev = text;
-         text = g_strconcat (text, tmpstr, NULL);
-         g_free (prev);
-      }
-      gtk_text_buffer_set_text (buffer, text, -1);
-      g_free (text);
+   text = g_strdup ("");
+   while (fgets (buf, sizeof(buf), textfile)) {
+      gchar  *tmpstr, *prev;
+      tmpstr = charset_to_internal (buf, NULL, NULL,
+                                    CHARSET_TO_INTERNAL_LOCALE);
+      prev = text;
+      text = g_strconcat (text, tmpstr, NULL);
+      g_free (prev);
    }
-#else
-   {
-      GtkText *text = GTK_TEXT (text_viewer->textbox);
-      GdkFont *font;
-
-      if (conf.textentry_font && *conf.textentry_font)
-         font = gdk_fontset_load (conf.textentry_font);
-      else
-         font = NULL;
-
-      gtk_text_freeze (text);
-      while (fgets (buf, sizeof(buf), textfile)) {
-         gtk_text_insert (text, font, NULL, NULL, buf, -1);
-      }
-      gtk_text_thaw (text);
-
-      if (font)
-         gdk_font_unref (font);
-   }
-#endif
+   gtk_text_buffer_set_text (buffer, text, -1);
+   g_free (text);
 
    fclose (textfile);
 
@@ -155,14 +121,7 @@ text_viewer_create (gchar *filename)
    gtk_box_pack_start (GTK_BOX (vbox), scrolledwin, TRUE, TRUE, 0);
    gtk_widget_show (scrolledwin);
 
-#ifdef USE_GTK2
    text = gtk_text_view_new ();
-#else
-   text = gtk_text_new (gtk_scrolled_window_get_hadjustment
-                        (GTK_SCROLLED_WINDOW (scrolledwin)),
-                        gtk_scrolled_window_get_vadjustment
-                        (GTK_SCROLLED_WINDOW (scrolledwin)));
-#endif
    text_viewer->textbox = text;
    gtk_container_add (GTK_CONTAINER (scrolledwin), text);
    gtk_widget_show (text);
