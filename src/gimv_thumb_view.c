@@ -35,7 +35,6 @@
 #include "fileload.h"
 #include "fileutil.h"
 #include "gfileutil.h"
-#include "gtk2-compat.h"
 #include "gtk_prop.h"
 #include "gtkutils.h"
 #include "gimv_comment_view.h"

@@ -22,7 +22,6 @@
  */
 
 #include "gimv_image_saver.h"
-#include "gtk2-compat.h"
 
 
 typedef enum {
@@ -149,9 +148,6 @@ gimv_image_saver_class_init (GimvImageSaverClass *klass)
                         GTK_SIGNAL_OFFSET (GimvImageSaverClass, save_end),
                         gtk_signal_default_marshaller,
                         GTK_TYPE_NONE, 0);
-
-   gtk_object_class_add_signals (object_class,
-                                 gimv_image_saver_signals, LAST_SIGNAL);
 
    object_class->destroy  = gimv_image_saver_destroy;
 

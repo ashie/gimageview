@@ -26,7 +26,6 @@
 #include <string.h>
 
 #include "gimv_thumb.h"
-#include "gtk2-compat.h"
 #include "prefs.h"
 #include "gimv_dupl_win.h"
 
@@ -152,9 +151,6 @@ gimv_dupl_finder_class_init (GimvDuplFinderClass *klass)
                         GTK_SIGNAL_OFFSET (GimvDuplFinderClass, found),
                         gtk_marshal_NONE__POINTER,
                         GTK_TYPE_NONE, 1, GTK_TYPE_POINTER);
-
-   gtk_object_class_add_signals (object_class,
-                                 gimv_dupl_finder_signals, LAST_SIGNAL);
 
    object_class->destroy = gimv_dupl_finder_destroy;
 

@@ -37,7 +37,6 @@
 #include "gimv_image_view.h"
 #include "gimv_image_win.h"
 #include "gimv_nav_win.h"
-#include "gtk2-compat.h"
 #include "gtkutils.h"
 #include "menu.h"
 #include "prefs.h"
@@ -676,8 +675,6 @@ gimv_image_view_class_init (GimvImageViewClass *klass)
                         GTK_SIGNAL_OFFSET (GimvImageViewClass, image_clicked),
                         gtk_marshal_BOOL__POINTER,
                         GTK_TYPE_BOOL, 1, GTK_TYPE_POINTER);
-
-   gtk_object_class_add_signals (object_class, gimv_image_view_signals, LAST_SIGNAL);
 
    object_class->set_arg = gimv_image_view_set_arg;
    object_class->get_arg = gimv_image_view_get_arg;

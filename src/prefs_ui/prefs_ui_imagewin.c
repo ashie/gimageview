@@ -26,7 +26,6 @@
 #include "gimageview.h"
 
 #include "gimv_image.h"
-#include "gtk2-compat.h"
 #include "gtkutils.h"
 #include "menu.h"
 #include "prefs.h"

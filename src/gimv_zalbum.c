@@ -38,7 +38,6 @@
 #endif
 
 #include <string.h>
-#include "gtk2-compat.h"
 #include "gimv_zalbum.h"
 
 #define GIMV_ZALBUM_CELL(ptr)   ((GimvZAlbumCell *) (ptr))
@@ -149,7 +148,7 @@ gimv_zalbum_class_init (GimvZAlbumClass *klass) {
    widget_class = (GtkWidgetClass *) klass;
    zlist_class  = (GimvZListClass *) klass;
 
-   OBJECT_CLASS_SET_FINALIZE_FUNC (klass, gimv_zalbum_finalize);
+   G_OBJECT_CLASS(klass)->finalize = gimv_zalbum_finalize;
 
    zlist_class->clear               = gimv_zalbum_clear;
    zlist_class->cell_draw           = gimv_zalbum_draw_cell;
@@ -201,7 +200,8 @@ gimv_zalbum_finalize (GObject *object)
 {
    gimv_zalbum_clear (GIMV_ZLIST (object));
 
-   OBJECT_CLASS_FINALIZE_SUPER (parent_class, object);
+   if (G_OBJECT_CLASS(parent_class)->finalize)
+      G_OBJECT_CLASS(parent_class)->finalize (object);
 }
 
 

@@ -32,7 +32,6 @@
 #include "gimageview.h"
 
 #include "gimv_nav_win.h"
-#include "gtk2-compat.h"
 
 
 #define PEN_WIDTH         3       /* Square border width. */ 
@@ -132,10 +131,6 @@ gimv_nav_win_class_init (GimvNavWinClass *klass)
                         GTK_SIGNAL_OFFSET (GimvNavWinClass, move),
                         gtk_marshal_NONE__INT_INT,
                         GTK_TYPE_NONE, 2, GTK_TYPE_INT, GTK_TYPE_INT);
-
-   gtk_object_class_add_signals (object_class,
-                                 gimv_nav_win_signals,
-                                 LAST_SIGNAL);
 }
 
 

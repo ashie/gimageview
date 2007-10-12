@@ -43,7 +43,6 @@
 #include "gimv_thumb.h"
 #include "gimv_thumb_view.h"
 #include "gimv_thumb_win.h"
-#include "gtk2-compat.h"
 #include "help.h"
 #include "menu.h"
 #include "prefs.h"

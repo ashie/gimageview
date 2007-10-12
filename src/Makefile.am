@@ -56,7 +56,6 @@ gimv_SOURCES = \
 	gimv_thumb_cache.c gimv_thumb_cache.h \
 	gimv_thumb_view.c gimv_thumb_view.h \
 	gimv_thumb_win.c gimv_thumb_win.h \
-	gtk2-compat.c gtk2-compat.h \
 	gtk_prop.c gtk_prop.h \
 	gtkutils.c gtkutils.h \
 	help.c help.h \

@@ -36,7 +36,6 @@
 #include <stdlib.h>
 #include <gdk/gdkkeysyms.h>
 
-#include "gtk2-compat.h"
 #include "gimv_zlist.h"
 
 #define bw(widget) ((gint) GTK_CONTAINER(widget)->border_width)
@@ -322,11 +321,9 @@ gimv_zlist_class_init (GimvZListClass *klass)
                       GTK_SIGNAL_OFFSET(GimvZListClass, cell_unselect),
                       gtk_marshal_NONE__INT,
                       GTK_TYPE_NONE, 1, GTK_TYPE_INT);
-
-   gtk_object_class_add_signals (object_class, gimv_zlist_signals, LAST_SIGNAL);
 #endif /* GTK_DISABLE_DEPRECATED */
 
-   OBJECT_CLASS_SET_FINALIZE_FUNC (klass, gimv_zlist_finalize);
+   G_OBJECT_CLASS(klass)->finalize = gimv_zlist_finalize;
 
    widget_class->map                    = gimv_zlist_map;
    widget_class->unmap                  = gimv_zlist_unmap;
@@ -444,7 +441,8 @@ gimv_zlist_finalize (GObject *object)
    if (GIMV_ZLIST (object)->region_line_gc)
       gdk_gc_destroy (GIMV_ZLIST (object)->region_line_gc);
 
-   OBJECT_CLASS_FINALIZE_SUPER (parent_class, object);
+   if (G_OBJECT_CLASS(parent_class)->finalize)
+      G_OBJECT_CLASS(parent_class)->finalize (object);
 }
 
 

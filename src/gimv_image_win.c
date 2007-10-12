@@ -28,7 +28,6 @@
 
 #include "charset.h"
 #include "cursors.h"
-#include "gtk2-compat.h"
 #include "gtkutils.h"
 #include "gimv_comment_view.h"
 #include "gimv_icon_stock.h"
@@ -392,8 +391,6 @@ gimv_image_win_class_init (GimvImageWinClass *klass)
                         GTK_SIGNAL_OFFSET (GimvImageWinClass, hide_fullscreen),
                         gtk_signal_default_marshaller,
                         GTK_TYPE_NONE, 0);
-
-   gtk_object_class_add_signals (object_class, gimv_image_win_signals, LAST_SIGNAL);
 
    object_class->destroy  = gimv_image_win_destroy;
 

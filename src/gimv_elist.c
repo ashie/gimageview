@@ -157,9 +157,7 @@ gimv_elist_class_init (GimvEListClass *klass)
                         gtk_marshal_NONE__INT_INT_POINTER,
                         GTK_TYPE_NONE, 3, GTK_TYPE_INT, GTK_TYPE_INT, GTK_TYPE_POINTER);
 
-   gtk_object_class_add_signals (object_class, gimv_elist_signals, LAST_SIGNAL);
-
-   OBJECT_CLASS_SET_FINALIZE_FUNC (klass, gimv_elist_finalize);
+   G_OBJECT_CLASS(klass)->finalize = gimv_elist_finalize;
 }
 
 
@@ -212,7 +210,8 @@ gimv_elist_finalize (GObject *object)
    g_hash_table_destroy (editlist->rowdata_table);
    g_hash_table_destroy (editlist->rowdata_destroy_fn_table);
 
-   OBJECT_CLASS_FINALIZE_SUPER (parent_class, object);
+   if (G_OBJECT_CLASS(parent_class)->finalize)
+      G_OBJECT_CLASS(parent_class)->finalize (object);
 }
 
 

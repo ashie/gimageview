@@ -1317,3 +1317,52 @@ gtkutil_get_data_from_adjustment_by_float_cb (GtkWidget *widget, gfloat *data)
 
    *data = GTK_ADJUSTMENT(widget)->value;
 }
+
+gboolean
+gtkutil_scroll_to_button_cb (GtkWidget *widget,
+                             GdkEventScroll *se,
+                             gpointer data)
+{
+   GdkEventButton be;
+   gboolean retval;
+
+   g_return_val_if_fail (GTK_IS_WIDGET(widget), FALSE);
+
+   be.type       = GDK_BUTTON_PRESS;
+   be.window     = se->window;
+   be.send_event = se->send_event;
+   be.time       = se->time;
+   be.x          = se->x;
+   be.y          = se->y;
+   be.axes       = NULL;
+   be.state      = se->state;
+   be.device     = se->device;
+   be.x_root     = se->x_root;
+   be.y_root     = se->y_root;
+   switch ((se)->direction) {
+   case GDK_SCROLL_UP:
+      be.button = 4;
+      break;
+   case GDK_SCROLL_DOWN:
+      be.button = 5;
+      break;
+   case GDK_SCROLL_LEFT:
+      be.button = 6;
+      break;
+   case GDK_SCROLL_RIGHT:
+      be.button = 7;
+      break;
+   default:
+      g_warning ("invalid scroll direction!");
+      be.button = 0;
+      break;
+   }
+
+   g_signal_emit_by_name (G_OBJECT(widget), "button-press-event",
+                          &be, &retval);
+   be.type = GDK_BUTTON_RELEASE;
+   g_signal_emit_by_name (G_OBJECT(widget), "button-release-event",
+                          &be, &retval);
+
+   return retval;
+}

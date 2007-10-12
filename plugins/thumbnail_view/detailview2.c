@@ -35,7 +35,6 @@
 #include "gimv_image.h"
 #include "gimv_thumb.h"
 #include "gimv_thumb_win.h"
-#include "gtk2-compat.h"
 
 
 enum {

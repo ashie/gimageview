@@ -30,7 +30,6 @@
 #include "gimv_thumb_view.h"
 #include "gimv_thumb_win.h"
 #include "gimv_zalbum.h"
-#include "gtk2-compat.h"
 #include "gtkutils.h"
 #include "prefs.h"
 
