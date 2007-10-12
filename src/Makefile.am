@@ -129,8 +129,6 @@ gimv_LDADD = \
 	$(gimv_res) \
 	$(gimv_exp) \
 	$(INTLLIBS) \
-	$(LIBICONV) \
-	$(LIBCHARSET) \
 	$(GIMV_IMAGELIB_LIBS) \
 	$(GTK_LIBS) \
 	$(EXIF_LIBS) \

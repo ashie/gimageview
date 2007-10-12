@@ -411,12 +411,6 @@ LIBS=$gimv_save_LIBS
 
 
 dnl *******************
-dnl for libcharset
-dnl *******************
-AM_LIBCHARSET
-
-
-dnl *******************
 dnl for intltool
 dnl *******************
 AC_PROG_INTLTOOL
