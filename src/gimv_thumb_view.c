@@ -2293,10 +2293,8 @@ gimv_thumb_view_popup_menu (GimvThumbView *tv, GimvThumb *thumb,
                   NULL, NULL, button, time);
 
    tv->popup_menu = popup_menu;
-#ifdef USE_GTK2
    gtk_object_ref (GTK_OBJECT (tv->popup_menu));
    gtk_object_sink (GTK_OBJECT (tv->popup_menu));
-#endif
 
    g_list_free (thumblist);
 }
@@ -3557,10 +3555,8 @@ gimv_thumb_view_init (GimvThumbView *tv)
    tv->priv->related_dupl_win      = NULL;
    tv->priv->button_2pressed_queue = 0;
 
-#ifdef USE_GTK2
    gtk_object_ref (GTK_OBJECT (tv));
    gtk_object_sink (GTK_OBJECT (tv));
-#endif
 
    GimvThumbViewList = g_list_append (GimvThumbViewList, tv);
    total_tab_count++;

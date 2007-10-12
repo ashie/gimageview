@@ -219,9 +219,7 @@ struct GimvThumbWin_Tag
    /* File open dialog */
    GtkWidget *open_dialog;
 
-#ifdef USE_GTK2
    GSList *accel_group_list;
-#endif
 
    GimvThumbWinPriv *priv;
 };
@@ -285,10 +283,8 @@ void          gimv_thumb_win_save_state               (GimvThumbWin   *tw);
 /* FIXMEEEEEEEEEEEEEEEEEE!! (TOT */
 void         gimv_thumb_win_notebook_drag_src_unset   (GimvThumbWin   *tw);
 void         gimv_thumb_win_notebook_drag_src_reset   (GimvThumbWin   *tw);
-#ifdef USE_GTK2
 void         gimv_thumb_win_remove_key_accel          (GimvThumbWin   *tw);
 void         gimv_thumb_win_reset_key_accel           (GimvThumbWin   *tw);
-#endif /* USE_GTK2 */
 /* END FIXMEEEEEEEEEEEEEEEEEE!! (TOT */
 
 #endif /* __GIMV_THUMB_WIN_H__ */

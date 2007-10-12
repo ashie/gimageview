@@ -219,9 +219,7 @@ gimv_icon_stock_get_icon (const gchar *icon_name)
    icon = g_new0 (GimvIcon, 1);
    icon->pixmap = NULL;
    icon->mask = NULL;
-#ifdef USE_GTK2
    icon->pixbuf = NULL;
-#endif /* USE_GTK2 */
 
    if (icondir) {
       path = g_strconcat (icondir, "/", icon_name, ".xpm", NULL);
@@ -277,11 +275,7 @@ gimv_icon_stock_get_widget (const gchar *icon_name)
    icon = gimv_icon_stock_get_icon (icon_name);
 
    if (icon)
-#ifdef USE_GTK2
       widget = gtk_image_new_from_pixmap (icon->pixmap, icon->mask);   
-#else
-      widget = gtk_pixmap_new (icon->pixmap, icon->mask);   
-#endif
 
    return widget;
 }
@@ -295,20 +289,12 @@ gimv_icon_stock_change_widget_icon (GtkWidget *widget, const gchar *icon_name)
    g_return_if_fail (widget);
    g_return_if_fail (icon_name && *icon_name);
 
-#ifdef USE_GTK2
-      g_return_if_fail (GTK_IS_IMAGE (widget));   
-#else
-      g_return_if_fail (GTK_IS_PIXMAP (widget));   
-#endif
+   g_return_if_fail (GTK_IS_IMAGE (widget));   
 
    icon = gimv_icon_stock_get_icon (icon_name);
    if (!icon) return;
 
-#ifdef USE_GTK2
    gtk_image_set_from_pixmap (GTK_IMAGE (widget), icon->pixmap, icon->mask);
-#else
-   gtk_pixmap_set (GTK_PIXMAP (widget), icon->pixmap, icon->mask);
-#endif
 }
 
 
@@ -336,15 +322,12 @@ gimv_icon_stock_free_icon (const gchar *icon_name)
 
    g_hash_table_remove (icons, icon_name);
    gdk_pixmap_unref (icon->pixmap);
-#ifdef USE_GTK2
    if (icon->pixbuf)
       g_object_unref (icon->pixbuf);
-#endif /* USE_GTK2 */
    g_free (icon);
 }
 
 
-#ifdef USE_GTK2
 GdkPixbuf *
 gimv_icon_stock_get_pixbuf  (const gchar *icon_name)
 {
@@ -402,4 +385,3 @@ gimv_icon_stock_free_pixbuf (const gchar *icon_name)
    g_object_unref (icon->pixbuf);
    icon->pixbuf = NULL;
 }
-#endif /* USE_GTK2 */

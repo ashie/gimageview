@@ -150,14 +150,7 @@ gtkutil_create_toolbar (void)
 {
    GtkWidget *toolbar;
 
-#ifdef USE_GTK2
    toolbar = gtk_toolbar_new ();
-#else /* USE_GTK2 */
-   toolbar = gtk_toolbar_new (GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH);
-   gtk_toolbar_set_button_relief(GTK_TOOLBAR(toolbar), GTK_RELIEF_NONE);
-   gtk_toolbar_set_space_style (GTK_TOOLBAR(toolbar), GTK_TOOLBAR_SPACE_LINE);
-   gtk_toolbar_set_space_size  (GTK_TOOLBAR(toolbar), 16);
-#endif /* USE_GTK2 */
 
    return toolbar;
 }
@@ -168,10 +161,6 @@ gtkutil_create_spin_button (GtkAdjustment *adj)
 {
    GtkWidget *spinner = gtk_spin_button_new (adj, 0, 0);
    gtk_spin_button_set_wrap (GTK_SPIN_BUTTON (spinner), TRUE);
-#ifndef USE_GTK2
-   gtk_spin_button_set_shadow_type (GTK_SPIN_BUTTON (spinner),
-                                    GTK_SHADOW_NONE);
-#endif /* USE_GTK2 */
 
    return spinner;
 }
@@ -182,7 +171,6 @@ gtkutil_option_menu_get_current (GtkWidget *option_menu)
 {
    g_return_val_if_fail (GTK_IS_OPTION_MENU (option_menu), NULL);
 
-#ifdef USE_GTK2
    {
       GtkWidget *menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (option_menu));
       gint nth = gtk_option_menu_get_history (GTK_OPTION_MENU (option_menu));
@@ -190,9 +178,6 @@ gtkutil_option_menu_get_current (GtkWidget *option_menu)
       if (!node) return NULL;
       return node->data;
    }
-#else /* USE_GTK2 */
-   return GTK_OPTION_MENU (option_menu)->menu_item;
-#endif /* USE_GTK2 */
 }
 
 

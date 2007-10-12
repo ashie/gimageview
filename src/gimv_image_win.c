@@ -694,9 +694,6 @@ create_imageview_menus (GimvImageWin *iw)
                                  gimv_image_win_menu_items, n_menu_items,
                                  "<ImageWinMainMenu>", iw);
    gtk_container_add(GTK_CONTAINER(iw->menubar_handle), iw->menubar);
-#ifndef USE_GTK2
-   gtk_menu_bar_set_shadow_type (GTK_MENU_BAR(iw->menubar), GTK_SHADOW_NONE);
-#endif /* USE_GTK2 */
    gtk_widget_show (iw->menubar);
 
    /* sub menu */
@@ -2161,13 +2158,8 @@ cb_fullscreen_key_press (GtkWidget *widget,
       break;
    }
 
-#ifdef USE_GTK2
    gtk_accel_groups_activate (G_OBJECT (iw),
                               event->keyval, event->state);
-#else /* USE_GTK2 */
-   gtk_accel_groups_activate (GTK_OBJECT (iw),
-                              event->keyval, event->state);
-#endif /* USE_GTK2 */
 
    return TRUE;
 }

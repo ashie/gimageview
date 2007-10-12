@@ -53,11 +53,7 @@
 
 static void gimv_zalbum_class_init          (GimvZAlbumClass    *klass);
 static void gimv_zalbum_init                (GimvZAlbum         *album);
-#ifdef USE_GTK2
 static void gimv_zalbum_finalize            (GObject *object);
-#else
-static void gimv_zalbum_finalize            (GtkObject      *object);
-#endif
 static void gimv_zalbum_clear               (GimvZList      *list);
 static void gimv_zalbum_cell_size_request   (GimvZList      *list,
                                              gpointer        cell,
@@ -79,18 +75,10 @@ static void gimv_zalbum_draw                (GimvZAlbum     *album,
                                              GimvZAlbumCell *cell,
                                              GdkRectangle   *cell_area,
                                              GdkRectangle   *area);
-#ifdef USE_GTK2
 static gint make_string                     (PangoLayout    *layout,
                                              gint            max_width,
                                              gchar          *buffer,
                                              gint            buffer_size);
-#else
-static gint make_string                     (GdkFont        *font,
-                                             gint            max_width,
-                                             GdkWChar       *buffer,
-                                             gint            src_len,
-                                             gint            buffer_size);
-#endif
 static void gimv_zalbum_draw_string         (GtkWidget      *widget,
                                              GimvZAlbumCell *cell,
                                              const gchar    *string,
@@ -126,7 +114,6 @@ GtkType
 gimv_zalbum_get_type (void) {
    static GtkType type = 0;
 
-#ifdef USE_GTK2
    if (!type) {
       static const GTypeInfo info = {
          sizeof (GimvZAlbumClass),
@@ -145,22 +132,6 @@ gimv_zalbum_get_type (void) {
                                      &info,
                                      0);
    }
-#else /* USE_GTK2 */
-   if (!type) {
-      static GtkTypeInfo info = {
-         "GimvZAlbum",
-         sizeof(GimvZAlbum),
-         sizeof(GimvZAlbumClass),
-         (GtkClassInitFunc)gimv_zalbum_class_init,
-         (GtkObjectInitFunc)gimv_zalbum_init,
-         NULL,
-         NULL,
-         (GtkClassInitFunc)NULL
-      };
-
-      type = gtk_type_unique(gimv_zlist_get_type(), &info);
-   }
-#endif /* USE_GTK2 */
 
    return type;
 }
@@ -206,11 +177,7 @@ gimv_zalbum_new (void) {
    GtkRequisition requisition;
    gint flags = 0;
 
-#ifdef USE_GTK2
    album = g_object_new (gimv_zalbum_get_type (), NULL);
-#else /* USE_GTK2 */
-   album = gtk_type_new (gimv_zalbum_get_type());
-#endif /* USE_GTK2 */
    g_return_val_if_fail (album != NULL, NULL);
 
    /* flags |= GIMV_ZLIST_HORIZONTAL; */
@@ -230,11 +197,7 @@ gimv_zalbum_new (void) {
 
 
 static void
-#ifdef USE_GTK2
 gimv_zalbum_finalize (GObject *object)
-#else  /* USE_GTK2 */
-gimv_zalbum_finalize (GtkObject *object)
-#endif /* USE_GTK2 */
 {
    gimv_zalbum_clear (GIMV_ZLIST (object));
 
@@ -548,7 +511,6 @@ gimv_zalbum_draw (GimvZAlbum *album, GimvZAlbumCell *cell,
 
 
 /* FIXME */
-#if USE_GTK2
 static void
 get_string_area_size (GimvZAlbum *album, const gchar *str,
                       gint *width_ret, gint *height_ret, gint *lines_ret)
@@ -612,72 +574,6 @@ make_string (PangoLayout *layout, gint max_width,
       return buffer_size;
    }
 }
-#else
-static void
-get_string_area_size (GimvZAlbum *album, const gchar *str,
-                      gint *width_ret, gint *height_ret, gint *lines_ret)
-{
-   gint i, strwidth = 0, maxwidth = 0, lines;
-   gchar **strs;
-   GdkFont *font = gtk_style_get_font (GTK_WIDGET (album)->style);
-
-   g_return_if_fail (str);
-   g_return_if_fail (font);
-
-   strs = g_strsplit (str, "\n", -1);
-   if (!strs) {
-      *lines_ret = 1;
-      return;
-   }
-
-   for (i = 0; strs[i]; i++) {
-      strwidth = gdk_string_width (font, strs[i]);
-      maxwidth = MAX (maxwidth, strwidth);
-   }
-
-   lines = i++;
-
-   if (lines_ret)
-      *lines_ret = lines;
-
-   g_strfreev (strs);
-
-   if (width_ret)
-      *width_ret = maxwidth;
-   if (height_ret)
-      *height_ret = gdk_string_height (font, str) + LABEL_VPADDING * lines;
-}
-
-
-static gint
-make_string (GdkFont *font, gint max_width,
-             GdkWChar buffer[], gint src_len, gint buffer_size)
-{
-   gint dots_width;
-   gint len = src_len;
-
-   dots_width = gdk_text_width (font, "...", 3);
-
-   while (len > 0) {
-      if (gdk_text_width_wc (font, buffer, len) + dots_width > max_width) {
-         len--;
-      } else {
-         break;
-      }
-   }
-
-   if (len < src_len && len < buffer_size - 4) {
-      buffer[len]     = '.';
-      buffer[len + 1] = '.';
-      buffer[len + 2] = '.';
-      buffer[len + 3] = '\0';
-      return len + 3;
-   } else {
-      buffer[buffer_size - 1] = '\0';
-      return buffer_size;
-   }
-}
-#endif
 
 
 static void
@@ -687,7 +583,6 @@ gimv_zalbum_draw_string (GtkWidget *widget, GimvZAlbumCell *cell,
                          gint max_width, gint max_height,
                          gint center)
 {
-#ifdef USE_GTK2
    gchar buffer[STRING_BUFFER_SIZE];
    gint x_pad, y_pad;
    gint width = 0, height = 0, str_height, len;
@@ -743,52 +638,6 @@ gimv_zalbum_draw_string (GtkWidget *widget, GimvZAlbumCell *cell,
                     layout);
 
   g_object_unref (layout);
-#else
-   GdkFont *font = gtk_style_get_font (widget->style);
-   gchar *str, **strs;
-   gint buffer[STRING_BUFFER_SIZE], lines;
-   gint x_pad, y_pad, len, str_height, i, width, height;
-
-   get_string_area_size (GIMV_ZALBUM (widget), string, &width, &height, &lines);
-   x_pad = (max_width - width) / 2;
-
-   if (x_pad < 0) {
-      len = gdk_mbstowcs (buffer, string, STRING_BUFFER_SIZE);
-      x_pad = (max_width - gdk_text_width_wc (font, buffer, len)) / 2;
-      len = make_string (gtk_style_get_font (widget->style), max_width,
-                         buffer, len, STRING_BUFFER_SIZE);
-      str = gdk_wcstombs (buffer);
-      get_string_area_size (GIMV_ZALBUM (widget), string, &width, &height, &lines);
-      x_pad = (max_width - width) / 2;
-   } else {
-      str = g_strdup (string);
-      get_string_area_size (GIMV_ZALBUM (widget), string, &width, &height, &lines);
-      x_pad = (max_width - width) / 2;
-   }
-
-   if (x_pad < 0 || !center)
-      x_pad = 0;
-
-   strs = g_strsplit (str, "\n", -1);
-
-   str_height = gdk_string_height (font, string);
-   if (str_height * lines < max_height)
-      y_pad = (max_height -  str_height * lines) / 2;
-   else
-      y_pad = 0;
-
-   for (i = 0; strs && strs[i]; i++) {
-      gdk_draw_string (widget->window,
-                       font,
-                       widget->style->fg_gc[CELL_STATE(widget)],
-                       x + x_pad,
-                       y + y_pad + (str_height + LABEL_VPADDING) * i,
-                       strs[i]);
-   }
-
-   g_strfreev (strs);
-   g_free (str);
-#endif
 }
 /* END FIXME!! */
 
@@ -810,18 +659,11 @@ gimv_zalbum_prepare_cell (GimvZAlbum *album,
                           intersect_area.x, intersect_area.y,
                           intersect_area.width, intersect_area.height);
 
-#ifdef USE_GTK2
    gtk_paint_shadow (widget->style, widget->window,
                      CELL_STATE(cell), GTK_SHADOW_OUT,
                      NULL, NULL, NULL,
                      cell_area->x, cell_area->y,
                      cell_area->width, cell_area->height);
-#else /* USE_GTK2 */
-   gtk_draw_shadow (widget->style, widget->window,
-                    CELL_STATE(cell), GTK_SHADOW_OUT,
-                    cell_area->x, cell_area->y,
-                    cell_area->width, cell_area->height);
-#endif /* USE_GTK2 */
 
    cell_area->x += CELL_PADDING;
    cell_area->y += CELL_PADDING;
@@ -838,11 +680,7 @@ gimv_zalbum_set_label_position (GimvZAlbum *album, GimvZAlbumLabelPosition pos)
    album->label_pos = pos;
 
    if (GTK_WIDGET_VISIBLE (album)) {
-#ifdef USE_GTK2
       gtk_widget_queue_draw (GTK_WIDGET (album));
-#else /* USE_GTK2 */
-      gtk_widget_draw (GTK_WIDGET (album), NULL);
-#endif /* USE_GTK2 */
    }
 }
 
@@ -1011,18 +849,11 @@ gimv_zalbum_cell_draw_focus (GimvZList *list, gpointer cell, GdkRectangle *cell_
 
    if (!GTK_WIDGET_MAPPED (list)) return;
 
-#ifdef USE_GTK2
    gtk_paint_shadow(GTK_WIDGET(list)->style, GTK_WIDGET(list)->window,
                     CELL_STATE(cell), GTK_SHADOW_IN,
                     NULL, NULL, NULL,
                     cell_area->x, cell_area->y,
                     cell_area->width, cell_area->height);
-#else /* USE_GTK2 */
-   gtk_draw_shadow(GTK_WIDGET(list)->style, GTK_WIDGET(list)->window,
-                   CELL_STATE(cell), GTK_SHADOW_IN,
-                   cell_area->x, cell_area->y,
-                   cell_area->width, cell_area->height);
-#endif /* USE_GTK2 */
 }
 
 
@@ -1033,18 +864,11 @@ gimv_zalbum_cell_draw_default (GimvZList *list, gpointer cell, GdkRectangle *cel
 
    if (!GTK_WIDGET_MAPPED (list)) return;
 
-#ifdef USE_GTK2
    gtk_paint_shadow(GTK_WIDGET(list)->style, GTK_WIDGET(list)->window,
                     CELL_STATE(cell), GTK_SHADOW_OUT,
                     NULL, NULL, NULL,
                     cell_area->x, cell_area->y,
                     cell_area->width, cell_area->height);
-#else /* USE_GTK2 */
-   gtk_draw_shadow(GTK_WIDGET(list)->style, GTK_WIDGET (list)->window,
-                   CELL_STATE(cell), GTK_SHADOW_OUT,
-                   cell_area->x, cell_area->y,
-                   cell_area->width, cell_area->height);
-#endif /* USE_GTK2 */
 }
 
 

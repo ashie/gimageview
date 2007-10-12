@@ -90,16 +90,9 @@ gboolean       gimv_thumb_has_thumbnail        (GimvThumb      *thumb);
 gchar         *gimv_thumb_find_thumbcache      (const gchar    *filename,
                                                 gchar         **type);
 
-#ifdef USE_GTK2
-#  define gimv_thumb_get_parent_thumbview(thumb) \
+#define gimv_thumb_get_parent_thumbview(thumb) \
    ((GimvThumbView *) g_object_get_data(G_OBJECT(thumb), "GimvThumbView"))
-#  define gimv_thumb_set_parent_thumbview(thumb, tv) \
+#define gimv_thumb_set_parent_thumbview(thumb, tv) \
    g_object_set_data(G_OBJECT(thumb), "GimvThumbView", tv);
-#else
-#  define gimv_thumb_get_parent_thumbview(thumb) \
-   ((GimvThumbView *) gtk_object_get_data(GTK_OBJECT(thumb), "GimvThumbView"))
-#  define gimv_thumb_set_parent_thumbview(thumb, tv) \
-   gtk_object_set_data(GTK_OBJECT(thumb), "GimvThumbView", tv);
-#endif
 
 #endif /* __GIMV_THUMB_H__ */

@@ -25,8 +25,6 @@
 #include <gtk/gtk.h>
 
 
-#ifdef USE_GTK2
-
 gboolean
 gtk2compat_scroll_to_button_cb (GtkWidget *widget,
                                 GdkEventScroll *se,
@@ -75,27 +73,6 @@ gtk2compat_scroll_to_button_cb (GtkWidget *widget,
 
    return retval;
 }
-
-#else /* USE_GTK2 */
-
-#include <X11/Xlib.h>
-#include <gdk/gdkx.h>
-void
-gdk_window_focus (GdkWindow *window,
-                  guint32    timestamp)
-{
-   XRaiseWindow (GDK_WINDOW_XDISPLAY (window), GDK_WINDOW_XWINDOW (window));
-
-   gdk_error_trap_push ();
-   XSetInputFocus (GDK_WINDOW_XDISPLAY (window),
-                   GDK_WINDOW_XWINDOW (window),
-                   RevertToParent,
-                   timestamp);
-   XSync (GDK_WINDOW_XDISPLAY (window), False);
-   gdk_error_trap_pop ();
-}
-
-#endif /* USE_GTK2 */
 
 #include "gimv_paned.h"
 guint

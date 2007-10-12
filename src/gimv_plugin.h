@@ -34,11 +34,7 @@
 #include "gimv_mime_types.h"
 #include "gimv_prefs_win.h"
 
-#ifdef USE_GTK2
-#  define GIMV_PLUGIN_IF_VERSION    20004
-#else
-#  define GIMV_PLUGIN_IF_VERSION    4
-#endif
+#define GIMV_PLUGIN_IF_VERSION        20004
 
 #define GIMV_PLUGIN_IO_STREAMER       "IOStreamer"
 #define GIMV_PLUGIN_IMAGE_LOADER      "ImageLoader"

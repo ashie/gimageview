@@ -56,28 +56,19 @@
 
 #define HIGHLIGHT_SIZE 2
 
-#ifdef USE_GTK2
-#  ifdef GTK_DISABLE_DEPRECATED
-#     include "gimv_marshal.h"
-#  endif
-#  define WIDGET_DRAW(widget) gtk_widget_queue_draw (widget)
-#  define WIDGET_DRAW_AREA(widget, area) \
-      gtk_widget_queue_draw_area (widget, \
-                                  (area)->x, (area)->y, \
-                                  (area)->width, (area)->height)
-#else /* USE_GTK2 */
-#  define WIDGET_DRAW(widget) gtk_widget_draw (widget, NULL)
-#  define WIDGET_DRAW_AREA(widget, area) gtk_widget_draw (widget, area)
-#endif /* USE_GTK2 */
+#ifdef GTK_DISABLE_DEPRECATED
+#   include "gimv_marshal.h"
+#endif
+#define WIDGET_DRAW(widget) gtk_widget_queue_draw (widget)
+#define WIDGET_DRAW_AREA(widget, area) \
+    gtk_widget_queue_draw_area (widget, \
+                                (area)->x, (area)->y, \
+                                (area)->width, (area)->height)
 
 static void gimv_zlist_class_init              (GimvZListClass *klass);
 static void gimv_zlist_init                    (GimvZList *list);
 
-#ifdef USE_GTK2
 static void  gimv_zlist_finalize               (GObject *object);
-#else
-static void  gimv_zlist_finalize               (GtkObject        *object);
-#endif
 static void  gimv_zlist_map                    (GtkWidget        *widget);
 static void  gimv_zlist_unmap                  (GtkWidget        *widget);
 static void  gimv_zlist_realize                (GtkWidget        *widget);
@@ -172,7 +163,6 @@ gimv_zlist_get_type (void)
 {
    static GtkType type = 0;
 
-#ifdef USE_GTK2
    if (!type) {
       static const GTypeInfo gimv_zlist_type_info = {
          sizeof (GimvZListClass),
@@ -191,22 +181,6 @@ gimv_zlist_get_type (void)
                                      &gimv_zlist_type_info,
                                      0);
    }
-#else /* USE_GTK2 */
-   if (!type) {
-      static const GtkTypeInfo gimv_zlist_type_info = {
-         "GimvZList",
-         sizeof (GimvZList),
-         sizeof (GimvZListClass),
-         (GtkClassInitFunc) gimv_zlist_class_init,
-         (GtkObjectInitFunc) gimv_zlist_init,
-         /* reserved_1 */ NULL,
-         /* reserved_2 */ NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      type = gtk_type_unique (GIMV_TYPE_SCROLLED, &gimv_zlist_type_info);
-   }
-#endif /* USE_GTK2 */
 
    return type;
 }
@@ -227,7 +201,7 @@ gimv_zlist_class_init (GimvZListClass *klass)
    container_class = (GtkContainerClass*) klass;
    scrolled_class  = (GimvScrolledClass*) klass;
 
-#if (defined USE_GTK2) && (defined GTK_DISABLE_DEPRECATED)
+#ifdef GTK_DISABLE_DEPRECATED
    gimv_zlist_signals [CLEAR] = 
       g_signal_new ("clear",
                     G_TYPE_FROM_CLASS (object_class),
@@ -290,7 +264,7 @@ gimv_zlist_class_init (GimvZListClass *klass)
                     NULL, NULL,
                     g_cclosure_marshal_VOID__INT,
                     G_TYPE_NONE, 1, G_TYPE_INT);
-#else /* (defined USE_GTK2) && (defined GTK_DISABLE_DEPRECATED) */
+#else /* GTK_DISABLE_DEPRECATED */
    gimv_zlist_signals [CLEAR] = 
       gtk_signal_new ("clear",
                       GTK_RUN_FIRST,
@@ -350,7 +324,7 @@ gimv_zlist_class_init (GimvZListClass *klass)
                       GTK_TYPE_NONE, 1, GTK_TYPE_INT);
 
    gtk_object_class_add_signals (object_class, gimv_zlist_signals, LAST_SIGNAL);
-#endif /* (defined USE_GTK2) && (defined GTK_DISABLE_DEPRECATED) */
+#endif /* GTK_DISABLE_DEPRECATED */
 
    OBJECT_CLASS_SET_FINALIZE_FUNC (klass, gimv_zlist_finalize);
 
@@ -361,9 +335,6 @@ gimv_zlist_class_init (GimvZListClass *klass)
    widget_class->size_request           = gimv_zlist_size_request;
    widget_class->size_allocate          = gimv_zlist_size_allocate;
    widget_class->expose_event           = gimv_zlist_expose;
-#ifndef USE_GTK2
-   widget_class->draw                   = gimv_zlist_draw;
-#endif
 
    widget_class->button_press_event     = gimv_zlist_button_press;
    widget_class->button_release_event   = gimv_zlist_button_release;
@@ -432,11 +403,7 @@ gimv_zlist_new (guint flags)
 {
    GimvZList *list;
 
-#ifdef USE_GTK2
    list = g_object_new (gimv_zlist_get_type (), NULL);
-#else /* USE_GTK2 */
-   list = (GimvZList*) gtk_type_new (gimv_zlist_get_type());
-#endif /* USE_GTK2 */
    g_return_val_if_fail (list, NULL);
 
    gimv_zlist_construct (list, flags);
@@ -472,11 +439,7 @@ gimv_zlist_set_to_horizontal (GimvZList *zlist)
 
 
 static void
-#ifdef USE_GTK2
 gimv_zlist_finalize (GObject *object)
-#else  /* USE_GTK2 */
-gimv_zlist_finalize (GtkObject *object)
-#endif /* USE_GTK2 */
 {
    if (GIMV_ZLIST (object)->region_line_gc)
       gdk_gc_destroy (GIMV_ZLIST (object)->region_line_gc);
@@ -605,11 +568,7 @@ gimv_zlist_update (GimvZList *list)
           && adj->value > adj->upper - adj->page_size)
       {
          adj->value = adj->upper - adj->page_size;
-#ifdef USE_GTK2
          g_signal_emit_by_name (G_OBJECT(adj), "value_changed", NULL);
-#else /* USE_GTK2 */
-         gtk_signal_emit_by_name (GTK_OBJECT(adj), "value_changed", NULL);
-#endif /* USE_GTK2 */
       }
 
    } else {
@@ -631,11 +590,7 @@ gimv_zlist_update (GimvZList *list)
           && adj->value > adj->upper - adj->page_size)
       {
          adj->value = adj->upper - adj->page_size;
-#ifdef USE_GTK2
          g_signal_emit_by_name (G_OBJECT(adj), "value_changed", NULL);
-#else /* USE_GTK2 */
-         gtk_signal_emit_by_name (GTK_OBJECT(adj), "value_changed", NULL);
-#endif /* USE_GTK2 */
       }
    }
 }
@@ -739,13 +694,8 @@ gimv_zlist_draw_horizontal_list (GtkWidget *widget, GdkRectangle *area)
             if (idx < list->cell_count) {
                cell = GIMV_ZLIST_CELL_FROM_INDEX (list, idx);
 
-#ifdef USE_GTK2
                g_signal_emit (G_OBJECT(list), gimv_zlist_signals [CELL_DRAW], 0,
                               cell, &cell_area, &intersect_area);
-#else /* USE_GTK2 */
-               gtk_signal_emit (GTK_OBJECT(list), gimv_zlist_signals [CELL_DRAW],
-                                cell, &cell_area, &intersect_area);
-#endif /* USE_GTK2 */
             } else {
                gdk_window_clear_area (widget->window,
                                       intersect_area.x, intersect_area.y,
@@ -831,13 +781,8 @@ gimv_zlist_draw_vertical_list (GtkWidget *widget, GdkRectangle *area)
             if (idx < list->cell_count) {
                cell = GIMV_ZLIST_CELL_FROM_INDEX (list, idx);
 
-#ifdef USE_GTK2
-               g_signal_emit (G_OBJECT(list), gimv_zlist_signals [CELL_DRAW], 0,
+              g_signal_emit (G_OBJECT(list), gimv_zlist_signals [CELL_DRAW], 0,
                               cell, &cell_area, &intersect_area);
-#else /* USE_GTK2 */
-               gtk_signal_emit (GTK_OBJECT(list), gimv_zlist_signals [CELL_DRAW],
-                                cell, &cell_area, &intersect_area);
-#endif /* USE_GTK2 */
             } else {
                gdk_window_clear_area (widget->window,
                                       intersect_area.x, intersect_area.y, 
@@ -1072,9 +1017,6 @@ gimv_zlist_button_press (GtkWidget *widget, GdkEventButton *event)
       /* set selection */
       switch (list->selection_mode) {
       case GTK_SELECTION_SINGLE:
-#ifndef USE_GTK2
-      case GTK_SELECTION_MULTIPLE:
-#endif
          list->anchor = idx;
          gimv_zlist_cell_draw_focus (list, idx);
          break;
@@ -1151,16 +1093,6 @@ gimv_zlist_button_release (GtkWidget *widget, GdkEventButton *event)
       }
       list->anchor = index;
       break;
-
-#ifndef USE_GTK2
-   case GTK_SELECTION_MULTIPLE:
-      if (list->anchor == index) {
-         list->focus = index;
-         gimv_zlist_cell_toggle (list, index);
-      }
-      list->anchor = index;
-      break;
-#endif
 
    case GTK_SELECTION_EXTENDED:
       if (event->state & GDK_CONTROL_MASK) {
@@ -1271,9 +1203,6 @@ gimv_zlist_motion_notify (GtkWidget *widget, GdkEventMotion *event)
 
       switch (list->selection_mode) {
       case GTK_SELECTION_SINGLE:
-#ifndef USE_GTK2
-      case GTK_SELECTION_MULTIPLE:
-#endif
          gimv_zlist_cell_draw_focus (list, index);
          break;
 
@@ -1367,10 +1296,6 @@ gimv_zlist_focus_in (GtkWidget *widget, GdkEventFocus *event)
 {
    GTK_WIDGET_SET_FLAGS (widget, GTK_HAS_FOCUS);
 
-#ifndef USE_GTK2
-   gtk_widget_draw_focus (widget);
-#endif  
-
    return FALSE;
 }
 
@@ -1380,10 +1305,6 @@ gimv_zlist_focus_out (GtkWidget *widget, GdkEventFocus *event)
 {
    GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
 
-#ifndef USE_GTK2
-   gtk_widget_draw_default (widget);
-#endif
-  
    return FALSE;
 }
 
@@ -1462,7 +1383,6 @@ gimv_zlist_drag_leave (GtkWidget *widget,
 static void
 gimv_zlist_highlight (GtkWidget *widget)
 {
-#ifdef USE_GTK2
    gtk_paint_shadow (widget->style,
                      widget->window,
                      GTK_STATE_NORMAL, GTK_SHADOW_OUT,
@@ -1470,14 +1390,6 @@ gimv_zlist_highlight (GtkWidget *widget)
                      0, 0,
                      widget->allocation.width - 2 * bw (widget),
                      widget->allocation.height - 2 * bw (widget));
-#else /* USE_GTK2 */
-   gtk_draw_shadow (widget->style,
-                    widget->window,
-                    GTK_STATE_NORMAL, GTK_SHADOW_OUT,
-                    0, 0,
-                    widget->allocation.width - 2 * bw (widget),
-                    widget->allocation.height - 2 * bw (widget));
-#endif /* USE_GTK2 */
 
    gdk_draw_rectangle (widget->window,
                        widget->style->black_gc,
@@ -1598,13 +1510,8 @@ gimv_zlist_insert (GimvZList *list, guint pos, gpointer cell)
       pos = list->cells->len;
    list->cells = g_array_insert_val (list->cells, pos, cell);
 
-#ifdef USE_GTK2
    g_signal_emit (G_OBJECT(list), gimv_zlist_signals [CELL_SIZE_REQUEST], 0,
                   cell, &requisition);
-#else /* USE_GTK2 */
-   gtk_signal_emit (GTK_OBJECT(list), gimv_zlist_signals [CELL_SIZE_REQUEST],
-                    cell, &requisition);
-#endif /* USE_GTK2 */
 
    if (list->flags & GIMV_ZLIST_HORIZONTAL) {
       if (list->cell_count && list->cell_count % list->rows == 0) {
@@ -1732,11 +1639,7 @@ gimv_zlist_adjust_adjustments (GimvScrolled *scrolled)
       adj->lower          = 0;
       adj->upper          = LIST_WIDTH(list) + 2 * list->x_pad + list->cell_x_pad;
 
-#ifdef USE_GTK2
       g_signal_emit_by_name (G_OBJECT(adj), "changed");
-#else /* USE_GTK2 */
-      gtk_signal_emit_by_name (GTK_OBJECT(adj), "changed");
-#endif /* USE_GTK2 */
    }
 
    if (scrolled->v_adjustment) {
@@ -1748,11 +1651,7 @@ gimv_zlist_adjust_adjustments (GimvScrolled *scrolled)
       adj->lower          = 0;
       adj->upper          = LIST_HEIGHT(list) + 2 * list->y_pad + list->cell_y_pad;
 
-#ifdef USE_GTK2
       g_signal_emit_by_name (G_OBJECT(adj), "changed");
-#else /* USE_GTK2 */
-      gtk_signal_emit_by_name (GTK_OBJECT(adj), "changed");
-#endif /* USE_GTK2 */
    }
 }
 
@@ -1766,11 +1665,7 @@ gimv_zlist_clear (GimvZList *list)
 
    gimv_zlist_unselect_all (list);
 
-#ifdef USE_GTK2
    g_signal_emit (G_OBJECT(list), gimv_zlist_signals [CLEAR], 0);
-#else /* USE_GTK2 */
-   gtk_signal_emit (GTK_OBJECT(list), gimv_zlist_signals [CLEAR]);
-#endif /* USE_GTK2 */
 
    g_array_set_size (list->cells, 0);
    list->cell_count     = 0;
@@ -1787,13 +1682,8 @@ gimv_zlist_clear (GimvZList *list)
    gimv_zlist_adjust_adjustments (GIMV_SCROLLED(list)); 
    scrolled->h_adjustment->value = 0;
    scrolled->v_adjustment->value = 0;
-#ifdef USE_GTK2
    g_signal_emit_by_name (G_OBJECT(scrolled->h_adjustment), "value_changed");
    g_signal_emit_by_name (G_OBJECT(scrolled->v_adjustment), "value_changed");
-#else /* USE_GTK2 */
-   gtk_signal_emit_by_name (GTK_OBJECT(scrolled->h_adjustment), "value_changed");
-   gtk_signal_emit_by_name (GTK_OBJECT(scrolled->v_adjustment), "value_changed");
-#endif /* USE_GTK2 */
 
    gimv_zlist_draw (GTK_WIDGET(list), NULL);
 }
@@ -1944,13 +1834,8 @@ gimv_zlist_draw_cell (GimvZList *list, gint index)
    gimv_zlist_cell_area (list, index, &cell_area);
    cell = GIMV_ZLIST_CELL_FROM_INDEX (list, index);
 
-#ifdef USE_GTK2
    g_signal_emit (G_OBJECT(list), gimv_zlist_signals [CELL_DRAW], 0,
                   cell, &cell_area, &cell_area);
-#else /* USE_GTK2 */
-   gtk_signal_emit (GTK_OBJECT(list), gimv_zlist_signals [CELL_DRAW],
-                    cell, &cell_area, &cell_area);
-#endif /* USE_GTK2 */
 
    if (index == list->focus)
       gimv_zlist_cell_draw_focus (list, index);
@@ -1981,13 +1866,8 @@ gimv_zlist_update_cell_size (GimvZList *list, gpointer cell)
    if (list->flags & GIMV_ZLIST_1)
       return FALSE;
 
-#ifdef USE_GTK2
    g_signal_emit (G_OBJECT(list), gimv_zlist_signals [CELL_SIZE_REQUEST], 0,
                   cell, &requisition);
-#else /* USE_GTK2 */
-   gtk_signal_emit (GTK_OBJECT(list), gimv_zlist_signals [CELL_SIZE_REQUEST],
-                    cell, &requisition);
-#endif /* USE_GTK2 */
 
    if (requisition.width  + list->cell_x_pad > list->cell_width ||
        requisition.height + list->cell_y_pad > list->cell_height) {
@@ -2018,13 +1898,8 @@ gimv_zlist_cell_draw_focus (GimvZList *list, gint index)
 
    gimv_zlist_cell_area (list, index, &cell_area);
 
-#ifdef USE_GTK2
    g_signal_emit (G_OBJECT(list), gimv_zlist_signals [CELL_DRAW_FOCUS], 0,
                   GIMV_ZLIST_CELL_FROM_INDEX (list, index), &cell_area);
-#else /* USE_GTK2 */
-   gtk_signal_emit (GTK_OBJECT(list), gimv_zlist_signals [CELL_DRAW_FOCUS], 
-                    GIMV_ZLIST_CELL_FROM_INDEX (list, index), &cell_area);
-#endif /* USE_GTK2 */
 }
 
 
@@ -2039,13 +1914,8 @@ gimv_zlist_cell_draw_default (GimvZList *list, gint index)
 
    gimv_zlist_cell_area (list, index, &cell_area);
 
-#ifdef USE_GTK2
    g_signal_emit (G_OBJECT(list), gimv_zlist_signals [CELL_DRAW_DEFAULT], 0,
                   GIMV_ZLIST_CELL_FROM_INDEX (list, index), &cell_area);
-#else /* USE_GTK2 */
-   gtk_signal_emit (GTK_OBJECT(list), gimv_zlist_signals [CELL_DRAW_DEFAULT], 
-                    GIMV_ZLIST_CELL_FROM_INDEX (list, index), &cell_area);
-#endif /* USE_GTK2 */
 }
 
 
@@ -2058,11 +1928,7 @@ gimv_zlist_cell_select (GimvZList *list, gint index)
 
    node = g_list_find (list->selection, GUINT_TO_POINTER(index));
    if (!node) {
-#ifdef USE_GTK2
       g_signal_emit (G_OBJECT(list), gimv_zlist_signals [CELL_SELECT], 0, index);
-#else /* USE_GTK2 */
-      gtk_signal_emit (GTK_OBJECT(list), gimv_zlist_signals [CELL_SELECT], index);
-#endif /* USE_GTK2 */
       list->selection = g_list_prepend (list->selection, GUINT_TO_POINTER(index));
       gimv_zlist_draw_cell (list, index);
    }
@@ -2078,11 +1944,7 @@ gimv_zlist_cell_unselect (GimvZList *list, gint index)
 
    node = g_list_find (list->selection, GUINT_TO_POINTER(index));
    if (node) {
-#ifdef USE_GTK2
       g_signal_emit (G_OBJECT(list), gimv_zlist_signals [CELL_UNSELECT], 0, index);
-#else /* USE_GTK2 */
-      gtk_signal_emit (GTK_OBJECT(list), gimv_zlist_signals [CELL_UNSELECT], index);
-#endif /* USE_GTK2 */
       list->selection = g_list_remove (list->selection, GUINT_TO_POINTER(index));
       gimv_zlist_draw_cell (list, index);
    }
@@ -2108,13 +1970,8 @@ gimv_zlist_unselect_all (GimvZList *list)
 
    item = list->selection;
    while (item) {
-#ifdef USE_GTK2
       g_signal_emit (G_OBJECT(list), gimv_zlist_signals [CELL_UNSELECT], 0,
                      GPOINTER_TO_UINT(item->data));
-#else /* USE_GTK2 */
-      gtk_signal_emit (GTK_OBJECT(list), gimv_zlist_signals [CELL_UNSELECT], 
-                       GPOINTER_TO_UINT(item->data));
-#endif /* USE_GTK2 */
       gimv_zlist_draw_cell (list, GPOINTER_TO_UINT(item->data));
 
       item = item->next;
@@ -2356,20 +2213,12 @@ gimv_zlist_moveto (GimvZList *list, gint index)
 
       if (cell_area.x < 0) {
          adj->value += cell_area.x;
-#ifdef USE_GTK2
          g_signal_emit_by_name (G_OBJECT(adj), "value_changed");
-#else /* USE_GTK2 */
-         gtk_signal_emit_by_name (GTK_OBJECT(adj), "value_changed");
-#endif /* USE_GTK2 */
       }
 
       if (cell_area.x + cell_area.width > GTK_WIDGET(list)->allocation.width) {
          adj->value += (cell_area.x - adj->page_size) + cell_area.width;
-#ifdef USE_GTK2
          g_signal_emit_by_name (G_OBJECT(adj), "value_changed");
-#else /* USE_GTK2 */
-         gtk_signal_emit_by_name (GTK_OBJECT(adj), "value_changed");
-#endif /* USE_GTK2 */
       }
 
    } else { /* vertical list */
@@ -2378,20 +2227,12 @@ gimv_zlist_moveto (GimvZList *list, gint index)
 
       if (cell_area.y < 0) {
          adj->value += cell_area.y;
-#ifdef USE_GTK2
          g_signal_emit_by_name (G_OBJECT(adj), "value_changed");
-#else /* USE_GTK2 */
-         gtk_signal_emit_by_name (GTK_OBJECT(adj), "value_changed");
-#endif /* USE_GTK2 */
       }
 
       if (cell_area.y + cell_area.height > GTK_WIDGET(list)->allocation.height) {
          adj->value += (cell_area.y - adj->page_size) + cell_area.height;
-#ifdef USE_GTK2
          g_signal_emit_by_name (G_OBJECT(adj), "value_changed");
-#else /* USE_GTK2 */
-         gtk_signal_emit_by_name (GTK_OBJECT(adj), "value_changed");
-#endif /* USE_GTK2 */
       }
    }
 }
