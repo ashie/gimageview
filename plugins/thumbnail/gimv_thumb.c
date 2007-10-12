@@ -386,10 +386,6 @@ prefs_save (gpointer data)
    spinner = gtk_spin_button_new (adj, 0, 0);
    gtk_widget_set_usize(spinner, 70, -1);
    gtk_spin_button_set_wrap (GTK_SPIN_BUTTON (spinner), TRUE);
-#ifndef USE_GTK2
-   gtk_spin_button_set_shadow_type (GTK_SPIN_BUTTON (spinner),
-                                    GTK_SHADOW_OUT);
-#endif
    gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
                        GTK_SIGNAL_FUNC (cb_gimvthumb_get_data_from_adjustment_by_int),
                        NULL);

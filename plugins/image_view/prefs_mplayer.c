@@ -337,10 +337,8 @@ prefs_mplayer_page (void)
 
    /* for detecting drivers */
    mplayer = gimv_mplayer_new ();
-#ifdef USE_GTK2
    g_object_ref (G_OBJECT (mplayer));
    gtk_object_sink (GTK_OBJECT (mplayer));
-#endif /* USE_GTK2 */
 
    /* set drivers list */
    list = gimv_mplayer_get_video_out_drivers (GIMV_MPLAYER (mplayer), FALSE);

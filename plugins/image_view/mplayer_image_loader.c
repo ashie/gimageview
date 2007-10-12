@@ -73,10 +73,8 @@ gimv_mplayer_image_loader_load_file (GimvImageLoader *loader, gpointer data)
    }
 
    mplayer = GIMV_MPLAYER (gimv_mplayer_new ());
-#ifdef USE_GTK2
    g_object_ref (G_OBJECT (mplayer));
    gtk_object_sink (GTK_OBJECT (mplayer));
-#endif /* USE_GTK2 */
    if (!gimv_mplayer_set_file (mplayer, filename)) goto ERROR0;
 
    len = gimv_mplayer_get_length (mplayer);
