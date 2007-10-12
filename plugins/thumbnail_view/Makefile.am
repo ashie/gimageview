@@ -20,5 +20,5 @@ libgimv_thumbview_detail_la_LDFLAGS = \
 libgimv_thumbview_detail_la_LIBADD  = $(GTK_LIBS)
 libgimv_thumbview_detail_la_SOURCES = \
 	detailview_prefs.c detailview_prefs.h \
-	detailview.c detailview2.c detailview.h \
+	detailview.c detailview.h \
 	detailview_priv.h
