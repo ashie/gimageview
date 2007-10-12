@@ -394,12 +394,13 @@ AM_CONDITIONAL(ENABLE_XINE, test x"$enable_xine" = xyes)
 dnl ******************************
 dnl for gettext
 dnl ******************************
-ALL_LINGUAS="fr ja"
-AM_GNU_GETTEXT
-AC_CHECK_FUNC(gettext,,AC_CHECK_LIB(intl, gettext))
-localedir="\${datadir}/locale"
-AC_SUBST(localedir)
+GETTEXT_PACKAGE=gimv
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Gettext package])
 
+ALL_LINGUAS="fr ja"
+AM_GLIB_GNU_GETTEXT
+AM_GLIB_DEFINE_LOCALEDIR(GIMV_LOCALEDIR)
 
 dnl ***************************************************************************
 dnl Check for bind_textdomain_codeset, including -lintl if GLib brings it in.
@@ -592,7 +593,6 @@ doc/Makefile
 doc/ja/Makefile
 etc/Makefile
 m4/Makefile
-intl/Makefile
 po/Makefile.in
 lib/Makefile
 lib/dllloader/Makefile

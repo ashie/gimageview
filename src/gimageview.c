@@ -93,9 +93,9 @@ gimageview_init (gint *argc, gchar *argv[])
 
    /* set locale */
    setlocale (LC_ALL, "");
-   bindtextdomain (PACKAGE, LOCALEDIR);
-   bind_textdomain_codeset (PACKAGE, "UTF-8");
-   textdomain (PACKAGE);
+   bindtextdomain (GETTEXT_PACKAGE, GIMV_LOCALEDIR);
+   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+   textdomain (GETTEXT_PACKAGE);
 
    /* Gtk Initialize */
    gtk_set_locale();

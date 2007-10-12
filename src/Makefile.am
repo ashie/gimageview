@@ -77,7 +77,6 @@ EXTRA_gimv_SOURCES = \
 	gimv.ico
 
 CPPFLAGS= \
-	-DLOCALEDIR=\""$(localedir)"\" \
 	-DDATADIR=\""$(gimv_datadir)"\" \
 	-DDOCDIR=\""$(gimv_docdir)"\" \
 	-DICONDIR=\""$(gimv_icondir)"\" \
