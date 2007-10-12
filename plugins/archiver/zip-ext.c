@@ -36,6 +36,9 @@
 #include "zip-ext.h"
 
 
+G_DEFINE_TYPE (FRCommandZip, fr_command_zip, FR_COMMAND_TYPE)
+
+
 /* plugin implement definition */
 static ExtArchiverPlugin plugin_impl[] =
 {
@@ -62,16 +65,7 @@ GimvPluginInfo gimv_plugin_info =
 };
 
 
-static void fr_command_zip_class_init  (FRCommandZipClass *class);
-
-static void fr_command_zip_init        (FRCommand *afile);
-
 static void fr_command_zip_destroy     (GtkObject *object);
-
-
-/* Parent Class */
-
-static FRCommandClass *parent_class = NULL;
 
 
 /* -- list -- */
@@ -375,7 +369,6 @@ fr_command_zip_class_init (FRCommandZipClass *class)
    FRCommandClass *afc;
    GtkObjectClass *object_class;
 
-   parent_class = gtk_type_class (FR_COMMAND_TYPE);
    object_class = (GtkObjectClass*) class;
    afc = (FRCommandClass*) class;
 
@@ -389,8 +382,10 @@ fr_command_zip_class_init (FRCommandZipClass *class)
 
  
 static void 
-fr_command_zip_init (FRCommand *comm)
+fr_command_zip_init (FRCommandZip *zip_comm)
 {
+   FRCommand *comm = FR_COMMAND(zip_comm);
+
    comm->propAddCanUpdate             = TRUE; 
    comm->propExtractCanAvoidOverwrite = TRUE;
    comm->propExtractCanSkipOlder      = TRUE;
@@ -407,32 +402,8 @@ fr_command_zip_destroy (GtkObject *object)
    g_return_if_fail (IS_FR_COMMAND_ZIP (object));
 
    /* Chain up */
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      (* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
-}
-
-
-GtkType
-fr_command_zip_get_type ()
-{
-   static guint fr_command_zip_type = 0;
-
-   if (!fr_command_zip_type) {
-      GtkTypeInfo fr_command_zip_info = {
-         "FRCommandZip",
-         sizeof (FRCommandZip),
-         sizeof (FRCommandZipClass),
-         (GtkClassInitFunc) fr_command_zip_class_init,
-         (GtkObjectInitFunc) fr_command_zip_init,
-         /* reserved_1 */ NULL,
-         /* reserved_2 */ NULL,
-         (GtkClassInitFunc) NULL,
-      };
-      fr_command_zip_type = gtk_type_unique (fr_command_get_type(), 
-                                             &fr_command_zip_info);
-   }
-
-   return fr_command_zip_type;
+   if (GTK_OBJECT_CLASS (fr_command_zip_parent_class)->destroy)
+      GTK_OBJECT_CLASS (fr_command_zip_parent_class)->destroy (object);
 }
 
 

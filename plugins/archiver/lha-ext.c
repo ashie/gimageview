@@ -36,6 +36,9 @@
 #include "lha-ext.h"
 
 
+G_DEFINE_TYPE (FRCommandLha, fr_command_lha, FR_COMMAND_TYPE)
+
+
 /* plugin implement definition */
 static ExtArchiverPlugin plugin_impl[] =
 {
@@ -59,16 +62,7 @@ GimvPluginInfo gimv_plugin_info =
 };
 
 
-static void fr_command_lha_class_init  (FRCommandLhaClass *class);
-
-static void fr_command_lha_init        (FRCommand *afile);
-
 static void fr_command_lha_destroy     (GtkObject *object);
-
-
-/* Parent Class */
-
-static FRCommandClass *parent_class = NULL;
 
 
 /* -- list -- */
@@ -314,7 +308,6 @@ fr_command_lha_class_init (FRCommandLhaClass *class)
    FRCommandClass *afc;
    GtkObjectClass *object_class;
 
-   parent_class = gtk_type_class (FR_COMMAND_TYPE);
    object_class = (GtkObjectClass*) class;
    afc = (FRCommandClass*) class;
 
@@ -328,8 +321,9 @@ fr_command_lha_class_init (FRCommandLhaClass *class)
 
  
 static void 
-fr_command_lha_init (FRCommand *comm)
+fr_command_lha_init (FRCommandLha *lha_comm)
 {
+   FRCommand *comm = FR_COMMAND(lha_comm);
    comm->propAddCanUpdate             = TRUE; 
    comm->propExtractCanAvoidOverwrite = FALSE;
    comm->propExtractCanSkipOlder      = FALSE;
@@ -346,32 +340,8 @@ fr_command_lha_destroy (GtkObject *object)
    g_return_if_fail (IS_FR_COMMAND_LHA (object));
 
    /* Chain up */
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      (* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
-}
-
-
-GtkType
-fr_command_lha_get_type ()
-{
-   static guint fr_command_lha_type = 0;
-
-   if (!fr_command_lha_type) {
-      GtkTypeInfo fr_command_lha_info = {
-         "FRCommandLha",
-         sizeof (FRCommandLha),
-         sizeof (FRCommandLhaClass),
-         (GtkClassInitFunc) fr_command_lha_class_init,
-         (GtkObjectInitFunc) fr_command_lha_init,
-         /* reserved_1 */ NULL,
-         /* reserved_2 */ NULL,
-         (GtkClassInitFunc) NULL,
-      };
-      fr_command_lha_type = gtk_type_unique (fr_command_get_type(), 
-                                             &fr_command_lha_info);
-   }
-
-   return fr_command_lha_type;
+   if (GTK_OBJECT_CLASS (fr_command_lha_parent_class)->destroy)
+      GTK_OBJECT_CLASS (fr_command_lha_parent_class)->destroy (object);
 }
 
 

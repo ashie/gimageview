@@ -59,9 +59,6 @@ extern int XShmGetEventBase (Display *);
 #  endif
 #endif /* defined(GDK_WINDOWING_X11) */
 
-static void gimv_xine_class_init    (GimvXineClass  *klass);
-static void gimv_xine_init          (GimvXine       *gxine);
-
 /* object class methods */
 static void gimv_xine_destroy       (GtkObject      *object);
 
@@ -73,36 +70,10 @@ static gint gimv_xine_expose        (GtkWidget      *widget,
 static void gimv_xine_size_allocate (GtkWidget      *widget,
                                      GtkAllocation  *allocation);
 
-static GtkWidgetClass *parent_class = NULL;
 static gint gimv_xine_signals[LAST_SIGNAL] = {0};
 
 
-GtkType
-gimv_xine_get_type (void)
-{
-	static GtkType gimv_xine_type = 0;
-
-   if (!gimv_xine_type) {
-      static const GTypeInfo gimv_xine_info = {
-         sizeof (GimvXineClass),
-         NULL,               /* base_init */
-         NULL,               /* base_finalize */
-         (GClassInitFunc)    gimv_xine_class_init,
-         NULL,               /* class_finalize */
-         NULL,               /* class_data */
-         sizeof (GimvXine),
-         0,                  /* n_preallocs */
-         (GInstanceInitFunc) gimv_xine_init,
-      };
-
-      gimv_xine_type = g_type_register_static (GTK_TYPE_WIDGET,
-                                               "GimvXine",
-                                               &gimv_xine_info,
-                                               0);
-   }
-
-   return gimv_xine_type;
-}
+G_DEFINE_TYPE (GimvXine, gimv_xine, GTK_TYPE_WIDGET)
 
 
 static void
@@ -113,8 +84,6 @@ gimv_xine_class_init (GimvXineClass *class)
 
    object_class = (GtkObjectClass *) class;
    widget_class = (GtkWidgetClass *) class;
-
-   parent_class = gtk_type_class (gtk_widget_get_type ());
 
    gimv_xine_signals[PLAY_SIGNAL]
       = g_signal_new ("play",
@@ -194,8 +163,8 @@ gimv_xine_destroy (GtkObject *object)
       gtx->private = NULL;
    }
 
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      GTK_OBJECT_CLASS (parent_class)->destroy (object);
+   if (GTK_OBJECT_CLASS (gimv_xine_parent_class)->destroy)
+      GTK_OBJECT_CLASS (gimv_xine_parent_class)->destroy (object);
 }
 
 
@@ -595,8 +564,8 @@ gimv_xine_unrealize (GtkWidget *widget)
    GTK_WIDGET_UNSET_FLAGS (widget, GTK_MAPPED);
 
    /* This destroys widget->window and unsets the realized flag */
-   if (GTK_WIDGET_CLASS (parent_class)->unrealize)
-      (*GTK_WIDGET_CLASS (parent_class)->unrealize) (widget);
+   if (GTK_WIDGET_CLASS (gimv_xine_parent_class)->unrealize)
+      GTK_WIDGET_CLASS (gimv_xine_parent_class)->unrealize (widget);
 }
 
 
