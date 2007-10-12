@@ -98,8 +98,6 @@ struct GimvImageWinPriv_Tag
 };
 
 
-static void     gimv_image_win_class_init           (GimvImageWinClass *klass);
-static void     gimv_image_win_init                 (GimvImageWin *iw);
 static void     gimv_image_win_destroy              (GtkObject *object);
 static void     gimv_image_win_realize              (GtkWidget *widget);
 static void     gimv_image_win_real_show_fullscreen (GimvImageWin *iw);
@@ -334,7 +332,6 @@ GtkItemFactoryEntry gimv_image_win_move_items [] =
 };
 
 
-static GtkWindowClass *parent_class = NULL;
 static gint            gimv_image_win_signals[LAST_SIGNAL] = {0};
 
 
@@ -342,29 +339,7 @@ static GList         *ImageWinList   = NULL;
 static GimvImageWin  *shared_img_win = NULL;
 
 
-GtkType
-gimv_image_win_get_type (void)
-{
-   static GtkType gimv_image_win_type = 0;
-
-   if (!gimv_image_win_type) {
-      static const GtkTypeInfo gimv_image_win_info = {
-         "GimvImageWin",
-         sizeof (GimvImageWin),
-         sizeof (GimvImageWinClass),
-         (GtkClassInitFunc) gimv_image_win_class_init,
-         (GtkObjectInitFunc) gimv_image_win_init,
-         NULL,
-         NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      gimv_image_win_type = gtk_type_unique (GTK_TYPE_WINDOW,
-                                             &gimv_image_win_info);
-   }
-
-   return gimv_image_win_type;
-}
+G_DEFINE_TYPE (GimvImageWin, gimv_image_win, GTK_TYPE_WINDOW)
 
 
 static void
@@ -375,7 +350,6 @@ gimv_image_win_class_init (GimvImageWinClass *klass)
 
    object_class = (GtkObjectClass *) klass;
    widget_class = (GtkWidgetClass *) klass;
-   parent_class = gtk_type_class (GTK_TYPE_WINDOW);
 
    gimv_image_win_signals[SHOW_FULLSCREEN_SIGNAL]
       = gtk_signal_new ("show_fullscreen",
@@ -650,8 +624,8 @@ gimv_image_win_destroy (GtkObject *object)
    if (iw == shared_img_win)
       shared_img_win = NULL;
 
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      GTK_OBJECT_CLASS (parent_class)->destroy (object);
+   if (GTK_OBJECT_CLASS (gimv_image_win_parent_class)->destroy)
+      GTK_OBJECT_CLASS (gimv_image_win_parent_class)->destroy (object);
 
    /* quit when last window */
    if (!gimv_image_win_get_list() && !gimv_thumb_win_get_list()) {
@@ -665,8 +639,8 @@ gimv_image_win_realize (GtkWidget *widget)
 {
    GimvImageWin *iw = GIMV_IMAGE_WIN (widget);
 
-   if (GTK_WIDGET_CLASS (parent_class)->realize)
-      GTK_WIDGET_CLASS (parent_class)->realize (widget);
+   if (GTK_WIDGET_CLASS (gimv_image_win_parent_class)->realize)
+      GTK_WIDGET_CLASS (gimv_image_win_parent_class)->realize (widget);
 
    if (iw->priv->flags & GimvImageWinHideFrameFlag)
       gdk_window_set_decorations (GTK_WIDGET(iw)->window, 0);

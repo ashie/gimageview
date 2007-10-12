@@ -41,8 +41,6 @@ struct GimvDuplWinPriv_Tag
    GtkCellRenderer   *pixmap_renderer;
 };
 
-static void gimv_dupl_win_init       (GimvDuplWin      *sw);
-static void gimv_dupl_win_class_init (GimvDuplWinClass *klass);
 static void gimv_dupl_win_destroy    (GtkObject        *object);
 
 static void cb_select_all_button      (GtkButton        *button,
@@ -99,32 +97,8 @@ gchar *simwin_titles[4] = {
 };
 gint simwin_column_num = sizeof (simwin_titles) / sizeof (gchar *);
 
-static GtkDialogClass *parent_class = NULL;
 
-
-GtkType
-gimv_dupl_win_get_type (void)
-{
-   static GtkType gimv_dupl_win_type = 0;
-
-   if (!gimv_dupl_win_type) {
-      static const GtkTypeInfo gimv_dupl_win_info = {
-         "GimvDuplWin",
-         sizeof (GimvDuplWin),
-         sizeof (GimvDuplWinClass),
-         (GtkClassInitFunc) gimv_dupl_win_class_init,
-         (GtkObjectInitFunc) gimv_dupl_win_init,
-         NULL,
-         NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      gimv_dupl_win_type = gtk_type_unique (gtk_dialog_get_type (),
-                                            &gimv_dupl_win_info);
-   }
-
-   return gimv_dupl_win_type;
-}
+G_DEFINE_TYPE (GimvDuplWin, gimv_dupl_win, GTK_TYPE_DIALOG)
 
 
 static void
@@ -280,7 +254,6 @@ gimv_dupl_win_class_init (GimvDuplWinClass *klass)
    GtkObjectClass *object_class;
 
    object_class = (GtkObjectClass *) klass;
-   parent_class = gtk_type_class (gtk_dialog_get_type ());
 
    object_class->destroy = gimv_dupl_win_destroy;
 }
@@ -306,8 +279,8 @@ gimv_dupl_win_destroy (GtkObject *object)
       sw->finder = NULL;
    }
 
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+   if (GTK_OBJECT_CLASS (gimv_dupl_win_parent_class)->destroy)
+      (*GTK_OBJECT_CLASS (gimv_dupl_win_parent_class)->destroy) (object);
 }
 
 

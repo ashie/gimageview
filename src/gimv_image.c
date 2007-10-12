@@ -40,38 +40,11 @@
 typedef GdkPixbuf GimvRawImage;
 
 
-static void gimv_image_class_init    (GimvImageClass *klass);
-static void gimv_image_init          (GimvImage      *image);
+G_DEFINE_TYPE (GimvImage, gimv_image, GTK_TYPE_OBJECT)
+
+
 static void gimv_image_destroy       (GtkObject      *object);
 static void gimv_image_backend_init  (void);
-
-
-static GtkObjectClass *parent_class = NULL;
-
-
-GtkType
-gimv_image_get_type (void)
-{
-   static GtkType gimv_image_type = 0;
-
-   if (!gimv_image_type) {
-      static const GtkTypeInfo gimv_image_info = {
-         "GimvImage",
-         sizeof (GimvImage),
-         sizeof (GimvImageClass),
-         (GtkClassInitFunc) gimv_image_class_init,
-         (GtkObjectInitFunc) gimv_image_init,
-         NULL,
-         NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      gimv_image_type = gtk_type_unique (gtk_object_get_type (),
-                                         &gimv_image_info);
-   }
-
-   return gimv_image_type;
-}
 
 
 static void
@@ -82,7 +55,6 @@ gimv_image_class_init (GimvImageClass *klass)
    gimv_image_backend_init ();
 
    object_class = (GtkObjectClass *) klass;
-   parent_class = gtk_type_class (gtk_object_get_type ());
 
    object_class->destroy  = gimv_image_destroy;
 }
@@ -119,8 +91,8 @@ gimv_image_destroy (GtkObject *object)
 
    gimv_image_free_comments (image);
 
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+   if (GTK_OBJECT_CLASS (gimv_image_parent_class)->destroy)
+      (*GTK_OBJECT_CLASS (gimv_image_parent_class)->destroy) (object);
 }
 
 

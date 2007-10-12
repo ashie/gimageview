@@ -48,8 +48,6 @@ enum {
 #define ALL_COLUMNS(columns) columns + 2
 
 
-static void gimv_elist_init       (GimvEList *editlist);
-static void gimv_elist_class_init (GimvEListClass *klass);
 static void gimv_elist_finalize   (GObject *object);
 
 /* private */
@@ -62,36 +60,10 @@ static gchar  **gimv_elist_edit_area_get_data          (GimvEList *editlist,
 static void     gimv_elist_edit_area_reset             (GimvEList *editlist);
 
 
-static GtkVBoxClass *parent_class = NULL;
 static gint gimv_elist_signals[LAST_SIGNAL] = {0};
 
 
-GtkType
-gimv_elist_get_type (void)
-{
-   static GtkType gimv_elist_type = 0;
-
-   if (!gimv_elist_type) {
-      static const GTypeInfo gimv_elist_info = {
-         sizeof (GimvEListClass),
-         NULL,               /* base_init */
-         NULL,               /* base_finalize */
-         (GClassInitFunc)    gimv_elist_class_init,
-         NULL,               /* class_finalize */
-         NULL,               /* class_data */
-         sizeof (GimvEList),
-         0,                  /* n_preallocs */
-         (GInstanceInitFunc) gimv_elist_init,
-      };
-
-      gimv_elist_type = g_type_register_static (GTK_TYPE_VBOX,
-                                                   "GimvEList",
-                                                   &gimv_elist_info,
-                                                   0);
-   }
-
-   return gimv_elist_type;
-}
+G_DEFINE_TYPE (GimvEList, gimv_elist, GTK_TYPE_VBOX)
 
 
 static void
@@ -131,7 +103,6 @@ gimv_elist_class_init (GimvEListClass *klass)
    GtkObjectClass *object_class;
 
    object_class = (GtkObjectClass *) klass;
-   parent_class = gtk_type_class (gtk_vbox_get_type ());
 
    gimv_elist_signals[LIST_UPDATED_SIGNAL]
       = gtk_signal_new ("list-updated",
@@ -210,8 +181,8 @@ gimv_elist_finalize (GObject *object)
    g_hash_table_destroy (editlist->rowdata_table);
    g_hash_table_destroy (editlist->rowdata_destroy_fn_table);
 
-   if (G_OBJECT_CLASS(parent_class)->finalize)
-      G_OBJECT_CLASS(parent_class)->finalize (object);
+   if (G_OBJECT_CLASS(gimv_elist_parent_class)->finalize)
+      G_OBJECT_CLASS(gimv_elist_parent_class)->finalize (object);
 }
 
 

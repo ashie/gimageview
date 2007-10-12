@@ -49,8 +49,6 @@ typedef enum {
 } GimvCommentSignalType;
 
 
-static void gimv_comment_init       (GimvComment      *comment);
-static void gimv_comment_class_init (GimvCommentClass *klass);
 static void gimv_comment_destroy    (GtkObject    *object);
 
 static gchar *defval_time                 (GimvImageInfo *info, gpointer data);
@@ -65,7 +63,6 @@ static gchar *defval_img_cspace           (GimvImageInfo *info, gpointer data);
 #endif
 
 
-static GtkObjectClass *parent_class = NULL;
 static gint gimv_comment_signals[LAST_SIGNAL] = {0};
 
 
@@ -96,28 +93,7 @@ GList *gimv_comment_data_entry_list = NULL;
  *   GimvComment class funcs
  *
  ******************************************************************************/
-GtkType
-gimv_comment_get_type ()
-{
-   static GtkType gimv_comment_type = 0;
-
-   if (!gimv_comment_type) {
-      static const GtkTypeInfo gimv_comment_info = {
-         "GimvComment",
-         sizeof (GimvComment),
-         sizeof (GimvCommentClass),
-         (GtkClassInitFunc) gimv_comment_class_init,
-         (GtkObjectInitFunc) gimv_comment_init,
-         NULL,
-         NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      gimv_comment_type = gtk_type_unique (gtk_object_get_type (), &gimv_comment_info);
-   }
-
-   return gimv_comment_type;
-}
+G_DEFINE_TYPE (GimvComment, gimv_comment, GTK_TYPE_OBJECT)
 
 
 static void
@@ -126,7 +102,6 @@ gimv_comment_class_init (GimvCommentClass *klass)
    GtkObjectClass *object_class;
 
    object_class = (GtkObjectClass *) klass;
-   parent_class = gtk_type_class (gtk_object_get_type ());
 
    gimv_comment_signals[FILE_SAVED]
       = gtk_signal_new ("file_saved",
@@ -199,8 +174,8 @@ gimv_comment_destroy (GtkObject *object)
       comment->note = NULL;
    }
 
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+   if (GTK_OBJECT_CLASS (gimv_comment_parent_class)->destroy)
+      (*GTK_OBJECT_CLASS (gimv_comment_parent_class)->destroy) (object);
 }
 
 

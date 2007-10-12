@@ -26,37 +26,10 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 
-static void gimv_anim_class_init    (GimvAnimClass *klass);
-static void gimv_anim_init          (GimvAnim      *anim);
+G_DEFINE_TYPE (GimvAnim, gimv_anim, GIMV_TYPE_IMAGE)
+
+
 static void gimv_anim_destroy       (GtkObject     *object);
-
-
-static GimvImageClass *parent_class = NULL;
-
-
-GtkType
-gimv_anim_get_type (void)
-{
-   static GtkType gimv_anim_type = 0;
-
-   if (!gimv_anim_type) {
-      static const GtkTypeInfo gimv_anim_info = {
-         "GimvAnim",
-         sizeof (GimvAnim),
-         sizeof (GimvAnimClass),
-         (GtkClassInitFunc) gimv_anim_class_init,
-         (GtkObjectInitFunc) gimv_anim_init,
-         NULL,
-         NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      gimv_anim_type = gtk_type_unique (gimv_image_get_type (),
-                                        &gimv_anim_info);
-   }
-
-   return gimv_anim_type;
-}
 
 
 static void
@@ -65,7 +38,6 @@ gimv_anim_class_init (GimvAnimClass *klass)
    GtkObjectClass *object_class;
 
    object_class = (GtkObjectClass *) klass;
-   parent_class = gtk_type_class (gimv_image_get_type ());
 
    object_class->destroy  = gimv_anim_destroy;
 }
@@ -98,8 +70,8 @@ gimv_anim_destroy (GtkObject *object)
    }
    anim->table = NULL;
 
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+   if (GTK_OBJECT_CLASS (gimv_anim_parent_class)->destroy)
+      (*GTK_OBJECT_CLASS (gimv_anim_parent_class)->destroy) (object);
 }
 
 

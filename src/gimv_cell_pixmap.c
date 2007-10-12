@@ -31,8 +31,6 @@
 
 #include "gimv_cell_pixmap.h"
 
-#if (GTK_MAJOR_VERSION >= 2)
-
 #include <stdlib.h>
 #include "intl.h"
 
@@ -44,8 +42,6 @@ static void gimv_cell_renderer_pixmap_set_property  (GObject                    
                                                      guint                       param_id,
                                                      const GValue               *value,
                                                      GParamSpec                 *pspec);
-static void gimv_cell_renderer_pixmap_init          (GimvCellRendererPixmap      *celltext);
-static void gimv_cell_renderer_pixmap_class_init    (GimvCellRendererPixmapClass *class);
 static void gimv_cell_renderer_pixmap_get_size      (GtkCellRenderer            *cell,
                                                      GtkWidget                  *widget,
                                                      GdkRectangle               *rectangle,
@@ -73,31 +69,7 @@ enum {
 };
 
 
-GtkType
-gimv_cell_renderer_pixmap_get_type (void)
-{
-   static GtkType cell_pixmap_type = 0;
-
-   if (!cell_pixmap_type) {
-      static const GTypeInfo cell_pixmap_info = {
-         sizeof (GimvCellRendererPixmapClass),
-         NULL,		/* base_init */
-         NULL,		/* base_finalize */
-         (GClassInitFunc) gimv_cell_renderer_pixmap_class_init,
-         NULL,		/* class_finalize */
-         NULL,		/* class_data */
-         sizeof (GimvCellRendererPixmap),
-         0,       /* n_preallocs */
-         (GInstanceInitFunc) gimv_cell_renderer_pixmap_init,
-      };
-
-      cell_pixmap_type = g_type_register_static (GTK_TYPE_CELL_RENDERER,
-                                                 "Gimvcellrendererpixmap",
-                                                 &cell_pixmap_info, 0);
-   }
-
-   return cell_pixmap_type;
-}
+G_DEFINE_TYPE (GimvCellRendererPixmap, gimv_cell_renderer_pixmap, GTK_TYPE_CELL_RENDERER)
 
 
 static void
@@ -421,5 +393,3 @@ gimv_cell_renderer_pixmap_render (GtkCellRenderer    *cell,
       gdk_gc_set_clip_origin (gc, 0, 0);
    }
 }
-
-#endif /* (GTK_MAJOR_VERSION >= 2) */

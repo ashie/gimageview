@@ -68,15 +68,12 @@ struct GimvImageLoaderPriv_Tag
    GimvImageInfo *next_info;
 };
 
-static void      gimv_image_loader_class_init (GimvImageLoaderClass *klass);
-static void      gimv_image_loader_init       (GimvImageLoader      *loader);
 static void      gimv_image_loader_destroy    (GtkObject        *object);
 static gboolean  idle_gimv_image_loader_load  (gpointer          data);
 
 /* callback */
 static void      gimv_image_loader_load_end   (GimvImageLoader      *loader);
 
-static GtkObjectClass *parent_class = NULL;
 static gint gimv_image_loader_signals[LAST_SIGNAL] = {0};
 
 
@@ -130,29 +127,7 @@ gimv_image_loader_plugin_regist (const gchar *plugin_name,
  *
  *
  ****************************************************************************/
-GtkType
-gimv_image_loader_get_type (void)
-{
-   static GtkType gimv_image_loader_type = 0;
-
-   if (!gimv_image_loader_type) {
-      static const GtkTypeInfo gimv_image_loader_info = {
-         "GimvImageLoader",
-         sizeof (GimvImageLoader),
-         sizeof (GimvImageLoaderClass),
-         (GtkClassInitFunc) gimv_image_loader_class_init,
-         (GtkObjectInitFunc) gimv_image_loader_init,
-         NULL,
-         NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      gimv_image_loader_type = gtk_type_unique (gtk_object_get_type (),
-                                                &gimv_image_loader_info);
-   }
-
-   return gimv_image_loader_type;
-}
+G_DEFINE_TYPE (GimvImageLoader, gimv_image_loader, GTK_TYPE_OBJECT)
 
 
 static void
@@ -161,7 +136,6 @@ gimv_image_loader_class_init (GimvImageLoaderClass *klass)
    GtkObjectClass *object_class;
 
    object_class = (GtkObjectClass *) klass;
-   parent_class = gtk_type_class (gtk_object_get_type ());
 
    gimv_image_loader_signals[LOAD_START_SIGNAL]
       = gtk_signal_new ("load_start",
@@ -314,8 +288,8 @@ gimv_image_loader_destroy (GtkObject *object)
       loader->priv = NULL;
    }
 
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+   if (GTK_OBJECT_CLASS (gimv_image_loader_parent_class)->destroy)
+      (*GTK_OBJECT_CLASS (gimv_image_loader_parent_class)->destroy) (object);
 }
 
 

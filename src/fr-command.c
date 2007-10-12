@@ -30,8 +30,6 @@
 #include "gimv_image_info.h"
 
 
-static void fr_command_class_init  (FRCommandClass *class);
-static void fr_command_init        (FRCommand *afile);
 static void fr_command_destroy     (GtkObject *object);
 
 
@@ -79,12 +77,14 @@ base_fr_command_extract (FRCommand *comm,
 }
 
 
+G_DEFINE_TYPE (FRCommand, fr_command, GTK_TYPE_OBJECT)
+
+
 static void 
 fr_command_class_init (FRCommandClass *class)
 {
    GtkObjectClass *object_class;
 
-   parent_class = gtk_type_class (GTK_TYPE_OBJECT);
    object_class = (GtkObjectClass*) class;
 
    fr_command_signals[START] =
@@ -174,32 +174,8 @@ fr_command_destroy (GtkObject *object)
    gtk_object_unref (GTK_OBJECT (comm->process));
 
    /* Chain up */
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      (* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
-}
-
-
-GtkType
-fr_command_get_type ()
-{
-   static guint fr_command_type = 0;
-
-   if (!fr_command_type) {
-      GtkTypeInfo fr_command_info = {
-         "FRCommand",
-         sizeof (FRCommand),
-         sizeof (FRCommandClass),
-         (GtkClassInitFunc) fr_command_class_init,
-         (GtkObjectInitFunc) fr_command_init,
-         /* reserved_1 */ NULL,
-         /* reserved_2 */ NULL,
-         (GtkClassInitFunc) NULL,
-      };
-      fr_command_type = gtk_type_unique (gtk_object_get_type(),
-                                         &fr_command_info);
-   }
-
-   return fr_command_type;
+   if (GTK_OBJECT_CLASS (fr_command_parent_class)->destroy)
+      (* GTK_OBJECT_CLASS (fr_command_parent_class)->destroy) (object);
 }
 
 

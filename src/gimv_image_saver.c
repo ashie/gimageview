@@ -47,12 +47,9 @@ struct GimvImageSaverPriv_Tag
 };
 
 
-static void gimv_image_saver_class_init (GimvImageSaverClass *klass);
-static void gimv_image_saver_init       (GimvImageSaver      *saver);
 static void gimv_image_saver_destroy    (GtkObject           *object);
 
 
-static GtkObjectClass *parent_class = NULL;
 static gint gimv_image_saver_signals[LAST_SIGNAL] = {0};
 
 
@@ -92,29 +89,7 @@ gimv_image_saver_plugin_regist (const gchar *plugin_name,
  *
  *
  ******************************************************************************/
-GtkType
-gimv_image_saver_get_type (void)
-{
-   static GtkType gimv_image_saver_type = 0;
-
-   if (!gimv_image_saver_type) {
-      static const GtkTypeInfo gimv_image_saver_info = {
-         "GimvImageSaver",
-         sizeof (GimvImageSaver),
-         sizeof (GimvImageSaverClass),
-         (GtkClassInitFunc) gimv_image_saver_class_init,
-         (GtkObjectInitFunc) gimv_image_saver_init,
-         NULL,
-         NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      gimv_image_saver_type = gtk_type_unique (gtk_object_get_type (),
-                                               &gimv_image_saver_info);
-   }
-
-   return gimv_image_saver_type;
-}
+G_DEFINE_TYPE (GimvImageSaver, gimv_image_saver, GTK_TYPE_OBJECT)
 
 
 static void
@@ -123,7 +98,6 @@ gimv_image_saver_class_init (GimvImageSaverClass *klass)
    GtkObjectClass *object_class;
 
    object_class = (GtkObjectClass *) klass;
-   parent_class = gtk_type_class (gtk_object_get_type ());
 
    gimv_image_saver_signals[SAVE_START_SIGNAL]
       = gtk_signal_new ("save_start",
@@ -195,8 +169,8 @@ gimv_image_saver_destroy (GtkObject *object)
       saver->priv = NULL;
    }
 
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+   if (GTK_OBJECT_CLASS (gimv_image_saver_parent_class)->destroy)
+      (*GTK_OBJECT_CLASS (gimv_image_saver_parent_class)->destroy) (object);
 }
 
 

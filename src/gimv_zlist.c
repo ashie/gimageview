@@ -64,9 +64,6 @@
                                 (area)->x, (area)->y, \
                                 (area)->width, (area)->height)
 
-static void gimv_zlist_class_init              (GimvZListClass *klass);
-static void gimv_zlist_init                    (GimvZList *list);
-
 static void  gimv_zlist_finalize               (GObject *object);
 static void  gimv_zlist_map                    (GtkWidget        *widget);
 static void  gimv_zlist_unmap                  (GtkWidget        *widget);
@@ -152,37 +149,10 @@ enum {
    LAST_SIGNAL
 };
 
-static GtkWidgetClass     *parent_class                = NULL;
-
-static guint               gimv_zlist_signals [LAST_SIGNAL] = { 0 };
+static guint gimv_zlist_signals [LAST_SIGNAL] = { 0 };
 
 
-GtkType 
-gimv_zlist_get_type (void)
-{
-   static GtkType type = 0;
-
-   if (!type) {
-      static const GTypeInfo gimv_zlist_type_info = {
-         sizeof (GimvZListClass),
-         NULL,               /* base_init */
-         NULL,               /* base_finalize */
-         (GClassInitFunc)    gimv_zlist_class_init,
-         NULL,               /* class_finalize */
-         NULL,               /* class_data */
-         sizeof (GimvZList),
-         0,                  /* n_preallocs */
-         (GInstanceInitFunc) gimv_zlist_init,
-      };
-
-      type = g_type_register_static (GIMV_TYPE_SCROLLED,
-                                     "GimvZList",
-                                     &gimv_zlist_type_info,
-                                     0);
-   }
-
-   return type;
-}
+G_DEFINE_TYPE (GimvZList, gimv_zlist, GIMV_TYPE_SCROLLED)
 
 
 static void        
@@ -192,8 +162,6 @@ gimv_zlist_class_init (GimvZListClass *klass)
    GtkWidgetClass *widget_class;
    GtkContainerClass *container_class;
    GimvScrolledClass *scrolled_class;
-
-   parent_class    = gtk_type_class (GIMV_TYPE_SCROLLED);
 
    object_class    = (GtkObjectClass*) klass;
    widget_class    = (GtkWidgetClass*) klass;
@@ -441,8 +409,8 @@ gimv_zlist_finalize (GObject *object)
    if (GIMV_ZLIST (object)->region_line_gc)
       gdk_gc_destroy (GIMV_ZLIST (object)->region_line_gc);
 
-   if (G_OBJECT_CLASS(parent_class)->finalize)
-      G_OBJECT_CLASS(parent_class)->finalize (object);
+   if (G_OBJECT_CLASS(gimv_zlist_parent_class)->finalize)
+      G_OBJECT_CLASS(gimv_zlist_parent_class)->finalize (object);
 }
 
 
@@ -504,8 +472,8 @@ gimv_zlist_unrealize (GtkWidget *widget)
 {
    gimv_scrolled_unrealize (GIMV_SCROLLED(widget));
 
-   if (parent_class->unrealize)
-      (* parent_class->unrealize) (widget);
+   if (GTK_WIDGET_CLASS(gimv_zlist_parent_class)->unrealize)
+      (* GTK_WIDGET_CLASS(gimv_zlist_parent_class)->unrealize) (widget);
 }
 
 
@@ -964,8 +932,8 @@ gimv_zlist_button_press (GtkWidget *widget, GdkEventButton *event)
       gtk_widget_grab_focus (widget);
 
    /* call parent method */
-   if (parent_class->button_press_event)
-      retval = parent_class->button_press_event (widget, event);
+   if (GTK_WIDGET_CLASS(gimv_zlist_parent_class)->button_press_event)
+      retval = GTK_WIDGET_CLASS(gimv_zlist_parent_class)->button_press_event (widget, event);
 
    list->region_select = GIMV_ZLIST_REGION_SELECT_OFF;
 
@@ -1068,8 +1036,8 @@ gimv_zlist_button_release (GtkWidget *widget, GdkEventButton *event)
    list = GIMV_ZLIST(widget);
 
    /* call parent class callback */
-   if (parent_class->button_release_event)
-      retval = parent_class->button_release_event (widget, event);
+   if (GTK_WIDGET_CLASS(gimv_zlist_parent_class)->button_release_event)
+      retval = GTK_WIDGET_CLASS(gimv_zlist_parent_class)->button_release_event (widget, event);
 
    if (GTK_WIDGET_HAS_GRAB(widget))
       gtk_grab_remove (widget);
@@ -1160,8 +1128,8 @@ gimv_zlist_motion_notify (GtkWidget *widget, GdkEventMotion *event)
    }
 
    /* call parent class callback */
-   if (parent_class->motion_notify_event)
-      retval = parent_class->motion_notify_event (widget, event);
+   if (GTK_WIDGET_CLASS(gimv_zlist_parent_class)->motion_notify_event)
+      retval = GTK_WIDGET_CLASS(gimv_zlist_parent_class)->motion_notify_event (widget, event);
 
    if (list->region_select) {
       if ((pressed && (flags & GIMV_SCROLLED_AUTO_SCROLL_MOTION))
@@ -1281,8 +1249,8 @@ gimv_zlist_key_press (GtkWidget *widget, GdkEventKey *event)
       return FALSE;
    }
 
-   if (parent_class->key_press_event &&
-       (* parent_class->key_press_event) (widget, event))
+   if (GTK_WIDGET_CLASS(gimv_zlist_parent_class)->key_press_event &&
+       (* GTK_WIDGET_CLASS(gimv_zlist_parent_class)->key_press_event) (widget, event))
       return TRUE;
 
    return FALSE;
@@ -1319,8 +1287,8 @@ gimv_zlist_drag_motion (GtkWidget      *widget,
 
    g_return_val_if_fail (widget, FALSE);
 
-   if (parent_class->button_press_event)
-      retval = parent_class->drag_motion (widget, context, x, y, time);
+   if (GTK_WIDGET_CLASS(gimv_zlist_parent_class)->button_press_event)
+      retval = GTK_WIDGET_CLASS(gimv_zlist_parent_class)->drag_motion (widget, context, x, y, time);
 
    list = GIMV_ZLIST(widget);
 
@@ -1368,8 +1336,8 @@ gimv_zlist_drag_leave (GtkWidget *widget,
 {
    GimvZList *list;
 
-   if (parent_class->drag_leave)
-      parent_class->drag_leave (widget, context, time);
+   if (GTK_WIDGET_CLASS(gimv_zlist_parent_class)->drag_leave)
+      GTK_WIDGET_CLASS(gimv_zlist_parent_class)->drag_leave (widget, context, time);
 
    list = GIMV_ZLIST(widget);
    if (list->flags & GIMV_ZLIST_HIGHLIGHTED) {
@@ -1805,7 +1773,7 @@ gimv_zlist_cell_pos (GimvZList *list, gint index, gint *row, gint *col)
 static void
 gimv_zlist_cell_area (GimvZList *list, gint index, GdkRectangle *cell_area)
 {
-   gint row, col;
+   gint row = 0, col = 0;
    g_return_if_fail (list && index != -1 && cell_area);
 
    gimv_zlist_cell_pos (list, index, &row, &col);

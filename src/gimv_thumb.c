@@ -38,12 +38,9 @@
 #include "gimv_thumb_view.h"
 
 
-static void gimv_thumb_class_init (GimvThumbClass *klass);
-static void gimv_thumb_init       (GimvThumb *thumb);
 static void gimv_thumb_destroy    (GtkObject *obj);
 
 
-static GtkObjectClass *parent_class = NULL;
 static GHashTable *loader_table = NULL;
 
 
@@ -67,29 +64,7 @@ static gchar *config_cache_read_string = NULL;
 static GList *cache_read_list = NULL;
 
 
-GtkType
-gimv_thumb_get_type (void)
-{
-   static GtkType gimv_thumb_type = 0;
-
-   if (!gimv_thumb_type) {
-      static const GtkTypeInfo gimv_thumb_info = {
-         "GimvThumbLoader",
-         sizeof (GimvThumb),
-         sizeof (GimvThumbClass),
-         (GtkClassInitFunc) gimv_thumb_class_init,
-         (GtkObjectInitFunc) gimv_thumb_init,
-         NULL,
-         NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      gimv_thumb_type = gtk_type_unique (gtk_object_get_type (),
-                                         &gimv_thumb_info);
-   }
-
-   return gimv_thumb_type;
-}
+G_DEFINE_TYPE (GimvThumb, gimv_thumb, GTK_TYPE_OBJECT)
 
 
 static void
@@ -98,7 +73,6 @@ gimv_thumb_class_init (GimvThumbClass *klass)
    GtkObjectClass *object_class;
 
    object_class = (GtkObjectClass *) klass;
-   parent_class = gtk_type_class (gtk_object_get_type ());
 
    object_class->destroy  = gimv_thumb_destroy;
 }
@@ -157,8 +131,8 @@ gimv_thumb_destroy (GtkObject *object)
       thumb->info = NULL;
    }
 
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+   if (GTK_OBJECT_CLASS (gimv_thumb_parent_class)->destroy)
+      (*GTK_OBJECT_CLASS (gimv_thumb_parent_class)->destroy) (object);
 }
 
 

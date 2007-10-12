@@ -44,13 +44,10 @@ enum {
 };
 
 
-static GtkWindowClass *parent_class = NULL;
 static gint gimv_nav_win_signals[LAST_SIGNAL] = {0};
 
 
 /* object class */
-static void     gimv_nav_win_class_init     (GimvNavWinClass *klass);
-static void     gimv_nav_win_init           (GimvNavWin      *navwin);
 static void     gimv_nav_win_destroy        (GtkObject       *object);
 
 /* widget class */
@@ -80,29 +77,7 @@ static void      navwin_grab_pointer        (GimvNavWin      *navwin);
 static void      navwin_set_win_pos_size    (GimvNavWin *navwin);
 
 
-GtkType
-gimv_nav_win_get_type (void)
-{
-   static GtkType gimv_nav_win_type = 0;
-
-   if (!gimv_nav_win_type) {
-      static const GtkTypeInfo gimv_nav_win_info = {
-         "GimvNavWin",
-         sizeof (GimvNavWin),
-         sizeof (GimvNavWinClass),
-         (GtkClassInitFunc) gimv_nav_win_class_init,
-         (GtkObjectInitFunc) gimv_nav_win_init,
-         NULL,
-         NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      gimv_nav_win_type = gtk_type_unique (GTK_TYPE_WINDOW,
-                                           &gimv_nav_win_info);
-   }
-
-   return gimv_nav_win_type;
-}
+G_DEFINE_TYPE (GimvNavWin, gimv_nav_win, GTK_TYPE_WINDOW)
 
 
 static void
@@ -113,7 +88,6 @@ gimv_nav_win_class_init (GimvNavWinClass *klass)
 
    object_class = (GtkObjectClass *) klass;
    widget_class = (GtkWidgetClass *) klass;
-   parent_class = gtk_type_class (GTK_TYPE_WINDOW);
 
    object_class->destroy = gimv_nav_win_destroy;
 
@@ -168,8 +142,8 @@ gimv_nav_win_destroy (GtkObject *object)
       gdk_pixmap_unref (navwin->pixmap);
    navwin->pixmap = NULL;
 
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      GTK_OBJECT_CLASS (parent_class)->destroy (object);
+   if (GTK_OBJECT_CLASS (gimv_nav_win_parent_class)->destroy)
+      GTK_OBJECT_CLASS (gimv_nav_win_parent_class)->destroy (object);
 }
 
 
@@ -182,8 +156,8 @@ gimv_nav_win_realize (GtkWidget *widget)
 
    navwin = GIMV_NAV_WIN (widget);
 
-   if (GTK_WIDGET_CLASS (parent_class)->realize)
-      GTK_WIDGET_CLASS (parent_class)->realize (widget);
+   if (GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->realize)
+      GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->realize (widget);
 
    if (!navwin->gc) {
       navwin->gc = gdk_gc_new (widget->window);
@@ -210,8 +184,8 @@ gimv_nav_win_unrealize (GtkWidget *widget)
       gdk_gc_destroy (navwin->gc);
    navwin->gc = NULL;
 
-   if (GTK_WIDGET_CLASS (parent_class)->unrealize)
-      GTK_WIDGET_CLASS (parent_class)->unrealize (widget);
+   if (GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->unrealize)
+      GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->unrealize (widget);
 }
 
 
@@ -230,8 +204,8 @@ gimv_nav_win_expose (GtkWidget *widget,
    if(gtk_grab_get_current() != GTK_WIDGET (navwin))
       navwin_grab_pointer(navwin);
 
-   if (GTK_WIDGET_CLASS (parent_class)->expose_event)
-      return GTK_WIDGET_CLASS (parent_class)->expose_event (widget, event);
+   if (GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->expose_event)
+      return GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->expose_event (widget, event);
 
    return FALSE;
 }
@@ -284,8 +258,8 @@ gimv_nav_win_key_press (GtkWidget *widget,
       navwin_draw_sqr (navwin, TRUE, mx, my);
    }
 
-   if (GTK_WIDGET_CLASS (parent_class)->key_press_event)
-      return GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event);
+   if (GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->key_press_event)
+      return GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->key_press_event (widget, event);
 
    return FALSE;
 }
@@ -313,8 +287,8 @@ gimv_nav_win_button_release  (GtkWidget *widget,
       break;
    }
 
-   if (GTK_WIDGET_CLASS (parent_class)->button_release_event)
-      return GTK_WIDGET_CLASS (parent_class)->button_release_event (widget, event);
+   if (GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->button_release_event)
+      return GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->button_release_event (widget, event);
 
    return FALSE;
 }
@@ -349,8 +323,8 @@ gimv_nav_win_motion_notify (GtkWidget *widget,
                     gimv_nav_win_signals[MOVE_SIGNAL],
                     mx, my);
 
-   if (GTK_WIDGET_CLASS (parent_class)->motion_notify_event)
-      return GTK_WIDGET_CLASS (parent_class)->motion_notify_event (widget, event);
+   if (GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->motion_notify_event)
+      return GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->motion_notify_event (widget, event);
 
    return FALSE;
 }
