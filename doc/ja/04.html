@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta content="text/html; charset=EUC-JP" http-equiv="Content-Type">
+<title>4. ツールバー</title>
+<link rel="stylesheet" href="./gimageview.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.45">
+<link rel="home" href="index.html" title="GImageView User's Manual">
+<link rel="up" href="index.html" title="GImageView User's Manual">
+<link rel="previous" href="03.html" title="3. メニューバー">
+<link rel="next" href="05.html" title="5. マウスメニュー">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">4. ツールバー</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="03.html">前のページ</a>&#160;</td>
+<th width="60%" align="center">&#160;</th>
+<td width="20%" align="right">&#160;<a accesskey="n" href="05.html">次のページ</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1">
+<div class="titlepage"><div><h2 class="title" style="clear: both">
+<a name="04"></a>4. ツールバー</h2></div></div>
+<p class="para">
+ここではツールバーの各ボタンのうち、ツールバーにしかないボタン(機能)について説明します。説明の無いボタン(機能)は、メニューバーに同等の機能があります。機能については<a href="03.html" title="3. メニューバー">項3</a>を参照して下さい。
+</p>
+<p class="para">
+項目名は、ボタンにマウスカーソルを合わせた時に表示されるポップアップ内容に合わせています。
+</p>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="04-01"></a>4.1. サムネイルウィンドウ</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="toolbar_skip"></a>スキップ</span></dt>
+<dd>
+<p class="para">
+ディレクトリビューのマウスメニューから、<a href="05.html#mouse_directory_load_thumbnail_recursively" title="">サムネイルを再帰的に読み込み</a>を行った時に、任意のディレクトリのサムネイル展開をスキップします。
+</p>
+<p class="para">
+スキップされたタブ(ディレクトリ)は、ファイル名だけの表示となります。
+</p>
+</dd>
+<dt><span class="term"><a name="stop"></a>中止</span></dt>
+<dd>
+<p class="para">
+ディレクトリビューのマウスメニューから、[サムネイルを再帰的に読み込み]を行った時に、それを完全に中止します。
+</p>
+<p class="para">
+ユーザのホームディレクトリ以下をまるまる……などとしてしまった場合に使用します。
+</p>
+</dd>
+<dt><span class="term"><a name="thumbnail_size"></a>サムネイルサイズ</span></dt>
+<dd>
+<p class="para">
+サムネイルサイズを変更します。
+</p>
+<p class="para">
+ここに任意の値を入れ、Enter した後に、「キャッシュ再読込」「全てのサムネイルを再作成」のどちらかを行うことによって、サムネイルが新しいサイズになります。
+</p>
+<p class="para">
+サムネイルへの反映を、メニューからではなくショートカットキーで行う場合、ESC キーを押して、サイズ入力部からフォーカスを外してください。フォーカスを外さないと、その文字が入力されてしまいます。
+</p>
+<p class="para">
+ここでの変更は<span class="emphasis"><i>アクティブになっていたタブにのみ</i></span>有効です。
+</p>
+<p class="para">
+キャッシュ再読込の方法については、Tips の「<a href="gimv_tips.html#gimv_tips_07" title="">[リスト更新]・[キャッシュ再読込]・[全てのサムネイルを再作成]の違いについて</a>」を参照して下さい。
+</p>
+</dd>
+<dt><span class="term"><a name="toolbar_directory_column"></a>ディレクトリ入力カラム</span></dt>
+<dd>
+<p class="para">
+ディレクトリ入力カラムです。アクティブになっているタブのパスが表示されます。
+</p>
+<p class="para">
+このカラムに、まだタブ表示されていないディレクトリを指定すると、そのディレクトリに画像があった場合のみ、新規にタブを開きます。また、ここではタブ補完が可能です。がんがん TAB してください。
+</p>
+</dd>
+<dt><span class="term"><a name="toolbar_thumbnail_view_mode"></a>サムネイルビューの表示モード</span></dt>
+<dd>
+<p class="para">
+アクティブになっているタブの、表示モードを変更します。ここでの指定は<span class="emphasis"><i>アクティブになっているタブにのみ</i></span>有効です。なお、指定できる順は以下6つです。
+</p>
+<div class="itemizedlist"><ul>
+<li><p class="para">サムネイル</p></li>
+<li><p class="para">リネームモード</p></li>
+<li><p class="para">リスト (アイコン)</p></li>
+<li><p class="para">リスト (サムネイル)</p></li>
+<li><p class="para">詳細</p></li>
+<li><p class="para">詳細 + アイコン</p></li>
+<li><p class="para">詳細 + サムネイル</p></li>
+<li><p class="para">サムネイル2</p></li>
+<li><p class="para">リスト2 (アイコン)</p></li>
+<li><p class="para">リスト2 (サムネイル)</p></li>
+</ul></div>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="04-02"></a>4.2. ディレクトリビュー</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="home"></a>ホーム</span></dt>
+<dd><p class="para">
+ディレクトリビューのカーソルをユーザのホームディレクトリ直下に変更すると同時に、全てのツリーを閉じます。サムネイルビューへの影響はありません。
+</p></dd>
+<dt><span class="term"><a name="directory_up"></a>上へ</span></dt>
+<dd>
+<p class="para">
+現在のトップディレクトリを、さらに1つ上に上げます。
+</p>
+<p class="para">
+通常は、~/ ですから、/ になります。このコマンドは、マウスメニューの<a href="05.html#mouse_directory_go_to_here" title="">トップをここに変更</a>を行った時に威力を発揮することでしょう(特に深層下をトップにした場合)。
+</p>
+</dd>
+<dt><span class="term"><a name="directory_toolbar_reload"></a>更新</span></dt>
+<dd>
+<p class="para">
+ディレクトリビューを更新します。
+</p>
+<p class="para">
+主に、コマンドラインからディレクトリ操作(新規作成・削除)を行った時に、それらを反映させるために使用します。
+</p>
+</dd>
+<dt><span class="term"><a name="directory_toolbar_show_dot_files"></a>ドットファイル表示/非表示</span></dt>
+<dd><p class="para">
+ディレクトリビューへの、ドットディレクトリ表示 ON/OFF です。
+</p></dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="04-03"></a>4.3. イメージウィンドウ</h3></div></div>
+<p class="para">
+ここに示す、イメージウィンドウ・イメージビューのズーム(拡大縮小)、フィットなどの項目は、[設定 | イメージビュー] の<a href="06.html#Auto_resize_to_image_size" title="">自動的に画像のサイズにリサイズする</a>の影響を受けます。設定によって、イメージウィンドウが自動リサイズされたりされなかったりします。その点については、個人環境に依存しますので言及しません。
+</p>
+<p class="para">
+また、<a href="06.html#Keep_aspect_rario" title="">アスペクト比を保持</a>する設定になっている場合、拡大縮小時にイメージビューのアスペクト比が維持されます。
+</p>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="no_zoom"></a>等倍</span></dt>
+<dd><p class="para">
+イメージビューを本来の画像の大きさ(100%)にします
+</p></dd>
+<dt><span class="term"><a name="imageview_toolbar_zoom_in"></a>拡大</span></dt>
+<dd><p class="para">
+イメージビューを5%拡大します。
+</p></dd>
+<dt><span class="term"><a name="imageview_toolbar_zoom_out"></a>縮小</span></dt>
+<dd><p class="para">
+イメージビューを5%縮小します。
+</p></dd>
+<dt><span class="term"><a name="imageview_toolbar_zoom_fit"></a>フィット</span></dt>
+<dd><p class="para">
+イメージウィンドウの大きさに、イメージビューを拡大縮小します。
+</p></dd>
+<dt><span class="term"><a name="imageview_toolbar_x_scale"></a>X軸スケール</span></dt>
+<dd><p class="para">
+イメージビューの X軸方向の倍率を設定します。
+</p></dd>
+<dt><span class="term"><a name="imageview_toolbar_y_scale"></a>Y軸スケール</span></dt>
+<dd>
+<p class="para">
+イメージビューの Y軸方向の倍率を設定します。
+</p>
+<p class="para">
+<a href="06.html#Keep_aspect_rario" title="">アスペクト比を保持</a>する設定になっている場合、この箇所は使用できません。
+</p>
+</dd>
+<dt><span class="term"><a name="imageview_toolbar_zoom"></a>ズーム</span></dt>
+<dd><p class="para">
+上記、スケール部に入力した値に、イメージビューをズーム(拡大縮小)します。
+</p></dd>
+<dt><span class="term"><a name="imageview_toolbar_rotate_cw"></a>時計回りに回転</span></dt>
+<dd><p class="para">
+イメージビューを時計回りに90度回転します。
+</p></dd>
+<dt><span class="term"><a name="imageview_toolbar_fit_window"></a>ウィンドウの大きさを画像サイズに合わせる</span></dt>
+<dd><p class="para">
+イメージビューのサイズに、イメージウィンドウをリサイズします。[メニュー | 表示]の<a href="03.html#Fit_to_Image" title="">画像の大きさに合わせる [I]</a>と同意です。
+</p></dd>
+<dt><span class="term"><a name="imageview_toolbar_full_screen"></a>全画面</span></dt>
+<dd>
+<p class="para">
+全画面表示にします。
+</p>
+<p class="para">
+もう一度ボタンを押すことで、ウィンドウ表示に戻ります。
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="03.html">前のページ</a>&#160;</td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">ホーム</a></td>
+<td width="40%" align="right">&#160;<a accesskey="n" href="05.html">次のページ</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left">3. メニューバー&#160;</td>
+<td width="20%" align="center"><a accesskey="u" href="index.html">上に戻る</a></td>
+<td width="40%" align="right">&#160;5. マウスメニュー</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

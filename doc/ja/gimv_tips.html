@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta content="text/html; charset=EUC-JP" http-equiv="Content-Type">
+<title>9. Tips</title>
+<link rel="stylesheet" href="./gimageview.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.45">
+<link rel="home" href="index.html" title="GImageView User's Manual">
+<link rel="up" href="index.html" title="GImageView User's Manual">
+<link rel="previous" href="gimv_faq.html" title="8. GImageView FAQ">
+<link rel="next" href="gimv_history.html" title="10. GImageView 更新履歴">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">9. Tips</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="gimv_faq.html">前のページ</a>&#160;</td>
+<th width="60%" align="center">&#160;</th>
+<td width="20%" align="right">&#160;<a accesskey="n" href="gimv_history.html">次のページ</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1">
+<div class="titlepage"><div><h2 class="title" style="clear: both">
+<a name="gimv_tips"></a>9. Tips</h2></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="gimv_tips_01"></a>サムネイルビューの描画完了を速くする</span></dt>
+<dd>
+<p class="para">
+gimv は、<span class="emphasis"><i>[設定 | サムネイルウィンドウ | ローディング時の再描画の間隔]</i></span> で指定した枚数分、一度にサムネイルを読み込みます。
+</p>
+<p class="para">
+描画が遅いマシンでこの値を多くすると、サムネイル更新回数(画面更新回数)が減り、多少速くなります。といっても、大きくすればするだけ更新頻度が下がり、画面に表示されない時間が長くなりますので、5 〜 15 が適当と思います。
+</p>
+</dd>
+<dt><span class="term"><a name="gimv_tips_02"></a>イメージビューの描画完了を速くする 1</span></dt>
+<dd>
+<p class="para">
+<span class="emphasis"><i>[設定 | イメージウィンドウ | 表示/非表示]</i></span> の表示設定を、「全てチェック」するか「全てチェックを外す」こと。
+</p>
+<p class="para">
+GImageView は、一回ウィンドウをクリエイトした後に、チェックの入っていないバーを消す、という作業を行っています。ここで、全てチェックが入って&quot;いない&quot;場合は1つもクリエイトされず、逆に&quot;全てチェックが入っていれば&quot;全てクリエイトされます。これらを省略することで、「消す」という動作分だけ高速化します。これは、大きな画像(画面解像度以上)を展開する際に非常に有効です。
+</p>
+</dd>
+<dt><span class="term"><a name="gimv_tips_03"></a>イメージビューの描画完了を速くする 2</span></dt>
+<dd>
+<p class="para">
+<span class="emphasis"><i>[設定 | イメージウィンドウ | 画像 | ファイ
+ルオープン時にウィンドウのサイズに合わせる]</i></span> をチェックする。
+</p>
+<p class="para">
+GImageView は、ユーザの設定に関わらず、<span class="emphasis"><i>[イメージウィンドウ | ウィンドウ | ウィンドウの初期サイズ]</i></span> で指定されたサイズに画像を展開し、その後に画像本来のサイズにリサイズします。ここにチェックを入れることで、リサイズ分が省略されるため、その時間分だけ高速化します。但し、これは初期サイズで指定した画像よりも、開く画像が大きい場合にのみ有効です。
+</p>
+<p class="para">
+この設定を行った場合、イメージビューで「画像サイズで表示」するには、<span class="emphasis"><i>[等倍]</i></span> をクリックし画像を等倍リサイズした後に、「ウィンドウ枠を画像に合わせる」しか方法がありません。注意してください。
+</p>
+</dd>
+<dt><span class="term"><a name="gimv_tips_04"></a>イメージビューの描画完了を速くする 3</span></dt>
+<dd>
+<p class="para">
+<span class="emphasis"><i>[設定 | イメージウィンドウ | 画像 | 自動的に画像のサイズにリサイズする]</i></span> のチェックを外す。
+</p>
+<p class="para">
+これによって、初期ウィンドウサイズよりも小さな画像でも、リサイズしなくなります。上記設定と組み合わせることで、本来の画像のサイズに関係なく、指定サイズで開くようになり、リサイズ分だけ高速化されます。
+</p>
+<p class="para">
+この設定を行った場合、イメージビューで「画像サイズで表示」するには、<span class="emphasis"><i>[等倍]</i></span> をクリックし画像を等倍リサイズした後に、「ウィンドウ枠を画像に合わせる」しか方法がありません。注意してください。
+</p>
+</dd>
+<dt><span class="term"><a name="gimv_tips_05"></a>イメージビューの描画を速くする</span></dt>
+<dd>
+<p class="para">
+<span class="emphasis"><i>[設定 | イメージウィンドウ | 画像 | 元の画像をメモリ内に保持する]</i></span> にチェックを入れる。
+</p>
+<p class="para">
+GImageView は、表示した画像をリサイズしたり回転した時、&quot;元の画像&quot;をレンダリングし直して再表示しています。ここで、「元の画像をメモリに保持する」ようにすると、レンダリング時に、&quot;元の画像&quot; をメモリから読み出すようになり、1回1回ディスクから読み出す時(ノンチェック時)に比べ、レンダリング時の描画速度が大きく向上します。
+</p>
+<p class="para">
+なお、一番最初に画像を展開する時は、どんな設定であれディスクから読み出すことになりますから、このオプションは関係ありません。メモリに保持していると、画像一枚につき 1MB 弱から、多い時には数 MB 以上のメモリを余分に消費するため、メモリの少ないシステムでは数枚の画像を開いただけでメモリを食い潰す可能性があります。このためデフォルト設定は OFF です。
+</p>
+<p class="para">
+これらは、バッファを ON にした状態と OFF にした状態の GImageView プロセスのメモリ消費量を top 等で確認してもらえれば一目瞭然です。ちなみに、GQview や gThumb、G-ThumB 等の同類のソフトは、GImageView で言う所の &quot;バッファ&quot; は常に ON の状態ですので、数枚以上の画像を同時に開く時には、メモリ消費量の違いが顕著に現れると思います。
+</p>
+<p class="para">
+この部分が、GImageView の謳っている、低消費メモリとも関係しています。
+</p>
+</dd>
+<dt><span class="term"><a name="gimv_tips_06"></a>サムネイルサイズを一時的に変更する</span></dt>
+<dd>
+<p class="para">
+ツールバーの値を変更し、リターンした後に <span class="emphasis"><i>[編集 | キャッシュ再読込]</i></span> (Shift + R)か、<span class="emphasis"><i>[全てのサムネイルを再作成]</i></span> (Ctrl + R or マウスメニュー)することで反映されます。
+</p>
+<p class="para">
+ここで、&quot;キャッシュの再読込&quot;を行った場合、キャッシュの画像が新しいサムネイルサイズに拡大(縮小)して表示されます。縮小の場合はよいのですが、拡大の場合、ドットが荒くなります。これを避けたい場合、&quot;全てのサムネイルを再作成&quot;してください。新しいサイズでキャッシュが作り直さるため、ドットが荒くなることはありません。
+</p>
+<p class="para">
+なお、新規ウィンドウ・新規タブに、ツールバーで設定した設定は反映されません(保存されません)。ここで変更した値は、そのタブでのみ有効になります。恒久的に変更したい場合、<span class="emphasis"><i>[設定 | サムネイルウィンドウ | サムネイルビュー | サムネイルサイズ]</i></span> の値を変更するか、「終了時の状態を保存する」ようにして下さい。
+</p>
+</dd>
+<dt><span class="term"><a name="gimv_tips_07"></a>[リスト更新]・[キャッシュ再読込]・[全てのサムネイルを再作成]の違いについて</span></dt>
+<dd><div class="variablelist"><dl>
+<dt><span class="term">リスト更新 (R)</span></dt>
+<dd><p class="para">
+ディスクとメモリ上の情報の差分のみを更新します。ファイルリストを更新するのみで、サムネイルのリサイズは行いません。
+</p></dd>
+<dt><span class="term">キャッシュ再読込 (Shift + R)</span></dt>
+<dd>
+<p class="para">
+全ての情報を破棄して、再度全ての情報をディスクから読み込みます。この時、キャッシュが存在する場合はキャッシュから読み込み、無い場合は元の画像から作成します。キャッシュが存在する場合、サムネイルのリサイズだけ行います。
+</p>
+<p class="para">
+再作成ではなくリサイズですから、保存されていたキャッシュが指定サイズより小さい場合、単なるサムネイルの拡大となるので、画像が汚くなります。
+</p>
+</dd>
+<dt><span class="term">全てのサムネイルを再作成 (Ctrl + R)</span></dt>
+<dd><p class="para">
+全ての情報を破棄して、再度全ての情報をディスクから読み込みます。全て、元の画像からサムネイルを再作成します。表示サムネイルサイズの変更が行われた場合、これを行うのが一番良いと思います。
+</p></dd>
+</dl></div></dd>
+<dt><span class="term"><a name="gimv_tips_08"></a>カスタムレイアウトについて</span></dt>
+<dd>
+<p class="para">
+<span class="emphasis"><i>[表示 | レイアウト]</i></span>を指定することで、GImageView サムネイルウィンドウの、各ペインの位置を変更できるようになります。レイアウト 0 をデフォルトとし、レイアウト 4 まで標準で用意されています。
+</p>
+<p class="para">
+また、これらのレイアウト以外に、カスタムレイアウトとして、任意のペイン構成を作るこ
+ともできます。
+</p>
+<p class="para">
+<span class="emphasis"><i>現在(version 0.1.2)、カスタム設定を GUI や CUI から行うことは出来ません。カスタム設定を作る場合、~/.gimv/gimvrc を直接いじる必要があります。</i></span>今後、設定画面ないしは設定方法がきちんと組み込まれると思います。それまでは、<span class="emphasis"><i>at your own risk</i></span>でお願いします。
+</p>
+<p class="para">
+いじる項目は下記の 6 つです。
+</p>
+<div class="itemizedlist"><ul>
+<li><p class="para">thumbwin_pane1_horizontal (pane1 は水平分割か垂直分割か)</p></li>
+<li><p class="para">thumbwin_pane2_horizontal (pane2 について、以下同様)</p></li>
+<li><p class="para">thumbwin_pane2_attach_1   (pane2 を pane1 の child1 に張り付けるか,child2 に張り付けるか)</p></li>
+<li><p class="para">thumbwin_widget [0]  (pane1 のもう片方に張り付けるウィジェット。1 がディレクトリビュー、2 がサムネイル、3 がプレビュー)</p></li>
+<li><p class="para">thumbwin_widget [1]  (pane2 の child1)</p></li>
+<li><p class="para">thumbwin_widget [2]  (pane2 の child2)</p></li>
+</ul></div>
+<p class="para">
+カスタムにすると、ここで設定した値が使用されます。レイアウト 0 〜 4 は、これら 6 つの値があらかじめプリセットされています。これらを変更することは出来ません。
+</p>
+</dd>
+<dt><span class="term"><a name="gimv_tips_09"></a>カスタムレイアウトとウィンドウ構成</span></dt>
+<dd>
+<p class="para">
+簡単に言うと、「任意にカスタム可能な物がレイアウト」で、「規定物がウィンドウ構成」です。
+</p>
+<p class="para">
+現状では「ウィンドウ構成」や「タブorディレクトリビューのツールバーの DnD」でレイアウトを自在に変更できるようになっていて、これらの変更を行 うと「レイアウト」は自動的に「カスタム」になります。
+</p>
+<p class="para">
+「レイアウト」は今のところ(「カスタム」を除くと)5種類に固定されていま すが、最終的には、自分の好みの形態をいくつでも「レイアウト」に登録できるようになるそうです。インターフェイスとしては、(レイアウトのメニューに「レイアウトを保存」という項目を追加して、レイアウト保存時に名前をつけられる形になる)、というものが考えられています。
+</p>
+</dd>
+<dt><span class="term"><a name="gimv_tips_10"></a>類似画像検索</span></dt>
+<dd>
+<p class="para">
+GImageView の類似画像検索アルゴリズムは、以下のようになっています。
+</p>
+<div class="orderedlist"><ol type="1">
+<li><p class="para">画像のサイズ/アスペクト比に関わらず、全ての画像を32x32dotの枠に押し込める</p></li>
+<li><p class="para">各画素のR/G/Bの誤差を積算平均する(0 〜 1.0)</p></li>
+<li><p class="para">誤差が閾値以下の場合は「一致する」と判定する</p></li>
+</ol></div>
+<p class="para">
+この閾値は設定の「検索」で設定できますが、実際には類似度?(1.0 - 誤差)で設定するようになっています。この値以上の場合は一致する、と判定されるわけです(パーセンテージの方が良かったかもしれませんが)。
+</p>
+<p class="para">
+また、32x32 の画像データ(ソフトによっては「指紋」等と命名されているようです)は、実際には高速化のためにサムネイルを使用しています。このため、サムネイルが作成されていないと正しく動作しません。
+</p>
+<p class="para">
+このような実装の為、人間が見ると一見非常に似ているような画像でも、実際には「一致してない」と判定される事があります。以下のよう場合、そうなります。
+</p>
+<div class="orderedlist"><ol type="1">
+<li><p class="para">カラーバランスが全体的にシフトしている場合 (全てのピクセルが一様に「誤差がある」と判定されている)</p></li>
+<li><p class="para">殆ど同じような画像だが、画像の一部(上/下/右/左)が切り取られている場合 (対応しないピクセルを比較してしまっている)</p></li>
+</ol></div>
+</dd>
+</dl></div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="gimv_faq.html">前のページ</a>&#160;</td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">ホーム</a></td>
+<td width="40%" align="right">&#160;<a accesskey="n" href="gimv_history.html">次のページ</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left">8. GImageView FAQ&#160;</td>
+<td width="20%" align="center"><a accesskey="u" href="index.html">上に戻る</a></td>
+<td width="40%" align="right">&#160;10. GImageView 更新履歴</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

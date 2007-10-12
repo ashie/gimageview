@@ -1,0 +1,375 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta content="text/html; charset=EUC-JP" http-equiv="Content-Type">
+<title>3. メニューバー</title>
+<link rel="stylesheet" href="./gimageview.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.45">
+<link rel="home" href="index.html" title="GImageView User's Manual">
+<link rel="up" href="index.html" title="GImageView User's Manual">
+<link rel="previous" href="02.html" title="2. 使い方">
+<link rel="next" href="04.html" title="4. ツールバー">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">3. メニューバー</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="02.html">前のページ</a>&#160;</td>
+<th width="60%" align="center">&#160;</th>
+<td width="20%" align="right">&#160;<a accesskey="n" href="04.html">次のページ</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1">
+<div class="titlepage"><div><h2 class="title" style="clear: both">
+<a name="03"></a>3. メニューバー</h2></div></div>
+<p class="para">
+ここではメニューバーの各項目について説明します。メニューバーはサムネイルウィンドウとイメージウィンドウの両方に存在しますが、ここでは一緒に扱います。なお、イメージウィンドウに存在する項目のみ、その旨を表記しています。
+</p>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="03-01"></a>3.1. ファイル</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="load_file"></a>開く [Ctrl + O]</span></dt>
+<dd>
+<p class="para">
+ファイルオープンダイアログを表示します。
+</p>
+<p class="para">
+「選択したファイルを開く」と、イメージウィンドウを新規に作成し、画像を展開します。
+</p>
+<p class="para">
+「選択したファイルのサムネイル」とすると、コレクションタブが新規に生成され、そこにコレクション(サムネイル表示)されます。
+</p>
+</dd>
+<dt><span class="term"><a name="open_new_window"></a>新規ウィンドウ [Ctrl + W]</span></dt>
+<dd><p class="para">
+サムネイルウィンドウを新規に作成します。
+</p></dd>
+<dt><span class="term"><a name="open_new_tab"></a>新規タブ [Ctrl + T]</span></dt>
+<dd><p class="para">
+空のタブを新規に生成します。
+</p></dd>
+<dt><span class="term"><a name="open_new_collection"></a>新規コレクション [none]</span></dt>
+<dd><p class="para">
+空のコレクションタブを新規に生成します。
+</p></dd>
+<dt><span class="term"><a name="close_tab"></a>タブを閉じる [Q]</span></dt>
+<dd><p class="para">
+アクティブになっているタブを閉じます。
+</p></dd>
+<dt><span class="term"><a name="close_window"></a>ウィンドウを閉じる [Ctrl + Q]</span></dt>
+<dd><p class="para">
+サムネイルウィンドウを閉じます。この時、展開されているイメージビューはそのまま残ります。
+</p></dd>
+<dt><span class="term"><a name="quit"></a>終了 [Ctrl + C]</span></dt>
+<dd>
+<p class="para">
+GImageView に関する、<span class="emphasis"><i>全ての</i></span>ウィンドウを閉じます。
+</p>
+<p class="para">
+サムネイルウィンドウ・イメージウィンドウが複数ある場合、それらは全て閉じられます。
+</p>
+</dd>
+<dt><span class="term"><a name="open_thumbnail_window"></a>新規サムネイルウィンドウ [Ctrl + W]</span></dt>
+<dd><p class="para">
+サムネイルウィンドウを新規に生成します。「<a href="03.html#open_new_window" title="">新規ウィンドウ [Ctrl + W]</a>」コマンドと同等です。
+</p></dd>
+<dt><span class="term"><a name="memory_buffer"></a>メモリバッファ [Ctrl + B]</span></dt>
+<dd><p class="para">
+展開している画像をメモリバッファに保持します。メモリバッファについての詳しい説明は、Tips の「元の画像をメモリに保持するようにする」を参照してください。
+</p></dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="03-02"></a>3.2. 編集</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="select_all"></a>全て選択 [Ctrl + A]</span></dt>
+<dd><p class="para">
+アクティブになっているタブ内のファイルを「全て選択」します。
+</p></dd>
+<dt><span class="term"><a name="unselect_all"></a>全て選択解除 [Ctrl + N]</span></dt>
+<dd>
+<p class="para">
+アクティブになっているタブの「選択解除」を行います。
+</p>
+<p class="para">
+GImageView は、タブごとに選択(非選択)状態を保持しています。「<a href="03.html#unselect_all" title="">全て選択解除 [Ctrl + N]</a>」を行っても、アクティブになっていないタブについては、選択解除を行いません。
+</p>
+</dd>
+<dt><span class="term"><a name="refresh_list"></a>リスト更新 [R]</span></dt>
+<dd><p class="para">
+アクティブになっているタブの「リスト更新」を行います。
+</p></dd>
+<dt><span class="term"><a name="reload_cache"></a>キャッシュ再読込 [Shift + R]</span></dt>
+<dd><p class="para">
+アクティブになっているタブの「キャッシュを再読込」を行います。
+</p></dd>
+<dt><span class="term"><a name="update_all_thumbnail"></a>全てのサムネイルを再作成 [Ctrl + R]</span></dt>
+<dd>
+<p class="para">
+アクティブになっているタブの「サムネイルを再作成」を行います。
+</p>
+<p class="para">
+「リスト更新」「キャッシュを再読込」「サムネイルを再作成」の違いについては、「<a href="gimv_tips.html#gimv_tips_07" title="">[リスト更新]・[キャッシュ再読込]・[全てのサムネイルを再作成]の違いについて</a>」を参照してください。
+</p>
+</dd>
+<dt><span class="term"><a name="rename"></a>ファイル名変更 [Shift + E]</span></dt>
+<dd>
+<p class="para">
+サムネイルビューで選択されている画像(ファイル)の名前を変更します。
+</p>
+<p class="para">
+なお、画像(ファイル)が複数選択されている場合には、実行できません。複数のファイルの名前を変更する場合、<a href="04.html#toolbar_thumbnail_view_mode" title="">サムネイルビューの表示モード</a>から、リネームモードに切り替えて下さい。
+</p>
+</dd>
+<dt><span class="term"><a name="copy_file_to"></a>ディレクトリへコピー [Shift + C]</span></dt>
+<dd>
+<p class="para">
+選択されている画像(ファイル)を他のディレクトリにコピーします。
+</p>
+<p class="para">
+なお、対象ディレクトリを選択するダイアログでは、タブ補完が可能です。がんがん TAB してください。
+</p>
+</dd>
+<dt><span class="term"><a name="move_file_to"></a>ディレクトリへ移動 [Shift + M]</span></dt>
+<dd>
+<p class="para">
+選択されている画像(ファイル)を他のディレクトリに移動します。
+</p>
+<p class="para">
+なお、対象ディレクトリを選択するダイアログでは、タブ補完が可能です。がんがん TAB してください。
+</p>
+</dd>
+<dt><span class="term"><a name="link_file_to"></a>ディレクトリへリンク [Shift + L]</span></dt>
+<dd>
+<p class="para">
+選択されている画像(ファイル)に対するシンボリックリンクを張ります。シンボリックリンクを作りたいディレクトリを指定してください。
+</p>
+<p class="para">
+なお、対象ディレクトリを選択するダイアログでは、タブ補完が可能です。がんがん TAB してください。
+</p>
+</dd>
+<dt><span class="term"><a name="remove_file"></a>ファイル削除</span></dt>
+<dd>
+<p class="para">
+選択されている画像(ファイル)を削除します。
+</p>
+<p class="para">
+やり直しはききません。確認ダイアログに対する答えは、十分注意してください。
+</p>
+</dd>
+<dt><span class="term"><a name="find_duplicates"></a>類似画像検索</span></dt>
+<dd>
+<p class="para">
+アクティブなタブについて、類似画像を検索します。
+</p>
+<p class="para">
+本コマンドは、ファイル選択の有無は関係ありません。タブ内の全ての画像に対して実行されます。
+</p>
+</dd>
+<dt><span class="term"><a name="options"></a>設定 [Ctrl + O]</span></dt>
+<dd>
+<p class="para">
+設定ダイアログを表示します。
+</p>
+<p class="para">
+設定内容の詳細は、<a href="06.html" title="6. 設定">項6</a>を参照してください。
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="03-03"></a>3.3. 表示</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="sort_file_list"></a>ファイルソート</span></dt>
+<dd>
+<p class="para">
+サムネイルビューを指定した順でソートします。
+</p>
+<p class="para">
+ここでの指定は、アクティブになっているタブと<span class="emphasis"><i>指定した後に開く全てのタブ</i></span>に対して有効です。
+</p>
+<p class="para">
+GImageView は、選択(非選択)状態と同様に、タブごとに並び順を保持していますので、開いていないタブについては、それまでのソート順が維持されます。なお、指定できる順は以下6つです。また、全ての種類について昇順・降順(逆順)があります。
+</p>
+<div class="itemizedlist"><ul>
+<li><p class="para">名前</p></li>
+<li><p class="para">参照日時</p></li>
+<li><p class="para">更新日時</p></li>
+<li><p class="para">状態変更日時</p></li>
+<li><p class="para">サイズ</p></li>
+<li><p class="para">種類</p></li>
+</ul></div>
+</dd>
+<dt><span class="term"><a name="window_composition"></a>ウィンドウ構成</span></dt>
+<dd>
+<p class="para">
+サムネイルウィンドウ内の各ビュー(ディレクトリ・サムネイル・プレビュー)のレイアウトを変更します。あらかじめ用意されている、6つの中から選択して下さい。デフォルトは、「構成0」です。
+</p>
+<p class="para">
+ウィンドウ構成を、任意のレイアウトにしたい場合、「<a href="03.html#layout" title="">レイアウト</a>」を利用して下さい。
+</p>
+</dd>
+<dt><span class="term"><a name="layout"></a>レイアウト</span></dt>
+<dd><p class="para">
+サムネイルウィンドウの各ビュー(ディレクトリ・サムネイル・プレビュー)のレイアウトを変更します。レイアウト0〜4、カスタムから選択する事ができます。なお、カスタムレイアウトについての詳細は、Tips の「<a href="gimv_tips.html#gimv_tips_08" title="">カスタムレイアウトについて</a>」を参照してください。
+</p></dd>
+<dt><span class="term"><a name="slideshow"></a>スライドショー [Ctrl + S]</span></dt>
+<dd>
+<p class="para">
+アクティブになっているタブについて、スライドショーを行います。
+</p>
+<p class="para">
+スライドショーについての設定は、<a href="06.html#06-04" title="6.4. スライドショー">項6.4</a>で行ってください。
+</p>
+</dd>
+<dt><span class="term"><a name="directory_view"></a>ディレクトリビュー [Shift + D]</span></dt>
+<dd><p class="para">
+ディレクトリビュー表示 ON/OFF です。
+</p></dd>
+<dt><span class="term"><a name="preview"></a>プレビュー  [Shift + P]</span></dt>
+<dd><p class="para">
+プレビューの ON/OFF です。
+</p></dd>
+<dt><span class="term"><a name="menubar_view"></a>メニューバー [M]</span></dt>
+<dd><p class="para">
+メニューバー表示 ON/OFF です。
+</p></dd>
+<dt><span class="term"><a name="tool_bar_view"></a>ツールバー [N]</span></dt>
+<dd><p class="para">
+ツールバー表示 ON/OFF です。
+</p></dd>
+<dt><span class="term"><a name="tool_bar_player"></a>プレーヤ [Shift + N]</span></dt>
+<dd><p class="para">
+イメージウィンドウのみ存在します。プレーヤの表示 ON/OFF です。
+</p></dd>
+<dt><span class="term"><a name="drectory_view_tool_bar_view"></a>ディレクトリビューツールバー [Shift + N]</span></dt>
+<dd><p class="para">
+ディレクトリビューの、ツールバー表示 ON/OFF です。
+</p></dd>
+<dt><span class="term"><a name="status_bar_view"></a>ステータスバー [V]</span></dt>
+<dd><p class="para">
+ステータスバー表示 ON/OFF です。
+</p></dd>
+<dt><span class="term"><a name="tab_bar_view"></a>タブ [B]</span></dt>
+<dd><p class="para">
+サムネイルビューのタブ表示 ON/OFF です。
+</p></dd>
+<dt><span class="term"><a name="tab_bar_preview"></a>タブ(プレビュー) [Shift + Z]</span></dt>
+<dd><p class="para">
+プレビューのタブ表示 ON/OFF です。
+</p></dd>
+<dt><span class="term"><a name="full_screen"></a>全画面 [F]</span></dt>
+<dd><p class="para">
+サムネイルウィンドウ、イメージウィンドウ、それぞれを全画面で表示します。
+</p></dd>
+<dt><span class="term"><a name="zoom"></a>ズーム</span></dt>
+<dd>
+<p class="para">
+イメージビューのズーム(拡大縮小)、「アスペクト比の保持」設定などを行います。
+</p>
+<p class="para">
+サブメニューから、10〜200%まで選ぶことが出来ます。これ以外の倍率については、ツールバーから直接指定してください。
+</p>
+<p class="para">
+サブメニューの「アスペクト比を保持」するにチェックが入っている場合、イメージビューの拡大縮小を行った時に、アスペクト比が保持されます。
+</p>
+</dd>
+<dt><span class="term"><a name="rotate"></a>回転</span></dt>
+<dd><p class="para">
+イメージビューを回転します。現在は、±90度、180度の3種類です。
+</p></dd>
+<dt><span class="term"><a name="Fit_to_Image"></a>画像の大きさに合わせる [I]</span></dt>
+<dd>
+<p class="para">
+イメージウィンドウをイメージビューの大きさ(表示されている画像のサイズ)にリサイズします。ツールバーの[ウィンドウの大きさを画像サイズに合わせる]と同意です。
+</p>
+<p class="para">
+イメージビューの倍率(表示されている画像のサイズ)は変更されません。リサイズされるのはイメージウィンドウの方です。
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="03-04"></a>3.4. タブ</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="tab_position"></a>タブの位置</span></dt>
+<dd><p class="para">
+タブの表示位置を変更します。上下左右の4つがあります。
+</p></dd>
+<dt><span class="term"><a name="first_page"></a>最初のページ [K]</span></dt>
+<dd><p class="para">
+最初のタブ(左端)をアクティブにします。
+</p></dd>
+<dt><span class="term"><a name="last_page"></a>最後のページ [J]</span></dt>
+<dd><p class="para">
+最後のタブ(右端)をアクティブにします。
+</p></dd>
+<dt><span class="term"><a name="next_page"></a>次のページ [L]</span></dt>
+<dd><p class="para">
+次のタブ(1つ右)をアクティブにします。
+</p></dd>
+<dt><span class="term"><a name="previous_page"></a>前のページ [H]</span></dt>
+<dd><p class="para">
+前のタブ(1つ左)をアクティブにします。
+</p></dd>
+<dt><span class="term"><a name="move_tab_forward"></a>タブを前方へ移動 [Shift + F]</span></dt>
+<dd><p class="para">
+アクティブになっているタブを、前に(1つ左)にずらします。
+</p></dd>
+<dt><span class="term"><a name="move_tab_backward"></a>タブを後方へ移動 [Shift + B]</span></dt>
+<dd><p class="para">
+アクティブになっているタブを、後ろ(1つ右)にずらします。
+</p></dd>
+<dt><span class="term"><a name=""></a>タブを切り離す [Ctrl + D]</span></dt>
+<dd><p class="para">
+アクティブになっているタブを切り離し、新規にサムネイルウィンドウを生成します。
+</p></dd>
+</dl></div>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><h3 class="title">
+<a name="03-05"></a>3.5. ヘルプ</h3></div></div>
+<div class="variablelist"><dl>
+<dt><span class="term"><a name="manual"></a>マニュアル</span></dt>
+<dd><p class="para">
+マニュアルを表示します。
+</p></dd>
+<dt><span class="term"><a name="gimv_document"></a>ドキュメント</span></dt>
+<dd><p class="para">
+GImageView に付属するドキュメントを表示します。
+</p></dd>
+<dt><span class="term"><a name="about"></a>GImageView について</span></dt>
+<dd><p class="para">
+GImageView のバージョン、ライセンス、著作者、開発者などを表示します。
+</p></dd>
+</dl></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="02.html">前のページ</a>&#160;</td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">ホーム</a></td>
+<td width="40%" align="right">&#160;<a accesskey="n" href="04.html">次のページ</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left">2. 使い方&#160;</td>
+<td width="20%" align="center"><a accesskey="u" href="index.html">上に戻る</a></td>
+<td width="40%" align="right">&#160;4. ツールバー</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,471 @@
+/*******************************************************************************
+ *
+ *  global preference
+ *
+ *******************************************************************************/
+
+style "base"
+{
+   fg[SELECTED] = "#000000"
+   bg[SELECTED] = "#ccccff"
+}
+# widget_class "*" style "base"
+
+
+style "toggle_button"
+{
+   bg[ACTIVE] = "#ccccff"
+}
+# widget_class "*ToggleButton*" style "toggle_button"
+
+
+style "drawing_area"
+{
+   bg[NORMAL] = "#ffffff"
+}
+widget_class "*DrawingArea*" style "drawing_area"
+
+
+style "tab_label"
+{
+#   fontset = "-alias-fixed-*-*-*-*-12-*"
+   fg[SELECTED] = "#ff0000"
+}
+widget "*TabLabel*" style "tab_label"
+
+
+
+/*******************************************************************************
+ *
+ *  original widgets of GImageView
+ *
+ *******************************************************************************/
+
+style "zlist"
+{
+}
+widget_class "*ZList*" style "zlist"
+
+
+style "zalbum"
+{
+}
+widget_class "*ZAlbum*" style "zalbum"
+
+
+style "icon_widget"
+{
+}
+widget_class "*IconWidget*" style "icon_widget"
+
+
+style "gedo_paned"
+{
+}
+widget_class "*GedoPaned*" style "gedo_paned"
+
+
+style "gedo_hpaned"
+{
+}
+widget_class "*GedHPaned*" style "gedo_hpaned"
+
+
+style "gedo_vpaned"
+{
+}
+widget_class "*GedVPaned*" style "gedo_vpaned"
+
+
+
+/*******************************************************************************
+ *
+ *  preference for thumbnail window.
+ *
+ *******************************************************************************/
+
+/* window */
+style "thumb_win"
+{
+}
+widget "*ThumbWin*" style "thumb_win"
+
+
+/* menu bar */
+style "thumb_win_menu_bar_container"
+{
+}
+widget "*ThumbWin*MenuBarContainer*" style "thumb_win_menu_bar_container"
+
+
+/* tool bar */
+style "thumb_win_tool_bar_container"
+{
+}
+widget "*ThumbWin*ToolBarContainer*" style "thumb_win_tool_bar_container"
+
+
+style "thumb_win_thumbnail_size_spinner"
+{
+}
+widget "*ThumbWin*ThumbnailSizeSpinner*" style "thumb_win_thumbnail_size_spinner"
+
+
+style "thumb_win_location_entry"
+{
+}
+widget "*ThumbWin*LocationEntry*" style "thumb_win_location_entry"
+
+
+style "thumb_win_disp_mode_option_menu"
+{
+}
+widget "*ThumbWin*DispModeOptionMenu*" style "thumb_win_disp_mode_option_menu"
+
+
+/* main area */
+style "thumb_win_main_area"
+{
+}
+widget "*ThumbWin*MainArea*" style "thumb_win_main_area"
+
+
+/* status bar */
+style "thumb_win_status_bar_container"
+{
+}
+widget "*ThumbWin*StatusBarContainer*" style "thumb_win_status_bar_container"
+
+
+style "thumb_win_status_bar1"
+{
+}
+widget "*ThumbWin*StatusBar1*" style "thumb_win_status_bar1"
+
+
+style "thumb_win_status_bar2"
+{
+}
+widget "*ThumbWin*StatusBar2*" style "thumb_win_status_bar2"
+
+
+style "thumb_win_progress_bar"
+{
+   fg[NORMAL] = "#ff0000"
+}
+widget "*ThumbWin*ProgressBar*" style "thumb_win_progress_bar"
+
+
+
+/*******************************************************************************
+ *
+ *  preference for image window.
+ *
+ *******************************************************************************/
+
+/* window */
+style "image_win"
+{
+}
+widget "*ImageWin*" style "image_win"
+
+
+/* menu bar */
+style "image_win_menu_bar_container"
+{
+}
+widget "*ImageWin*MenuBarContainer*" style "image_win_menu_bar_container"
+
+
+/* tool bar */
+style "image_win_tool_bar_container"
+{
+}
+widget "*ImageWin*ToolBarContainer*" style "image_win_tool_bar_container"
+
+
+style "image_win_x_scale_spinner"
+{
+}
+widget "*ImageWin*ToolBarContainer*XScaleSpinner*" style "image_win_x_scale_spinner"
+
+
+style "image_win_y_scale_spinner"
+{
+}
+widget "*ImageWin*ToolBarContainer*YScaleSpinner*" style "image_win_y_scale_spinner"
+
+
+/* player tool bar */
+style "image_win_player_tool_bar_container"
+{
+}
+widget "*ImageWin*PlayerToolBarContainer*" style "image_win_player_tool_bar_container"
+
+
+/* status bar */
+style "image_win_status_bar1"
+{
+}
+widget "*ImageWin*StatusBar1*" style "image_win_status_bar1"
+
+
+style "image_win_status_bar2"
+{
+}
+widget "*ImageWin*StatusBar2*" style "image_win_status_bar2"
+
+
+
+/*******************************************************************************
+ *
+ *  preference for shared image window.
+ *
+ *******************************************************************************/
+
+/* window */
+style "shared_image_win"
+{
+}
+widget "*SharedImageWin*" style "shared_image_win"
+
+
+/* draw area */
+style "shared_image_win_draw_area"
+{
+#   bg[NORMAL] = "#000000"
+}
+widget "*SharedImageWin*ImageView*DrawingArea*" style "shared_image_win_draw_area"
+
+/* please copy and paste "image_window_*" style,
+   and add "shared_" or "Shared" prefix */
+
+
+
+/*******************************************************************************
+ *
+ *  preference for thumbnail view.
+ *
+ *******************************************************************************/
+
+style "thumb_view_notebook"
+{   
+}
+widget "*ThumbView*NoteBook*" style "thumb_view_notebook"
+
+
+style "thumb_view_tab_label"
+{   
+}
+widget "*ThumbView*TabLabel*" style "thumb_view_tab_label"
+
+
+/*
+ *  Thumbnail Mode
+ */
+style "thumb_view_thumbnail_mode"
+{
+}
+/* event box widget */
+widget "*ThumbView*ThumbnailMode*" style "thumb_view_thumbnail_mode"
+
+style "thumb_view_thumbnail_mode_toggle_button"
+{
+}
+widget "*ThumbView*ThumbnailMode*ToggleButton*" style "thumb_view_thumbnail_mode_toggle_button"
+
+style "thumb_view_thumbnail_mode_thumb_label"
+{
+}
+widget "*ThumbView*ThumbnailMode*Label*" style "thumb_view_thumbnail_mode_thumb_label"
+
+
+/*
+ *  Rename Mode
+ */
+style "thumb_view_rename_mode"
+{   
+}
+/* event box widget */
+widget "*ThumbView*RenameMode*" style "thumb_view_rename_mode"
+
+style "thumb_view_rename_mode_toggle_button"
+{
+}
+widget "*ThumbView*RenameMode*ToggleButton*" style "thumb_view_rename_mode_toggle_button"
+
+style "thumb_view_thumbnail_mode_thumb_entry"
+{
+}
+widget "*ThumbView*ThumbnailMode*Entry*" style "thumb_view_thumbnail_mode_thumb_entry"
+
+
+/*
+ *  List (Icon) Mode
+ */
+style "thumb_view_list_icon_mode"
+{
+   bg[NORMAL] = "#ffffff"
+}
+/* event box widget */
+widget "*ThumbView*ListIconMode*" style "thumb_view_list_icon_mode"
+
+style "thumb_view_list_icon_mode_icon_widget"
+{
+}
+widget "*ThumbView*ListIconMode*IconWidget*" style "thumb_view_list_icon_mode_icon_widget"
+
+
+/*
+ *  List (Thumbnail) Mode
+ */
+style "thumb_view_list_thumb_mode"
+{   
+   bg[NORMAL] = "#ffffff"
+}
+/* event box widget */
+widget "*ThumbView*ListThumbMode*" style "thumb_view_list_thumb_mode"
+
+style "thumb_view_list_thumb_mode_icon_widget"
+{
+}
+widget "*ThumbView*ListThumbMode*IconWidget*" style "thumb_view_list_thumb_mode_icon_widget"
+
+
+/*
+ *  Detail (Icon) Mode
+ */
+style "thumb_view_detail_icon_mode"
+{   
+}
+/* clist widget */
+widget "*ThumbView*DetailIconMode*" style "thumb_view_detail_icon_mode"
+
+
+/*
+ *  Detail (Thumbnail) Mode
+ */
+style "thumb_view_detail_thumb_mode"
+{   
+}
+/* clist widget */
+widget "*ThumbView*DetailThumbMode*" style "thumb_view_detail_thumb_mode"
+
+
+/*
+ *  Thumbnail2 Mode
+ */
+style "thumb_view_thumbnail2_mode"
+{   
+}
+/* zalbum widget */
+widget "*ThumbView*Thumbnail2*" style "thumb_view_thumbnail2_mode"
+
+
+/*
+ *  List2 (Icon) Mode
+ */
+style "thumb_view_list2_icon_mode"
+{   
+}
+/* zalbum widget */
+widget "*ThumbView*List2IconMode*" style "thumb_view_list2_icon_mode"
+
+
+/*
+ *  List2 (Thumbnail) Mode
+ */
+style "thumb_view_list2_thumb_mode"
+{   
+}
+/* zalbum widget */
+widget "*ThumbView*List2ThumbMode*" style "thumb_view_list2_thumb_mode"
+
+
+
+/*******************************************************************************
+ *
+ *  preference for comment view.
+ *
+ *******************************************************************************/
+
+style "comment_view_tab_label"
+{
+}
+widget "*CommentView*TabLabel*" style "comment_view_tab_label"
+
+
+
+/*******************************************************************************
+ *
+ *  preference for image view.
+ *
+ *******************************************************************************/
+
+style "image_view_drawing_area"
+{
+}
+widget "*ImageView*DrawingArea*" style "image_view_drawing_area"
+
+
+style "image_view_scroll_bar"
+{
+}
+widget "*ImageView*ScrollBar*" style "image_view_scroll_bar"
+
+
+style "image_view_nav_win_button"
+{
+}
+widget "*ImageView*NavWinButton*" style "image_view_nav_win_button"
+
+
+
+/*******************************************************************************
+ *
+ *  preference for preview (image view in thumbnail window).
+ *
+ *******************************************************************************/
+
+style "preview_drawing_area"
+{
+}
+widget "*ThumbWin*ImageView*DrawingArea*" style "preview_drawing_area"
+
+
+style "preview_scroll_bar"
+{
+}
+widget "*ThumbWin*ImageView*ScrollBar*" style "preview_scroll_bar"
+
+
+style "preview_nav_win_button"
+{
+}
+widget "*ThumbWin*ImageView*NavWinButton*" style "preview_nav_win_button"
+
+
+
+/*******************************************************************************
+ *
+ *  preference for directory view.
+ *
+ *******************************************************************************/
+
+style "dir_view"
+{
+}
+widget "*DirView*" style "dir_view"
+
+
+style "dir_view_ctree"
+{
+   fg[ACTIVE] = "#ff0000"
+}
+widget "*DirView*CTree*" style "dir_view_ctree"
+
+
+style "dir_view_tool_bar"
+{
+}
+widget "*DirView*ToolBar*" style "dir_view_tool_bar"

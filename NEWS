@@ -1,0 +1,97 @@
+Version-0.2.27
+
+	* Added some options for slideshow.
+	  (Thanks! > Christian Hammers <lathspell@users.sourceforge.net>)
+	* Added Xine image loader for movie thumbnail. (experimental)
+	* The bug that sometime same files are appeared numbers of times on
+	  same thumbnail view has been fixed.
+	  (Thanks reporting > shlomif)
+	* Enable to open archived files which has "[" in its filename.
+	* Other minor bug fixes are made.
+
+Version-0.2.26
+
+	* Improved performance of redrawing thumbnail view.
+	* Improved preference of "fit image size to window" feature.
+	  (Thanks! > Brent Baccala <baccala@users.sourceforge.net>)
+	* Fixed bugs on 64bit envirponment.
+	  (Thanks! > Tomoya TAKA <tomoya@olive.plala.or.jp>)
+	* Enabled to open EXIF view from image window.
+	* Added image scale preferences for slideshow.
+	* Removed obsolete summary modes of thumbnail view.
+	  ("List" and "Thumbnail" mode)
+	* Fixed compile time error on Gtk+-2.4
+	* Other minor fixes and improvements.
+
+Version-0.2.25
+
+	* Adapt to latest MPlayer.
+	* Xienerama support.
+	* "270" orientation label is changed to "-90".
+	* Some minor usabilty fix of comment view.
+
+Version-0.2.24
+
+	* "Auto fit without zoom in" feature has been fixed.
+	* Added "Fit width" and "Fit height" feature.
+	* The bug that sometimes mplayer fails to start playing has been fixed.
+	* Fixed double freeing bug of JPEG loader.
+	  (Thanks! > sheepman <sheepman@tcn.zaq.ne.jp>)
+	* Fixed a bug in DnD support
+	  (Thanks! > MINAMI Hirokazu <h_minami@users.sourceforge.net>)
+	* Remove trailing slash when create directory.
+	  (Thanks! > Douglas Brebner <douglas+mail@fang.demon.co.uk>).
+	* Updated libexif to 0.5.11.
+	* Other code improvements.
+
+Version-0.2.23
+
+	* Fixed clash bug of slideshow.
+	* Plugged memory leak of JPEG loader.
+	* Other minor fixes.
+
+Version-0.2.22
+
+	* Added automatic rotation by EXIF data.
+	 (contributed from Frank Fischer <frank_fischer@gmx.de>. Thanks!)
+	* Fixed detecting file name extension as case insensitive.
+	 (Thanks! > Ricky Faulstich <Ricky@Faulstich.com>)
+	* Fixed typo (Thanks! > Ricky Faulstich <Ricky@Faulstich.com>)
+
+Version-0.2.21
+
+	* Fixed compile error.
+
+Version-0.2.20
+
+	* Image loaders, I/O streamers, Image View and Thumbnail View Embders
+          now are implemented as plugins.
+	* Now GImageView can be compiled against linux-fb backend of Gtk+-2.0 by
+	  "--with-gtk2=gtk+-linux-fb-2.0" configure opotion.
+	* Merged Cygwin patch provided by Masahiro Sakai. Now GImageView can be
+	  compiled on Cygwin.
+	* Added some key binding to directory view on thumbnail window.
+		CTRL + Cursor Left
+		CTRL + Cursor Up: Change top directory to parent
+		CTRL + Cursor Right
+		CTRL + Cursor Down: Change top directory to selected
+	* "Thumbnail 2" mode has been renamed to "Album" mode.
+	* Added a key binding to "Album" mode.
+		SHIFT + Cursor: select the fucesed image and open it.
+	* Modified directory list preference to make it easy.
+	* "Load thumbnails recursively in one tab" can be attached to mouse
+	  button.
+	* Now gimv doesn't zoom in by default when fit to frame automatically.
+	* JPEG loader is added. Most of its codes are taken from libgnome-ui.
+	  Creating JPEG thumbnails are much faster than GdkPixbuf.
+	* Added "Slideshow (selected)" and "Slideshow (from the selected)".
+	* Now you can override MPlayer options by
+	  $(datadir)/gimageview/mplayerrc.
+	* Enabled to play audio with visualizer
+	  (Visualizer feature is supported by Xine view only).
+	* Set focus to the suitable thumbnail when files are deleted.
+	* Added rotation indicator in toolbar of image window.
+	* Two new duplicates finders are added. One is "md5sum" and another one
+	  is "File Size".
+	* Clash bug of Xine view has been fixed.
+	* Other minor fixes.

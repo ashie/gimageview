@@ -1,0 +1,354 @@
+                            GImage View README
+                                                                 for ver 0.2.21
+                                                Last Modified : 2003/05/22(Thu)
+                                                      Created : 2001/09/08(Sat)
+-------------------------------------------------------------------------------
+  ** Contents **
+    0. What's this?
+    1. Introduction
+    2. Requirement
+    3. Download
+    4. Install
+    5. Usage
+    6. ChangeLog of README
+    7. License
+    8. Remarks
+-------------------------------------------------------------------------------
+
+--------------------
+0. What's this?
+
+GImageView is an image viewer which solves a hopless situation under
+displaying a lot of images.
+It works on X Window System, frame buffer of linux, and Cygwin.
+
+
+
+--------------------
+1. Introduction
+
+GImageView has following features:
+
+ * Simple, but usefull/flexible user interface:
+   Thumbnail window has 3 paned view (directory tree view, thumbnail view and
+   image preview), and its layout is fully castomizable by Drag and Drop.
+   Images can be also displayed by separated image window.
+
+ * Managing image files:
+   It can copy, move and link image files by Drag and Drop.
+
+ * Low waste memory.
+
+ * Also usefull for command line usage:
+   If you specify image files and direcotries from comamnd line, image files are
+   opened by image window, and directories are opened by thumbnail window
+   automatically.
+
+ * Tabbed browsing:
+   It can open two or more directories at same time by tabbed thumbnail window
+   which looks like tabbed web browser. If you drop files to tab, you can copy,
+   move and link files to the directory.
+
+ * Supported following graphich formats:
+
+   JPEG
+   PNG
+   PNM
+   GIF
+   TIFF
+   XBM
+   XPM
+   BMP
+   PCX
+   TGA
+   XCF
+   MAG
+   SVG (librsvg is required)
+   MNG (libmng is required)
+   WMF (libwmf is required)
+   ANI (Gtk+-2 is required)
+   RAS (Gtk+-2 is required)
+
+ * It can play animation such as animation GIF and MNG.
+
+ * Supports movie files and sound files using Xine and MPlayer.
+   Supported file types are depended on Xine and MPlayer:
+
+   * AVI (MS-MPEG4, DivX, MotionJPEG, Cinepack and so on...)
+   * MPEG1, MPEG2, MPEG4, MPEG1 audio layer3
+   * Quick Time
+   * Real Media
+   * Any other unknown types...
+
+ * It can extract compressed file automatically.
+   (File name extension is not registed by default. Please open common ->
+    filter page of preference dialog and regist it manually).
+
+    gzip, bzip2
+
+ * Supports archive files using external command:
+
+   tar, zip, lha, rar
+
+ * Supports various thumbnail cache types
+
+   Nautilus, Konqueror, GQview, Electric Eyes (Picview), xvpics
+   (Thumbnail Managing Standard which supported by latest Nautilus and Konqueror
+    will be implemented at next versoin of GImageView)
+
+ * Supports slideshow
+
+ * Threre are 10 types of thumbnail view, and supports vatious sort types.
+
+ * Finding duplicated images
+
+   It can find duplicated image files by file siez, md5sum and similarity,
+   and display it on tree view.
+
+
+
+--------------------
+2. Requirements
+
+You need following environment/libraries to build GImaqeView:
+
+ * ANSI-C, POSIX
+ * GLib-1.2 and GTK+-1.2 or later  (http://www.gtk.org/).
+   Also support GtK+-2.0 or later.
+ * Imlib-1.9.x (ftp://ftp.gnome.org/pub/GNOME/stable/sources/imlib/)
+   or
+   gdk-pixbuf (ftp://ftp.gnome.org/pub/GNOME/unstable/sources/gdk-pixbuf/)
+ * zlib and libpng
+
+Following libraries and programs are optional:
+
+ * GNU file
+ * libjpeg
+ * libmng-1.0.0 or later
+ * librsvg-1.0.0 or later
+ * libwmf-0.2.8 or later
+ * bzip2-1.0.0 or later
+ * xine-lib-0.9.8 or later (1.0-beta10 or later is recomanded)
+ * MPlayer-0.90-rc2 or later (0.90 or later is remomanded)
+ * GNU tar
+ * zip
+ * lha
+ * rar
+
+GImageView is confirmed on followin environment:
+
+ * RedHat Linux 7.3, 8, 9
+ * Mandrake Linux
+ * Debian GNU/Linux potate, woody, sarge
+ * Gentoo Linux 1.4-rc2
+ * Plamo Linux 2.0 (Alpha3 Base), 3.0
+ * Kondara MNU/Linux 1.2 and 2.0
+ * Momonga Linux
+ * Vine Linux (i386 & ppc) 2.1.5, 2.5. 2.6
+ * FreeBSD 4.2-RELEASE
+ * NetBSD
+ * AIX
+
+
+
+--------------------
+3. Download
+
+You can get it from follwing place include old versions:
+
+  * http://sourceforge.net/project/showfiles.php?group_id=39083
+
+You can get also latest develop version from CVS:
+
+$ export CVSROOT=:pserver:anonymous@cvs.gtkmmviewer.sourceforge.net:/cvsroot/gtkmmviewer
+$ cvs login
+  (Passward is emty, simply press Enter)
+$ cvs -z3 co gimageview
+
+You can update it by following command:
+
+$ cvs -z3 update
+
+Develop version doesn't include configure script. Please execute "autogen.sh"
+script which placed top directory of source tree. You need autoconf, automake
+and libtool to make it.
+
+In addition to it, please call your attention that CVS version is "latest"
+"develop" version. It may includes various bugs and sometimes it may losts
+your important data. Please use it at your own risk. If you found bugs, please
+report it to us.
+
+
+--------------------
+4. Install
+
+You can build it by following commands on all most all environment.
+
+ $ tar xvfz gimageview-x.y.z.tar.gz
+ $ ./configure
+ $ make
+ $ su
+  (Enter passward)
+ # make install
+
+Please replace the version number suitably.
+
+If you want to compile it against Imlib, please use "--disable-gdk-pixbuf"
+configure option:
+
+ $ ./configure --disable-gdk-pixbuf
+
+If you want to compile against Gtk+2, please use "--with-gtk2"
+
+ $ ./configure --with-gtk2
+
+To compile against linux-fb, please add "gtk+-linux-fb-2.0" argument to
+"--with-gtk2" option.
+
+ $ ./configure --with-gtk2="gtk+-linux-fb-2.0"
+
+If you want to enable movie support, please add "--with-xine" or
+"--enable-mplayer" options. These options can be used at same time.
+
+ $ ./configure --with-xine --enable-mplayer
+
+In addition to it, if you don't need debug information, you can strip it by
+following command.
+
+ # make install-strip
+
+
+Development of GImageView is still in early stage, so format of preference file
+may be changed. Please backup your own ~/.gimv directory when update the
+GImageView.
+
+
+
+--------------------
+5. Usage
+
+You can show one or more image files by following command:
+
+ $ gimv [Image files...]
+
+If you specify one or more directories with a "-d" option, you can show
+thumbnails of all images under the directory by thumbnail window.
+
+ $ gimv -d [Directory name]
+
+If you specify both images and directories with a "-d" option, images are
+opened by image window, and thumbnails under directories are opened by thumbnail
+window.
+
+ $ gimv -d foo01.jpg ~/ ~/images images/foo02.jpg\
+      /usr/share/pixmaps/ bar.png ......
+
+If you add a "-t" option, all images are opened by thumbnail window.
+
+Followings are other options:
+
+ Usage: gimv [OPTION...] [Image files or directories...]
+   -d, --directory          Scan directories at start up
+   -R, --recursive          Scan directories recursively (use with "-d")
+   -D, --scan-dot           Read dotfile when scan directory (use with "-d")
+   -e, --ignore-ext         Ignore file name extention
+   -s, --scale=SCALE        Specify image scale on image window(%)
+   -b, --buffer=ON/OFF      Keeo original image on memory or not
+   -M, --menubar            Show menu bar on image window
+   -T, --toolbar            Show tool bar on image window
+   -w, --thumbwin           Open thumbnail window at start up
+   -i, --imageview          Open all images by image window
+   -t, --thumbview          Open all images by thumbnail window
+   -S, --slideshow          Open images by slide show
+   -v, --version            Print version infomation
+   -h, --help               Show this message
+
+If you want to open a directory from GUI, please double click it on directory
+view, or specify it from file open dialog.
+
+If you want to show compressed image files, please open common -> filter page of
+preference dialog and regist file name extention like "gz" or "bz2".
+
+
+
+--------------------
+6. ChangeLog of README
+
+2003/06/01(Thu) Takuro Ashie
+
+ * Fixed typo (English Version)
+
+2003/05/22(Thu) Takuro Ashie
+
+ * Tranlated to English
+ * Follow latest version (0.2.21).
+ * Remove ChangeLog and TODO
+
+2001/11/06(Tue) nyan2
+
+ * for version 0.1.3
+ * add CVS section in "get gimageview" chapter
+
+2001/11/04(Sun) Takuro Ashie
+
+ * Modified TODO
+ * Added ChangeLog and minor fix.
+
+2001/11/04(Sun) nyan2
+
+ * for version 0.1.2
+
+2001/10/18(Thu) nyan2
+
+ * Minor change
+
+2001/10/03(Wed) nyan2
+
+ * for version 0.1.1
+
+2001/09/12(Wed) - 2001/09/28(Fri) nyan2
+
+ * for nightly
+ * Follow modified features and bugfixes.
+
+2001/09/10(Mon) nyan2
+
+ * for 2001/10/10 nightly
+ * Initial import
+
+2001/09/08(Sat) nyan2
+
+ * for 2001/09/08 nightly
+ * Stated editing.
+
+
+
+--------------------
+7. License
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+
+--------------------
+8. Remarks
+
+This document is modified by Nayn2 based on
+http://www.homa.ne.jp/~ashie/gimageview/.
+
+Copyright (C) 2001-2003
+  Original : Takuro Ashie
+  Modified : Nyan2 <t-nyan2@nifty.com>
+-------------------------------------------------------------------------------
+                                                                  [End Of File]

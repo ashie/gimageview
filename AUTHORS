@@ -1,0 +1,27 @@
+Program:
+  Takuro Ashie <ashie@homa.ne.jp>
+
+dllloader (Part of Enfle):
+  Hiroshi Takekawa
+
+libexif, libexif-gtk:
+  Lutz M-Aüller <lutz@users.sourceforge.net>$)B
+
+Japanese Document:
+  Nyan2 <t-nyan2@nifty.com>
+
+Logo:
+  eins <eins@milk.freemail.ne.jp>
+
+Konqueror Thumbnail Support:
+  TAM <tamra@intercity.or.jp>
+
+Gtk+2 on Cygwin Support:
+  Masahiro Sakai <s01397ms@sfc.keio.ac.jp>
+
+Auto rotation by EXIF data:
+  Frank Fischer <frank_fischer@gmx.de>
+
+Translate:
+  Guillaume Libersat <glibersat@linux62.com>
+  Migrec <migrec@online.fr>

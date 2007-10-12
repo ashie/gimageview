@@ -1,0 +1,98 @@
+/* -*- Mode: C; tab-width: 3; indent-tabs-mode: nil; c-basic-offset: 3 -*- */
+
+/*
+ * GImageView
+ * Copyright (C) 2001-2003 Takuro Ashie
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * $Id$
+ */
+
+#include "gtk2-compat.h"
+#include <gtk/gtk.h>
+
+
+#ifdef USE_GTK2
+
+gboolean
+gtk2compat_scroll_to_button_cb (GtkWidget *widget,
+                                GdkEventScroll *se,
+                                gpointer data)
+{
+   GdkEventButton be;
+   gboolean retval;
+
+   g_return_val_if_fail (GTK_IS_WIDGET(widget), FALSE);
+
+   be.type       = GDK_BUTTON_PRESS;
+   be.window     = se->window;
+   be.send_event = se->send_event;
+   be.time       = se->time;
+   be.x          = se->x;
+   be.y          = se->y;
+   be.axes       = NULL;
+   be.state      = se->state;
+   be.device     = se->device;
+   be.x_root     = se->x_root;
+   be.y_root     = se->y_root;
+   switch ((se)->direction) {
+   case GDK_SCROLL_UP:
+      be.button = 4;
+      break;
+   case GDK_SCROLL_DOWN:
+      be.button = 5;
+      break;
+   case GDK_SCROLL_LEFT:
+      be.button = 6;
+      break;
+   case GDK_SCROLL_RIGHT:
+      be.button = 7;
+      break;
+   default:
+      g_warning ("invalid scroll direction!");
+      be.button = 0;
+      break;
+   }
+
+   g_signal_emit_by_name (G_OBJECT(widget), "button-press-event",
+                          &be, &retval);
+   be.type = GDK_BUTTON_RELEASE;
+   g_signal_emit_by_name (G_OBJECT(widget), "button-release-event",
+                          &be, &retval);
+
+   return retval;
+}
+
+#else /* USE_GTK2 */
+
+#include <X11/Xlib.h>
+#include <gdk/gdkx.h>
+void
+gdk_window_focus (GdkWindow *window,
+                  guint32    timestamp)
+{
+   XRaiseWindow (GDK_WINDOW_XDISPLAY (window), GDK_WINDOW_XWINDOW (window));
+
+   gdk_error_trap_push ();
+   XSetInputFocus (GDK_WINDOW_XDISPLAY (window),
+                   GDK_WINDOW_XWINDOW (window),
+                   RevertToParent,
+                   timestamp);
+   XSync (GDK_WINDOW_XDISPLAY (window), False);
+   gdk_error_trap_pop ();
+}
+
+#endif /* USE_GTK2 */

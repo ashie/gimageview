@@ -1,0 +1,48 @@
+(I'm not sure that I implement all of these features...)
+
+Problems to be solved immediately.
+
+  * Saving user defined layouts, and adding preference UI.
+  * Printing support using libgimp (implement as plugin).
+  * Save image orientation, and restore automatically when the image is opend.
+  * Checking documents and translating to English.
+  * Treatement of links in archive file.
+  * Bookmark feature.
+  * Refine movie feature.
+  * Enable to display comments on thumbnail view.
+  * Use system wide libexif if exists.
+  * Treatement of meta data embeded in image files.
+  * Enrich useful key bindings and preference UI.
+  * Simple image editing feature (fetch codes from Electric Eyes?)
+  * Managing thumbnail cache feature (remove needless cache, and so on).
+  * Support other various image types.
+  * Support GStreamer.
+  * Enable to display text on image view.
+  * Enable to display thumbnail on file dialog.
+  * Enable to save comments and thumbnail cache under image directory.
+  * Enable to draw image on the window of external process.
+  * Enable to work as w3mimgdisplay.
+  * Other minor improvement for GUI.
+
+Problems to be solved on 0.3.x
+
+  * Progressive loading like GQview.
+  * Refine plugin interface.
+  * Enrich native support of image loaders (at least TIFF, XPM, PNM).
+  * Enrich native support of image savers (at lease JPEG,TIFF, XPM, XBM).
+  * Merge leaf patch provided by TAM XD.
+  * Implement VFS feature, and support archive file completely
+    (adding files, DnD, and so on)
+
+Problems to be solved after 0.3.x
+
+  * Independent from Imlib, gdk-pixbuf (Separate as plugin).
+  * Imlib2 support.
+  * Native support for tar archive.
+  * http/ftp support.
+  * DataBase support.
+
+Related projects
+
+  * Develop "Scripts", and provide as "gimageview-scripts" package.
+    If we needs GUI, we should use Ruby-GNOME.

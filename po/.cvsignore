@@ -1,0 +1,9 @@
+Makefile
+Makefile.in
+POTFILES
+.intltool-merge-cache
+*.rej
+*.orig
+*.gmo
+gimageview.pot
+messages.mo
