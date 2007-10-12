@@ -36,8 +36,6 @@
 #include "gfileutil.h"
 #include "gimv_comment_view.h"
 #include "gimv_dupl_finder.h"
-#include "gimv_hpaned.h"
-#include "gimv_vpaned.h"
 #include "gimv_icon_stock.h"
 #include "gimv_image_win.h"
 #include "gimv_prefs_win.h"
@@ -1721,33 +1719,34 @@ gimv_thumb_win_pane_set_visible (GimvThumbWin *tw,  GimvComponentType item)
       gpane = tw->pane1;
       size = &tw->pane_size1;
    } else {
-      gint pane1_hide_item = gimv_paned_which_hidden (GIMV_PANED(tw->pane1));
-      gint pane2_hide_item = gimv_paned_which_hidden (GIMV_PANED(tw->pane2));
+      gint pane1_hide_item = gtkutil_paned_which_is_hidden (GTK_PANED(tw->pane1));
+      gint pane2_hide_item = gtkutil_paned_which_is_hidden (GTK_PANED(tw->pane2));
 
       /*
        *  directory view and preview are attach to same pane,
        *  and one of them is hidden.
        */
       if (compose.widget_type[0] == GIMV_COM_THUMB_VIEW
-          && gimv_paned_which_hidden (GIMV_PANED(tw->pane2)) != 0
+          && gtkutil_paned_which_is_hidden (GTK_PANED(tw->pane2)) != 0
           && ((pane1_hide_item == 0 && !show) || (pane1_hide_item != 0 && show)))
          {
             gpane = tw->pane1;
             size = &tw->pane_size1;
-            if (GIMV_PANED(tw->pane1)->child1 == tw->pane2) {
+            if (GTK_PANED(tw->pane1)->child1 == tw->pane2) {
                child = 1;
-            } else if (GIMV_PANED(tw->pane1)->child2 == tw->pane2) {
+            } else if (GTK_PANED(tw->pane1)->child2 == tw->pane2) {
                child = 2;
             } else {
                goto FUNC_END;
             }
 
             if (show && (val == pane2_hide_item)) {
-               gimv_paned_split (GIMV_PANED(tw->pane2));
+               gtk_widget_show (GTK_PANED(tw->pane2)->child1);
+               gtk_widget_show (GTK_PANED(tw->pane2)->child2);
                if (pane2_hide_item == 1)
-                  gimv_paned_hide_child2 (GIMV_PANED (tw->pane2));
+                  gtk_widget_hide (GTK_PANED (tw->pane2)->child2);
                else if (pane2_hide_item == 2)
-                  gimv_paned_hide_child1 (GIMV_PANED (tw->pane2));
+                  gtk_widget_hide (GTK_PANED (tw->pane2)->child1);
             }
 
          } else {
@@ -1757,14 +1756,15 @@ gimv_thumb_win_pane_set_visible (GimvThumbWin *tw,  GimvComponentType item)
    }
 
    if (show) {
-      gimv_paned_split (GIMV_PANED (gpane));
-      gimv_paned_set_position (GIMV_PANED (gpane), *size);
+      gtk_widget_show (GTK_PANED (gpane)->child1);
+      gtk_widget_show (GTK_PANED (gpane)->child2);
+      gtk_paned_set_position (GTK_PANED (gpane), *size);
    } else {
-      *size = gimv_paned_get_position (GIMV_PANED (gpane));
+      *size = gtk_paned_get_position (GTK_PANED (gpane));
       if (child == 1)
-         gimv_paned_hide_child1 (GIMV_PANED (gpane));
+         gtk_widget_hide (GTK_PANED (gpane)->child1);
       else
-         gimv_paned_hide_child2 (GIMV_PANED (gpane));
+         gtk_widget_hide (GTK_PANED (gpane)->child2);
    }
 
  FUNC_END:
@@ -1811,27 +1811,27 @@ thumbnail_window_contents_new (GimvThumbWin *tw)
 
    /* compose */
    if (compose.pane2_horizontal)
-      tw->pane2 = gimv_hpaned_new ();
+      tw->pane2 = gtk_hpaned_new ();
    else
-      tw->pane2 = gimv_vpaned_new ();
+      tw->pane2 = gtk_vpaned_new ();
    if (compose.pane1_horizontal)
-      tw->pane1 = gimv_hpaned_new ();
+      tw->pane1 = gtk_hpaned_new ();
    else
-      tw->pane1 = gimv_vpaned_new ();
+      tw->pane1 = gtk_vpaned_new ();
 
    if (compose.pane2_attach_to_child1) {
-      gimv_paned_add1 (GIMV_PANED (tw->pane1), tw->pane2);
-      gimv_paned_add2 (GIMV_PANED (tw->pane1), widget[0]);
+      gtk_paned_add1 (GTK_PANED (tw->pane1), tw->pane2);
+      gtk_paned_add2 (GTK_PANED (tw->pane1), widget[0]);
    } else {
-      gimv_paned_add1 (GIMV_PANED (tw->pane1), widget[0]);
-      gimv_paned_add2 (GIMV_PANED (tw->pane1), tw->pane2);
+      gtk_paned_add1 (GTK_PANED (tw->pane1), widget[0]);
+      gtk_paned_add2 (GTK_PANED (tw->pane1), tw->pane2);
    }
-   gimv_paned_add1 (GIMV_PANED (tw->pane2), widget[1]);
-   gimv_paned_add2 (GIMV_PANED (tw->pane2), widget[2]);
+   gtk_paned_add1 (GTK_PANED (tw->pane2), widget[1]);
+   gtk_paned_add2 (GTK_PANED (tw->pane2), widget[2]);
 
-   gimv_paned_set_position (GIMV_PANED (tw->pane1),
+   gtk_paned_set_position (GTK_PANED (tw->pane1),
                             tw->pane_size1);
-   gimv_paned_set_position (GIMV_PANED (tw->pane2),
+   gtk_paned_set_position (GTK_PANED (tw->pane2),
                             tw->pane_size2);
 
    /* show widget */
@@ -4364,10 +4364,10 @@ gimv_thumb_win_save_state (GimvThumbWin *tw)
 
    if (tw->show_preview)
       conf.thumbwin_pane_size2
-         = gimv_paned_get_position (GIMV_PANED (tw->pane2));
+         = gtk_paned_get_position (GTK_PANED (tw->pane2));
    if (tw->show_dirview)
       conf.thumbwin_pane_size1
-         = gimv_paned_get_position (GIMV_PANED (tw->pane1));
+         = gtk_paned_get_position (GTK_PANED (tw->pane1));
 
    conf.thumbwin_show_preview  = tw->show_preview;
    conf.thumbwin_show_dir_view = tw->show_dirview;

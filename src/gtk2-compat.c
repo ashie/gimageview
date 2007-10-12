@@ -73,25 +73,3 @@ gtk2compat_scroll_to_button_cb (GtkWidget *widget,
 
    return retval;
 }
-
-#include "gimv_paned.h"
-guint
-gimv_paned_which_hidden (GimvPaned *paned)
-{
-   g_return_val_if_fail (GIMV_IS_PANED (paned), 0);
-   g_return_val_if_fail (paned->child1 && paned->child2, 0);
-
-   if (!GTK_WIDGET_VISIBLE (paned->child1)
-       && GTK_WIDGET_VISIBLE (paned->child2))
-   {
-      return 1;
-
-   } else if (GTK_WIDGET_VISIBLE (paned->child1)
-              && !GTK_WIDGET_VISIBLE (paned->child2))
-   {
-      return 2;
-
-   } else {
-      return 0;
-   }
-}
