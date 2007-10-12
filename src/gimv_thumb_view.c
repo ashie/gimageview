@@ -84,8 +84,6 @@ struct GimvThumbViewPriv_Tag
 };
 
 
-static void gimv_thumb_view_class_init (GimvThumbViewClass *klass);
-static void gimv_thumb_view_init       (GimvThumbView *tv);
 static void gimv_thumb_view_destroy    (GtkObject     *object);
 
 
@@ -201,8 +199,6 @@ static GtkItemFactoryEntry thumb_button_popup_items [] =
 
 
 static GList   *GimvThumbViewList = NULL;
-
-static GtkObjectClass *parent_class = NULL;
 
 static guint    total_tab_count = 0;
 
@@ -3480,29 +3476,7 @@ gimv_thumb_view_reset_tab_label (GimvThumbView *tv, const gchar *title)
 }
 
 
-GtkType
-gimv_thumb_view_get_type (void)
-{
-   static GtkType gimv_thumb_view_type = 0;
-
-   if (!gimv_thumb_view_type) {
-      static const GtkTypeInfo gimv_thumb_view_info = {
-         "GimvThumbView",
-         sizeof (GimvThumbView),
-         sizeof (GimvThumbViewClass),
-         (GtkClassInitFunc) gimv_thumb_view_class_init,
-         (GtkObjectInitFunc) gimv_thumb_view_init,
-         NULL,
-         NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      gimv_thumb_view_type = gtk_type_unique (gtk_object_get_type (),
-                                              &gimv_thumb_view_info);
-   }
-
-   return gimv_thumb_view_type;
-}
+G_DEFINE_TYPE (GimvThumbView, gimv_thumb_view, GTK_TYPE_OBJECT)
 
 
 static void
@@ -3513,7 +3487,6 @@ gimv_thumb_view_class_init (GimvThumbViewClass *klass)
    gimv_thumb_view_get_summary_mode_list ();
 
    object_class = (GtkObjectClass *) klass;
-   parent_class = gtk_type_class (gtk_object_get_type ());
 
    object_class->destroy  = gimv_thumb_view_destroy;
 }
@@ -3874,4 +3847,7 @@ gimv_thumb_view_destroy (GtkObject *object)
 
    g_free (tv->tabtitle);
    tv->tabtitle = NULL;
+
+   if (GTK_OBJECT_CLASS (gimv_thumb_view_parent_class)->destroy)
+      (GTK_OBJECT_CLASS (gimv_thumb_view_parent_class)->destroy) (object);
 }

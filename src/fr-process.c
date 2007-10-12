@@ -45,8 +45,10 @@ enum {
    LAST_SIGNAL
 };
 
-static GtkObjectClass *parent_class;
 static guint fr_process_signals[LAST_SIGNAL] = { 0 };
+
+
+G_DEFINE_TYPE (FRProcess, fr_process, GTK_TYPE_OBJECT)
 
 
 static void
@@ -71,8 +73,8 @@ fr_process_destroy (GtkObject *object)
    }
 
    /* Chain up */
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      (* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+   if (GTK_OBJECT_CLASS (fr_process_parent_class)->destroy)
+      (* GTK_OBJECT_CLASS (fr_process_parent_class)->destroy) (object);
 }
 
 
@@ -82,7 +84,6 @@ fr_process_class_init (FRProcessClass *class)
    GtkObjectClass *object_class;
 
    object_class = (GtkObjectClass *) class;
-   parent_class = gtk_type_class (gtk_object_get_type ());
 
    fr_process_signals[START] =
       gtk_signal_new ("start",
@@ -128,31 +129,6 @@ fr_process_init (FRProcess *fr_proc)
 
    gtk_object_ref (GTK_OBJECT (fr_proc));
    gtk_object_sink (GTK_OBJECT (fr_proc));
-}
-
-
-GtkType
-fr_process_get_type (void)
-{
-   static GtkType fr_process_type = 0;
-
-   if (! fr_process_type) {
-      GtkTypeInfo fr_process_info = {
-         "FRProcess",
-         sizeof (FRProcess),
-         sizeof (FRProcessClass),
-         (GtkClassInitFunc) fr_process_class_init,
-         (GtkObjectInitFunc) fr_process_init,
-         NULL, /* reserved_1 */
-         NULL, /* reserved_2 */
-         (GtkClassInitFunc) NULL
-      };
-
-      fr_process_type = gtk_type_unique (gtk_object_get_type (), 
-                                         &fr_process_info);
-   }
-
-   return fr_process_type;
 }
 
 

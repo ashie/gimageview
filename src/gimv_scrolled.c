@@ -58,8 +58,6 @@ enum {
    LAST_SIGNAL
 };
 
-static void     gimv_scrolled_class_init             (GimvScrolledClass  *klass);
-static void     gimv_scrolled_init                   (GimvScrolled       *scrolled);
 static void     gimv_scrolled_set_scroll_adjustments (GtkWidget      *widget, 
                                                  GtkAdjustment  *hadjustment, 
                                                  GtkAdjustment  *vadjustment);
@@ -86,32 +84,10 @@ static gboolean horizontal_timeout             (gpointer         data);
 static gboolean vertical_timeout               (gpointer         data);
 
 
-static GtkWidgetClass *parent_class                   = NULL;
 static guint           gimv_scrolled_signals [LAST_SIGNAL] = {0};
 
 
-GtkType
-gimv_scrolled_get_type (void)
-{
-   static GtkType type = 0;
-
-   if (!type) {
-      static const GtkTypeInfo type_info = {
-         "GimvScrolled",
-         sizeof (GimvScrolled),
-         sizeof (GimvScrolledClass),
-         (GtkClassInitFunc) gimv_scrolled_class_init,
-         (GtkObjectInitFunc) gimv_scrolled_init,
-         /* reserved_1 */ NULL,
-         /* reserved_2 */ NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      type = gtk_type_unique (GTK_TYPE_CONTAINER, &type_info);
-   }
-    
-   return type;
-}
+G_DEFINE_TYPE (GimvScrolled, gimv_scrolled, GTK_TYPE_CONTAINER)
 
 
 static void
@@ -120,8 +96,6 @@ gimv_scrolled_class_init (GimvScrolledClass *klass)
    GtkObjectClass *object_class;
    GtkWidgetClass *widget_class;
    GtkContainerClass *container_class;
-
-   parent_class    = gtk_type_class (GTK_TYPE_CONTAINER);
 
    object_class    = (GtkObjectClass*) klass;
    widget_class    = (GtkWidgetClass*) klass;

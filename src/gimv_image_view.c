@@ -158,8 +158,6 @@ struct GimvImageViewPrivate_Tag
 
 
 /* object class methods */
-static void gimv_image_view_class_init    (GimvImageViewClass *klass);
-static void gimv_image_view_init          (GimvImageView *iv);
 static void gimv_image_view_destroy       (GtkObject *object);
 
 /* image view class methods */
@@ -261,7 +259,6 @@ static void gimv_image_view_get_request_size       (GimvImageView     *iv,
 static GtkWidget *gimv_image_view_create_player_toolbar (GimvImageView *iv);
 
 
-static GtkVBoxClass *parent_class = NULL;
 static gint gimv_image_view_signals[LAST_SIGNAL] = {0};
 
 
@@ -402,30 +399,7 @@ gimv_image_view_plugin_get_list (void)
  *
  *
  ****************************************************************************/
-GtkType
-gimv_image_view_get_type (void)
-{
-   static GtkType gimv_image_view_type = 0;
-
-   if (!gimv_image_view_type) {
-      static const GtkTypeInfo gimv_image_view_info = {
-         "GimvImageView",
-         sizeof (GimvImageView),
-         sizeof (GimvImageViewClass),
-         (GtkClassInitFunc) gimv_image_view_class_init,
-         (GtkObjectInitFunc) gimv_image_view_init,
-         NULL,
-         NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      gimv_image_view_type = gtk_type_unique (gtk_vbox_get_type (),
-                                              &gimv_image_view_info);
-   }
-
-   return gimv_image_view_type;
-}
-
+G_DEFINE_TYPE (GimvImageView, gimv_image_view, GTK_TYPE_VBOX)
 
 enum {
   ARG_0,
@@ -537,7 +511,6 @@ gimv_image_view_class_init (GimvImageViewClass *klass)
    GtkObjectClass *object_class;
 
    object_class = (GtkObjectClass *) klass;
-   parent_class = gtk_type_class (gtk_vbox_get_type ());
 
    gtk_object_add_arg_type ("GimvImageView::x_scale",
                             GTK_TYPE_FLOAT,
@@ -889,8 +862,8 @@ gimv_image_view_destroy (GtkObject *object)
       iv->priv = NULL;
    }
 
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      GTK_OBJECT_CLASS (parent_class)->destroy (object);
+   if (GTK_OBJECT_CLASS (gimv_image_view_parent_class)->destroy)
+      GTK_OBJECT_CLASS (gimv_image_view_parent_class)->destroy (object);
 }
 
 

@@ -50,8 +50,6 @@
 #define STRING_BUFFER_SIZE 1024
 #define CELL_STATE(cell)   (GIMV_ZALBUM_CELL (cell)->flags & GIMV_ZALBUM_CELL_SELECTED ? GTK_STATE_SELECTED : GTK_STATE_NORMAL)
 
-static void gimv_zalbum_class_init          (GimvZAlbumClass    *klass);
-static void gimv_zalbum_init                (GimvZAlbum         *album);
 static void gimv_zalbum_finalize            (GObject *object);
 static void gimv_zalbum_clear               (GimvZList      *list);
 static void gimv_zalbum_cell_size_request   (GimvZList      *list,
@@ -104,36 +102,10 @@ static void gimv_zalbum_cell_unselect       (GimvZList      *list,
                                              int             index);
 
 
-static GtkWidgetClass *parent_class = NULL;
-
 /* static GdkFont *album_font = NULL; */
 
 
-GtkType
-gimv_zalbum_get_type (void) {
-   static GtkType type = 0;
-
-   if (!type) {
-      static const GTypeInfo info = {
-         sizeof (GimvZAlbumClass),
-         NULL,               /* base_init */
-         NULL,               /* base_finalize */
-         (GClassInitFunc)    gimv_zalbum_class_init,
-         NULL,               /* class_finalize */
-         NULL,               /* class_data */
-         sizeof (GimvZAlbum),
-         0,                  /* n_preallocs */
-         (GInstanceInitFunc) gimv_zalbum_init,
-      };
-
-      type = g_type_register_static (GIMV_TYPE_ZLIST,
-                                     "GimvZAlbum",
-                                     &info,
-                                     0);
-   }
-
-   return type;
-}
+G_DEFINE_TYPE (GimvZAlbum, gimv_zalbum, GIMV_TYPE_ZLIST)
 
 
 static void
@@ -141,8 +113,6 @@ gimv_zalbum_class_init (GimvZAlbumClass *klass) {
    GtkObjectClass *object_class;
    GtkWidgetClass *widget_class;
    GimvZListClass *zlist_class;
-
-   parent_class = gtk_type_class (gimv_zlist_get_type());
 
    object_class = (GtkObjectClass *) klass;
    widget_class = (GtkWidgetClass *) klass;
@@ -200,8 +170,8 @@ gimv_zalbum_finalize (GObject *object)
 {
    gimv_zalbum_clear (GIMV_ZLIST (object));
 
-   if (G_OBJECT_CLASS(parent_class)->finalize)
-      G_OBJECT_CLASS(parent_class)->finalize (object);
+   if (G_OBJECT_CLASS(gimv_zalbum_parent_class)->finalize)
+      G_OBJECT_CLASS(gimv_zalbum_parent_class)->finalize (object);
 }
 
 

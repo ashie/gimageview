@@ -39,15 +39,12 @@ typedef enum {
 } GimvDuplFinderSignalType;
 
 
-static void gimv_dupl_finder_class_init (GimvDuplFinderClass *klass);
-static void gimv_dupl_finder_init       (GimvDuplFinder      *finder);
 static void gimv_dupl_finder_destroy    (GtkObject             *object);
 
 gboolean idle_duplicates_find    (gpointer user_data);
 gboolean timeout_duplicates_find (gpointer data);
 
 
-static GtkObjectClass *parent_class = NULL;
 static gint gimv_dupl_finder_signals[LAST_SIGNAL] = {0};
 
 
@@ -86,29 +83,7 @@ gimv_dupl_finder_get_algol_types (void)
 }
 
 
-GtkType
-gimv_dupl_finder_get_type (void)
-{
-   static GtkType gimv_dupl_finder_type = 0;
-
-   if (!gimv_dupl_finder_type) {
-      static const GtkTypeInfo gimv_dupl_finder_info = {
-         "GimvDuplFinder",
-         sizeof (GimvDuplFinder),
-         sizeof (GimvDuplFinderClass),
-         (GtkClassInitFunc) gimv_dupl_finder_class_init,
-         (GtkObjectInitFunc) gimv_dupl_finder_init,
-         NULL,
-         NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      gimv_dupl_finder_type = gtk_type_unique (gtk_object_get_type (),
-                                                &gimv_dupl_finder_info);
-   }
-
-   return gimv_dupl_finder_type;
-}
+G_DEFINE_TYPE (GimvDuplFinder, gimv_dupl_finder, GTK_TYPE_OBJECT)
 
 
 static void
@@ -117,7 +92,6 @@ gimv_dupl_finder_class_init (GimvDuplFinderClass *klass)
    GtkObjectClass *object_class;
 
    object_class = (GtkObjectClass *) klass;
-   parent_class = gtk_type_class (gtk_object_get_type ());
 
    gimv_dupl_finder_signals[START_SIGNAL]
       = gtk_signal_new ("start",
@@ -210,8 +184,8 @@ gimv_dupl_finder_destroy (GtkObject *object)
    finder->src_list  = NULL;
    finder->dest_list = NULL;
 
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+   if (GTK_OBJECT_CLASS (gimv_dupl_finder_parent_class)->destroy)
+      (*GTK_OBJECT_CLASS (gimv_dupl_finder_parent_class)->destroy) (object);
 }
 
 

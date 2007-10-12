@@ -39,9 +39,6 @@ enum {
    gtk_tree_model_iter_n_children (gtk_tree_view_get_model (GTK_TREE_VIEW (widget)), NULL);
 
 
-static void       gimv_dlist_init                     (GimvDList *dslist);
-static void       gimv_dlist_class_init               (GimvDListClass *klass);
-
 /* object class functions */
 static void       gimv_dlist_finalize                 (GObject *object);
 
@@ -52,36 +49,10 @@ static GtkWidget *gimv_dlist_create_list_widget       (GimvDList *dslist,
                                                        gboolean    reorderble);
 
 
-static GtkHBoxClass *parent_class = NULL;
 static gint gimv_dlist_signals[LAST_SIGNAL] = {0};
 
 
-GtkType
-gimv_dlist_get_type (void)
-{
-   static GtkType gimv_dlist_type = 0;
-
-   if (!gimv_dlist_type) {
-      static const GTypeInfo gimv_dlist_info = {
-         sizeof (GimvDListClass),
-         NULL,               /* base_init */
-         NULL,               /* base_finalize */
-         (GClassInitFunc)    gimv_dlist_class_init,
-         NULL,               /* class_finalize */
-         NULL,               /* class_data */
-         sizeof (GimvDList),
-         0,                  /* n_preallocs */
-         (GInstanceInitFunc) gimv_dlist_init,
-      };
-
-      gimv_dlist_type = g_type_register_static (GTK_TYPE_HBOX,
-                                                 "GimvDList",
-                                                 &gimv_dlist_info,
-                                                 0);
-   }
-
-   return gimv_dlist_type;
-}
+G_DEFINE_TYPE (GimvDList, gimv_dlist, GTK_TYPE_HBOX)
 
 
 static void
@@ -110,7 +81,6 @@ gimv_dlist_class_init (GimvDListClass *klass)
    GtkObjectClass *object_class;
 
    object_class = (GtkObjectClass *) klass;
-   parent_class = gtk_type_class (gtk_hbox_get_type ());
 
    gimv_dlist_signals[ENABLED_LIST_UPDATED_SIGNAL]
       = gtk_signal_new ("enabled-list-updated",
@@ -139,8 +109,8 @@ gimv_dlist_finalize (GObject *object)
    g_list_free (dslist->available_list);
    dslist->available_list = NULL;
 
-   if (G_OBJECT_CLASS(parent_class)->finalize)
-      G_OBJECT_CLASS(parent_class)->finalize (object);
+   if (G_OBJECT_CLASS(gimv_dlist_parent_class)->finalize)
+      G_OBJECT_CLASS(gimv_dlist_parent_class)->finalize (object);
 }
 
 

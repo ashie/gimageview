@@ -62,39 +62,13 @@ enum {
 #define g_strcmp(s1,s2) ((s1)!=NULL && (s2)!=NULL?strcmp(s1,s2):0)
 
 
-static void gimv_prefs_class_init (GimvPrefsClass *klass);
-static void gimv_prefs_init       (GimvPrefs      *profile);
 static void gimv_prefs_destroy    (GtkObject      *object);
 
-
-static GtkObjectClass *parent_class = NULL;
 
 static gint gimv_prefs_signals[LAST_SIGNAL] = {0};
 
 
-GtkType
-gimv_prefs_get_type (void)
-{
-   static GtkType gimv_prefs_type = 0;
-
-   if (!gimv_prefs_type) {
-      static const GtkTypeInfo gimv_prefs_info = {
-         "GimvPrefs",
-         sizeof (GimvPrefs),
-         sizeof (GimvPrefsClass),
-         (GtkClassInitFunc) gimv_prefs_class_init,
-         (GtkObjectInitFunc) gimv_prefs_init,
-         NULL,
-         NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      gimv_prefs_type = gtk_type_unique (gtk_object_get_type (),
-					 &gimv_prefs_info);
-   }
-
-   return gimv_prefs_type;
-}
+G_DEFINE_TYPE (GimvPrefs, gimv_prefs, GTK_TYPE_OBJECT)
 
 
 static void
@@ -102,7 +76,6 @@ gimv_prefs_class_init (GimvPrefsClass *klass)
 {
    GtkObjectClass *object_class;
 
-   parent_class = gtk_type_class (gtk_object_get_type ());
    object_class = (GtkObjectClass *) klass;
 
    object_class->destroy = gimv_prefs_destroy;
@@ -209,8 +182,8 @@ gimv_prefs_destroy (GtkObject *object)
 	}
 	profile->sublist = NULL;
 
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		GTK_OBJECT_CLASS (parent_class)->destroy(object);
+	if (GTK_OBJECT_CLASS (gimv_prefs_parent_class)->destroy)
+		GTK_OBJECT_CLASS (gimv_prefs_parent_class)->destroy(object);
 }
 
 

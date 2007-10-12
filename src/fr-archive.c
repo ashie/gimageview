@@ -48,8 +48,10 @@ static GHashTable *ext_archivers = NULL;
 static GList *archive_ext_list = NULL;
 
 
-static GtkObjectClass *parent_class;
 static guint fr_archive_signals[LAST_SIGNAL] = { 0 };
+
+
+G_DEFINE_TYPE (FRArchive, fr_archive, GTK_TYPE_OBJECT)
 
 
 static void
@@ -73,8 +75,8 @@ fr_archive_destroy (GtkObject *object)
       g_free (archive->filename);
 
    /* Chain up */
-   if (GTK_OBJECT_CLASS (parent_class)->destroy)
-      (* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+   if (GTK_OBJECT_CLASS (fr_archive_parent_class)->destroy)
+      (* GTK_OBJECT_CLASS (fr_archive_parent_class)->destroy) (object);
 }
 
 
@@ -84,7 +86,6 @@ fr_archive_class_init (FRArchiveClass *class)
    GtkObjectClass *object_class;
 
    object_class = (GtkObjectClass *) class;
-   parent_class = gtk_type_class (gtk_object_get_type ());
 
    fr_archive_signals[START] =
       gtk_signal_new ("start",
@@ -120,31 +121,6 @@ fr_archive_init (FRArchive *archive)
 
    gtk_object_ref (GTK_OBJECT (archive));
    gtk_object_sink (GTK_OBJECT (archive));
-}
-
-
-GtkType
-fr_archive_get_type (void)
-{
-   static GtkType fr_archive_type = 0;
-
-   if (! fr_archive_type) {
-      GtkTypeInfo fr_archive_info = {
-         "FRArchive",
-         sizeof (FRArchive),
-         sizeof (FRArchiveClass),
-         (GtkClassInitFunc) fr_archive_class_init,
-         (GtkObjectInitFunc) fr_archive_init,
-         NULL, /* reserved_1 */
-         NULL, /* reserved_2 */
-         (GtkClassInitFunc) NULL
-      };
-
-      fr_archive_type = gtk_type_unique (gtk_object_get_type (), 
-                                         &fr_archive_info);
-   }
-
-   return fr_archive_type;
 }
 
 
