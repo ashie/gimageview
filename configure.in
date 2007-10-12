@@ -112,34 +112,22 @@ AC_SUBST(GMODULE2_REQUIRED)
 AC_SUBST(GTK2_REQUIRED)
 AC_SUBST(GDK_PIXBUF2_REQUIRED)
 
-GTK2_TARGET=gtk+-2.0
-
 
 dnl ******************************
 dnl Check for GTK
 dnl ******************************
-AC_ARG_WITH(gtk2,
-   [  --with-gtk2             Use Gtk+-2.0 (experimental) [default=no]],
-   [enable_gtk2="${withval}"], [enable_gtk2=no])
-if test x"$enable_gtk2" != xno; then
-   if test x"$enable_gtk2" != xyes; then
-      GTK2_TARGET=$enable_gtk2
-   fi
-   PKG_CHECK_MODULES(GTK,
-	glib-2.0 >= $GLIB2_REQUIRED
-	gmodule-2.0 >= $GMODULE2_REQUIRED
-	gdk-pixbuf-2.0 >= $GDK_PIXBUF2_REQUIRED
-	$GTK2_TARGET >= $GTK2_REQUIRED, ,
-      [ AC_MSG_ERROR(Test for GTK+-2.0 failed. See the file 'INSTALL' for help) ])
-   AC_SUBST(GTK_CFLAGS)
-   AC_SUBST(GTK_LIBS)
-   AC_DEFINE(USE_GTK2, 1, [Define if you want to compile against Gtk+2.])
-   AC_DEFINE(USE_NORMAL_PANED, 1, [Define if you want to use Gtk's normal paned widget.])
-   AC_DEFINE(ENABLE_TREEVIEW, 1, [Define if you want to use GtkTreeView.])
-else
-   AM_PATH_GTK($GTK_REQUIRED, ,
-	AC_MSG_ERROR(Test for GTK failed. See the file 'INSTALL' for help))
-fi
+enable_gtk2=yes
+PKG_CHECK_MODULES(GTK,
+   [glib-2.0       >= $GLIB2_REQUIRED
+    gmodule-2.0    >= $GMODULE2_REQUIRED
+    gdk-pixbuf-2.0 >= $GDK_PIXBUF2_REQUIRED
+    gtk+-2.0       >= $GTK2_REQUIRED], ,
+   [ AC_MSG_ERROR(Test for GTK+-2.0 failed. See the file 'INSTALL' for help) ])
+AC_SUBST(GTK_CFLAGS)
+AC_SUBST(GTK_LIBS)
+AC_DEFINE(USE_GTK2, 1, [Define if you want to compile against Gtk+2.])
+AC_DEFINE(USE_NORMAL_PANED, 1, [Define if you want to use Gtk's normal paned widget.])
+AC_DEFINE(ENABLE_TREEVIEW, 1, [Define if you want to use GtkTreeView.])
 
 
 dnl ******************************
@@ -716,7 +704,6 @@ Configure Result :
 
    C Compiler    : ${CC} ${CFLAGS}
    Install path  : ${prefix}
-   Gtk+-2.0      : ${enable_gtk2}
    Image library : ${image_library}
    JPEG (libjpg) : ${enable_jpeg}
    MNG  (libmng) : ${enable_mng}
