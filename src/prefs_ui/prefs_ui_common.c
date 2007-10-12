@@ -74,7 +74,6 @@ static const gchar *open_window_items[] = {
 };
 
 
-#if HAVE_GDK_PIXBUF
 static const gchar *interpolation_items[] = {
    N_("Nearest"),
    N_("Tiles"),
@@ -82,7 +81,6 @@ static const gchar *interpolation_items[] = {
    N_("Hyperbolic"),
    NULL
 };
-#endif /* HAVE_GDK_PIXBUF */
 
 
 static const gchar *charset_to_internal_items[] = {
@@ -532,9 +530,7 @@ GtkWidget *
 prefs_common_page (void)
 {
    GtkWidget *main_vbox, *frame, *table, *vbox, *alignment;
-#if HAVE_GDK_PIXBUF
    GtkWidget *hbox;
-#endif /* HAVE_GDK_PIXBUF */
    GtkWidget *label;
    GtkWidget *option_menu;
    GtkWidget *toggle, *radio0, *radio1, *radio2;
@@ -645,7 +641,6 @@ prefs_common_page (void)
                        GINT_TO_POINTER(2));
 
 
-#if HAVE_GDK_PIXBUF
    /********************************************** 
     * Image Frame
     **********************************************/
@@ -661,7 +656,6 @@ prefs_common_page (void)
                                             conf.interpolation,
                                             (gint *) &config_changed->interpolation);
    gtk_box_pack_start (GTK_BOX (hbox), option_menu, FALSE, FALSE, 5);
-#endif /* HAVE_GDK_PIXBUF */
 
    /********************************************** 
     * Start up Frame

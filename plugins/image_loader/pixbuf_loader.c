@@ -21,8 +21,6 @@
 
 #include "pixbuf_loader.h"
 
-#ifdef HAVE_GDK_PIXBUF
-
 #include <gdk-pixbuf/gdk-pixbuf-loader.h>
 
 #include "pixbuf_anim.h"
@@ -284,19 +282,6 @@ cb_area_updated (GdkPixbufLoader *loader,
 }
 
 
-#ifndef USE_GTK2
-static void
-cb_frame_done (GdkPixbufLoader *loader,
-               gpointer arg1,
-               gboolean *ret)
-{
-   g_return_if_fail (ret);
-
-   *ret = TRUE;
-}
-#endif
-
-
 GimvImage *
 pixbuf_load (GimvImageLoader *loader, gpointer data)
 {
@@ -328,35 +313,19 @@ pixbuf_load (GimvImageLoader *loader, gpointer data)
    g_return_val_if_fail (pixbuf_loader, NULL);
 
    /* set signals */
-#ifdef USE_GTK2
    g_signal_connect (G_OBJECT (pixbuf_loader), "area-prepared",
                      G_CALLBACK (cb_area_prepared),
                      &prepared);
    g_signal_connect (G_OBJECT (pixbuf_loader), "area-updated",
                      G_CALLBACK (cb_area_updated),
                      &updated);
-#else
-   gtk_signal_connect (GTK_OBJECT (pixbuf_loader), "area-prepared",
-                       GTK_SIGNAL_FUNC (cb_area_prepared),
-                       &prepared);
-   gtk_signal_connect (GTK_OBJECT (pixbuf_loader), "area-updated",
-                       GTK_SIGNAL_FUNC (cb_area_updated),
-                       &updated);
-   gtk_signal_connect (GTK_OBJECT (pixbuf_loader), "frame-done",
-                       GTK_SIGNAL_FUNC (cb_frame_done),
-                       &frame_done);
-#endif
 
    /* load */
    for (i = 0;; i++) {
       gimv_io_read (gio, buf, buf_size, &bytes);
 
       if ((gint) bytes > 0) {
-#ifdef USE_GTK2
          gdk_pixbuf_loader_write (pixbuf_loader, buf, bytes, NULL);
-#else
-         gdk_pixbuf_loader_write (pixbuf_loader, buf, bytes);
-#endif
       } else {
          break;
       }
@@ -369,11 +338,7 @@ pixbuf_load (GimvImageLoader *loader, gpointer data)
 
    if (!prepared) goto FUNC_END;
 
-#ifdef USE_GTK2
    if (gimv_image_loader_load_as_animation(loader)) {
-#else
-   if (gimv_image_loader_load_as_animation(loader) && frame_done) {
-#endif
       GdkPixbufAnimation *anim;
       anim = gdk_pixbuf_loader_get_animation (pixbuf_loader);
       if (anim) {
@@ -393,13 +358,8 @@ pixbuf_load (GimvImageLoader *loader, gpointer data)
    }
 
  FUNC_END:
-#ifdef USE_GTK2
    gdk_pixbuf_loader_close (pixbuf_loader, NULL);
    g_object_unref (G_OBJECT (pixbuf_loader));
-#else
-   gdk_pixbuf_loader_close (pixbuf_loader);
-   gtk_object_unref (GTK_OBJECT (pixbuf_loader));
-#endif
 
    return image;
 }
@@ -428,7 +388,6 @@ pixbuf_load_file (GimvImageLoader *loader, gpointer data)
    if (!file_exists (filename))
       return NULL;
 
-#ifdef USE_GTK2
    if (gimv_image_loader_load_as_animation(loader)) {
       GdkPixbufAnimation *anim;
       anim = gdk_pixbuf_animation_new_from_file (filename, NULL);
@@ -440,19 +399,6 @@ pixbuf_load_file (GimvImageLoader *loader, gpointer data)
       image = gimv_image_new ();
       image->image = gdk_pixbuf_new_from_file (filename, NULL);
    }
-#else
-   if (gimv_image_loader_load_as_animation(loader)) {
-      GdkPixbufAnimation *anim;
-      anim = gdk_pixbuf_animation_new_from_file (filename);
-      if (anim) {
-         image = gimv_anim_new_from_gdk_pixbuf_animation (anim);
-         gdk_pixbuf_animation_unref (anim);
-      }
-   } else {
-      image = gimv_image_new ();
-      image->image = gdk_pixbuf_new_from_file (filename);
-   }
-#endif /* USE_GTK2 */
 
    if (image && !image->image) {
       gimv_image_unref (image);
@@ -461,5 +407,3 @@ pixbuf_load_file (GimvImageLoader *loader, gpointer data)
 
    return image;
 }
-
-#endif /* HAVE_GDK_PIXBUF */

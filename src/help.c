@@ -26,9 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/utsname.h>
-#if HAVE_GDK_PIXBUF
-#  include <gdk-pixbuf/gdk-pixbuf-features.h>
-#endif
+#include <gdk-pixbuf/gdk-pixbuf-features.h>
 
 #include "charset.h"
 #include "fileutil.h"
@@ -534,12 +532,10 @@ gimvhelp_create_info_widget (void)
                   mng_version_text ());
       strncat (buf, alt_string, BUF_SIZE - strlen (buf));
 #endif
-#ifdef HAVE_GDK_PIXBUF
       g_snprintf (alt_string, sizeof (alt_string) / sizeof (gchar),
                   _("gdk-pixbuf version : %s\n"),
                   gdk_pixbuf_version);
       strncat (buf, alt_string, BUF_SIZE - strlen (buf));
-#endif
 #ifdef ENABLE_SVG
       g_snprintf (alt_string, sizeof (alt_string) / sizeof (gchar),
                   _("librsvg version : %s\n"),

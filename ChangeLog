@@ -1,5 +1,20 @@
 2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
 
+	* configure.in
+	  plugins/image_loader/pixbuf_anim.c
+	  plugins/image_loader/pixbuf_anim.h
+	  plugins/image_loader/pixbuf_loader.c
+	  plugins/image_loader/pixbuf_loader.h
+	  plugins/image_loader/svg.c
+	  plugins/image_loader/Makefile.am
+	  src/pixbuf_utils.c
+	  src/pixbuf_utils.h
+	  src/prefs_ui/prefs_ui_common.c
+	  src/help.c:
+	Remove ENABLE_GDK_PIXBUF and HAVE_GDK_PIXBUF
+
+2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
+
 	* src/gimv_anim.c, src/gimv_image.c: Remove imlib related code.
 
 2007-10-12 Takuro Ashie <ashie@homa.ne.jp>

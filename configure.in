@@ -125,16 +125,9 @@ AC_DEFINE(ENABLE_TREEVIEW, 1, [Define if you want to use GtkTreeView.])
 dnl ******************************
 dnl Check for image libraries
 dnl ******************************
-disable_imlib=yes
-disable_gdk_pixbuf=no
-have_gdk_pixbuf=yes
-
 GIMV_IMAGELIB_CFLAGS=""
 GIMV_IMAGELIB_LIBS=""
 
-AC_DEFINE(HAVE_GDK_PIXBUF, 1, [Define if you have GdkPixbuf.])
-AM_CONDITIONAL(ENABLE_GDK_PIXBUF, test "x$disable_gdk_pixbuf" = xno -a "x$have_gdk_pixbuf" = xyes)
-AM_CONDITIONAL(ENABLE_GDK_IMLIB,  test "x$disable_imlib" = xno -a "x$have_imlib" = xyes)
 AC_SUBST(GIMV_IMAGELIB_CFLAGS)
 AC_SUBST(GIMV_IMAGELIB_LIBS)
 
@@ -319,21 +312,10 @@ AC_ARG_WITH(librsvg,
             enable_librsvg=yes)
 
 if test x"$enable_librsvg" = xyes; then
-   if test x"$enable_gtk2" != xno; then 
-      PKG_CHECK_MODULES(LIBRSVG, librsvg-2.0, , [
-         enable_librsvg=no;
-         AC_MSG_WARN(Did not find librsvg-2.0 installed)
-      ])
-   else
-      if test x"$disable_gdk_pixbuf" = xno -a x"$have_gdk_pixbuf" = xyes; then
-         AM_PATH_GNOME(1.2.8, [], [
-            enable_librsvg=no;
-            AC_MSG_WARN(Did not find librsvg installed)
-         ], xml librsvg)
-      else
-         enable_librsvg=no;
-      fi
-   fi
+   PKG_CHECK_MODULES(LIBRSVG, librsvg-2.0, , [
+      enable_librsvg=no;
+      AC_MSG_WARN(Did not find librsvg-2.0 installed)
+   ])
 fi
 
 AM_CONDITIONAL(ENABLE_LIBRSVG, test x"$enable_librsvg" = xyes)

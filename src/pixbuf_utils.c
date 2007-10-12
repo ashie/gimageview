@@ -12,8 +12,6 @@
 
 #include "pixbuf_utils.h"
 
-#if HAVE_GDK_PIXBUF
-
 #include <gdk-pixbuf/gdk-pixbuf-loader.h>
 
 
@@ -143,5 +141,3 @@ pixmap_from_xpm (const char **data,
    gdk_pixbuf_render_pixmap_and_mask (pixbuf, pixmap, mask, 127);
    gdk_pixbuf_unref (pixbuf);
 }
-
-#endif /* HAVE_GDK_PIXBUF */
