@@ -22,7 +22,7 @@ gimv_SOURCES = \
 	auto_completion.c auto_completion.h \
 	charset.c charset.h \
 	cursors.c cursors.h \
-	dirview.c dirview.h dirview_priv.h \
+	dirview.c dirview.h \
 	dither.c dither.h \
 	dnd.c dnd.h \
 	exif_view.c exif_view.h \
