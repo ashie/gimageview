@@ -85,18 +85,10 @@ AM_PROG_LIBTOOL
 dnl ******************************
 dnl required library version
 dnl ******************************
-GLIB_REQUIRED=1.2.6
-GTK_REQUIRED=1.2.6
-IMLIB_REQUIRED=1.9
-GDK_PIXBUF_REQUIRED=0.8.0
 LIBRSVG_REQUIRED=1.0.0
 LIBWMF_REQUIRED=0.2.8
 XINE_REQUIRED=1.0.0
 
-AC_SUBST(GLIB_REQUIRED)
-AC_SUBST(GTK_REQUIRED)
-AC_SUBST(IMLIB_REQUIRED)
-AC_SUBST(GDK_PIXBUF_REQUIRED)
 AC_SUBST(LIBRSVG_REQUIRED)
 AC_SUBST(LIBWMF_REQUIRED)
 AC_SUBST(XINE_REQUIRED)
@@ -133,66 +125,19 @@ AC_DEFINE(ENABLE_TREEVIEW, 1, [Define if you want to use GtkTreeView.])
 dnl ******************************
 dnl Check for image libraries
 dnl ******************************
-AC_ARG_ENABLE(imlib,
-   [  --disable-imlib         Do not use imlib],
-   [disable_imlib=yes], [disable_imlib=no])
-AC_ARG_ENABLE(gdk-pixbuf,
-   [  --disable-gdk-pixbuf    Do not use gdk-pixbuf],
-   [disable_gdk_pixbuf=yes], [disable_gdk_pixbuf=no])
-
-if test x"$disable_imlib" = xyes -a x"$disable_gdk_pixbuf" = xyes; then
-   AC_MSG_ERROR(*** No image libraries are enabled. GImageView needs Imlib or gdk-pixbuf. ***)
-fi
-
-dnl force use gdk-pixbuf if compile against Gtk+-2.0
-if test x"$enable_gtk2" != xno; then
-   disable_imlib=yes
-   disable_gdk_pixbuf=no
-fi
-
-if test x"$enable_gtk2" != xno; then
-   have_gdk_pixbuf=yes
-else
-   AM_PATH_GDK_IMLIB($IMLIB_REQUIRED,
-      [have_imlib=yes],
-      [have_imlib=no])
-   AM_PATH_GDK_PIXBUF($GDK_PIXBUF_REQUIRED,
-      [have_gdk_pixbuf=yes],
-      [have_gdk_pixbuf=no])
-fi
+disable_imlib=yes
+disable_gdk_pixbuf=no
+have_gdk_pixbuf=yes
 
 GIMV_IMAGELIB_CFLAGS=""
 GIMV_IMAGELIB_LIBS=""
 
-if test x"$disable_gdk_pixbuf" = xno -a x"$have_gdk_pixbuf" = xyes; then
-   image_library="gdk-pixbuf"
-   if test x"$enable_gtk2" != xno; then
-dnl   already checked with gtk+-2.0
-      GIMV_IMAGELIB_CFLAGS=""
-      GIMV_IMAGELIB_LIBS=""
-   else
-      GIMV_IMAGELIB_CFLAGS=${GDK_PIXBUF_CFLAGS}
-      GIMV_IMAGELIB_LIBS=${GDK_PIXBUF_LIBS}
-   fi
-   disable_imlib=yes
-   AC_DEFINE(HAVE_GDK_PIXBUF, 1, [Define if you have GdkPixbuf.])
-else
-   disable_gdk_pixbuf=yes
-   have_gdk_pixbuf=no
-   if test x"$disable_imlib" = xno -a x"$have_imlib" = xyes; then
-      image_library="Imlib"
-      GIMV_IMAGELIB_CFLAGS=${GDK_IMLIB_CFLAGS}
-      GIMV_IMAGELIB_LIBS=${GDK_IMLIB_LIBS}
-      AC_DEFINE(HAVE_GDK_IMLIB, 1, [Define if you have Imlib1.])
-   else
-      AC_MSG_ERROR(*** No image libraries are enabled. GImageView needs Imlib or gdk-pixbuf. ***)
-   fi
-fi
-
+AC_DEFINE(HAVE_GDK_PIXBUF, 1, [Define if you have GdkPixbuf.])
 AM_CONDITIONAL(ENABLE_GDK_PIXBUF, test "x$disable_gdk_pixbuf" = xno -a "x$have_gdk_pixbuf" = xyes)
 AM_CONDITIONAL(ENABLE_GDK_IMLIB,  test "x$disable_imlib" = xno -a "x$have_imlib" = xyes)
 AC_SUBST(GIMV_IMAGELIB_CFLAGS)
 AC_SUBST(GIMV_IMAGELIB_LIBS)
+
 
 
 dnl ********************
@@ -702,9 +647,9 @@ dnl
 AC_MSG_RESULT([
 Configure Result :
 
-   C Compiler    : ${CC} ${CFLAGS}
+   C Compiler    : ${CC}
+   CFLAGS        : ${CFLAGS}
    Install path  : ${prefix}
-   Image library : ${image_library}
    JPEG (libjpg) : ${enable_jpeg}
    MNG  (libmng) : ${enable_mng}
    SVG  (librsvg): ${enable_librsvg}
