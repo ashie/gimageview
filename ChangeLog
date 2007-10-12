@@ -1,6 +1,12 @@
 2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
 
-	* configure.ac: Remove USE_GTK2 and USE_NORMAL_PANED.
+	* configure.in, src/gimv_dupl_win.c, src/gimv_prefs_win.c,
+	  src/prefs_ui/prefs_ui_thumbwin.c, plugins/image_loader/prefs_spi.c:
+	Remove ENABLE_TREEVIEW.
+
+2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
+
+	* configure.in: Remove USE_GTK2 and USE_NORMAL_PANED.
 
 2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
 

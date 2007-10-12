@@ -55,9 +55,6 @@ typedef struct GimvPrefsWinPagePrivate_Tag
 {
    GimvPrefsWinPage *page;
    GtkWidget    *widget;
-#ifndef ENABLE_TREEVIEW
-   GtkCTreeNode *node;
-#endif /* ENABLE_TREEVIEW */
 } GimvPrefsWinPagePrivate;
 
 
@@ -274,11 +271,6 @@ prefs_win_set_page (const gchar *path)
                                 priv->widget);
    if (num >= 0)
       gtk_notebook_set_page (GTK_NOTEBOOK (prefs_win.notebook), num);
-
-#ifdef ENABLE_TREEVIEW
-#else /* ENABLE_TREEVIEW */
-   /* gtk_ctree_select (GTK_CTREE (prefs_win.tree), priv->node); */
-#endif /* ENABLE_TREEVIEW */
 }
 
 
@@ -309,8 +301,6 @@ get_icon (const gchar *name, GdkPixmap **pixmap, GdkBitmap **mask)
    }
 }
 
-
-#ifdef ENABLE_TREEVIEW
 
 typedef enum {
    COLUMN_TERMINATOR = -1,
@@ -542,147 +532,6 @@ prefs_win_create_navtree (void)
 
    return tree;
 }
-
-#else /* ENABLE_TREEVIEW */
-
-static gboolean
-cb_ctree_key_press (GtkWidget *widget, GdkEventKey *event, gpointer data)
-{
-   GList *sel;
-   GtkCTreeNode *node;
-
-   g_return_val_if_fail (GTK_IS_CLIST (widget), FALSE);
-
-   sel = GTK_CLIST (widget)->selection;
-   if (!sel) return FALSE;
-   node = sel->data;
-
-   switch (event->keyval) {
-   case GDK_KP_Enter:
-   case GDK_Return:
-   case GDK_ISO_Enter:
-   case GDK_space:
-      gtk_ctree_toggle_expansion (GTK_CTREE (widget), node);
-      break;
-   case GDK_Right:
-      gtk_ctree_expand (GTK_CTREE (widget), node);
-      return TRUE;
-      break;
-   case GDK_Left:
-      gtk_ctree_collapse (GTK_CTREE (widget), node);
-      return TRUE;
-      break;
-   default:
-      break;
-   }
-
-   return FALSE;
-}
-
-
-static void
-cb_ctree_select_row (GtkWidget *widget, gint row, gint column,
-                     GdkEventButton *event, gpointer data)
-{
-   GtkCTreeNode *node;
-   GimvPrefsWinPagePrivate *priv;
-
-   node = gtk_ctree_node_nth (GTK_CTREE (widget), row);
-   if (!node) return;
-
-   priv = gtk_ctree_node_get_row_data (GTK_CTREE (widget), node);
-   if (priv->page)
-      prefs_win_set_page (priv->page->path);
-}
-
-
-static GtkCTreeNode *
-prefs_win_navtree_get_parent (GimvPrefsWinPage *page)
-{
-   GList *node = NULL;
-   gchar *parent;
-
-   g_return_val_if_fail (page, NULL);
-   g_return_val_if_fail (page->path, NULL);
-
-   if (!page->path) return NULL;
-   parent = g_dirname (page->path);
-
-   for (node = priv_page_list; node; node = g_list_next (node)) {
-      GimvPrefsWinPagePrivate *priv = node->data;
-      if (priv && priv->page && !strcmp (parent, priv->page->path)) {
-         g_free (parent);
-         return priv->node;
-      }
-   }
-
-   g_free (parent);
-
-   return NULL;
-}
-
-
-static GtkWidget *
-prefs_win_create_navtree (void)
-{
-   GtkWidget *ctree;
-   GtkCTreeNode *node, *parent = NULL;
-   GList *lnode;
-
-   /* create tree */
-   ctree = prefs_win.tree = gtk_ctree_new (1,0);
-   prefs_win.tree = ctree;
-   gtk_clist_set_column_auto_resize (GTK_CLIST (ctree), 0, TRUE);
-   gtk_clist_set_selection_mode (GTK_CLIST (ctree), GTK_SELECTION_BROWSE);
-   gtk_ctree_set_line_style (GTK_CTREE (ctree), conf.dirview_line_style);
-   gtk_ctree_set_expander_style (GTK_CTREE (ctree), conf.dirview_expander_style);
-   gtk_clist_set_row_height (GTK_CLIST (ctree), 18);
-
-   gtk_signal_connect (GTK_OBJECT (ctree), "key_press_event",
-                       GTK_SIGNAL_FUNC (cb_ctree_key_press), NULL);
-   gtk_signal_connect (GTK_OBJECT (ctree), "select-row",
-                       GTK_SIGNAL_FUNC (cb_ctree_select_row), NULL);
-
-   /* create pages */
-   for (lnode = get_page_entries_list(); lnode; lnode = g_list_next (lnode)) {
-      GimvPrefsWinPage *page = lnode->data;
-      const gchar *title;
-      GdkPixmap *pixmap = NULL, *opixmap = NULL;
-      GdkBitmap *mask = NULL, *omask = NULL;
-      GimvPrefsWinPagePrivate *priv;
-
-      if (!page || !page->path) continue;
-
-      /* translate page title */
-      title = g_basename (_(page->path));
-
-      /* get node icon */
-      get_icon (page->icon,      &pixmap,  &mask);
-      get_icon (page->icon_open, &opixmap, &omask);
-
-      /* insert node */
-      parent = prefs_win_navtree_get_parent (page);
-      node = gtk_ctree_insert_node (GTK_CTREE (ctree), parent, NULL,
-                                    (gchar **) &title, 4,
-                                    pixmap, mask,
-                                    opixmap, omask,
-                                    FALSE, FALSE);
-
-      /* set private data */
-      priv = g_new0 (GimvPrefsWinPagePrivate, 1);
-      priv->page   = page;
-      priv->widget = NULL;
-      priv->node   = node;
-
-      priv_page_list = g_list_append (priv_page_list, priv);
-
-      gtk_ctree_node_set_row_data (GTK_CTREE(ctree), node, priv);
-   }
-
-   return ctree;
-}
-
-#endif /* ENABLE_TREEVIEW */
 
 
 
