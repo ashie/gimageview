@@ -120,10 +120,8 @@ gimv_thumb_init (GimvThumb *thumb)
    /* will be removed! */
    thumb->selected   = FALSE;
 
-#ifdef USE_GTK2
    gtk_object_ref (GTK_OBJECT (thumb));
    gtk_object_sink (GTK_OBJECT (thumb));
-#endif
 }
 
 
@@ -525,11 +523,7 @@ gimv_thumb_get_thumb_by_widget (GimvThumb *thumb)
    g_return_val_if_fail (GIMV_IS_THUMB (thumb), NULL);
    if (!thumb->thumbnail) return NULL;
 
-#ifdef USE_GTK2
    return gtk_image_new_from_pixmap (thumb->thumbnail, thumb->thumbnail_mask);
-#else /* USE_GTK2 */
-   return gtk_pixmap_new (thumb->thumbnail, thumb->thumbnail_mask);
-#endif /* USE_GTK2 */
 }
 
 
@@ -550,11 +544,7 @@ gimv_thumb_get_icon_by_widget (GimvThumb *thumb)
    g_return_val_if_fail (GIMV_IS_THUMB (thumb), NULL);
    if (!thumb->icon) return NULL;
 
-#ifdef USE_GTK2
    return gtk_image_new_from_pixmap (thumb->thumbnail, thumb->thumbnail_mask);
-#else /* USE_GTK2 */
-   return gtk_pixmap_new (thumb->icon, thumb->icon_mask);
-#endif /* USE_GTK2 */
 }
 
 

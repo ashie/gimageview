@@ -30,9 +30,7 @@
 #  include "config.h"
 #endif
 
-#ifdef USE_GTK2
-#  include <gdk-pixbuf/gdk-pixbuf.h>
-#endif /* USE_GTK2 */
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 
 #define DEFAULT_ICONSET "default"
@@ -48,9 +46,7 @@ typedef struct GimvIconStockEntry_Tag
 typedef struct GimvIcon_Tag {
    GdkPixmap *pixmap;
    GdkBitmap *mask;
-#ifdef USE_GTK2
    GdkPixbuf *pixbuf;
-#endif /* USE_GTK2 */
 } GimvIcon;
 
 
@@ -63,9 +59,7 @@ void       gimv_icon_stock_free_icon          (const gchar *icon_name);
 void       gimv_icon_stock_set_window_icon    (GdkWindow   *window,
                                                gchar       *name);
 
-#ifdef USE_GTK2
 GdkPixbuf *gimv_icon_stock_get_pixbuf         (const gchar *icon_name);
 void       gimv_icon_stock_free_pixbuf        (const gchar *icon_name);
-#endif /* USE_GTK2 */
 
 #endif /* __GIMV_ICON_STOCK_H__ */

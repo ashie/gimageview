@@ -177,10 +177,8 @@ gimv_image_saver_init (GimvImageSaver *saver)
    saver->priv        = g_new0 (GimvImageSaverPriv, 1);
    saver->priv->flags = 0;
 
-#ifdef USE_GTK2
    gtk_object_ref (GTK_OBJECT (saver));
    gtk_object_sink (GTK_OBJECT (saver));
-#endif
 }
 
 

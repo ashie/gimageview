@@ -685,19 +685,10 @@ navwin_set_win_pos_size (GimvNavWin *navwin)
 {
    g_return_if_fail (GIMV_IS_NAV_WIN (navwin));
 
-#ifdef USE_GTK2
    gtk_window_move   (GTK_WINDOW (navwin),
                       navwin->popup_x,
                       navwin->popup_y);
    gtk_window_resize (GTK_WINDOW (navwin),
                       navwin->popup_width  + BORDER_WIDTH * 2, 
                       navwin->popup_height + BORDER_WIDTH * 2);
-#else /* USE_GTK2 */
-   gtk_widget_set_uposition (GTK_WIDGET (navwin),
-                             navwin->popup_x,
-                             navwin->popup_y);
-   gtk_widget_set_usize     (GTK_WIDGET (navwin),
-                             navwin->popup_width  + BORDER_WIDTH * 2, 
-                             navwin->popup_height + BORDER_WIDTH * 2);
-#endif /* USE_GTK2 */
 }

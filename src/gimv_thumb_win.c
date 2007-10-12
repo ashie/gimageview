@@ -286,10 +286,8 @@ static void cb_tab_submenu_hide     (GtkWidget     *widget,
                                      GimvThumbWin  *tw);
 
 /* callback function for toolbar buttons */
-#ifdef USE_GTK2
 static void cb_location_entry_enter              (GtkEditable  *entry,
                                                   GimvThumbWin *tw);
-#endif /* USE_GTK2 */
 static void cb_location_entry_drag_data_received (GtkWidget *widget,
                                                   GdkDragContext  *context,
                                                   gint x, gint y,
@@ -359,14 +357,14 @@ static void cb_com_swap_drag_data_received(GtkWidget        *widget,
                                            guint             info,
                                            guint             time,
                                            gpointer          data);
-#ifdef USE_GTK2   /* FIXME */
+#if 1   /* FIXME */
 static gboolean cb_focus_in               (GtkWidget        *widget,
                                            GdkEventFocus    *event,
                                            GimvThumbWin     *tw);
 static gboolean cb_focus_out              (GtkWidget        *widget,
                                            GdkEventFocus    *event,
                                            GimvThumbWin     *tw);
-#endif /* USE_GTK2 */
+#endif
 
 
 /******************************************************************************
@@ -470,9 +468,7 @@ GtkItemFactoryEntry gimv_thumb_win_view_items [] =
    {N_("/Slideshow Opt_ions"),    NULL,          NULL,                 0,                       "<Branch>"},  
    {N_("/Slideshow Opt_ions/Start from the _first"),   NULL, cb_slideshow_order,     SLIDESHOW_START_FROM_FIRST,    "<RadioItem>"},
    {N_("/Slideshow Opt_ions/Start from the se_lected"),NULL, cb_slideshow_order,     SLIDESHOW_START_FROM_SELECTED, "/Slideshow Options/Start from the first"},
-#ifdef USE_GTK2
    {N_("/Slideshow Opt_ions/_Random order"),           NULL, cb_slideshow_order,     SLIDESHOW_RANDOM_ORDER,        "/Slideshow Options/Start from the selected"},
-#endif /* USE_GTK2 */
    {N_("/Slideshow Opt_ions/---"),                     NULL, NULL,                   0,                             "<Separator>"},
    {N_("/Slideshow Opt_ions/_Selected only"),          NULL, cb_slideshow_selected,  0,                             "<CheckItem>"},
    {N_("/Slideshow Opt_ions/---"),                     NULL, NULL,                   0,                             "<Separator>"},
@@ -644,9 +640,7 @@ gimv_thumb_win_init (GimvThumbWin *tw)
 
    ThumbWinList = g_list_append (ThumbWinList, tw);
 
-#ifdef USE_GTK2
    tw->accel_group_list = NULL;
-#endif /* USE_GTK2 */
 
    /* window */
    gtk_widget_set_name (GTK_WIDGET (tw), "ThumbWin");
@@ -695,16 +689,14 @@ gimv_thumb_win_init (GimvThumbWin *tw)
    dnd_dest_set (tw->location_entry, dnd_types_uri, dnd_types_uri_num);
    gtk_signal_connect(GTK_OBJECT (tw->location_entry), "drag_data_received",
                       GTK_SIGNAL_FUNC (cb_location_entry_drag_data_received), tw);
-#ifdef USE_GTK2
    gtk_signal_connect(GTK_OBJECT (tw->location_entry), "activate",
                       GTK_SIGNAL_FUNC (cb_location_entry_enter), tw);
-#endif /* USE_GTK2 */
-#ifdef USE_GTK2 /* FIXME */
+#if 1 /* FIXME */
    gtk_signal_connect(GTK_OBJECT (tw->location_entry), "focus_in_event",
                       GTK_SIGNAL_FUNC (cb_focus_in), tw);
    gtk_signal_connect(GTK_OBJECT (tw->location_entry), "focus_out_event",
                       GTK_SIGNAL_FUNC (cb_focus_out), tw);
-#endif /* USE_GTK2 */
+#endif
    gtk_widget_show (entry);
 
    /* option menu for display mode */
@@ -772,13 +764,13 @@ gimv_thumb_win_init (GimvThumbWin *tw)
    loading = files_loader_query_loading ();
    if (loading) gimv_thumb_win_set_sensitive (tw, GIMV_THUMB_WIN_STATUS_LOADING);
 
-#ifdef USE_GTK2   /* FIXME */
+#if 1   /* FIXME */
    if (tw->accel_group_list)
       g_slist_free (tw->accel_group_list);
    tw->accel_group_list
       = g_slist_copy (gtk_accel_groups_from_object (G_OBJECT (tw)));
    tw->accel_group_list = g_slist_reverse (tw->accel_group_list);
-#endif /* USE_GTK2 */
+#endif
 }
 
 
@@ -1293,9 +1285,6 @@ create_gimv_thumb_win_menus (GimvThumbWin *tw)
                                  n_menu_items, "<ThumbWinMainMenu>", tw);
 
    gtk_container_add(GTK_CONTAINER(tw->menubar_handle), tw->menubar);
-#ifndef USE_GTK2
-   gtk_menu_bar_set_shadow_type(GTK_MENU_BAR(tw->menubar), GTK_SHADOW_NONE);
-#endif /* USE_GTK2 */
    gtk_widget_show (tw->menubar);
 
    /* sub menu */
@@ -2033,17 +2022,12 @@ static gboolean
 cb_comment_view_delete (GtkWidget *widget, GdkEventAny *event, GimvThumbWin *tw)
 {
    if (tw->cv) {
-#ifdef USE_GTK2
       if (g_slist_find (tw->accel_group_list, tw->cv->accel_group))
          tw->accel_group_list
             = g_slist_remove (tw->accel_group_list, tw->cv->accel_group);
       else
          gtk_window_remove_accel_group (GTK_WINDOW (tw),
                                         tw->cv->accel_group);
-#else /* USE_GTK2 */
-      gtk_window_remove_accel_group (GTK_WINDOW (tw),
-                                     tw->cv->accel_group);
-#endif /* USE_GTK2 */
    }
    return FALSE;
 }
@@ -2063,7 +2047,7 @@ image_preview_new (GimvThumbWin *tw)
    }
    gtk_signal_connect (GTK_OBJECT (cv->main_vbox), "delete_event",
                        GTK_SIGNAL_FUNC (cb_comment_view_delete), tw);
-#ifdef USE_GTK2   /* FIXME */
+#if 1 /* FIXME */
    gtk_signal_connect(GTK_OBJECT (cv->value_entry), "focus_in_event",
                       GTK_SIGNAL_FUNC (cb_focus_in), tw);
    gtk_signal_connect(GTK_OBJECT (cv->value_entry), "focus_out_event",
@@ -2072,7 +2056,7 @@ image_preview_new (GimvThumbWin *tw)
                       GTK_SIGNAL_FUNC (cb_focus_in), tw);
    gtk_signal_connect(GTK_OBJECT (cv->note_box), "focus_out_event",
                       GTK_SIGNAL_FUNC (cb_focus_out), tw);
-#endif /* USE_GTK2 */
+#endif
 
    /* create image view and attach to comment view notebook */
    label = gtk_label_new (_("Preview"));
@@ -2445,7 +2429,6 @@ cb_switch_tab_pos (GimvThumbWin *tw, GtkPositionType pos, GtkWidget *widget)
 }
 
 
-#ifdef USE_GTK2
 static void
 g_list_randomize (GList **lix)
 {
@@ -2461,7 +2444,6 @@ g_list_randomize (GList **lix)
 
    *lix = newlist;
 }
-#endif /* USE_GTK2 */
 
 
 static void
@@ -2513,12 +2495,10 @@ cb_slideshow (GimvThumbWin *tw, guint action, GtkWidget *widget)
    }
 
    if (filelist) {
-#ifdef USE_GTK2
       if (tw->priv->slideshow_order == SLIDESHOW_RANDOM_ORDER) {
          g_list_randomize(&filelist);
          start = filelist;
       }
-#endif /* USE_GTK2 */
 
       slideshow = gimv_slideshow_new_with_filelist (filelist, start);
       if (slideshow)
@@ -2740,7 +2720,6 @@ cb_win_composition_menu (GtkMenuItem *item, gpointer data)
  *  Callback functions for toolbar buttons.
  *
  ******************************************************************************/
-#ifdef USE_GTK2
 static void
 cb_location_entry_enter (GtkEditable *entry, GimvThumbWin *tw)
 {
@@ -2768,7 +2747,6 @@ cb_location_entry_enter (GtkEditable *entry, GimvThumbWin *tw)
 
    g_free (path);
 }
-#endif /* USE_GTK2 */
 
 
 static gboolean
@@ -2842,9 +2820,7 @@ cb_location_entry_key_press (GtkWidget *widget,
             auto_compl_show_alternatives (widget);
          }
 
-#ifdef USE_GTK2
          gtk_editable_set_position (GTK_EDITABLE (widget), -1);
-#endif /* USE_GTK2 */
 
          g_free (text);
 
@@ -3411,7 +3387,7 @@ cb_com_swap_drag_data_received (GtkWidget *widget,
 }
 
 
-#ifdef USE_GTK2   /* FIXME */
+#if 1   /* FIXME */
 void
 gimv_thumb_win_remove_key_accel (GimvThumbWin *tw)
 {
@@ -3450,7 +3426,7 @@ cb_focus_out (GtkWidget *widget, GdkEventFocus *event, GimvThumbWin *tw)
    gimv_thumb_win_reset_key_accel (tw);
    return FALSE;
 }
-#endif /* USE_GTK2 */
+#endif
 
 
 
@@ -4096,9 +4072,7 @@ location_entry_set_text (GimvThumbWin  *tw,
 
    g_free (internal_str);
 
-#ifdef USE_GTK2
    gtk_editable_set_position (GTK_EDITABLE (tw->location_entry), -1);
-#endif /* USE_GTK2 */
 
    g_free (text);
 }
@@ -4317,13 +4291,13 @@ gimv_thumb_win_change_layout (GimvThumbWin *tw, gint layout)
 
    gimv_thumb_win_set_sensitive (tw, GIMV_THUMB_WIN_STATUS_NORMAL);
 
-#ifdef USE_GTK2   /* FIXME */
+#if 1   /* FIXME */
    if (tw->accel_group_list)
       g_slist_free (tw->accel_group_list);
    tw->accel_group_list
       = g_slist_copy (gtk_accel_groups_from_object (G_OBJECT (tw)));
    tw->accel_group_list = g_slist_reverse (tw->accel_group_list);
-#endif /* USE_GTK2 */
+#endif
 
    tw->changing_layout = FALSE;
 }

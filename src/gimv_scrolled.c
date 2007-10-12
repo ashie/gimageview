@@ -44,11 +44,7 @@ typedef gboolean (*scroll_fn)    (gpointer data);
 
 #define bw(widget)                  GTK_CONTAINER(widget)->border_width
 
-#ifdef USE_GTK2
-#   define WIDGET_DRAW(widget, area) gdk_window_invalidate_rect (widget->window, area, TRUE)
-#else
-#   define WIDGET_DRAW(widget, area) (gtk_signal_emit_by_name (GTK_OBJECT(widget), "draw", area))
-#endif
+#define WIDGET_DRAW(widget, area) gdk_window_invalidate_rect (widget->window, area, TRUE)
 
 #define adjustment_check_value(value, adj) \
 { \
@@ -89,9 +85,6 @@ static void     vadjustment_value_changed      (GtkAdjustment   *vadjustment,
                                                 gpointer         data);
 static gboolean horizontal_timeout             (gpointer         data);
 static gboolean vertical_timeout               (gpointer         data);
-#ifndef USE_GTK2
-static void     check_exposures                (GtkWidget       *widget);
-#endif /* USE_GTK2 */
 
 
 static GtkWidgetClass *parent_class                   = NULL;
@@ -281,9 +274,6 @@ hadjustment_value_changed (GtkAdjustment *hadjustment,
 
    if (diff >  0) {
       scrolled->x_offset = value;
-#ifndef USE_GTK2
-      check_exposures (widget);
-#endif /* USE_GTK2 */
       /* WIDGET_DRAW(widget, &area); */
       WIDGET_DRAW(widget, NULL);
    }
@@ -365,9 +355,6 @@ vadjustment_value_changed (GtkAdjustment *vadjustment,
 
    if (diff >  0) {
       scrolled->y_offset = value;
-#ifndef USE_GTK2
-      check_exposures (widget);
-#endif /* USE_GTK2 */
       /* WIDGET_DRAW(widget, &area); */
       WIDGET_DRAW(widget, NULL);
    }
@@ -444,32 +431,6 @@ gimv_scrolled_thawn (GimvScrolled *scrolled)
       gtk_widget_draw (GTK_WIDGET(scrolled), NULL);
    }
 }
-
-
-#ifndef USE_GTK2
-/* from gtkclist.c */
-static void
-check_exposures (GtkWidget *widget)
-{
-   GdkEvent *event;
-  
-   if (!GTK_WIDGET_REALIZED (widget))
-      return;
-  
-   /*
-    *  Make sure graphics expose events are processed before scrolling
-    *  again
-    */
-   while ((event = gdk_event_get_graphics_expose (widget->window)) != NULL) {
-      gtk_widget_event (widget, event);
-      if (event->expose.count == 0) {
-         gdk_event_free (event);
-         break;
-      }
-      gdk_event_free (event);
-   }
-}
-#endif /* USE_GTK2 */
 
 
 void

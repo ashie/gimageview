@@ -722,8 +722,6 @@ cb_prefs_win_destroy ()
 }
 
 
-#ifdef USE_GTK2
-
 static void
 cb_dialog_response (GtkDialog *dialog, gint arg, gpointer data)
 {
@@ -743,32 +741,6 @@ cb_dialog_response (GtkDialog *dialog, gint arg, gpointer data)
       break;
    }
 }
-
-#else
-
-static void
-cb_prefs_ok_button ()
-{
-   prefs_win.ok_pressed = TRUE;
-   gtk_widget_destroy (prefs_window);
-}
-
-
-static void
-cb_prefs_apply_button ()
-{
-   memcpy (&conf, config_changed, sizeof(Config));
-   prefs_win_apply_config (GIMV_PREFS_WIN_ACTION_APPLY);
-}
-
-
-static void
-cb_prefs_cancel_button ()
-{
-   gtk_widget_destroy (prefs_window);
-}
-
-#endif
 
 
 
@@ -830,10 +802,8 @@ gimv_prefs_win_open (const gchar *path, GtkWindow *parent)
    scrolledwin = gtk_scrolled_window_new (NULL, NULL);
    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(scrolledwin),
                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-#ifdef USE_GTK2
    gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolledwin),
                                        GTK_SHADOW_IN);
-#endif /* USE_GTK2 */
    gtk_widget_set_usize (scrolledwin, 170, -1);
    gtk_widget_show (scrolledwin);
 
@@ -846,7 +816,6 @@ gimv_prefs_win_open (const gchar *path, GtkWindow *parent)
    gimv_paned_add2 (GIMV_PANED (pane), notebook);
 
    /* button */
-#ifdef USE_GTK2
    gtk_dialog_add_buttons (GTK_DIALOG (prefs_window),
                            GTK_STOCK_APPLY,  GTK_RESPONSE_APPLY,
                            GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,
@@ -855,41 +824,6 @@ gimv_prefs_win_open (const gchar *path, GtkWindow *parent)
    gtk_signal_connect_object (GTK_OBJECT (prefs_window), "response",
                               GTK_SIGNAL_FUNC (cb_dialog_response),
                               NULL);
-#else
-{
-   GtkWidget *button;
-
-   /* dialog buttons */
-   button = gtk_button_new_with_label (_("OK"));
-   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (prefs_window)->action_area), 
-                       button, TRUE, TRUE, 0);
-   gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-                              GTK_SIGNAL_FUNC (cb_prefs_ok_button),
-                              GTK_OBJECT (prefs_window));
-   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-   gtk_widget_show (button);
-
-   gtk_widget_grab_focus (button);
-
-   button = gtk_button_new_with_label (_("Apply"));
-   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (prefs_window)->action_area), 
-                       button, FALSE, TRUE, 0);
-   gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-                              GTK_SIGNAL_FUNC (cb_prefs_apply_button),
-                              GTK_OBJECT (prefs_window));
-   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-   gtk_widget_show (button);
-
-   button = gtk_button_new_with_label (_("Cancel"));
-   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (prefs_window)->action_area), 
-                       button, FALSE, TRUE, 0);
-   gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-                              GTK_SIGNAL_FUNC (cb_prefs_cancel_button),
-                              GTK_OBJECT (prefs_window));
-   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-   gtk_widget_show (button);
-}
-#endif
 
    gtk_window_set_position (GTK_WINDOW (prefs_window), GTK_WIN_POS_CENTER);
    gtk_widget_show (prefs_window);

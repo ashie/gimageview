@@ -220,10 +220,8 @@ gimv_image_loader_init (GimvImageLoader *loader)
    loader->priv->flags             = 0;
    loader->priv->next_info         = NULL;
 
-#ifdef USE_GTK2
    gtk_object_ref (GTK_OBJECT (loader));
    gtk_object_sink (GTK_OBJECT (loader));
-#endif
 }
 
 
