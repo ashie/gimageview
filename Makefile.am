@@ -1,6 +1,6 @@
 # -*- Mode: Makefile; tab-width: 8; indent-tabs-mode: t; -*-
 
-SUBDIRS = doc etc m4 po intl lib src plugins
+SUBDIRS = doc etc m4 po lib src plugins
 
 CLEANFILES = *~ .deps/* .*.swp .*.swo
 
