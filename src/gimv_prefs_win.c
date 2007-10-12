@@ -28,7 +28,6 @@
 
 #include "gimageview.h"
 
-#include "gimv_hpaned.h"
 #include "gtk2-compat.h"
 #include "gimv_cell_pixmap.h"
 #include "gimv_icon_stock.h"
@@ -633,7 +632,7 @@ gimv_prefs_win_open (const gchar *path, GtkWindow *parent)
                        GTK_SIGNAL_FUNC(cb_prefs_win_destroy), NULL);
 
    /* pane */
-   pane = gimv_hpaned_new ();
+   pane = gtk_hpaned_new ();
    gtk_container_set_border_width (GTK_CONTAINER (pane), 5);
    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (prefs_window)->vbox), 
                        pane, TRUE, TRUE, 0);
@@ -661,8 +660,8 @@ gimv_prefs_win_open (const gchar *path, GtkWindow *parent)
    gtk_container_add (GTK_CONTAINER (scrolledwin), navtree);
    gtk_widget_show (navtree);
 
-   gimv_paned_add1 (GIMV_PANED (pane), scrolledwin);
-   gimv_paned_add2 (GIMV_PANED (pane), notebook);
+   gtk_paned_add1 (GTK_PANED (pane), scrolledwin);
+   gtk_paned_add2 (GTK_PANED (pane), notebook);
 
    /* button */
    gtk_dialog_add_buttons (GTK_DIALOG (prefs_window),

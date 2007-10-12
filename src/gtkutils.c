@@ -231,6 +231,28 @@ gtkutil_list_insert_sorted (GList        *list,
 }
 
 
+guint
+gtkutil_paned_which_is_hidden (GtkPaned *paned)
+{
+   g_return_val_if_fail (GTK_IS_PANED (paned), 0);
+   g_return_val_if_fail (paned->child1 && paned->child2, 0);
+
+   if (!GTK_WIDGET_VISIBLE (paned->child1)
+       && GTK_WIDGET_VISIBLE (paned->child2))
+   {
+      return 1;
+
+   } else if (GTK_WIDGET_VISIBLE (paned->child1)
+              && !GTK_WIDGET_VISIBLE (paned->child2))
+   {
+      return 2;
+
+   } else {
+      return 0;
+   }
+}
+
+
 
 /******************************************************************************
  *

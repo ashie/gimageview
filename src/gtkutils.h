@@ -77,6 +77,7 @@ GList        *gtkutil_list_insert_sorted     (GList         *list,
                                               gpointer       data,
                                               GCompareFunc   func,
                                               gboolean       reverse);
+guint         gtkutil_paned_which_is_hidden  (GtkPaned      *paned);
 
 /* confirm dialog window */
 ConfirmType   gtkutil_confirm_dialog         (const gchar   *title,
