@@ -58,14 +58,6 @@
 #define GIMV_MPLAYER_REFRESH_RATE 100 /* 0.1 [sec] */
 #define GIMV_MPLAYER_BUF_SIZE 1024
 
-#ifdef USE_GTK2
-#  define gtk_object_class_add_signals(class, func, type)
-#else
-#  ifndef GTK_CLASS_TYPE
-#     define GTK_CLASS_TYPE(object_class) object_class->type
-#  endif
-#endif
-
 enum {
    PLAY_SIGNAL,
    STOP_SIGNAL,
@@ -173,7 +165,6 @@ gimv_mplayer_get_type (void)
 {
    static GtkType gimv_mplayer_type = 0;
 
-#if (GTK_MAJOR_VERSION >= 2)
    if (!gimv_mplayer_type) {
       static const GTypeInfo gimv_mplayer_info = {
          sizeof (GimvMPlayerClass),
@@ -193,23 +184,6 @@ gimv_mplayer_get_type (void)
                                    &gimv_mplayer_info,
                                    0);
    }
-#else /* (GTK_MAJOR_VERSION >= 2) */
-   if (!gimv_mplayer_type) {
-      static const GtkTypeInfo gimv_mplayer_info = {
-         "GimvMPlayer",
-         sizeof (GimvMPlayer),
-         sizeof (GimvMPlayerClass),
-         (GtkClassInitFunc) gimv_mplayer_class_init,
-         (GtkObjectInitFunc) gimv_mplayer_init,
-         /* reserved_1 */ NULL,
-         /* reserved_2 */ NULL,
-         (GtkClassInitFunc) NULL,
-      };
-    
-      gimv_mplayer_type
-         = gtk_type_unique (gtk_widget_get_type (), &gimv_mplayer_info);
-   }
-#endif /* (GTK_MAJOR_VERSION >= 2) */
 
    return gimv_mplayer_type;
 }
@@ -226,7 +200,6 @@ gimv_mplayer_class_init (GimvMPlayerClass *class)
 
    parent_class = gtk_type_class (gtk_widget_get_type ());
 
-#if (defined USE_GTK2) && (defined GTK_DISABLE_DEPRECATED)
    gimv_mplayer_signals[PLAY_SIGNAL]
       = g_signal_new ("play",
                       G_TYPE_FROM_CLASS (object_class),
@@ -271,49 +244,7 @@ gimv_mplayer_class_init (GimvMPlayerClass *class)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
-#else
-   gimv_mplayer_signals[PLAY_SIGNAL]
-      = gtk_signal_new ("play",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvMPlayerClass, play),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
 
-   gimv_mplayer_signals[STOP_SIGNAL]
-      = gtk_signal_new ("stop",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvMPlayerClass, stop),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
-
-   gimv_mplayer_signals[PAUSE_SIGNAL]
-      = gtk_signal_new ("pause",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvMPlayerClass, pause),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
-
-   gimv_mplayer_signals[POS_CHANGED_SIGNAL]
-      = gtk_signal_new ("position-changed",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvMPlayerClass, position_changed),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
-
-   gimv_mplayer_signals[IDENTIFIED_SIGNAL]
-      = gtk_signal_new ("identified",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvMPlayerClass, identified),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
-
-   gtk_object_class_add_signals (object_class, gimv_mplayer_signals, LAST_SIGNAL);
-#endif
    /* object class methods */
    object_class->destroy       = gimv_mplayer_destroy;
 

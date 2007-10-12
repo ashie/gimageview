@@ -23,12 +23,6 @@
 
 #include "detailview.h"
 
-/*
- *   For Gtk+-2.0
- */
-
-#ifdef ENABLE_TREEVIEW
-
 #include <time.h>
 #include <string.h>
 
@@ -1179,5 +1173,3 @@ detailview_create (GimvThumbView *tv, const gchar *dest_mode)
 
    return tv_data->treeview;
 }
-
-#endif /* ENABLE_TREEVIEW */

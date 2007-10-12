@@ -82,7 +82,6 @@ gimv_xine_get_type (void)
 {
 	static GtkType gimv_xine_type = 0;
 
-#ifdef USE_GTK2
    if (!gimv_xine_type) {
       static const GTypeInfo gimv_xine_info = {
          sizeof (GimvXineClass),
@@ -101,23 +100,6 @@ gimv_xine_get_type (void)
                                                &gimv_xine_info,
                                                0);
    }
-#else /* USE_GTK2 */
-	if (!gimv_xine_type) {
-      static const GtkTypeInfo gimv_xine_info = {
-         "GimvXine",
-         sizeof (GimvXine),
-         sizeof (GimvXineClass),
-         (GtkClassInitFunc) gimv_xine_class_init,
-         (GtkObjectInitFunc) gimv_xine_init,
-         /* reserved_1 */ NULL,
-         /* reserved_2 */ NULL,
-         (GtkClassInitFunc) NULL,
-      };
-
-      gimv_xine_type =
-         gtk_type_unique (gtk_widget_get_type (), &gimv_xine_info);
-   }
-#endif /* USE_GTK2 */
 
    return gimv_xine_type;
 }
@@ -134,7 +116,6 @@ gimv_xine_class_init (GimvXineClass *class)
 
    parent_class = gtk_type_class (gtk_widget_get_type ());
 
-#if (defined USE_GTK2) && (defined GTK_DISABLE_DEPRECATED)
    gimv_xine_signals[PLAY_SIGNAL]
       = g_signal_new ("play",
                       G_TYPE_FROM_CLASS (object_class),
@@ -181,51 +162,6 @@ gimv_xine_class_init (GimvXineClass *class)
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
    */
-#else /* (defined USE_GTK2) && (defined GTK_DISABLE_DEPRECATED) */
-   gimv_xine_signals[PLAY_SIGNAL]
-      = gtk_signal_new ("play",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvXineClass, play),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
-
-   gimv_xine_signals[STOP_SIGNAL]
-      = gtk_signal_new ("stop",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvXineClass, stop),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
-
-   gimv_xine_signals[PLAYBACK_FINISHED_SIGNAL]
-      = gtk_signal_new ("playback_finished",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvXineClass, playback_finished),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
-
-   /*
-   gimv_xine_signals[NEED_NEXT_MRL_SIGNAL]
-      = gtk_signal_new ("need_next_mrl",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvXineClass, need_next_mrl),
-                        gtk_marshal_NONE__POINTER,
-                        GTK_TYPE_NONE, 1, GTK_TYPE_POINTER);
-
-   gimv_xine_signals[BRANCHED_SIGNAL]
-      = gtk_signal_new ("branched",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvXineClass, branched),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
-   */
-
-   gtk_object_class_add_signals (object_class, gimv_xine_signals, LAST_SIGNAL);
-#endif /* (defined USE_GTK2) && (defined GTK_DISABLE_DEPRECATED) */
 
    object_class->destroy       = gimv_xine_destroy;
 
@@ -484,13 +420,8 @@ event_listener (void *data, const xine_event_t * event)
     switch (event->type)
     {
       case XINE_EVENT_UI_PLAYBACK_FINISHED:
-#ifdef USE_GTK2
 	  g_signal_emit (G_OBJECT (gtx),
                     gimv_xine_signals[PLAYBACK_FINISHED_SIGNAL], 0);
-#else /* USE_GTK2 */
-	  gtk_signal_emit (GTK_OBJECT (gtx),
-                      gimv_xine_signals[PLAYBACK_FINISHED_SIGNAL]);
-#endif /* USE_GTK2 */
 	  break;
 
       default:
@@ -672,11 +603,7 @@ gimv_xine_unrealize (GtkWidget *widget)
 GtkWidget *
 gimv_xine_new (const gchar *video_driver_id, const gchar *audio_driver_id)
 {
-#if (GTK_MAJOR_VERSION >= 2)
    GtkWidget *this = GTK_WIDGET (g_object_new (gimv_xine_get_type (), NULL));
-#else /* (GTK_MAJOR_VERSION >= 2) */
-   GtkWidget *this = GTK_WIDGET (gtk_type_new (gimv_xine_get_type ()));
-#endif /* (GTK_MAJOR_VERSION >= 2) */
    GimvXinePrivate *priv;
 
    g_return_val_if_fail (GIMV_IS_XINE (this), NULL);
@@ -883,13 +810,8 @@ gimv_xine_play (GimvXine *gtx, gint pos, gint start_time)
          if(!priv->visual_anim.running)
             visual_anim_play(gtx);
       }
-#ifdef USE_GTK2
       g_signal_emit (G_OBJECT(gtx),
                      gimv_xine_signals[PLAY_SIGNAL], 0);
-#else /* USE_GTK2 */
-      gtk_signal_emit (GTK_OBJECT(gtx),
-                       gimv_xine_signals[PLAY_SIGNAL]);
-#endif /* USE_GTK2 */
    }
 
    return retval;
@@ -974,13 +896,8 @@ gimv_xine_stop (GimvXine *gtx)
 
    xine_stop (priv->stream);
 
-#ifdef USE_GTK2
    g_signal_emit (G_OBJECT(gtx),
                   gimv_xine_signals[STOP_SIGNAL], 0);
-#else /* USE_GTK2 */
-   gtk_signal_emit (GTK_OBJECT(gtx),
-                    gimv_xine_signals[STOP_SIGNAL]);
-#endif /* USE_GTK2 */
 }
 
 
