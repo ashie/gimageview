@@ -1,5 +1,11 @@
 2007-10-13 Takuro Ashie <ashie@homa.ne.jp>
 
+	* intl: Removed.
+	* m4/lcmessage.m4, m4/glibc21.m4, m4/gettext.m4, m4/codeset.m4,
+	  m4/progtest.m4, isc-posix.m4: Removed.
+
+2007-10-13 Takuro Ashie <ashie@homa.ne.jp>
+
 	* src/intl.h: Removed.
 	* plugins/io_stream/gimv_gzip_io.c, plugins/io_stream/gimv_bz_io.c,
 	  plugins/thumbnail/konqueror-old.c, plugins/thumbnail/nautilus-2.0.c,
