@@ -26,7 +26,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "gtk2-compat.h"
 #include "intl.h" /* FIXME */
 
 
@@ -121,9 +120,7 @@ gimv_dlist_class_init (GimvDListClass *klass)
                         gtk_signal_default_marshaller,
                         GTK_TYPE_NONE, 0);
 
-   gtk_object_class_add_signals (object_class, gimv_dlist_signals, LAST_SIGNAL);
-
-   OBJECT_CLASS_SET_FINALIZE_FUNC (klass, gimv_dlist_finalize);
+   G_OBJECT_CLASS(klass)->finalize = gimv_dlist_finalize;
 }
 
 
@@ -142,7 +139,8 @@ gimv_dlist_finalize (GObject *object)
    g_list_free (dslist->available_list);
    dslist->available_list = NULL;
 
-   OBJECT_CLASS_FINALIZE_SUPER (parent_class, object);
+   if (G_OBJECT_CLASS(parent_class)->finalize)
+      G_OBJECT_CLASS(parent_class)->finalize (object);
 }
 
 

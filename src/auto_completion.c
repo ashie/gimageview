@@ -45,7 +45,6 @@
 #include "charset.h"
 #include "fileutil.h"
 #include "gfileutil.h"
-#include "gtk2-compat.h"
 #include "prefs.h"
 
 #define MAX_VISIBLE_ROWS 8

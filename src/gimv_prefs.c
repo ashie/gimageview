@@ -47,8 +47,6 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "gtk2-compat.h"
-
 
 enum {
    SECTION_ADDED_SIGNAL,

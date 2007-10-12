@@ -24,7 +24,6 @@
 #include "gimv_image_loader.h"
 
 #include "gimv_anim.h"
-#include "gtk2-compat.h"
 #include "fileutil.h"
 
 
@@ -187,9 +186,6 @@ gimv_image_loader_class_init (GimvImageLoaderClass *klass)
                         GTK_SIGNAL_OFFSET (GimvImageLoaderClass, load_end),
                         gtk_signal_default_marshaller,
                         GTK_TYPE_NONE, 0);
-
-   gtk_object_class_add_signals (object_class,
-                                 gimv_image_loader_signals, LAST_SIGNAL);
 
    object_class->destroy  = gimv_image_loader_destroy;
 

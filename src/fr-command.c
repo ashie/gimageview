@@ -28,7 +28,6 @@
 #include "fr-process.h"
 #include "fr-command.h"
 #include "gimv_image_info.h"
-#include "gtk2-compat.h"
 
 
 static void fr_command_class_init  (FRCommandClass *class);
@@ -105,8 +104,6 @@ fr_command_class_init (FRCommandClass *class)
                       GTK_TYPE_NONE, 2,
                       GTK_TYPE_INT,
                       GTK_TYPE_INT);
-   gtk_object_class_add_signals (object_class, fr_command_signals, 
-                                 LAST_SIGNAL);
 
    object_class->destroy = fr_command_destroy;
 

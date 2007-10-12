@@ -32,7 +32,6 @@
 #  include "config.h"
 #endif
 
-#include "gtk2-compat.h"
 #include "gimv_scrolled.h"
 
 /* for auto-scroll and auto-expand at drag */

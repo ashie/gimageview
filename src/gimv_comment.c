@@ -37,7 +37,6 @@
 #include "fileutil.h"
 #include "gimv_image_info.h"
 #include "gimv_mime_types.h"
-#include "gtk2-compat.h"
 #include "gtkutils.h"
 #include "prefs.h"
 
@@ -144,8 +143,6 @@ gimv_comment_class_init (GimvCommentClass *klass)
                         GTK_SIGNAL_OFFSET (GimvCommentClass, file_deleted),
                         gtk_signal_default_marshaller,
                         GTK_TYPE_NONE, 0);
-
-   gtk_object_class_add_signals (object_class, gimv_comment_signals, LAST_SIGNAL);
 
    object_class->destroy = gimv_comment_destroy;
 

@@ -28,7 +28,6 @@
 
 #include "gimageview.h"
 
-#include "gtk2-compat.h"
 #include "gimv_cell_pixmap.h"
 #include "gimv_icon_stock.h"
 #include "help.h"

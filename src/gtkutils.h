@@ -143,5 +143,13 @@ void          gtkutil_get_data_from_adjustment_by_int_cb   (GtkWidget *widget,
                                                             gint      *data);
 void          gtkutil_get_data_from_adjustment_by_float_cb (GtkWidget *widget,
                                                             gfloat    *data);
+gboolean      gtkutil_scroll_to_button_cb (GtkWidget      *widget,
+                                           GdkEventScroll *event,
+                                           gpointer        data);
+
+#define SIGNAL_CONNECT_TRANSRATE_SCROLL(obj) \
+      g_signal_connect (G_OBJECT(obj), "scroll-event", \
+                        G_CALLBACK(gtkutil_scroll_to_button_cb), \
+                        NULL);
 
 #endif /* __GTKUTILS_H__ */

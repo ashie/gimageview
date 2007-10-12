@@ -31,7 +31,6 @@
 #include "fr-archive.h"
 #include "fr-command.h"
 #include "fr-process.h"
-#include "gtk2-compat.h"
 
 
 #define MAX_CHUNK_LEN 16000 /* FIXME : what is the max length of a command 
@@ -105,8 +104,6 @@ fr_archive_class_init (FRArchiveClass *class)
                       GTK_TYPE_NONE, 2,
                       GTK_TYPE_INT,
                       GTK_TYPE_INT);
-   gtk_object_class_add_signals (object_class, fr_archive_signals, 
-                                 LAST_SIGNAL);
 
    object_class->destroy = fr_archive_destroy;
    class->start = NULL;

@@ -28,7 +28,6 @@
 #include "charset.h"
 #include "gimv_comment.h"
 #include "gimv_elist.h"
-#include "gtk2-compat.h"
 #include "gtkutils.h"
 #include "menu.h"
 #include "prefs.h"

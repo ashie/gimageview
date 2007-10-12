@@ -29,7 +29,6 @@
 #include "dnd.h"
 #include "fileutil.h"
 #include "gfileutil.h"
-#include "gtk2-compat.h"
 #include "gtk_prop.h"
 #include "gimv_icon_stock.h"
 #include "gimv_thumb_win.h"

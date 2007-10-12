@@ -34,7 +34,6 @@
 #include <gtk/gtkmain.h>
 #include <gtk/gtksignal.h>
 #include "fr-process.h"
-#include "gtk2-compat.h"
 
 
 #define REFRESH_RATE 100
@@ -100,8 +99,6 @@ fr_process_class_init (FRProcessClass *class)
                       gtk_marshal_NONE__INT,
                       GTK_TYPE_NONE, 1,
                       GTK_TYPE_INT);
-   gtk_object_class_add_signals (object_class, fr_process_signals, 
-                                 LAST_SIGNAL);
 
    object_class->destroy = fr_process_destroy;
    class->done = NULL;

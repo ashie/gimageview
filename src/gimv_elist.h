@@ -30,7 +30,6 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <gtk/gtk.h>
-#include "gtk2-compat.h"
 
 #define GIMV_ELIST(obj)         GTK_CHECK_CAST (obj, gimv_elist_get_type (), GimvEList)
 #define GIMV_ELIST_CLASS(klass) GTK_CHECK_CLASS_CAST (klass, gimv_elist_get_type, GimvEListClass)
