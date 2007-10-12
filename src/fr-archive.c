@@ -121,10 +121,8 @@ fr_archive_init (FRArchive *archive)
    archive->command = NULL;
    archive->process = fr_process_new ();
 
-#ifdef USE_GTK2
    gtk_object_ref (GTK_OBJECT (archive));
    gtk_object_sink (GTK_OBJECT (archive));
-#endif
 }
 
 

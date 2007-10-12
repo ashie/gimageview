@@ -827,8 +827,6 @@ static void
 filebrowser_open_files (FileSel *filesel, ImgWinType type)
 {
    GtkFileSelection *fsel = GTK_FILE_SELECTION(filesel->filebrowser);
-
-#ifdef USE_GTK2
    FilesLoader *files;
    gint i;
    gchar **path = gtk_file_selection_get_selections (fsel);
@@ -857,52 +855,6 @@ filebrowser_open_files (FileSel *filesel, ImgWinType type)
    files_loader_delete (files);
 
    g_strfreev (path);
-#else
-   GList *sel_list = NULL, *node;
-   gchar *path, *path_tail, *file;
-   FilesLoader *files;
-
-   /* get directory path */
-   path = g_strdup(gtk_file_selection_get_filename(fsel));
-   if(!path) return;
-   path_tail = (gchar *) strrchr(path, '/');
-   if (path_tail) *(path_tail + 1) = '\0';
-
-   /* get selected files */
-   node = GTK_CLIST(fsel->file_list)->selection;
-   if (node) {
-      files = files_loader_new ();
-
-      while(node) {
-         gtk_clist_get_text(GTK_CLIST(fsel->file_list),
-                            GPOINTER_TO_INT(node->data), 0, &file);
-         file = g_strconcat(path, file, NULL);
-         if (!(conf.detect_filetype_by_ext)
-             || gimv_image_detect_type_by_ext (file)
-             || fr_archive_utils_get_file_name_ext (file))
-         {
-            files->filelist = g_list_append (files->filelist, file);
-         }
-
-         node = g_list_next(node);
-      }
-
-      files->filelist = g_list_first (files->filelist);
-
-      if (type == THUMBNAIL_WINDOW) {
-         files->status = THUMB_LOADING;
-         open_image_files_in_thumbnail_view (files, filesel->tw, NULL);
-      } else {
-         files->status = IMAGE_LOADING;
-         open_image_files_in_image_view (files);
-      }
-
-      files_loader_delete (files);
-   }
-
-   g_free (path);
-   g_list_free(sel_list);
-#endif
 }
 
 
@@ -1024,14 +976,8 @@ create_filebrowser (gpointer parent)
       gtk_window_set_transient_for (GTK_WINDOW (filebrowser),
                                     GTK_WINDOW (filesel->tw));
 
-#ifdef USE_GTK2
    gtk_file_selection_set_select_multiple (GTK_FILE_SELECTION(filebrowser),
                                            TRUE);
-#else
-   gtk_clist_set_selection_mode (
-      GTK_CLIST(GTK_FILE_SELECTION(filebrowser)->file_list),
-      GTK_SELECTION_EXTENDED);
-#endif
    /*
      gtk_signal_connect(
      GTK_OBJECT(GTK_FILE_SELECTION(filebrowser)->selection_entry),

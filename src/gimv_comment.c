@@ -164,10 +164,8 @@ gimv_comment_init (GimvComment *comment)
 
    comment->note      = NULL;
 
-#ifdef USE_GTK2
    gtk_object_ref (GTK_OBJECT (comment));
    gtk_object_sink (GTK_OBJECT (comment));
-#endif
 }
 
 

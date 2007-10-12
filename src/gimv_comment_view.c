@@ -36,7 +36,6 @@
 #include "prefs.h"
 
 
-#ifdef ENABLE_TREEVIEW
 typedef enum {
    COLUMN_TERMINATOR = -1,
    COLUMN_KEY,
@@ -44,7 +43,6 @@ typedef enum {
    COLUMN_RAW_ENTRY,
    N_COLUMN
 } ListStoreColumn;
-#endif /* ENABLE_TREEVIEW */
 
 
 static void gimv_comment_view_set_sensitive  (GimvCommentView *cv);
@@ -86,33 +84,24 @@ static void
 gimv_comment_view_delete_selected_data (GimvCommentView *cv)
 {
    GimvCommentDataEntry *entry;
+   GtkTreeView *treeview;
+   GtkTreeSelection *selection;
+   GtkTreeModel *model;
+   GtkTreeIter iter;
+   gboolean found;
 
    g_return_if_fail (cv);
 
-#ifdef ENABLE_TREEVIEW
-   {
-      GtkTreeView *treeview = GTK_TREE_VIEW (cv->comment_clist);
-      GtkTreeSelection *selection  = gtk_tree_view_get_selection (treeview);
-      GtkTreeModel *model;
-      GtkTreeIter iter;
-      gboolean found;
+   treeview = GTK_TREE_VIEW (cv->comment_clist);
+   selection  = gtk_tree_view_get_selection (treeview);
 
-      found = gtk_tree_selection_get_selected (selection, &model, &iter);
-      if (!found) return;
+   found = gtk_tree_selection_get_selected (selection, &model, &iter);
+   if (!found) return;
 
-      gtk_tree_model_get (model, &iter,
-                          COLUMN_RAW_ENTRY, &entry,
-                          COLUMN_TERMINATOR);
-      gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
-   }
-#else /* ENABLE_TREEVIEW */
-   if (cv->selected_row < 0) return;
-   g_return_if_fail (cv->selected_row < GTK_CLIST (cv->comment_clist)->rows);
-
-   entry = gtk_clist_get_row_data (GTK_CLIST (cv->comment_clist),
-                                   cv->selected_row);
-   gtk_clist_remove (GTK_CLIST (cv->comment_clist), cv->selected_row);
-#endif /* ENABLE_TREEVIEW */
+   gtk_tree_model_get (model, &iter,
+                       COLUMN_RAW_ENTRY, &entry,
+                       COLUMN_TERMINATOR);
+   gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
 
    if (entry)
       gimv_comment_data_entry_remove (cv->comment, entry);
@@ -128,30 +117,18 @@ static void
 cb_save_button_pressed (GtkButton *button, GimvCommentView *cv)
 {
    gchar *note;
+   GtkTextBuffer *buffer;
+   GtkTextIter start, end;
 
    g_return_if_fail (cv);
    g_return_if_fail (cv->comment);
 
-#if USE_GTK2
-   {
-      GtkTextBuffer *buffer;
-      GtkTextIter start, end;
+   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (cv->note_box));
 
-      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (cv->note_box));
+   gtk_text_buffer_get_iter_at_offset (buffer, &start, 0);
+   gtk_text_buffer_get_iter_at_offset (buffer, &end, -1);
 
-      gtk_text_buffer_get_iter_at_offset (buffer, &start, 0);
-      gtk_text_buffer_get_iter_at_offset (buffer, &end, -1);
-
-      note = gtk_text_buffer_get_text (buffer, &start, &end, TRUE);
-   }
-#else /* USE_GTK2 */
-   {
-      gint len;
-
-      len = gtk_text_get_length (GTK_TEXT (cv->note_box));
-      note = gtk_editable_get_chars (GTK_EDITABLE (cv->note_box), 0, len);
-   }
-#endif /* USE_GTK2 */
+   note = gtk_text_buffer_get_text (buffer, &start, &end, TRUE);
 
    if (note && *note)
       gimv_comment_update_note (cv->comment, note);
@@ -206,7 +183,6 @@ cb_destroyed (GtkWidget *widget, GimvCommentView *cv)
 }
 
 
-#ifdef ENABLE_TREEVIEW
 static void
 cb_tree_view_cursor_changed (GtkTreeView *treeview, GimvCommentView *cv)
 {
@@ -242,87 +218,6 @@ cb_tree_view_cursor_changed (GtkTreeView *treeview, GimvCommentView *cv)
 
    gimv_comment_view_set_sensitive (cv);
 }
-
-#else /* ENABLE_TREEVIEW */
-
-static void
-cb_clist_select_row (GtkCList *clist, gint row, gint col,
-                     GdkEventButton *event, GimvCommentView *cv)
-{
-   gchar *text[2] = {NULL, NULL};
-   gboolean success1, success2;
-
-   g_return_if_fail (cv);
-
-   cv->selected_row = row;
-
-   success1 = gtk_clist_get_text (clist, row, 0, &text[0]);
-   success2 = gtk_clist_get_text (clist, row, 1, &text[1]);
-
-   if (success1) {
-      gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (cv->key_combo)->entry), text[0]);
-   } else {
-      gtk_entry_set_text (GTK_ENTRY(cv->value_entry), "\0");
-   }
-
-   if (success2) {
-      gtk_entry_set_text (GTK_ENTRY(cv->value_entry), text[1]);
-   } else {
-      gtk_entry_set_text (GTK_ENTRY(cv->value_entry), "\0");
-   }
-
-   gimv_comment_view_set_sensitive (cv);
-}
-
-
-static void
-cb_clist_unselect_row (GtkCList *clist, gint row, gint col,
-                       GdkEventButton *event, GimvCommentView *cv)
-{
-   g_return_if_fail (cv);
-
-   cv->selected_row = -1;
-
-   gimv_comment_view_set_sensitive (cv);
-}
-
-
-static void
-cb_clist_row_move (GtkCList *clist,
-                   gint arg1, gint arg2,
-                   GimvCommentView *cv)
-{
-   GimvCommentDataEntry *entry1, *entry2, *tmpentry;
-   GList *node1, *node2;
-   gint pos1, pos2, tmppos;
-
-   g_return_if_fail (clist && GTK_IS_CLIST (clist));
-   g_return_if_fail (cv);
-   g_return_if_fail (cv->comment);
-
-   entry1 = gtk_clist_get_row_data (clist, arg1);
-   entry2 = gtk_clist_get_row_data (clist, arg2);
-
-   g_return_if_fail (entry1 && entry2);
-
-   node1 = g_list_find (cv->comment->data_list, entry1);
-   node2 = g_list_find (cv->comment->data_list, entry2);
-   g_return_if_fail (node1 && node2);
-
-   pos1 = g_list_position (cv->comment->data_list, node1);
-   pos2 = g_list_position (cv->comment->data_list, node2);
-
-   /* swap data position in the list */
-   if (pos1 > pos2) {
-      tmppos   = pos1;   pos1   = pos2;   pos2   = tmppos;
-      tmpentry = entry1; entry1 = entry2; entry2 = tmpentry;
-   }
-   cv->comment->data_list = g_list_remove (cv->comment->data_list, entry1);
-   cv->comment->data_list = g_list_remove (cv->comment->data_list, entry2);
-   cv->comment->data_list = g_list_insert (cv->comment->data_list, entry2, pos1);
-   cv->comment->data_list = g_list_insert (cv->comment->data_list, entry1, pos2);
-}
-#endif /* ENABLE_TREEVIEW */
 
 
 static gboolean
@@ -403,6 +298,10 @@ cb_combo_select (GtkWidget *label, GimvCommentView *cv)
 {
    GtkWidget *clist;
    gchar *key = gtk_object_get_data (GTK_OBJECT (label), "key");
+   GtkTreeView *treeview;
+   GtkTreeModel *model;
+   GtkTreeIter iter;
+   gboolean go_next;
 
    g_return_if_fail (label && GTK_IS_LIST_ITEM (label));
    g_return_if_fail (cv);
@@ -411,51 +310,28 @@ cb_combo_select (GtkWidget *label, GimvCommentView *cv)
    cv->selected_item = label;
    clist = cv->comment_clist;
 
-#ifdef ENABLE_TREEVIEW
-   {
-      GtkTreeView *treeview = GTK_TREE_VIEW (clist);
-      GtkTreeModel *model = gtk_tree_view_get_model (treeview);
-      GtkTreeIter iter;
-      gboolean go_next;
+   treeview = GTK_TREE_VIEW (clist);
+   model = gtk_tree_view_get_model (treeview);
 
-      go_next = gtk_tree_model_get_iter_first (model, &iter);
+   go_next = gtk_tree_model_get_iter_first (model, &iter);
 
-      for (; go_next; go_next = gtk_tree_model_iter_next (model, &iter)) {
-         GimvCommentDataEntry *entry;
+   for (; go_next; go_next = gtk_tree_model_iter_next (model, &iter)) {
+      GimvCommentDataEntry *entry;
 
-         gtk_tree_model_get (model, &iter,
-                             COLUMN_RAW_ENTRY, &entry,
-                             COLUMN_TERMINATOR);
-         if (!entry) continue;
+      gtk_tree_model_get (model, &iter,
+                          COLUMN_RAW_ENTRY, &entry,
+                          COLUMN_TERMINATOR);
+      if (!entry) continue;
 
-         if (entry->key && !strcmp (key, entry->key)) {
-            GtkTreePath *treepath = gtk_tree_model_get_path (model, &iter);
+      if (entry->key && !strcmp (key, entry->key)) {
+         GtkTreePath *treepath = gtk_tree_model_get_path (model, &iter);
 
-            if (!treepath) continue;
-            gtk_tree_view_set_cursor (treeview, treepath, NULL, FALSE);
-            gtk_tree_path_free (treepath);
-            break;
-         }
+         if (!treepath) continue;
+         gtk_tree_view_set_cursor (treeview, treepath, NULL, FALSE);
+         gtk_tree_path_free (treepath);
+         break;
       }
    }
-#else /* ENABLE_TREEVIEW */
-   {
-      gint row;
-
-      for (row = 0; row < GTK_CLIST (clist)->rows; row++) {
-         GimvCommentDataEntry *entry;
-
-         entry = gtk_clist_get_row_data (GTK_CLIST (clist), row);
-         if (!entry) continue;
-
-         if (entry->key && !strcmp (key, entry->key)) {
-            gtk_clist_select_row (GTK_CLIST (clist), row, 0);
-            /* gtk_clist_moveto (GTK_CLIST (clist), row, 0, 0.0, 0.0); */
-            break;
-         }
-      }
-   }
-#endif /* ENABLE_TREEVIEW */
 }
 
 static void
@@ -529,6 +405,9 @@ create_data_page (GimvCommentView *cv)
    GtkWidget *scrolledwin, *clist, *combo, *entry;
    GtkWidget *label;
    gchar *titles[] = {_("Key"), _("Value")};
+   GtkListStore *store;
+   GtkTreeViewColumn *col;
+   GtkCellRenderer *render;
 
    label = gtk_label_new (_("Data"));
    gtk_widget_set_name (label, "TabLabel");
@@ -543,17 +422,9 @@ create_data_page (GimvCommentView *cv)
    scrolledwin = gtk_scrolled_window_new (NULL, NULL);
    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(scrolledwin),
                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-#ifdef USE_GTK2
    gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolledwin),
                                        GTK_SHADOW_IN);
-#endif /* USE_GTK2 */
    gtk_box_pack_start(GTK_BOX(vbox), scrolledwin, TRUE, TRUE, 0);
-
-#ifdef ENABLE_TREEVIEW
-{
-   GtkListStore *store;
-   GtkTreeViewColumn *col;
-   GtkCellRenderer *render;
 
    store = gtk_list_store_new (N_COLUMN,
                                G_TYPE_STRING,
@@ -586,24 +457,6 @@ create_data_page (GimvCommentView *cv)
                        GTK_SIGNAL_FUNC (cb_tree_view_cursor_changed), cv);
 
    gtk_container_add (GTK_CONTAINER (scrolledwin), clist);
-}
-#else /* ENABLE_TREEVIEW */
-   clist = cv->comment_clist =  gtk_clist_new_with_titles (2, titles);
-   gtk_clist_set_selection_mode (GTK_CLIST (clist), GTK_SELECTION_BROWSE);
-   /* gtk_clist_set_column_width (GTK_CLIST(clist), 0, 80); */
-   gtk_clist_set_column_auto_resize (GTK_CLIST(clist), 0, TRUE);
-   gtk_clist_set_column_auto_resize (GTK_CLIST(clist), 1, TRUE);
-   gtk_clist_set_reorderable(GTK_CLIST(clist), TRUE);
-   gtk_clist_set_use_drag_icons (GTK_CLIST(clist), FALSE);
-   gtk_container_add (GTK_CONTAINER (scrolledwin), clist);
-
-   gtk_signal_connect (GTK_OBJECT (clist),"select_row",
-                       GTK_SIGNAL_FUNC (cb_clist_select_row), cv);
-   gtk_signal_connect (GTK_OBJECT (clist),"unselect_row",
-                       GTK_SIGNAL_FUNC (cb_clist_unselect_row), cv);
-   gtk_signal_connect (GTK_OBJECT (clist),"row-move",
-                       GTK_SIGNAL_FUNC (cb_clist_row_move), cv);
-#endif /* ENABLE_TREEVIEW */
    gtk_signal_connect (GTK_OBJECT (clist), "key_press_event",
                        GTK_SIGNAL_FUNC (cb_data_list_key_press), cv);
    /* entry area */
@@ -645,7 +498,6 @@ create_data_page (GimvCommentView *cv)
 }
 
 
-#ifdef USE_GTK2
 static void
 cb_text_buffer_changed (GtkTextBuffer *buffer, GimvCommentView *cv)
 {
@@ -653,15 +505,6 @@ cb_text_buffer_changed (GtkTextBuffer *buffer, GimvCommentView *cv)
       cv->changed = TRUE;
    }
 }
-#else /* USE_GTK2 */
-static void
-cb_text_changed (GtkEditable *editable, GimvCommentView *cv)
-{
-   if (cv->comment) {
-      cv->changed = TRUE;
-   }
-}
-#endif /* USE_GTK2 */
 
 
 static GtkWidget *
@@ -669,6 +512,7 @@ create_note_page (GimvCommentView *cv)
 {
    GtkWidget *scrolledwin;
    GtkWidget *label;
+   GtkTextBuffer *textbuf;
 
    /* "Note" page */
    label = gtk_label_new (_("Note"));
@@ -678,30 +522,14 @@ create_note_page (GimvCommentView *cv)
    cv->note_page = scrolledwin = gtk_scrolled_window_new (NULL, NULL);
    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(scrolledwin),
                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-#ifdef USE_GTK2
    gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolledwin),
                                        GTK_SHADOW_IN);
-#endif /* USE_GTK2 */
    gtk_widget_show (scrolledwin);
 
-#ifdef USE_GTK2
-   {
-      GtkTextBuffer *textbuf;
-
-      cv->note_box = gtk_text_view_new ();
-      textbuf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (cv->note_box));
-      g_signal_connect (G_OBJECT (textbuf), "changed",
-                        G_CALLBACK (cb_text_buffer_changed), cv);
-   }
-#else /* USE_GTK2 */
-   cv->note_box = gtk_text_new (gtk_scrolled_window_get_hadjustment
-                                (GTK_SCROLLED_WINDOW (scrolledwin)),
-                                gtk_scrolled_window_get_vadjustment
-                                (GTK_SCROLLED_WINDOW (scrolledwin)));
-   gtk_text_set_editable (GTK_TEXT (cv->note_box), TRUE);
-   gtk_signal_connect (GTK_OBJECT (cv->note_box), "changed",
-                       GTK_SIGNAL_FUNC (cb_text_changed), cv);
-#endif /* USE_GTK2 */
+   cv->note_box = gtk_text_view_new ();
+   textbuf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (cv->note_box));
+   g_signal_connect (G_OBJECT (textbuf), "changed",
+                     G_CALLBACK (cb_text_buffer_changed), cv);
    gtk_container_add (GTK_CONTAINER (scrolledwin), cv->note_box);
    gtk_widget_show (cv->note_box);
 
@@ -733,7 +561,6 @@ static void
 gimv_comment_view_set_sensitive (GimvCommentView *cv)
 {
    const gchar *key_str, *value_str;
-   gboolean selected = FALSE;
 
    g_return_if_fail (cv);
 
@@ -746,19 +573,6 @@ gimv_comment_view_set_sensitive (GimvCommentView *cv)
    } else {
       gimv_comment_view_set_sensitive_all (cv, TRUE);
    }
-
-#ifdef ENABLE_TREEVIEW
-   {
-      GtkTreeView *treeview = GTK_TREE_VIEW (cv->comment_clist);
-      GtkTreeSelection *selection = gtk_tree_view_get_selection (treeview);
-      GtkTreeModel *model;
-      GtkTreeIter iter;
-
-      selected = gtk_tree_selection_get_selected (selection, &model, &iter);
-   }
-#else /* ENABLE_TREEVIEW */
-   if (cv->selected_row >= 0) selected = TRUE;
-#endif /* ENABLE_TREEVIEW */
 }
 
 
@@ -836,6 +650,11 @@ gimv_comment_view_data_enter (GimvCommentView *cv)
    GimvCommentDataEntry *entry;
    const gchar *key, *dname, *value;
    gchar *text[16];
+   GtkTreeView *treeview;
+   GtkTreeModel *model;
+   GtkTreeIter iter;
+   gboolean go_next;
+   GimvCommentDataEntry *src_entry;
 
    g_return_if_fail (cv);
    if (!cv->selected_item) return;
@@ -851,51 +670,28 @@ gimv_comment_view_data_enter (GimvCommentView *cv)
 
    g_return_if_fail (entry);
 
-#ifdef ENABLE_TREEVIEW
-   {
-      GtkTreeView *treeview = GTK_TREE_VIEW (cv->comment_clist);
-      GtkTreeModel *model = gtk_tree_view_get_model (treeview);
-      GtkTreeIter iter;
-      gboolean go_next;
-      GimvCommentDataEntry *src_entry;
+   treeview = GTK_TREE_VIEW (cv->comment_clist);
+   model = gtk_tree_view_get_model (treeview);
 
-      go_next = gtk_tree_model_get_iter_first (model, &iter);
-      for (; go_next; go_next = gtk_tree_model_iter_next (model, &iter)) {
-         gtk_tree_model_get (model, &iter,
-                             COLUMN_RAW_ENTRY, &src_entry,
-                             COLUMN_TERMINATOR);
-         if (src_entry == entry) break;
-      }
-
-      text[0] = entry->display_name;
-      text[1] = entry->value;
-      if (!entry->userdef) text[0] = _(text[0]);
-
-      if (!go_next)
-         gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-      gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                          COLUMN_KEY,       text[0],
-                          COLUMN_VALUE,     text[1],
-                          COLUMN_RAW_ENTRY, entry,
+   go_next = gtk_tree_model_get_iter_first (model, &iter);
+   for (; go_next; go_next = gtk_tree_model_iter_next (model, &iter)) {
+      gtk_tree_model_get (model, &iter,
+                          COLUMN_RAW_ENTRY, &src_entry,
                           COLUMN_TERMINATOR);
+      if (src_entry == entry) break;
    }
-#else /* ENABLE_TREEVIEW */
-   {
-      GtkCList *clist = GTK_CLIST (cv->comment_clist);
-      gint row = gtk_clist_find_row_from_data (clist, entry);
 
-      text[0] = entry->display_name;
-      text[1] = entry->value;
-      if (!entry->userdef) text[0] = _(text[0]);
+   text[0] = entry->display_name;
+   text[1] = entry->value;
+   if (!entry->userdef) text[0] = _(text[0]);
 
-      if (row < 0) {
-         row = gtk_clist_append (clist, text);
-         gtk_clist_set_row_data (clist, row, entry);
-      } else {
-         gtk_clist_set_text (clist, row, 1, text[1]);
-      }
-   }
-#endif /* ENABLE_TREEVIEW */
+   if (!go_next)
+      gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+   gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+                       COLUMN_KEY,       text[0],
+                       COLUMN_VALUE,     text[1],
+                       COLUMN_RAW_ENTRY, entry,
+                       COLUMN_TERMINATOR);
 
    cv->changed = TRUE;
 
@@ -916,6 +712,8 @@ gimv_comment_view_reset_data (GimvCommentView *cv)
       node = cv->comment->data_list;
       while (node) {
          GimvCommentDataEntry *entry = node->data;
+         GtkTreeModel *model;
+         GtkTreeIter iter;
 
          node = g_list_next (node);
 
@@ -931,48 +729,20 @@ gimv_comment_view_reset_data (GimvCommentView *cv)
          text[0] = _(entry->display_name);
          text[1] = entry->value;
 
-#ifdef ENABLE_TREEVIEW
-         {
-            GtkTreeModel *model;
-            GtkTreeIter iter;
-            model = gtk_tree_view_get_model (GTK_TREE_VIEW (cv->comment_clist));
-            gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-            gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                                COLUMN_KEY,       text[0],
-                                COLUMN_VALUE,     text[1],
-                                COLUMN_RAW_ENTRY, entry,
-                                COLUMN_TERMINATOR);
-         }
-#else /* ENABLE_TREEVIEW */
-         {
-            gint row;
-            row = gtk_clist_append (GTK_CLIST (cv->comment_clist), text);
-            gtk_clist_set_row_data (GTK_CLIST (cv->comment_clist),
-                                    row, entry);
-         }
-#endif /* ENABLE_TREEVIEW */
+         model = gtk_tree_view_get_model (GTK_TREE_VIEW (cv->comment_clist));
+         gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+         gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+                             COLUMN_KEY,       text[0],
+                             COLUMN_VALUE,     text[1],
+                             COLUMN_RAW_ENTRY, entry,
+                             COLUMN_TERMINATOR);
       }
 
       if (cv->comment->note && *cv->comment->note) {
-#ifdef USE_GTK2
          GtkTextBuffer *buffer;
 
          buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (cv->note_box));
          gtk_text_buffer_set_text (buffer, cv->comment->note, -1);
-#else /* USE_GTK2 */
-         GdkFont *font;
-
-         if (conf.textentry_font && *conf.textentry_font)
-            font = gdk_fontset_load (conf.textentry_font);
-         else
-            font = NULL;
-
-         gtk_text_insert (GTK_TEXT (cv->note_box), font, NULL, NULL,
-                          cv->comment->note, -1);
-
-         if (font)
-            gdk_font_unref (font);
-#endif /* USE_GTK2 */
       }
    }
 
@@ -990,40 +760,19 @@ gimv_comment_view_reset_data (GimvCommentView *cv)
 void
 gimv_comment_view_clear (GimvCommentView *cv)
 {
+   GtkTextBuffer *buffer;
+   GtkTreeModel *model;
+
    g_return_if_fail (cv);
 
-#ifdef ENABLE_TREEVIEW
-   {
-      GtkTreeModel *model
-         = gtk_tree_view_get_model (GTK_TREE_VIEW (cv->comment_clist));
-      gtk_list_store_clear (GTK_LIST_STORE (model));
-   }
-#else /* ENABLE_TREEVIEW */
-   {
-      gint i;
-      for (i = GTK_CLIST (cv->comment_clist)->rows - 1; i >= 0; i--) {
-         gtk_clist_remove (GTK_CLIST (cv->comment_clist), i);
-      }
-   }
-#endif /* ENABLE_TREEVIEW */
+   model = gtk_tree_view_get_model (GTK_TREE_VIEW (cv->comment_clist));
+   gtk_list_store_clear (GTK_LIST_STORE (model));
 
    gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (cv->key_combo)->entry), "\0");
    gtk_entry_set_text (GTK_ENTRY (cv->value_entry), "\0");
 
-#ifdef USE_GTK2
-   {
-      GtkTextBuffer *buffer;
-      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (cv->note_box));
-      gtk_text_buffer_set_text (buffer, "\0", -1);
-   }
-#else /* USE_GTK2 */
-   {
-      GtkText *text;
-      text = GTK_TEXT (cv->note_box);
-      gtk_text_set_point (text, 0);
-      gtk_text_forward_delete (text, gtk_text_get_length(text));
-   }
-#endif /* USE_GTK2 */
+   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (cv->note_box));
+   gtk_text_buffer_set_text (buffer, "\0", -1);
 
    cv->changed = FALSE;
 
@@ -1094,9 +843,7 @@ gimv_comment_view_create (void)
 
    hbox1 = cv->inner_button_area = gtk_hbox_new (TRUE, 0);
    gtk_box_pack_end (GTK_BOX (hbox), hbox1, FALSE, TRUE, 0);
-#ifdef USE_GTK2
    gtk_box_set_homogeneous (GTK_BOX(hbox1), FALSE);
-#endif /* USE_GTK2 */
 
    button = gtk_button_new_with_label (_("_Save"));
    cv->save_button = button;

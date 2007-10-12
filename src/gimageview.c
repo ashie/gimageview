@@ -94,9 +94,7 @@ gimageview_init (gint *argc, gchar *argv[])
    /* set locale */
    setlocale (LC_ALL, "");
    bindtextdomain (PACKAGE, LOCALEDIR);
-#ifdef USE_GTK2
    bind_textdomain_codeset (PACKAGE, "UTF-8");
-#endif
    textdomain (PACKAGE);
 
    /* Gtk Initialize */
@@ -112,11 +110,7 @@ gimageview_init (gint *argc, gchar *argv[])
    prefs_load_config ();
    g_snprintf (buf, MAX_PATH_LEN, "%s/%s/%s", g_getenv("HOME"),
                GIMV_RC_DIR, GIMV_KEYACCEL_RC);
-#ifdef USE_GTK2
    gtk_accel_map_load (buf);
-#else /* USE_GTK2 */
-   gtk_item_factory_parse_rc (buf);
-#endif /* USE_GTK2 */
 
    /* gimv_image_init (); */
 
@@ -159,11 +153,7 @@ gimv_quit (void)
    prefs_save_config ();
    g_snprintf (buf, MAX_PATH_LEN, "%s/%s/%s",
                g_getenv("HOME"), GIMV_RC_DIR, GIMV_KEYACCEL_RC);
-#ifdef USE_GTK2
    gtk_accel_map_save (buf);
-#else /* USE_GTK2 */
-   gtk_item_factory_dump_rc (buf, NULL, TRUE);
-#endif /* USE_GTK2 */
 
    remove_temp_dir ();
 

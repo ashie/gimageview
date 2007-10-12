@@ -36,14 +36,12 @@
 #include "gimv_image_loader.h"
 
 
-#ifdef ENABLE_TREEVIEW
 typedef enum {
    COLUMN_TERMINATOR = -1,
    COLUMN_KEY,
    COLUMN_VALUE,
    N_COLUMN
 } ListStoreColumn;
-#endif /* ENABLE_TREEVIEW */
 
 
 /******************************************************************************
@@ -88,38 +86,30 @@ exif_view_content_list_set_data (GtkWidget *clist,
 {
    const gchar *text[2];
    guint i;
+   GtkTreeModel *model;
 
    g_return_if_fail (clist);
    g_return_if_fail (content);
 
-#ifdef ENABLE_TREEVIEW
-   {
-      GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (clist));
-      gtk_list_store_clear (GTK_LIST_STORE (model));
-   }
-#else /* ENABLE_TREEVIEW */
-   gtk_clist_clear (GTK_CLIST (clist));
-#endif /* ENABLE_TREEVIEW */
+   model = gtk_tree_view_get_model (GTK_TREE_VIEW (clist));
+   gtk_list_store_clear (GTK_LIST_STORE (model));
 
    for (i = 0; i < content->count; i++) {
+      GtkTreeModel *model;
+      GtkTreeIter iter;
+
       text[0] = exif_tag_get_name (content->entries[i]->tag);
       if (text[0] && *text[0]) text[0] = _(text[0]);
       text[1] = exif_entry_get_value (content->entries[i]);
       if (text[1] && *text[1]) text[1] = _(text[1]);
-#ifdef ENABLE_TREEVIEW
-      {
-         GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (clist));
-         GtkTreeIter iter;
 
-         gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-         gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                             COLUMN_KEY,       text[0],
-                             COLUMN_VALUE,     text[1],
-                             COLUMN_TERMINATOR);
-      }
-#else /* ENABLE_TREEVIEW */
-      gtk_clist_append (GTK_CLIST (clist), (gchar **) text);
-#endif /* ENABLE_TREEVIEW */
+      model = gtk_tree_view_get_model (GTK_TREE_VIEW (clist));
+
+      gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+      gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+                          COLUMN_KEY,       text[0],
+                          COLUMN_VALUE,     text[1],
+                          COLUMN_TERMINATOR);
    }
 }
 
@@ -211,11 +201,7 @@ exif_view_get_thumbnail (ExifData *edata)
    gimv_image_loader_unref (loader);
    gimv_io_unref (gio);
 
-#ifdef USE_GTK2
    image = gtk_image_new_from_pixmap (pixmap, bitmap);   
-#else
-   image = gtk_pixmap_new (pixmap, bitmap);
-#endif
 
    if (pixmap)
       gdk_pixmap_unref (pixmap);
@@ -283,56 +269,44 @@ exif_view_create (const gchar *filename, GtkWindow *parent)
    /* Tag Tables */
    for (i = 0; i < EXIF_IFD_COUNT; i++) {
       GtkWidget *scrolledwin, *clist;
+      GtkListStore *store;
+      GtkTreeViewColumn *col;
+      GtkCellRenderer *render;
 
       /* scrolled window & clist */
       label = gtk_label_new (_(exif_ifd_get_name(i)));
       scrolledwin = gtk_scrolled_window_new (NULL, NULL);
       gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(scrolledwin),
                                       GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
-#ifdef USE_GTK2
       gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolledwin),
                                           GTK_SHADOW_IN);
-#endif /* USE_GTK2 */
       gtk_container_set_border_width (GTK_CONTAINER (scrolledwin), 5);
       gtk_notebook_append_page (GTK_NOTEBOOK(notebook),
                                 scrolledwin, label);
       gtk_widget_show (scrolledwin);
 
-#ifdef ENABLE_TREEVIEW
-      {
-         GtkListStore *store;
-         GtkTreeViewColumn *col;
-         GtkCellRenderer *render;
+      store = gtk_list_store_new (N_COLUMN, G_TYPE_STRING, G_TYPE_STRING);
+      clist = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
 
-         store = gtk_list_store_new (N_COLUMN, G_TYPE_STRING, G_TYPE_STRING);
-         clist = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
+      gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (clist), TRUE);
 
-         gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (clist), TRUE);
+      /* set column for key */
+      col = gtk_tree_view_column_new();
+      gtk_tree_view_column_set_resizable (col, TRUE);
+      gtk_tree_view_column_set_title (col, _(titles[0]));
+      render = gtk_cell_renderer_text_new ();
+      gtk_tree_view_column_pack_start (col, render, TRUE);
+      gtk_tree_view_column_add_attribute (col, render, "text", COLUMN_KEY);
+      gtk_tree_view_append_column (GTK_TREE_VIEW (clist), col);
 
-         /* set column for key */
-         col = gtk_tree_view_column_new();
-         gtk_tree_view_column_set_resizable (col, TRUE);
-         gtk_tree_view_column_set_title (col, _(titles[0]));
-         render = gtk_cell_renderer_text_new ();
-         gtk_tree_view_column_pack_start (col, render, TRUE);
-         gtk_tree_view_column_add_attribute (col, render, "text", COLUMN_KEY);
-         gtk_tree_view_append_column (GTK_TREE_VIEW (clist), col);
-
-         /* set column for value */
-         col = gtk_tree_view_column_new();
-         gtk_tree_view_column_set_resizable (col, TRUE);
-         gtk_tree_view_column_set_title (col, _(titles[1]));
-         render = gtk_cell_renderer_text_new ();
-         gtk_tree_view_column_pack_start (col, render, TRUE);
-         gtk_tree_view_column_add_attribute (col, render, "text", COLUMN_VALUE);
-         gtk_tree_view_append_column (GTK_TREE_VIEW (clist), col);
-      }
-#else /* ENABLE_TREEVIEW */
-      clist =  gtk_clist_new_with_titles (2, titles);
-      gtk_clist_set_selection_mode (GTK_CLIST (clist), GTK_SELECTION_SINGLE);
-      gtk_clist_set_column_auto_resize (GTK_CLIST (clist), 0, TRUE);
-      gtk_clist_set_column_auto_resize (GTK_CLIST (clist), 1, TRUE);
-#endif /* ENABLE_TREEVIEW */
+      /* set column for value */
+      col = gtk_tree_view_column_new();
+      gtk_tree_view_column_set_resizable (col, TRUE);
+      gtk_tree_view_column_set_title (col, _(titles[1]));
+      render = gtk_cell_renderer_text_new ();
+      gtk_tree_view_column_pack_start (col, render, TRUE);
+      gtk_tree_view_column_add_attribute (col, render, "text", COLUMN_VALUE);
+      gtk_tree_view_append_column (GTK_TREE_VIEW (clist), col);
 
       gtk_container_add (GTK_CONTAINER (scrolledwin), clist);
       gtk_widget_show (clist);
