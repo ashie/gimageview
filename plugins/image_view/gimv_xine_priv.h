@@ -65,8 +65,6 @@
 #  define GIMV_XINE_DEFAULT_VISUAL_TYPE XINE_VISUAL_TYPE_NONE
 #endif
 
-#include "intl.h"
-
 
 /*
  * config related constants

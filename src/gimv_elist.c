@@ -25,8 +25,8 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <glib/gi18n.h>
 
-#include "intl.h"
 #include "gimv_marshal.h"
 
 

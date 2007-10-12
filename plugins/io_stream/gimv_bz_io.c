@@ -32,7 +32,6 @@
 #include "fileutil.h"
 #include "gimv_io_mem.h"
 #include "gimv_plugin.h"
-#include "intl.h"
 
 
 #ifndef BUF_SIZE

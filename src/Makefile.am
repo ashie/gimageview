@@ -59,7 +59,6 @@ gimv_SOURCES = \
 	gtk_prop.c gtk_prop.h \
 	gtkutils.c gtkutils.h \
 	help.c help.h \
-	intl.h \
 	md5.c md5.h \
 	menu.c menu.h \
 	pixbuf_utils.c pixbuf_utils.h \
@@ -94,7 +93,6 @@ CPPFLAGS= \
 
 INCLUDES = \
 	$(GTK_CFLAGS) \
-	$(GIMV_IMAGELIB_CFLAGS) \
 	$(EXIF_CFLAGS) \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/libs
@@ -128,8 +126,6 @@ gimv_LDFLAGS = \
 gimv_LDADD = \
 	$(gimv_res) \
 	$(gimv_exp) \
-	$(INTLLIBS) \
-	$(GIMV_IMAGELIB_LIBS) \
 	$(GTK_LIBS) \
 	$(EXIF_LIBS) \
 	$(XINERAMA_LIBS) \

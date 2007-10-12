@@ -25,8 +25,7 @@
 
 #include <string.h>
 #include <stdlib.h>
-
-#include "intl.h" /* FIXME */
+#include <glib/gi18n.h>
 
 
 enum {

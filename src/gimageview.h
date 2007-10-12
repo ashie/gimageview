@@ -28,10 +28,9 @@
 #  include "config.h"
 #endif
 
+#include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
-
-#include "intl.h"
 
 /* global constants */
 #define GIMV_PROG_NAME     "GImageView"

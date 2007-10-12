@@ -27,7 +27,6 @@
 
 #include "fileutil.h"
 #include "gfileutil.h"
-#include "intl.h"
 #include "gimv_plugin.h"
 #include "gimv_thumb_cache.h"
 

@@ -31,13 +31,13 @@
 #include <sys/stat.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
+#include <glib/gi18n.h>
 
 #include "auto_completion.h"
 #include "charset.h"
 #include "fileutil.h"
 #include "gtkutils.h"
 #include "gimv_icon_stock.h"
-#include "intl.h"
 #include "prefs.h"
 
 #ifndef BUF_SIZE

@@ -23,7 +23,6 @@
 
 #include "detailview_prefs.h"
 
-#include "intl.h"
 #include "gimv_prefs_win.h"
 #include "gimv_prefs_ui_utils.h"
 #include "detailview.h"

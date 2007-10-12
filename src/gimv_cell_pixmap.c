@@ -32,7 +32,7 @@
 #include "gimv_cell_pixmap.h"
 
 #include <stdlib.h>
-#include "intl.h"
+#include <glib/gi18n.h>
 
 static void gimv_cell_renderer_pixmap_get_property  (GObject                    *object,
                                                      guint                       param_id,

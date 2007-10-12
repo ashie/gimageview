@@ -39,7 +39,6 @@
 #include <unistd.h>
 
 #include "gimv_image.h"
-#include "intl.h"
 #include "tga.h"
 #include "gimv_plugin.h"
 
