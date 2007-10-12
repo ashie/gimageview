@@ -1,5 +1,11 @@
 2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
 
+	* plugins/thumbnail_view/detailview2.c: Removed.
+	* plugins/thumbnail_view/Makefile.am: Follow the change
+	* plugins/thumbnail_view/detailview.c: Move codes to this file.
+
+2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
+
 	* src/gtk2-compat.[ch]: Removed.
 	* src/Makefile.am, *.[ch]: Follow the change.
 
