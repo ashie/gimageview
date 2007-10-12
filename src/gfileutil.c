@@ -21,6 +21,7 @@
  * $Id$
  */
 
+#include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <string.h>
@@ -39,7 +40,6 @@
 #include "gimv_thumb.h"
 #include "gimv_thumb_cache.h"
 #include "gtkutils.h"
-#include "intl.h"
 #include "prefs.h"
 
 #ifndef BUF_SIZE

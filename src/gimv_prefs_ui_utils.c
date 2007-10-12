@@ -23,6 +23,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <glib/gi18n.h>
 
 #include "gimv_prefs_ui_utils.h"
 
@@ -30,7 +31,6 @@
 #include "gimv_dlist.h"
 #include "gimv_elist.h"
 #include "gtkutils.h"
-#include "intl.h"
 #include "prefs.h"
 #include "gimv_prefs_win.h"
 

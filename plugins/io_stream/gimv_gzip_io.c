@@ -27,7 +27,6 @@
 #include "gimv_io.h"
 #include "gimv_gzip_io.h"
 #include "fileutil.h"
-#include "intl.h"
 #include "gimv_plugin.h"
 
 

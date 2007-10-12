@@ -25,9 +25,9 @@
 #  include "config.h"
 #endif
 
+#include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
-#include "intl.h"
 #include "menu.h"
 
 

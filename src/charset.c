@@ -22,8 +22,8 @@
  */
 
 #include <string.h>
+#include <glib/gi18n.h>
 #include "charset.h"
-#include "intl.h"
 #include "japanese.h"
 
 CharsetDetectLocaleFn charset_locale_fn_table[] = {

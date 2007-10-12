@@ -1,5 +1,20 @@
 2007-10-13 Takuro Ashie <ashie@homa.ne.jp>
 
+	* src/intl.h: Removed.
+	* plugins/io_stream/gimv_gzip_io.c, plugins/io_stream/gimv_bz_io.c,
+	  plugins/thumbnail/konqueror-old.c, plugins/thumbnail/nautilus-2.0.c,
+	  plugins/thumbnail/nautilus.c, plugins/thumbnail/ee.c,
+	  plugins/thumbnail/xvpics.c, plugins/image_loader/tga.c,
+	  plugins/image_view/gimv_xine_priv.h,
+	  plugins/thumbnail_view/detailview_prefs.c, src/gimv_elist.c,
+	  src/gtk_prop.c, src/menu.c, src/gimv_dlist.c, src/gtkutils.c,
+	  src/gfileutil.c, src/gimv_prefs_ui_utils.c, src/Makefile.am,
+	  src/prefs_ui/prefs_ui_thumbalbum.c, src/gimv_cell_pixmap.c,
+	  src/charset.c, src/gimageview.h:
+	intl.h -> glib/gi18n.h
+
+2007-10-13 Takuro Ashie <ashie@homa.ne.jp>
+
 	* configure.ac: Fix some warnings.
 	* autogen.sh: Remove needless code.
 	* m4/libcharset.m4, m4/iconv.m4: Remove.

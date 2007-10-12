@@ -46,7 +46,7 @@
 #include <sys/wait.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
-#include "intl.h"
+#include <glib/gi18n.h>
 #include "gtk_prop.h"
 
 #ifdef DMALLOC
