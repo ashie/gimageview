@@ -23,11 +23,7 @@
 
 #include "gimv_anim.h"
 
-#ifdef HAVE_GDK_PIXBUF
-#  include <gdk-pixbuf/gdk-pixbuf.h>
-#elif defined (HAVE_GDK_IMLIB)
-#  include <gdk_imlib.h>
-#endif
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 
 static void gimv_anim_class_init    (GimvAnimClass *klass);
@@ -163,13 +159,11 @@ gimv_anim_get_interval (GimvAnim *anim)
 }
 
 
-#if HAVE_GDK_PIXBUF
 static void
 free_rgb_buffer (guchar *pixels, gpointer data)
 {
    g_free(pixels);
 }
-#endif /* HAVE_GDK_PIXBUF */
 
 gboolean
 gimv_anim_update_frame (GimvAnim *anim,
@@ -182,7 +176,6 @@ gimv_anim_update_frame (GimvAnim *anim,
 
    g_return_val_if_fail (anim, FALSE);
 
-#if HAVE_GDK_PIXBUF
    {
       gint bytes = 3;
 
@@ -196,13 +189,6 @@ gimv_anim_update_frame (GimvAnim *anim,
                                                width, height, bytes * width,
                                                free_rgb_buffer, NULL);
    }
-#elif defined (HAVE_GDK_IMLIB)
-   if (image->image)
-      gdk_imlib_kill_image (image->image);
-
-   image->image = gdk_imlib_create_image_from_data (frame, NULL, width, height);
-   g_free (frame);
-#endif /* HAVE_GDK_PIXBUF */
 
    if (image->image)
       return TRUE;
