@@ -1,5 +1,14 @@
 2007-10-13 Takuro Ashie <ashie@homa.ne.jp>
 
+	* m4/libwmf.m4: quot.
+	* m4/xine.m4: update.
+
+2007-10-13 Takuro Ashie <ashie@homa.ne.jp>
+
+	* acconfig.h: Remove.
+
+2007-10-13 Takuro Ashie <ashie@homa.ne.jp>
+
 	* Makefile.am, autogen.sh, configure.ac, po/Makefile.in.in,
 	  src/Makefile.am, src/gimageview.c:
 	glib-gettextize.

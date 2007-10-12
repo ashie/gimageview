@@ -10,7 +10,7 @@
 dnl AM_PATH_LIBWMF([MINIMUM-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
 dnl Test for libwmf, and define LIBWMF_CFLAGS and LIBWMF_LIBS
 dnl
-AC_DEFUN(AM_PATH_LIBWMF,
+AC_DEFUN([AM_PATH_LIBWMF],
 [dnl 
 dnl Get the cflags and libraries from the libwmf-config script
 dnl

@@ -31,13 +31,14 @@ AC_DEFUN([AM_PATH_XINE],
 dnl Get the cflags and libraries from the xine-config script
 dnl
 AC_ARG_WITH(xine-prefix,
-    [  --with-xine-prefix=PFX  Prefix where XINE is installed (optional)],
+    AC_HELP_STRING([--with-xine-prefix=DIR], [prefix where XINE is installed (optional)]),
             xine_config_prefix="$withval", xine_config_prefix="")
 AC_ARG_WITH(xine-exec-prefix,
-    [  --with-xine-exec-prefix=PFX                                                                             Exec prefix where XINE is installed (optional)],
+    AC_HELP_STRING([--with-xine-exec-prefix=DIR], [exec prefix where XINE is installed (optional)]),
             xine_config_exec_prefix="$withval", xine_config_exec_prefix="")
 AC_ARG_ENABLE(xinetest, 
-    [  --disable-xinetest      Do not try to compile and run a test XINE program],, enable_xinetest=yes)
+    AC_HELP_STRING([--disable-xinetest], [do not try to compile and run a test XINE program]),
+            enable_xinetest=$enableval, enable_xinetest=yes)
 
   if test x$xine_config_exec_prefix != x ; then
      xine_config_args="$xine_config_args --exec-prefix=$xine_config_exec_prefix"
@@ -56,7 +57,7 @@ AC_ARG_ENABLE(xinetest,
   if test "x$enable_xinetest" != "xyes" ; then
     AC_MSG_CHECKING([for XINE-LIB version >= $min_xine_version])
   else
-    AC_PATH_PROG(XINE_CONFIG, xine-config, no)
+    AC_PATH_TOOL(XINE_CONFIG, xine-config, no)
     AC_MSG_CHECKING([for XINE-LIB version >= $min_xine_version])
     no_xine=""
     if test "$XINE_CONFIG" = "no" ; then
@@ -209,4 +210,6 @@ main ()
 dnl Make sure HAVE_STRSEP, HAVE_SETENV and HAVE_STRPBRK are defined as
 dnl necessary.
   AC_CHECK_FUNCS([strsep strpbrk setenv])
+dnl alloca (in public macro) and MinGW
+  AC_CHECK_HEADERS([malloc.h])
 ])
