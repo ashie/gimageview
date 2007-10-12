@@ -1,8 +1,8 @@
 2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
 
 	* configure.ac: Renamed from configure.in.
-	* m4/gdk-pixbuf.m4, m4/gnome.m4, m4/pkg.m4, m4/gtk.m4, m4/imlib.m4:
-	Removed needless files.
+	* m4/gdk-pixbuf.m4, m4/gnome.m4, m4/pkg.m4, m4/gtk.m4, m4/imlib.m4,
+	  m4/libtool.m4: Removed needless files.
 
 2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
 
