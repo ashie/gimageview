@@ -17,10 +17,6 @@ image_loader_plugin_LTLIBRARIES = \
 	libgimv_xcf_loader.la \
 	libgimv_xvpics_loader.la
 
-if ENABLE_GDK_IMLIB
-gimv_imlib1_loader_plugin_LTLIBRARIES = libgimv_imlib1_loader.la
-endif
-
 if ENABLE_GDK_PIXBUF
 gimv_pixbuf_loader_plugin_LTLIBRARIES = libgimv_pixbuf_loader.la
 endif
@@ -46,7 +42,6 @@ gimv_wmf_loader_plugin_LTLIBRARIES = libgimv_wmf_loader.la
 endif
 
 image_loader_plugindir = $(DESTDIR)$(plugindir)/$(IMAGE_LOADER_PLUGIN_DIR)
-gimv_imlib1_loader_plugindir = $(DESTDIR)$(plugindir)/$(IMAGE_LOADER_PLUGIN_DIR)
 gimv_jpeg_loader_plugindir = $(DESTDIR)$(plugindir)/$(IMAGE_LOADER_PLUGIN_DIR)
 gimv_mng_loader_plugindir = $(DESTDIR)$(plugindir)/$(IMAGE_LOADER_PLUGIN_DIR)
 gimv_pixbuf_loader_plugindir = $(DESTDIR)$(plugindir)/$(IMAGE_LOADER_PLUGIN_DIR)
@@ -74,10 +69,6 @@ CPPFLAGS = \
 libgimv_bmp_loader_la_LIBADD = $(GTK_LIBS)
 libgimv_bmp_loader_la_LDFLAGS = -module -avoid-version $(no_undefined) $(GIMV_LIBS)
 libgimv_bmp_loader_la_SOURCES = bmp.c bmp.h
-
-libgimv_imlib1_loader_la_LIBADD = $(GTK_LIBS) $(GDK_IMLIB_LIBS)
-libgimv_imlib1_loader_la_LDFLAGS = -module -avoid-version $(no_undefined) $(GIMV_LIBS)
-libgimv_imlib1_loader_la_SOURCES = imlib_loader.c imlib_loader.h
 
 libgimv_jpeg_loader_la_LIBADD = $(GTK_LIBS) $(JPEG_LIBS)
 libgimv_jpeg_loader_la_LDFLAGS = -module -avoid-version $(no_undefined) $(GIMV_LIBS)
