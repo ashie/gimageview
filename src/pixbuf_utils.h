@@ -17,8 +17,6 @@
 #  include "config.h"
 #endif
 
-#ifdef HAVE_GDK_PIXBUF
-
 #include <glib.h>
 #include <gdk/gdk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -34,5 +32,4 @@ void       pixmap_from_xpm        (const char **data,
                                    GdkPixmap **pixmap, 
                                    GdkBitmap **mask);
 
-#endif /* HAVE_GDK_PIXBUF */
 #endif /* PIXBUF_UTILS_H */

@@ -26,12 +26,8 @@
 
 #include "gimv_anim.h"
 
-#ifdef HAVE_GDK_PIXBUF
-
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 GimvImage *gimv_anim_new_from_gdk_pixbuf_animation (GdkPixbufAnimation *anim);
-
-#endif /* HAVE_GDK_PIXBUF */
 
 #endif /* __PIXBUF_ANIM_H__ */

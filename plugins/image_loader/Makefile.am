@@ -17,9 +17,7 @@ image_loader_plugin_LTLIBRARIES = \
 	libgimv_xcf_loader.la \
 	libgimv_xvpics_loader.la
 
-if ENABLE_GDK_PIXBUF
 gimv_pixbuf_loader_plugin_LTLIBRARIES = libgimv_pixbuf_loader.la
-endif
 
 if ENABLE_JPEG
 gimv_jpeg_loader_plugin_LTLIBRARIES = libgimv_jpeg_loader.la
