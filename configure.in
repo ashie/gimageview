@@ -1,5 +1,6 @@
 dnl -*- Mode: Autoconf; tab-width: 8; indent-tabs-mode: nil; -*-
 dnl Process this file with autoconf to produce a configure script.
+AC_PREREQ(2.61)
 AC_INIT(src/gimageview.c)
 PACKAGE=gimageview
 
@@ -23,16 +24,16 @@ AM_CONFIG_HEADER(config.h)
 dnl ******************************
 dnl Checks for programs.
 dnl ******************************
-AC_ARG_PROGRAM
 AC_PROG_AWK
 AC_PROG_CC
 AC_PROG_CXX
+AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
+AC_PROG_RANLIB
 AC_PROG_YACC
 AC_ISC_POSIX
-AC_PATH_X
 AM_MAINTAINER_MODE
 
 
@@ -495,6 +496,7 @@ fi
 dnl ******************************
 dnl Checks for header files.
 dnl ******************************
+AC_PATH_X
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
