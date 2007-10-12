@@ -1,5 +1,13 @@
 2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
 
+	* src/gimv_paned.c. src/gimv_hpaned.c, src/gimv_vpaned.c: Removed.d
+	* src/Makefile.am: Ditto.
+	* src/gimv_paned.h, src/gimv_hpaned.h, src/gimv_vpaned.h,
+	  src/japanese.c, src/gtk2-compat.[ch]:
+	Remove USE_GTK2.
+
+2007-10-12 Takuro Ashie <ashie@homa.ne.jp>
+
 	* src/gimv_dlist.c, src/gimv_dupl_win.c, src/gimv_dupl_finder.c,
 	  src/menu.[ch], src/prefs.c, src/text_viewer.c, src/help.c,
 	  prefs_ui/prefs_ui_common.c, prefs_ui/prefs_ui_plugin.c,

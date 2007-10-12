@@ -42,39 +42,10 @@
 extern "C" {
 #endif /* __cplusplus */
 
-
-#ifndef USE_NORMAL_PANED
-
-#define GIMV_VPANED(obj)          GTK_CHECK_CAST (obj, gimv_vpaned_get_type (), GimvVPaned)
-#define GIMV_VPANED_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gimv_vpaned_get_type (), GimvVPanedClass)
-#define GIMV_IS_VPANED(obj)       GTK_CHECK_TYPE (obj, gimv_vpaned_get_type ())
-
-
-typedef struct _GimvVPaned       GimvVPaned;
-typedef struct _GimvVPanedClass  GimvVPanedClass;
-
-struct _GimvVPaned
-{
-   GimvPaned paned;
-};
-
-struct _GimvVPanedClass
-{
-   GimvPanedClass parent_class;
-};
-
-
-GtkType    gimv_vpaned_get_type (void);
-GtkWidget* gimv_vpaned_new      (void);
-
-#else /* USE_NORMAL_PANED */
-
 #include <gtk/gtkvpaned.h>
 
 #define GimvVPaned GtkVPaned
 #define gimv_vpaned_new() gtk_vpaned_new()
-
-#endif /* USE_NORMAL_PANED */
 
 
 #ifdef __cplusplus
