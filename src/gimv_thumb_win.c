@@ -706,17 +706,19 @@ gimv_thumb_win_init (GimvThumbWin *tw)
    gtk_widget_show (hbox);
 
    tw->status_bar1 = gtk_statusbar_new ();
+   gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(tw->status_bar1), FALSE);
    gtk_widget_set_name (tw->status_bar1, "StatusBar1");
    gtk_container_border_width (GTK_CONTAINER (tw->status_bar1), 1);
-   gtk_widget_set_usize(tw->status_bar1, 150, -1);
+   gtk_widget_set_size_request(tw->status_bar1, 150, -1);
    gtk_box_pack_start (GTK_BOX (hbox), tw->status_bar1, TRUE, TRUE, 0);
    gtk_widget_show (tw->status_bar1);
    gtk_statusbar_push(GTK_STATUSBAR (tw->status_bar1), 1, _("New Window"));
 
    tw->status_bar2 = gtk_statusbar_new ();
+   gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(tw->status_bar2), FALSE);
    gtk_widget_set_name (tw->status_bar2, "StatusBar2");
    gtk_container_border_width (GTK_CONTAINER (tw->status_bar2), 1);
-   gtk_widget_set_usize(tw->status_bar2, 150, -1);
+   gtk_widget_set_size_request(tw->status_bar2, 150, -1);
    gtk_box_pack_start (GTK_BOX (hbox), tw->status_bar2, TRUE, TRUE, 0);
    gtk_widget_show (tw->status_bar2);
 
