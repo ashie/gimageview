@@ -24,38 +24,31 @@
 #ifndef __GIMV_IMAGE_LOADER_H__
 #define __GIMV_IMAGE_LOADER_H__
 
-#ifdef HAVE_CONFIG_H
-#  include "config.h"
-#endif
-
-#include <gtk/gtkobject.h>
+#include <glib-object.h>
 
 #include "gimv_image.h"
 #include "gimv_image_info.h"
 #include "gimv_io.h"
 
-
 #define GIMV_TYPE_IMAGE_LOADER            (gimv_image_loader_get_type ())
-#define GIMV_IMAGE_LOADER(obj)            (GTK_CHECK_CAST (obj, gimv_image_loader_get_type (), GimvImageLoader))
-#define GIMV_IMAGE_LOADER_CLASS(klass)    (GTK_CHECK_CLASS_CAST (klass, gimv_image_loader_get_type, GimvImageLoaderClass))
-#define GIMV_IS_IMAGE_LOADER(obj)         (GTK_CHECK_TYPE (obj, gimv_image_loader_get_type ()))
-#define GIMV_IS_IMAGE_LOADER_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_IMAGE_LOADER))
-
+#define GIMV_IMAGE_LOADER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_IMAGE_LOADER, GimvImageLoader))
+#define GIMV_IMAGE_LOADER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_IMAGE_LOADER, GimvImageLoaderClass))
+#define GIMV_IS_IMAGE_LOADER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_IMAGE_LOADER))
+#define GIMV_IS_IMAGE_LOADER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_IMAGE_LOADER))
+#define GIMV_IMAGE_LOADER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_IMAGE_LOADER, GimvImageLoaderyClass))
 
 typedef struct GimvImageLoader_Tag      GimvImageLoader;
 typedef struct GimvImageLoaderPriv_Tag  GimvImageLoaderPriv;
 typedef struct GimvImageLoaderClass_Tag GimvImageLoaderClass;
-
 
 typedef enum {
    GIMV_IMAGE_LOADER_LOAD_NORMAL,
    GIMV_IMAGE_LOADER_LOAD_THUMBNAIL
 } GimvImageLoaderLoadType;
 
-
 struct GimvImageLoader_Tag
 {
-   GtkObject parent;
+   GObject parent;
 
    GimvImageInfo *info;
    GTimer        *timer;
@@ -63,10 +56,9 @@ struct GimvImageLoader_Tag
    GimvImageLoaderPriv *priv;
 };
 
-
 struct GimvImageLoaderClass_Tag
 {
-   GtkObjectClass parent;
+   GObjectClass parent;
 
    void (*load_start)        (GimvImageLoader *loader);
    void (*progress_update)   (GimvImageLoader *loader);
@@ -74,7 +66,7 @@ struct GimvImageLoaderClass_Tag
 };
 
 
-#define GIMV_IMAGE_LOADER_IF_VERSION 2
+#define GIMV_IMAGE_LOADER_IF_VERSION 3
 
 /*
  *  for plugin
@@ -111,10 +103,7 @@ GimvImageLoader
 GimvImageLoader
             *gimv_image_loader_new_with_image_info (GimvImageInfo *info);
 GimvImageLoader
-            *gimv_image_loader_new_with_file_name (const gchar *filename);
-GimvImageLoader
-            *gimv_image_loader_ref               (GimvImageLoader *loader);
-void         gimv_image_loader_unref             (GimvImageLoader *loader);
+            *gimv_image_loader_new_with_file_name(const gchar *filename);
 void         gimv_image_loader_set_image_info    (GimvImageLoader *loader,
                                                   GimvImageInfo   *info);
 
