@@ -223,15 +223,15 @@ files_loader_create_progress_window (FilesLoader *files)
    button = gtk_button_new_with_label (_("Skip"));
    gtk_container_border_width (GTK_CONTAINER (button), 5);
    gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT(button), "clicked",
-                       GTK_SIGNAL_FUNC(cb_file_load_cancel), files);
+   g_signal_connect (G_OBJECT(button), "clicked",
+                     G_CALLBACK(cb_file_load_cancel), files);
  
    /* stop button */
    button = gtk_button_new_with_label (_("Stop"));
    gtk_container_border_width (GTK_CONTAINER (button), 5);
    gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT(button), "clicked",
-                       GTK_SIGNAL_FUNC(cb_file_load_stop), files);
+   g_signal_connect (G_OBJECT(button), "clicked",
+                     G_CALLBACK(cb_file_load_stop), files);
 
 
    files->window = window;
@@ -678,18 +678,18 @@ open_archive_images (const gchar *filename,
       timer = gtk_timeout_add (50, (GtkFunction)progress_timeout, tw->progressbar);
    }
 
-   gtk_signal_connect (GTK_OBJECT (archive),
-                       "start",
-                       GTK_SIGNAL_FUNC (cb_archive_action_started),
-                       NULL);
-   gtk_signal_connect (GTK_OBJECT (archive),
-                       "done",
-                       GTK_SIGNAL_FUNC (cb_archive_action_performed),
-                       tw);
-   gtk_signal_connect (GTK_OBJECT (archive),
-                       "destroy",
-                       GTK_SIGNAL_FUNC (cb_archive_destroy),
-                       NULL);
+   g_signal_connect (G_OBJECT (archive),
+                     "start",
+                     G_CALLBACK (cb_archive_action_started),
+                     NULL);
+   g_signal_connect (G_OBJECT (archive),
+                     "done",
+                     G_CALLBACK (cb_archive_action_performed),
+                     tw);
+   g_signal_connect (G_OBJECT (archive),
+                     "destroy",
+                     G_CALLBACK (cb_archive_destroy),
+                     NULL);
 
    temp_dir = g_strconcat (get_temp_dir_name (),
                            FR_ARCHIVE (archive)->filename,
@@ -963,8 +963,8 @@ create_filebrowser (gpointer parent)
    FileSel *filesel;
 
    filebrowser = gtk_file_selection_new(_("Load file(s)"));
-   gtk_signal_connect (GTK_OBJECT (filebrowser), "destroy",
-                       GTK_SIGNAL_FUNC(cb_filebrowser_close), parent);
+   g_signal_connect (G_OBJECT (filebrowser), "destroy",
+                     G_CALLBACK(cb_filebrowser_close), parent);
 
    filesel = g_new0 (FileSel, 1);
    filesel->filebrowser = filebrowser;
@@ -979,19 +979,18 @@ create_filebrowser (gpointer parent)
    gtk_file_selection_set_select_multiple (GTK_FILE_SELECTION(filebrowser),
                                            TRUE);
    /*
-     gtk_signal_connect(
-     GTK_OBJECT(GTK_FILE_SELECTION(filebrowser)->selection_entry),
-     "changed", GTK_SIGNAL_FUNC(filebrowser_changed), filebrowser);
+     g_signal_connect(
+        G_OBJECT(GTK_FILE_SELECTION(filebrowser)->selection_entry),
+        "changed", G_CALLBACK(filebrowser_changed), filebrowser);
    */
-   gtk_signal_connect(
-      GTK_OBJECT(GTK_FILE_SELECTION(filebrowser)->ok_button),
+   g_signal_connect(
+      G_OBJECT(GTK_FILE_SELECTION(filebrowser)->ok_button),
       "clicked",
-      GTK_SIGNAL_FUNC(cb_filebrowser_ok_sel),
+      G_CALLBACK(cb_filebrowser_ok_sel),
       filesel);
-   gtk_signal_connect_object(
-      GTK_OBJECT(GTK_FILE_SELECTION(filebrowser)->cancel_button),
-      "clicked", GTK_SIGNAL_FUNC(gtk_widget_destroy),
-      GTK_OBJECT(filebrowser));
+   g_signal_connect(G_OBJECT(GTK_FILE_SELECTION(filebrowser)->cancel_button),
+                    "clicked", G_CALLBACK(gtk_widget_destroy),
+                    filebrowser);
 
    bbox = gtk_hbutton_box_new();
    gtk_button_box_set_layout(GTK_BUTTON_BOX(bbox), GTK_BUTTONBOX_END);
@@ -1001,17 +1000,17 @@ create_filebrowser (gpointer parent)
 
    add_selected  = gtk_button_new_with_label(_("Open selected files"));
    gtk_box_pack_start(GTK_BOX(bbox), add_selected, FALSE, FALSE, 0);
-   gtk_signal_connect(GTK_OBJECT(add_selected),
-                      "clicked",
-                      GTK_SIGNAL_FUNC(cb_filebrowser_open_selected_files),
-                      filesel);
+   g_signal_connect(G_OBJECT(add_selected),
+                    "clicked",
+                    G_CALLBACK(cb_filebrowser_open_selected_files),
+                    filesel);
 
    add_all = gtk_button_new_with_label(_("Thumbnail for selected files"));
    gtk_box_pack_start(GTK_BOX(bbox), add_all, FALSE, FALSE, 0);
-   gtk_signal_connect(GTK_OBJECT(add_all),
-                      "clicked",
-                      GTK_SIGNAL_FUNC (cb_filebrowser_add_thumbnail),
-                      filesel);
+   g_signal_connect(G_OBJECT(add_all),
+                    "clicked",
+                    G_CALLBACK (cb_filebrowser_add_thumbnail),
+                    filesel);
    gtk_widget_show_all(bbox);
 
 #if 0

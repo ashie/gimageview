@@ -388,14 +388,14 @@ auto_compl_show_alternatives (GtkWidget *entry)
       gtk_container_add (GTK_CONTAINER (frame), scroll);
       gtk_container_add (GTK_CONTAINER (scroll), ac_clist);
 
-      gtk_signal_connect (GTK_OBJECT (ac_window),
-                          "button-press-event",
-                          GTK_SIGNAL_FUNC(ac_window_button_press_cb),
-                          NULL);
-      gtk_signal_connect (GTK_OBJECT (ac_window),
-                          "key-press-event",
-                          GTK_SIGNAL_FUNC(ac_window_key_press_cb),
-                          NULL);
+      g_signal_connect (G_OBJECT (ac_window),
+                        "button-press-event",
+                        G_CALLBACK (ac_window_button_press_cb),
+                        NULL);
+      g_signal_connect (G_OBJECT (ac_window),
+                        "key-press-event",
+                        G_CALLBACK (ac_window_key_press_cb),
+                        NULL);
 
       g_signal_connect (G_OBJECT (ac_clist),
                         "cursor_changed",

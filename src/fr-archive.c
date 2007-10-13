@@ -88,23 +88,25 @@ fr_archive_class_init (FRArchiveClass *class)
    object_class = (GtkObjectClass *) class;
 
    fr_archive_signals[START] =
-      gtk_signal_new ("start",
-                      GTK_RUN_LAST,
-                      GTK_CLASS_TYPE (object_class),
-                      GTK_SIGNAL_OFFSET (FRArchiveClass, start),
-                      gtk_marshal_NONE__INT,
-                      GTK_TYPE_NONE, 1,
-                      GTK_TYPE_INT);
+      g_signal_new ("start",
+                    G_TYPE_FROM_CLASS (object_class),
+                    G_SIGNAL_RUN_LAST,
+                    G_STRUCT_OFFSET (FRArchiveClass, start),
+                    NULL, NULL,
+                    g_cclosure_marshal_VOID__INT,
+                    G_TYPE_NONE, 1,
+                    G_TYPE_INT);
 
    fr_archive_signals[DONE] =
-      gtk_signal_new ("done",
-                      GTK_RUN_LAST,
-                      GTK_CLASS_TYPE (object_class),
-                      GTK_SIGNAL_OFFSET (FRArchiveClass, done),
-                      gtk_marshal_NONE__INT_INT,
-                      GTK_TYPE_NONE, 2,
-                      GTK_TYPE_INT,
-                      GTK_TYPE_INT);
+      g_signal_new ("done",
+                    G_TYPE_FROM_CLASS (object_class),
+                    G_SIGNAL_RUN_LAST,
+                    G_STRUCT_OFFSET (FRArchiveClass, done),
+                    NULL, NULL,
+                    gtk_marshal_NONE__INT_INT,
+                    G_TYPE_NONE, 2,
+                    G_TYPE_INT,
+                    G_TYPE_INT);
 
    object_class->destroy = fr_archive_destroy;
    class->start = NULL;
@@ -194,9 +196,9 @@ action_started (FRCommand *command,
                 FRAction action,
                 FRArchive *archive)
 {
-   gtk_signal_emit (GTK_OBJECT (archive), 
-                    fr_archive_signals[START],
-                    action);
+   g_signal_emit (G_OBJECT (archive), 
+                  fr_archive_signals[START], 0,
+                  action);
 }
 
 
@@ -226,10 +228,10 @@ action_performed (FRCommand *command,
    g_print ("%s [DONE]\n", s_action);
 #endif
 
-   gtk_signal_emit (GTK_OBJECT (archive), 
-                    fr_archive_signals[DONE],
-                    action,
-                    error);
+   g_signal_emit (G_OBJECT (archive), 
+                  fr_archive_signals[DONE], 0,
+                  action,
+                  error);
 }
 
 
@@ -253,12 +255,12 @@ fr_archive_new_file (FRArchive *archive, char *filename)
    if (tmp_command != NULL) 
       gtk_object_unref (GTK_OBJECT (tmp_command));
 
-   gtk_signal_connect (GTK_OBJECT (archive->command), "start",
-                       GTK_SIGNAL_FUNC (action_started),
-                       archive);
-   gtk_signal_connect (GTK_OBJECT (archive->command), "done",
-                       GTK_SIGNAL_FUNC (action_performed),
-                       archive);
+   g_signal_connect (G_OBJECT (archive->command), "start",
+                     G_CALLBACK (action_started),
+                     archive);
+   g_signal_connect (G_OBJECT (archive->command), "done",
+                     G_CALLBACK (action_performed),
+                     archive);
 }
 
 
@@ -290,13 +292,13 @@ fr_archive_load (FRArchive *archive,
    if (tmp_command != NULL) 
       gtk_object_unref (GTK_OBJECT (tmp_command));
 
-   gtk_signal_connect (GTK_OBJECT (archive->command), "start",
-                       GTK_SIGNAL_FUNC (action_started),
-                       archive);
+   g_signal_connect (G_OBJECT (archive->command), "start",
+                     G_CALLBACK (action_started),
+                     archive);
 
-   gtk_signal_connect (GTK_OBJECT (archive->command), "done",
-                       GTK_SIGNAL_FUNC (action_performed),
-                       archive);
+   g_signal_connect (G_OBJECT (archive->command), "done",
+                     G_CALLBACK (action_performed),
+                     archive);
 	
    fr_command_list (archive->command);
 

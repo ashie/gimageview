@@ -40,7 +40,6 @@ enum {
 };
 
 
-static GtkObjectClass *parent_class = NULL;
 static guint fr_command_signals[LAST_SIGNAL] = { 0 };
 
 
@@ -88,23 +87,25 @@ fr_command_class_init (FRCommandClass *class)
    object_class = (GtkObjectClass*) class;
 
    fr_command_signals[START] =
-      gtk_signal_new ("start",
-                      GTK_RUN_LAST,
-                      GTK_CLASS_TYPE (object_class),
-                      GTK_SIGNAL_OFFSET (FRCommandClass, start),
-                      gtk_marshal_NONE__INT,
-                      GTK_TYPE_NONE, 1,
-                      GTK_TYPE_INT);
+      g_signal_new ("start",
+                    G_TYPE_FROM_CLASS (object_class),
+                    G_SIGNAL_RUN_LAST,
+                    G_STRUCT_OFFSET (FRCommandClass, start),
+                    NULL, NULL,
+                    g_cclosure_marshal_VOID__INT,
+                    G_TYPE_NONE, 1,
+                    G_TYPE_INT);
    fr_command_signals[DONE] =
-      gtk_signal_new ("done",
-                      GTK_RUN_LAST,
-                      GTK_CLASS_TYPE (object_class),
-                      GTK_SIGNAL_OFFSET (FRCommandClass, done),
-                      gtk_marshal_NONE__INT_INT,
-                      GTK_TYPE_NONE, 2,
-                      GTK_TYPE_INT,
-                      GTK_TYPE_INT);
-
+      g_signal_new ("done",
+                    G_TYPE_FROM_CLASS (object_class),
+                    G_SIGNAL_RUN_LAST,
+                    G_STRUCT_OFFSET (FRCommandClass, done),
+                    NULL, NULL,
+                    gtk_marshal_NONE__INT_INT,
+                    G_TYPE_NONE, 2,
+                    G_TYPE_INT,
+                    G_TYPE_INT);
+   
    object_class->destroy = fr_command_destroy;
 
    class->list        = base_fr_command_list;
@@ -122,8 +123,9 @@ fr_command_start (FRProcess *process,
                   gpointer data)
 {
    FRCommand *comm = FR_COMMAND (data);
-   gtk_signal_emit (GTK_OBJECT (comm), fr_command_signals[START], 
-                    comm->action);
+   g_signal_emit (G_OBJECT (comm),
+                  fr_command_signals[START], 0,
+                  comm->action);
 }
 
 
@@ -134,9 +136,10 @@ fr_command_done (FRProcess *process,
 {
    FRCommand *comm = FR_COMMAND (data);
    comm->file_list = g_list_reverse (comm->file_list);
-   gtk_signal_emit (GTK_OBJECT (comm), fr_command_signals[DONE], 
-                    comm->action, 
-                    error);
+   g_signal_emit (G_OBJECT (comm),
+                  fr_command_signals[DONE], 0,
+                  comm->action, 
+                  error);
 }
 
 
@@ -170,7 +173,9 @@ fr_command_destroy (GtkObject *object)
       g_list_free (comm->file_list);
    }
 
-   gtk_signal_disconnect_by_data (GTK_OBJECT (comm->process), comm);
+   g_signal_handlers_disconnect_matched (G_OBJECT (comm->process),
+                                         G_SIGNAL_MATCH_DATA,
+                                         0, 0, NULL, NULL, comm);
    gtk_object_unref (GTK_OBJECT (comm->process));
 
    /* Chain up */
@@ -188,12 +193,12 @@ fr_command_construct (FRCommand *comm,
 
    gtk_object_ref (GTK_OBJECT (process));
    comm->process = process;
-   gtk_signal_connect (GTK_OBJECT (comm->process), "start",
-                       GTK_SIGNAL_FUNC (fr_command_start),
-                       comm);
-   gtk_signal_connect (GTK_OBJECT (comm->process), "done",
-                       GTK_SIGNAL_FUNC (fr_command_done),
-                       comm);
+   g_signal_connect (G_OBJECT (comm->process), "start",
+                     G_CALLBACK (fr_command_start),
+                     comm);
+   g_signal_connect (G_OBJECT (comm->process), "done",
+                     G_CALLBACK (fr_command_done),
+                     comm);
 }
 
 
