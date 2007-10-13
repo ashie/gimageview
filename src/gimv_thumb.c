@@ -267,9 +267,9 @@ create_thumbnail (GimvThumb *thumb, gint thumbsize,
       if (loader) {
          g_hash_table_insert (loader_table, thumb, loader);
 
-         gtk_signal_connect (GTK_OBJECT (loader), "progress_update",
-                             GTK_SIGNAL_FUNC (cb_loader_progress_update),
-                             thumb);
+         g_signal_connect (G_OBJECT (loader), "progress_update",
+                           G_CALLBACK (cb_loader_progress_update),
+                           thumb);
          gimv_image_loader_set_load_type (loader,
                                           GIMV_IMAGE_LOADER_LOAD_THUMBNAIL);
          gimv_image_loader_set_size_request (loader, thumbsize, thumbsize,
@@ -279,7 +279,7 @@ create_thumbnail (GimvThumb *thumb, gint thumbsize,
          image = gimv_image_loader_get_image (loader);
          if (image)
             gimv_image_ref (image);
-         gimv_image_loader_unref (loader);
+         g_object_unref (G_OBJECT (loader));
 
          g_hash_table_remove (loader_table, thumb);
       }

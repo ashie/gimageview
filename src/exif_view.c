@@ -189,7 +189,7 @@ exif_view_get_thumbnail (ExifData *edata)
 
    gimvimage = gimv_image_loader_get_image (loader);
    if (!gimvimage) {
-      gimv_image_loader_unref (loader);
+      g_object_unref (G_OBJECT(loader));
       return NULL;
    }
 
@@ -198,7 +198,7 @@ exif_view_get_thumbnail (ExifData *edata)
                                 gimv_image_height (gimvimage),
                                 &pixmap, &bitmap);
 
-   gimv_image_loader_unref (loader);
+   g_object_unref (G_OBJECT (loader));
    gimv_io_unref (gio);
 
    image = gtk_image_new_from_pixmap (pixmap, bitmap);   

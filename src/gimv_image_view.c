@@ -767,14 +767,14 @@ gimv_image_view_init (GimvImageView *iv)
                      1, 2, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
 
    /* set signals */
-   gtk_signal_connect (GTK_OBJECT (iv->hadj), "value_changed",
-                       GTK_SIGNAL_FUNC (cb_scrollbar_value_changed), iv);
+   g_signal_connect (G_OBJECT (iv->hadj), "value_changed",
+                     G_CALLBACK (cb_scrollbar_value_changed), iv);
 
-   gtk_signal_connect (GTK_OBJECT (iv->vadj), "value_changed",
-                       GTK_SIGNAL_FUNC (cb_scrollbar_value_changed), iv);
+   g_signal_connect (G_OBJECT (iv->vadj), "value_changed",
+                     G_CALLBACK (cb_scrollbar_value_changed), iv);
 
-   gtk_signal_connect (GTK_OBJECT (event_box), "button_press_event",
-                       GTK_SIGNAL_FUNC (cb_nav_button), iv);
+   g_signal_connect (G_OBJECT (event_box), "button_press_event",
+                     G_CALLBACK (cb_nav_button), iv);
 
    /* add to list */
    GimvImageViewList = g_list_append (GimvImageViewList, iv);
@@ -817,11 +817,11 @@ gimv_image_view_destroy (GtkObject *object)
    if (iv->loader) {
       if (gimv_image_loader_is_loading (iv->loader)) {
          gimv_image_view_cancel_loading (iv);
-         gtk_signal_connect (GTK_OBJECT (iv->loader), "load_end",
-                             GTK_SIGNAL_FUNC (cb_destroy_loader),
-                             iv);
+         g_signal_connect (G_OBJECT (iv->loader), "load_end",
+                           G_CALLBACK (cb_destroy_loader),
+                           iv);
       } else {
-         gimv_image_loader_unref (iv->loader);
+         g_object_unref (G_OBJECT(iv->loader));
       }
    }
    iv->loader = NULL;
@@ -915,9 +915,9 @@ cb_keep_aspect (GimvImageView *iv, guint action, GtkWidget *widget)
 {
    iv->priv->keep_aspect = GTK_CHECK_MENU_ITEM(widget)->active;
 
-   gtk_signal_emit (GTK_OBJECT(iv),
-                    gimv_image_view_signals[TOGGLE_ASPECT_SIGNAL],
-                    iv->priv->keep_aspect);
+   g_signal_emit (GTK_OBJECT(iv),
+                  gimv_image_view_signals[TOGGLE_ASPECT_SIGNAL], 0,
+                  iv->priv->keep_aspect);
 }
 
 
@@ -972,9 +972,9 @@ cb_toggle_buffer (GimvImageView *iv, guint action, GtkWidget *widget)
       gimv_image_view_free_image_buf (iv);
    }
 
-   gtk_signal_emit (GTK_OBJECT(iv),
-                    gimv_image_view_signals[TOGGLE_BUFFER_SIGNAL],
-                    iv->priv->buffer);
+   g_signal_emit (G_OBJECT(iv),
+                  gimv_image_view_signals[TOGGLE_BUFFER_SIGNAL], 0,
+                  iv->priv->buffer);
 }
 
 
@@ -1142,22 +1142,22 @@ cb_seekbar_released (GtkWidget *widget,
 static void
 cb_destroy_loader (GimvImageLoader *loader, gpointer data)
 {
-   gtk_signal_disconnect_by_func (GTK_OBJECT (loader),
-                                  GTK_SIGNAL_FUNC (cb_destroy_loader),
-                                  data);
-   gimv_image_loader_unref (loader);
+   g_signal_handlers_disconnect_by_func (G_OBJECT (loader),
+                                         G_CALLBACK (cb_destroy_loader),
+                                         data);
+   g_object_unref (G_OBJECT (loader));
 }
 
 
 static void
 cb_image_map (GtkWidget *widget, GimvImageView *iv)
 {
-   gtk_signal_disconnect_by_func (GTK_OBJECT (widget),
-                                  GTK_SIGNAL_FUNC (cb_image_map), iv);
+   g_signal_handlers_disconnect_by_func (G_OBJECT (widget),
+                                         G_CALLBACK (cb_image_map), iv);
    gimv_image_view_show_image (iv);
    gimv_image_view_playable_play (iv);
-   gtk_signal_emit (GTK_OBJECT(iv),
-                    gimv_image_view_signals[IMAGE_CHANGED_SIGNAL]);
+   g_signal_emit (GTK_OBJECT(iv),
+                  gimv_image_view_signals[IMAGE_CHANGED_SIGNAL], 0);
 }
 
 
@@ -1290,9 +1290,9 @@ cb_image_button_press (GtkWidget *widget, GdkEventButton *event,
 
    gtk_widget_grab_focus (widget);
 
-   gtk_signal_emit (GTK_OBJECT (iv),
-                    gimv_image_view_signals[IMAGE_PRESSED_SIGNAL],
-                    event, &retval);
+   g_signal_emit (GTK_OBJECT (iv),
+                  gimv_image_view_signals[IMAGE_PRESSED_SIGNAL], 0,
+                  event, &retval);
 
    if (iv->priv->dragging)
       return FALSE;
@@ -1338,14 +1338,14 @@ cb_image_button_release  (GtkWidget *widget, GdkEventButton *event,
       return FALSE;
    */
 
-   gtk_signal_emit (GTK_OBJECT (iv),
-                    gimv_image_view_signals[IMAGE_RELEASED_SIGNAL],
-                    event, &retval);
+   g_signal_emit (GTK_OBJECT (iv),
+                  gimv_image_view_signals[IMAGE_RELEASED_SIGNAL], 0,
+                  event, &retval);
 
    if(iv->priv->pressed && !iv->priv->dragging)
-      gtk_signal_emit (GTK_OBJECT (iv),
-                       gimv_image_view_signals[IMAGE_CLICKED_SIGNAL],
-                       event, &retval);
+      g_signal_emit (GTK_OBJECT (iv),
+                     gimv_image_view_signals[IMAGE_CLICKED_SIGNAL], 0,
+                     event, &retval);
 
    if (buffer) {
       gdk_pixmap_unref (buffer);
@@ -1686,14 +1686,14 @@ gimv_image_view_change_draw_widget (GimvImageView *iv, const gchar *label)
 
    gtk_widget_show (iv->draw_area);
 
-   gtk_signal_connect_after (GTK_OBJECT (iv->draw_area), "key-press-event",
-                             GTK_SIGNAL_FUNC(cb_image_key_press), iv);
-   gtk_signal_connect (GTK_OBJECT (iv->draw_area), "button_press_event",
-                       GTK_SIGNAL_FUNC (cb_image_button_press), iv);
-   gtk_signal_connect (GTK_OBJECT (iv->draw_area), "button_release_event",
-                       GTK_SIGNAL_FUNC (cb_image_button_release), iv);
-   gtk_signal_connect (GTK_OBJECT (iv->draw_area), "motion_notify_event",
-                       GTK_SIGNAL_FUNC (cb_image_motion_notify), iv);
+   g_signal_connect_after (G_OBJECT (iv->draw_area), "key-press-event",
+                           G_CALLBACK (cb_image_key_press), iv);
+   g_signal_connect (G_OBJECT (iv->draw_area), "button_press_event",
+                     G_CALLBACK (cb_image_button_press), iv);
+   g_signal_connect (G_OBJECT (iv->draw_area), "button_release_event",
+                     G_CALLBACK (cb_image_button_release), iv);
+   g_signal_connect (G_OBJECT (iv->draw_area), "motion_notify_event",
+                     G_CALLBACK (cb_image_motion_notify), iv);
    SIGNAL_CONNECT_TRANSRATE_SCROLL(iv->draw_area);
 
    if (iv->priv->fullscreen) {
@@ -1705,8 +1705,8 @@ gimv_image_view_change_draw_widget (GimvImageView *iv, const gchar *label)
    }
 
    /* for droping file list */
-   gtk_signal_connect(GTK_OBJECT (iv->draw_area), "drag_data_received",
-                      GTK_SIGNAL_FUNC (cb_drag_data_received), iv);
+   g_signal_connect (G_OBJECT (iv->draw_area), "drag_data_received",
+                     G_CALLBACK (cb_drag_data_received), iv);
 
    dnd_dest_set (iv->draw_area, dnd_types_archive, dnd_types_archive_num);
 
@@ -1880,11 +1880,11 @@ gimv_image_view_change_image (GimvImageView *iv, GimvImageInfo *info)
    if (GTK_WIDGET_MAPPED (iv->draw_area)) {
       gimv_image_view_show_image (iv);
       gimv_image_view_playable_play (iv);
-      gtk_signal_emit (GTK_OBJECT(iv),
-                       gimv_image_view_signals[IMAGE_CHANGED_SIGNAL]);
+      g_signal_emit (G_OBJECT(iv),
+                     gimv_image_view_signals[IMAGE_CHANGED_SIGNAL], 0);
    } else {
-      gtk_signal_connect_after (GTK_OBJECT (iv->draw_area), "map",
-                                GTK_SIGNAL_FUNC (cb_image_map), iv);
+      g_signal_connect_after (G_OBJECT (iv->draw_area), "map",
+                              G_CALLBACK (cb_image_map), iv);
    }
 }
 
@@ -2141,7 +2141,7 @@ gimv_image_view_create_player_toolbar (GimvImageView *iv)
                                      _("RW"),
                                      _("Reverse"), _("Reverse"),
                                      iconw,
-                                     GTK_SIGNAL_FUNC (cb_gimv_image_view_rw), iv);
+                                     G_CALLBACK (cb_gimv_image_view_rw), iv);
    gtk_widget_set_sensitive (button, FALSE);
    iv->player.rw = button;
 
@@ -2151,7 +2151,7 @@ gimv_image_view_create_player_toolbar (GimvImageView *iv)
                                      _("Play"),
                                      _("Play"), _("Play"),
                                      iconw,
-                                     GTK_SIGNAL_FUNC (cb_gimv_image_view_play), iv);
+                                     G_CALLBACK (cb_gimv_image_view_play), iv);
    gtk_widget_set_sensitive (button, FALSE);
    iv->player.play = button;
    iv->player.play_icon = iconw;
@@ -2162,7 +2162,7 @@ gimv_image_view_create_player_toolbar (GimvImageView *iv)
                                      _("Stop"),
                                      _("Stop"), _("Stop"),
                                      iconw,
-                                     GTK_SIGNAL_FUNC (cb_gimv_image_view_stop), iv);
+                                     G_CALLBACK (cb_gimv_image_view_stop), iv);
    gtk_widget_set_sensitive (button, FALSE);
    iv->player.stop = button;
 
@@ -2172,7 +2172,7 @@ gimv_image_view_create_player_toolbar (GimvImageView *iv)
                                      _("FF"),
                                      _("Forward"), _("Forward"),
                                      iconw,
-                                     GTK_SIGNAL_FUNC (cb_gimv_image_view_fw), iv);
+                                     G_CALLBACK (cb_gimv_image_view_fw), iv);
    gtk_widget_set_sensitive (button, FALSE);
    iv->player.fw = button;
 
@@ -2182,7 +2182,7 @@ gimv_image_view_create_player_toolbar (GimvImageView *iv)
                                      _("Eject"),
                                      _("Eject"), _("Eject"),
                                      iconw,
-                                     GTK_SIGNAL_FUNC (cb_gimv_image_view_eject), iv);
+                                     G_CALLBACK (cb_gimv_image_view_eject), iv);
    iv->player.eject = button;
    gtk_widget_set_sensitive (button, FALSE);
 
@@ -2193,10 +2193,10 @@ gimv_image_view_create_player_toolbar (GimvImageView *iv)
    gtk_widget_show (seekbar);
    iv->player.seekbar = seekbar;
 
-   gtk_signal_connect (GTK_OBJECT (iv->player.seekbar), "button_press_event",
-                       GTK_SIGNAL_FUNC (cb_seekbar_pressed), iv);
-   gtk_signal_connect (GTK_OBJECT (iv->player.seekbar), "button_release_event",
-                       GTK_SIGNAL_FUNC (cb_seekbar_released), iv);
+   g_signal_connect (G_OBJECT (iv->player.seekbar), "button_press_event",
+                     G_CALLBACK (cb_seekbar_pressed), iv);
+   g_signal_connect (G_OBJECT (iv->player.seekbar), "button_release_event",
+                     G_CALLBACK (cb_seekbar_released), iv);
 
    return hbox;
 }
@@ -2267,8 +2267,8 @@ gimv_image_view_create_movie_menu (GtkWidget *window,
    status = gimv_image_view_playable_get_status (iv);
    gimv_image_view_playable_set_status (iv, status);
 
-   gtk_signal_connect (GTK_OBJECT (menu), "destroy",
-                       GTK_SIGNAL_FUNC (cb_movie_menu_destroy), iv);
+   g_signal_connect (G_OBJECT (menu), "destroy",
+                     G_CALLBACK (cb_movie_menu_destroy), iv);
 
    return menu;
 }
@@ -2295,14 +2295,14 @@ gimv_image_view_create_view_modes_menu (GtkWidget *window,
       gtk_object_set_data (GTK_OBJECT (menu_item),
                            "GimvImageView::ViewMode",
                            (gpointer) vftable->label);
-      gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
-                          GTK_SIGNAL_FUNC (cb_change_view_mode), iv);
+      g_signal_connect (G_OBJECT (menu_item), "activate",
+                        G_CALLBACK(cb_change_view_mode), iv);
       gtk_menu_append (GTK_MENU (menu), menu_item);
       gtk_widget_show (menu_item);
    }
 
-   gtk_signal_connect (GTK_OBJECT (menu), "destroy",
-                       GTK_SIGNAL_FUNC (cb_view_modes_menu_destroy), iv);
+   g_signal_connect (G_OBJECT (menu), "destroy",
+                     G_CALLBACK (cb_view_modes_menu_destroy), iv);
 
    return menu;
 }
@@ -2501,13 +2501,13 @@ cb_navwin_button_release  (GtkWidget *widget,
    if (zoom_type >= 0) {
       gint vx, vy;
 
-      gtk_signal_handler_block_by_func (GTK_OBJECT(widget),
-                                        GTK_SIGNAL_FUNC (cb_navwin_button_release),
-                                        iv); 
+      g_signal_handlers_block_by_func (G_OBJECT(widget),
+                                       G_CALLBACK (cb_navwin_button_release),
+                                       iv); 
       gimv_image_view_zoom_image (iv, zoom_type, 0, 0);
-      gtk_signal_handler_unblock_by_func (GTK_OBJECT(widget),
-                                          GTK_SIGNAL_FUNC (cb_navwin_button_release),
-                                          iv); 
+      g_signal_handlers_unblock_by_func (G_OBJECT(widget),
+                                         G_CALLBACK (cb_navwin_button_release),
+                                         iv); 
 
       gimv_nav_win_set_orig_image_size (navwin,
                                         iv->priv->width,
@@ -2607,13 +2607,13 @@ cb_navwin_key_press (GtkWidget *widget,
    if (zoom_type >= 0) {
       gint vx, vy;
 
-      gtk_signal_handler_block_by_func (GTK_OBJECT(widget),
-                                        GTK_SIGNAL_FUNC (cb_navwin_key_press),
-                                        iv); 
+      g_signal_handlers_block_by_func (G_OBJECT(widget),
+                                       G_CALLBACK (cb_navwin_key_press),
+                                       iv); 
       gimv_image_view_zoom_image (iv, zoom_type, 0, 0);
-      gtk_signal_handler_unblock_by_func (GTK_OBJECT(widget),
-                                          GTK_SIGNAL_FUNC (cb_navwin_key_press),
-                                          iv); 
+      g_signal_handlers_unblock_by_func (G_OBJECT(widget),
+                                         G_CALLBACK (cb_navwin_key_press),
+                                         iv); 
 
       gimv_nav_win_set_orig_image_size (navwin,
                                         iv->priv->width,
@@ -2684,12 +2684,12 @@ gimv_image_view_open_navwin (GimvImageView *iv, gint x_root, gint y_root)
                                  iv->priv->width, iv->priv->height,
                                  fwidth, fheight,
                                  fpos_x, fpos_y);
-      gtk_signal_connect (GTK_OBJECT (navwin), "button_release_event",
-                          GTK_SIGNAL_FUNC (cb_navwin_button_release), iv);
-      gtk_signal_connect (GTK_OBJECT (navwin), "key-press-event",
-                          GTK_SIGNAL_FUNC(cb_navwin_key_press), iv);
-      gtk_signal_connect (GTK_OBJECT (navwin), "move",
-                          GTK_SIGNAL_FUNC (cb_navwin_move), iv);
+      g_signal_connect (G_OBJECT (navwin), "button_release_event",
+                        G_CALLBACK (cb_navwin_button_release), iv);
+      g_signal_connect (G_OBJECT (navwin), "key-press-event",
+                        G_CALLBACK(cb_navwin_key_press), iv);
+      g_signal_connect (G_OBJECT (navwin), "move",
+                        G_CALLBACK (cb_navwin_move), iv);
       gimv_nav_win_show (GIMV_NAV_WIN (navwin), x_root, y_root);
       iv->priv->navwin = navwin;
    }
@@ -2821,19 +2821,19 @@ cb_loader_load_end (GimvImageLoader *loader, GimvImageView *iv)
    gimv_image_view_rotate_render (iv, iv->priv->rotate);
 
 ERROR:
-   gtk_signal_disconnect_by_func (GTK_OBJECT (iv->loader),
-                                  GTK_SIGNAL_FUNC (cb_loader_progress_update),
-                                  iv);
-   gtk_signal_disconnect_by_func (GTK_OBJECT (iv->loader),
-                                  GTK_SIGNAL_FUNC (cb_loader_load_end),
-                                  iv);
+   g_signal_handlers_disconnect_by_func (G_OBJECT (iv->loader),
+                                         G_CALLBACK (cb_loader_progress_update),
+                                         iv);
+   g_signal_handlers_disconnect_by_func (G_OBJECT (iv->loader),
+                                         G_CALLBACK (cb_loader_load_end),
+                                         iv);
 
    iv->priv->loader_progress_update_signal_id = 0;
    iv->priv->loader_load_end_signal_id        = 0;
 
-   gtk_signal_emit (GTK_OBJECT(iv),
-                    gimv_image_view_signals[LOAD_END_SIGNAL],
-                    iv->info, FALSE);
+   g_signal_emit (G_OBJECT(iv),
+                  gimv_image_view_signals[LOAD_END_SIGNAL], 0,
+                  iv->info, FALSE);
 }
 
 
@@ -2906,9 +2906,9 @@ gimv_image_view_load_image_buf_start (GimvImageView *iv)
    filename = gimv_image_info_get_path (iv->info);
    if (!filename || !*filename) return;
 
-   gtk_signal_emit (GTK_OBJECT(iv),
-                    gimv_image_view_signals[LOAD_START_SIGNAL],
-                    iv->info);
+   g_signal_emit (GTK_OBJECT(iv),
+                  gimv_image_view_signals[LOAD_START_SIGNAL], 0,
+                  iv->info);
 
    if (gimv_image_info_is_in_archive (iv->info)) {
       guint timer = 0;
@@ -2937,19 +2937,19 @@ gimv_image_view_load_image_buf_start (GimvImageView *iv)
    /* load image buf */
    /* iv->loader->flags |= GIMV_IMAGE_LOADER_DEBUG_FLAG; */
    if (iv->priv->loader_progress_update_signal_id)
-      gtk_signal_disconnect (GTK_OBJECT (iv->loader),
-                             iv->priv->loader_progress_update_signal_id);
+      g_signal_handler_disconnect (G_OBJECT (iv->loader),
+                                   iv->priv->loader_progress_update_signal_id);
    iv->priv->loader_progress_update_signal_id = 
-      gtk_signal_connect (GTK_OBJECT (iv->loader), "progress_update",
-                          GTK_SIGNAL_FUNC (cb_loader_progress_update),
-                             iv);
+      g_signal_connect (G_OBJECT (iv->loader), "progress_update",
+                        G_CALLBACK (cb_loader_progress_update),
+                        iv);
    if (iv->priv->loader_load_end_signal_id)
-      gtk_signal_disconnect (GTK_OBJECT (iv->loader),
-                             iv->priv->loader_load_end_signal_id);
+      g_signal_handler_disconnect (G_OBJECT (iv->loader),
+                                   iv->priv->loader_load_end_signal_id);
    iv->priv->loader_load_end_signal_id = 
-      gtk_signal_connect (GTK_OBJECT (iv->loader), "load_end",
-                          GTK_SIGNAL_FUNC (cb_loader_load_end),
-                          iv);
+      g_signal_connect (G_OBJECT (iv->loader), "load_end",
+                        G_CALLBACK (cb_loader_load_end),
+                        iv);
 
    gimv_image_loader_set_image_info (iv->loader, iv->info);
    gimv_image_loader_set_as_animation (iv->loader, TRUE);
@@ -2967,8 +2967,8 @@ static void
 cb_loader_load_restart (GimvImageLoader *loader, GimvImageView *iv)
 {
    if (iv->priv->loader_load_end_signal_id)
-      gtk_signal_disconnect (GTK_OBJECT (iv->loader),
-                             iv->priv->loader_load_end_signal_id);
+      g_signal_handler_disconnect (G_OBJECT (iv->loader),
+                                   iv->priv->loader_load_end_signal_id);
    iv->priv->loader_load_end_signal_id = 0;
    gimv_image_view_load_image_buf_start (iv);
 }
@@ -2983,9 +2983,9 @@ gimv_image_view_load_image_buf (GimvImageView *iv)
       gimv_image_view_cancel_loading (iv);
 
       iv->priv->loader_load_end_signal_id
-         = gtk_signal_connect (GTK_OBJECT (iv->loader), "load_end",
-                               GTK_SIGNAL_FUNC (cb_loader_load_restart),
-                               iv);
+         = g_signal_connect (G_OBJECT (iv->loader), "load_end",
+                             G_CALLBACK (cb_loader_load_restart),
+                             iv);
    } else {
       gimv_image_view_load_image_buf_start (iv);
    }
@@ -3012,19 +3012,19 @@ gimv_image_view_cancel_loading (GimvImageView *iv)
    gimv_image_loader_load_stop (iv->loader);
 
    if (iv->priv->loader_progress_update_signal_id)
-      gtk_signal_disconnect (GTK_OBJECT (iv->loader),
-                             iv->priv->loader_progress_update_signal_id);
+      g_signal_handler_disconnect (G_OBJECT (iv->loader),
+                                   iv->priv->loader_progress_update_signal_id);
    iv->priv->loader_progress_update_signal_id = 0;
 
    if (iv->priv->loader_load_end_signal_id)
-      gtk_signal_disconnect (GTK_OBJECT (iv->loader),
-                             iv->priv->loader_load_end_signal_id);
+      g_signal_handler_disconnect (G_OBJECT (iv->loader),
+                                   iv->priv->loader_load_end_signal_id);
    iv->priv->loader_load_end_signal_id = 0;
 
    /*
-   gtk_signal_emit (GTK_OBJECT(iv),
-                    gimv_image_view_signals[LOAD_END_SIGNAL],
-                    iv->info, TRUE);
+   g_signal_emit (G_OBJECT(iv),
+                  gimv_image_view_signals[LOAD_END_SIGNAL], 0,
+                  iv->info, TRUE);
    */
 }
 
@@ -3217,7 +3217,7 @@ cb_gimv_image_view_rotate_load_end (GimvImageView *iv, GimvImageInfo *info,
    gchar *path, *cache;
 
    if (iv->priv->load_end_signal_id)
-      gtk_signal_disconnect (GTK_OBJECT (iv), iv->priv->load_end_signal_id);
+      g_signal_handler_disconnect (G_OBJECT (iv), iv->priv->load_end_signal_id);
    iv->priv->load_end_signal_id = 0;
 
    if (cancel) return;
@@ -3263,10 +3263,10 @@ cb_gimv_image_view_rotate_load_end (GimvImageView *iv, GimvImageInfo *info,
 
 func_end:
    if (iv->priv->load_end_signal_id)
-      gtk_signal_disconnect (GTK_OBJECT (iv), iv->priv->load_end_signal_id);
+      g_signal_handler_disconnect (GTK_OBJECT (iv), iv->priv->load_end_signal_id);
    iv->priv->load_end_signal_id = 0;
 
-   gtk_signal_emit (GTK_OBJECT(iv), gimv_image_view_signals[RENDERED_SIGNAL]);
+   g_signal_emit (G_OBJECT(iv), gimv_image_view_signals[RENDERED_SIGNAL], 0);
 }
 
 
@@ -3276,18 +3276,16 @@ gimv_image_view_rotate_image (GimvImageView *iv, GimvImageViewOrientation angle)
    RotateData *data;
 
    if (iv->priv->load_end_signal_id)
-      gtk_signal_disconnect (GTK_OBJECT (iv), iv->priv->load_end_signal_id);
+      g_signal_handler_disconnect (GTK_OBJECT (iv), iv->priv->load_end_signal_id);
 
    data = g_new0 (RotateData, 1);
    data->angle = angle;
 
    if (gimv_image_view_need_load (iv)) {
       iv->priv->load_end_signal_id
-         = gtk_signal_connect_full (GTK_OBJECT (iv), "load_end",
-                                    GTK_SIGNAL_FUNC (cb_gimv_image_view_rotate_load_end),
-                                    NULL,
-                                    data, (GtkDestroyNotify) g_free,
-                                    FALSE, FALSE);
+         = g_signal_connect_data (G_OBJECT (iv), "load_end",
+                                  G_CALLBACK (cb_gimv_image_view_rotate_load_end),
+                                  data, (GClosureNotify) g_free, 0);
 
       gimv_image_view_load_image_buf (iv);
    } else {
@@ -3419,8 +3417,8 @@ gimv_image_view_reset_scrollbar (GimvImageView *iv)
 
    move_scrollbar_by_user = FALSE;
 
-   gtk_signal_emit_by_name (GTK_OBJECT(iv->hadj), "changed");
-   gtk_signal_emit_by_name (GTK_OBJECT(iv->vadj), "changed");
+   g_signal_emit_by_name (G_OBJECT(iv->hadj), "changed");
+   g_signal_emit_by_name (G_OBJECT(iv->vadj), "changed");
 
    move_scrollbar_by_user = TRUE;
 }
@@ -3654,7 +3652,7 @@ gimv_image_view_set_list (GimvImageView       *iv,
    iv->priv->image_list->remove_list_fn    = remove_list_fn;
    iv->priv->image_list->list_fn_user_data = list_fn_user_data;
 
-   gtk_signal_emit (GTK_OBJECT(iv), gimv_image_view_signals[SET_LIST_SIGNAL]);
+   g_signal_emit (G_OBJECT(iv), gimv_image_view_signals[SET_LIST_SIGNAL], 0);
 }
 
 
@@ -3677,7 +3675,7 @@ gimv_image_view_remove_list (GimvImageView *iv, gpointer list_owner)
    g_free (iv->priv->image_list);
    iv->priv->image_list = NULL;
 
-   gtk_signal_emit (GTK_OBJECT(iv), gimv_image_view_signals[UNSET_LIST_SIGNAL]);
+   g_signal_emit (G_OBJECT(iv), gimv_image_view_signals[UNSET_LIST_SIGNAL], 0);
 }
 
 
@@ -4069,7 +4067,7 @@ gimv_image_view_playable_set_position (GimvImageView *iv, gfloat pos)
 
    if (iv->priv && !(iv->priv->player_flags & GimvImageViewSeekBarDraggingFlag)) {
       adj->value = pos;
-      gtk_signal_emit_by_name (GTK_OBJECT(adj), "value_changed"); 
+      g_signal_emit_by_name (G_OBJECT(adj), "value_changed"); 
    }
 
 }

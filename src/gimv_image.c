@@ -129,7 +129,7 @@ gimv_image_load_file (const gchar *filename, gboolean animation)
    image = gimv_image_loader_get_image (loader);
    if (image)
       gimv_image_ref (image);
-   gimv_image_loader_unref (loader);
+   g_object_unref (G_OBJECT (loader));
 
    return image;
 }
