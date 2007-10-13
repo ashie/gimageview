@@ -86,20 +86,22 @@ fr_process_class_init (FRProcessClass *class)
    object_class = (GtkObjectClass *) class;
 
    fr_process_signals[START] =
-      gtk_signal_new ("start",
-                      GTK_RUN_LAST,
-                      GTK_CLASS_TYPE (object_class),
-                      GTK_SIGNAL_OFFSET (FRProcessClass, start),
-                      gtk_marshal_NONE__NONE,
-                      GTK_TYPE_NONE, 0);
+      g_signal_new ("start",
+                    G_TYPE_FROM_CLASS (object_class),
+                    G_SIGNAL_RUN_LAST,
+                    G_STRUCT_OFFSET (FRProcessClass, start),
+                    NULL, NULL,
+                    g_cclosure_marshal_VOID__VOID,
+                    G_TYPE_NONE, 0);
    fr_process_signals[DONE] =
-      gtk_signal_new ("done",
-                      GTK_RUN_LAST,
-                      GTK_CLASS_TYPE (object_class),
-                      GTK_SIGNAL_OFFSET (FRProcessClass, done),
-                      gtk_marshal_NONE__INT,
-                      GTK_TYPE_NONE, 1,
-                      GTK_TYPE_INT);
+      g_signal_new ("done",
+                    G_TYPE_FROM_CLASS (object_class),
+                    G_SIGNAL_RUN_LAST,
+                    G_STRUCT_OFFSET (FRProcessClass, done),
+                    NULL, NULL,
+                    g_cclosure_marshal_VOID__INT,
+                    G_TYPE_NONE, 1,
+                    G_TYPE_INT);
 
    object_class->destroy = fr_process_destroy;
    class->done = NULL;
@@ -270,9 +272,9 @@ start_current_command (FRProcess *fr_proc)
 
    if (pipe (pipe_fd) < 0) {
       fr_proc->error = FR_PROC_ERROR_PIPE;
-      gtk_signal_emit (GTK_OBJECT (fr_proc), 
-                       fr_process_signals[DONE],
-                       fr_proc->error);
+      g_signal_emit (G_OBJECT (fr_proc), 
+                     fr_process_signals[DONE], 0,
+                     fr_proc->error);
       return;
    }
 
@@ -283,9 +285,9 @@ start_current_command (FRProcess *fr_proc)
       close (pipe_fd[1]);
 
       fr_proc->error = FR_PROC_ERROR_FORK;
-      gtk_signal_emit (GTK_OBJECT (fr_proc), 
-                       fr_process_signals[DONE],
-                       fr_proc->error);
+      g_signal_emit (G_OBJECT (fr_proc), 
+                     fr_process_signals[DONE], 0,
+                     fr_proc->error);
 
       return;
    }
@@ -407,9 +409,9 @@ check_child (gpointer data)
 
    fr_proc->running = FALSE;
 
-   gtk_signal_emit (GTK_OBJECT (fr_proc), 
-                    fr_process_signals[DONE],
-                    fr_proc->error);
+   g_signal_emit (G_OBJECT (fr_proc), 
+                  fr_process_signals[DONE], 0,
+                  fr_proc->error);
 
    return FALSE;
 }
@@ -442,8 +444,8 @@ fr_process_start (FRProcess *fr_proc,
       fr_proc->row_output = NULL;
    }
 
-   gtk_signal_emit (GTK_OBJECT (fr_proc), 
-                    fr_process_signals[START]);
+   g_signal_emit (G_OBJECT (fr_proc), 
+                  fr_process_signals[START], 0);
 
    fr_proc->current_command = 0;
    start_current_command (fr_proc);
@@ -474,7 +476,7 @@ fr_process_stop (FRProcess *fr_proc)
    fr_proc->running = FALSE;
 
    fr_proc->error = FR_PROC_ERROR_STOPPED;
-   gtk_signal_emit (GTK_OBJECT (fr_proc), 
-                    fr_process_signals[DONE],
-                    fr_proc->error);
+   g_signal_emit (G_OBJECT (fr_proc), 
+                  fr_process_signals[DONE], 0,
+                  fr_proc->error);
 }

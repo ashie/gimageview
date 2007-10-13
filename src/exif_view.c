@@ -149,8 +149,8 @@ exif_view_create_window (const gchar *filename, GtkWindow *parent)
    button = gtk_button_new_with_label (_("Close"));
    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (ev->window)->action_area), 
                        button, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_exif_window_close), ev);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_exif_window_close), ev);
    GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
    gtk_widget_show (button);
 
@@ -257,8 +257,8 @@ exif_view_create (const gchar *filename, GtkWindow *parent)
 #endif
 
    ev->container = gtk_vbox_new (FALSE, 0);
-   gtk_signal_connect (GTK_OBJECT (ev->container), "destroy",
-                       GTK_SIGNAL_FUNC (cb_exif_view_destroy), ev);
+   g_signal_connect (G_OBJECT (ev->container), "destroy",
+                     G_CALLBACK (cb_exif_view_destroy), ev);
    gtk_widget_show (ev->container);
 
    notebook = gtk_notebook_new ();
