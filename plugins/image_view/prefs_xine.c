@@ -289,9 +289,9 @@ prefs_xine_page (void)
    spinner = gtkutil_create_spin_button (adj);
    gtk_widget_set_usize(spinner, 70, -1);
    gtk_spin_button_set_digits (GTK_SPIN_BUTTON (spinner), 2);
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_float_cb),
-                       &xineconf.thumb_pos);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_float_cb),
+                     &xineconf.thumb_pos);
    gtk_box_pack_start (GTK_BOX (hbox), spinner, FALSE, FALSE, 0);
    gtk_widget_show (spinner);
 
@@ -313,9 +313,9 @@ prefs_xine_page (void)
    spinner = gtkutil_create_spin_button (adj);
    gtk_widget_set_usize(spinner, 70, -1);
    gtk_spin_button_set_digits (GTK_SPIN_BUTTON (spinner), 2);
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_float_cb),
-                       &xineconf_pre.delay);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_float_cb),
+                     &xineconf_pre.delay);
    gtk_box_pack_start (GTK_BOX (hbox), spinner, FALSE, FALSE, 0);
    gtk_widget_show (spinner);
 

@@ -334,9 +334,9 @@ prefs_save (gpointer data)
                   gqview_thumb_size[i].width, gqview_thumb_size[i].height);
       menu_item = gtk_menu_item_new_with_label (buf);
       gtk_object_set_data (GTK_OBJECT (menu_item), "num", GINT_TO_POINTER(i));
-      gtk_signal_connect(GTK_OBJECT(menu_item), "activate",
-                         GTK_SIGNAL_FUNC(cb_get_data_from_menuitem),
-                         NULL);
+      g_signal_connect(G_OBJECT(menu_item), "activate",
+                       G_CALLBACK(cb_get_data_from_menuitem),
+                       NULL);
       gtk_menu_append (GTK_MENU(menu), menu_item);
       gtk_widget_show (menu_item);
    }

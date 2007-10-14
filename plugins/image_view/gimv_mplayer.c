@@ -545,7 +545,7 @@ playback_done (gpointer data)
 
    player->pos = 0.0;
    player->status = GimvMPlayerStatusStop;
-   gtk_signal_emit (GTK_OBJECT (player), gimv_mplayer_signals[STOP_SIGNAL]);
+   g_signal_emit (G_OBJECT (player), gimv_mplayer_signals[STOP_SIGNAL], 0);
 }
 
 
@@ -810,8 +810,8 @@ gimv_mplayer_set_file (GimvMPlayer *player,
           || !identify_supported)
       {
          player->filename = g_strdup (file);
-         gtk_signal_emit (GTK_OBJECT (player),
-                          gimv_mplayer_signals[IDENTIFIED_SIGNAL]);
+         g_signal_emit (G_OBJECT (player),
+                        gimv_mplayer_signals[IDENTIFIED_SIGNAL], 0);
          return TRUE;
       } else {
          /* error handling */
@@ -1494,8 +1494,8 @@ process_output (ChildContext *context)
                      FALSE);
 
       if (fabs (context->player->pos - pos) > 0.1)
-         gtk_signal_emit (GTK_OBJECT (context->player),
-                          gimv_mplayer_signals[POS_CHANGED_SIGNAL]);
+         g_signal_emit (G_OBJECT (context->player),
+                        gimv_mplayer_signals[POS_CHANGED_SIGNAL], 0);
    }
 
    if (n == 0)
@@ -1566,8 +1566,8 @@ process_line (ChildContext *context,
    } else {
       if (strstr (line, "PAUSE")) {
          player->status = GimvMPlayerStatusPause;
-         gtk_signal_emit (GTK_OBJECT (player),
-                          gimv_mplayer_signals[PAUSE_SIGNAL]);
+         g_signal_emit (G_OBJECT (player),
+                        gimv_mplayer_signals[PAUSE_SIGNAL], 0);
 
       } else if (len > 2 && (!strncmp (line, "A:", 2)
                           || !strncmp (line, "V:", 2)))
@@ -1581,8 +1581,8 @@ process_line (ChildContext *context,
             if (GTK_WIDGET_MAPPED (player)) {
                gimv_mplayer_send_dummy_configure (player);
             }
-            gtk_signal_emit (GTK_OBJECT (player),
-                             gimv_mplayer_signals[PLAY_SIGNAL]);
+            g_signal_emit (G_OBJECT (player),
+                           gimv_mplayer_signals[PLAY_SIGNAL], 0);
          }
 
          /* get movie position */

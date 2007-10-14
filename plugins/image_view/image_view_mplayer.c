@@ -403,16 +403,16 @@ imageview_mplayer_create (GimvImageView *iv)
    gtk_container_add (GTK_CONTAINER (frame), mplayer);
    gtk_widget_show (mplayer);
 
-   gtk_signal_connect (GTK_OBJECT (mplayer), "play",
-                       GTK_SIGNAL_FUNC (cb_mplayer_play), iv);
-   gtk_signal_connect (GTK_OBJECT (mplayer), "stop",
-                       GTK_SIGNAL_FUNC (cb_mplayer_stop), iv);
-   gtk_signal_connect (GTK_OBJECT (mplayer), "pause",
-                       GTK_SIGNAL_FUNC (cb_mplayer_pause), iv);
-   gtk_signal_connect (GTK_OBJECT (mplayer), "position_changed",
-                       GTK_SIGNAL_FUNC (cb_mplayer_pos_changed), iv);
-   gtk_signal_connect (GTK_OBJECT (mplayer), "identified",
-                       GTK_SIGNAL_FUNC (cb_mplayer_identified), iv);
+   g_signal_connect (G_OBJECT (mplayer), "play",
+                     G_CALLBACK (cb_mplayer_play), iv);
+   g_signal_connect (G_OBJECT (mplayer), "stop",
+                     G_CALLBACK (cb_mplayer_stop), iv);
+   g_signal_connect (G_OBJECT (mplayer), "pause",
+                     G_CALLBACK (cb_mplayer_pause), iv);
+   g_signal_connect (G_OBJECT (mplayer), "position_changed",
+                     G_CALLBACK (cb_mplayer_pos_changed), iv);
+   g_signal_connect (G_OBJECT (mplayer), "identified",
+                     G_CALLBACK (cb_mplayer_identified), iv);
 
    gimv_mplayer_set_video_out_driver (GIMV_MPLAYER (mplayer),
                                       gimv_prefs_mplayer_get_driver("vo"));
@@ -454,9 +454,9 @@ imageview_mplayer_create_thumbnail (GimvImageView *iv, const gchar *cache_write_
 
    if (imcache) {
       gimv_image_unref (imcache);
-      gtk_signal_emit_by_name (GTK_OBJECT (iv),
-                               "thumbnail_created",
-                               iv->info);
+      g_signal_emit_by_name (G_OBJECT (iv),
+                             "thumbnail_created",
+                             iv->info);
    }
 
    g_free (filename);

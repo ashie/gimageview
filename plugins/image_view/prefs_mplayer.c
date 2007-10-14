@@ -323,9 +323,9 @@ prefs_mplayer_page (void)
    spinner = gtkutil_create_spin_button (adj);
    gtk_widget_set_usize(spinner, 70, -1);
    gtk_spin_button_set_digits (GTK_SPIN_BUTTON (spinner), 2);
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_float_cb),
-                       &mconf.thumb_pos);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_float_cb),
+                     &mconf.thumb_pos);
    gtk_box_pack_start (GTK_BOX (hbox), spinner, FALSE, FALSE, 0);
    gtk_widget_show (spinner);
 
@@ -351,10 +351,10 @@ prefs_mplayer_page (void)
    gtk_entry_set_text (GTK_ENTRY (GTK_COMBO(ao_combo)->entry),
                        mconf.ao_driver);
 
-   gtk_signal_connect (GTK_OBJECT (GTK_COMBO(vo_combo)->entry), "changed",
-                       GTK_SIGNAL_FUNC (cb_vo_combo_changed), NULL);
-   gtk_signal_connect (GTK_OBJECT (GTK_COMBO(ao_combo)->entry), "changed",
-                       GTK_SIGNAL_FUNC (cb_ao_combo_changed), NULL);
+   g_signal_connect (G_OBJECT (GTK_COMBO(vo_combo)->entry), "changed",
+                     G_CALLBACK (cb_vo_combo_changed), NULL);
+   g_signal_connect (G_OBJECT (GTK_COMBO(ao_combo)->entry), "changed",
+                     G_CALLBACK (cb_ao_combo_changed), NULL);
 
    gtk_widget_unref (mplayer);
 
