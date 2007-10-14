@@ -65,9 +65,9 @@ prefs_ui_thumbalbum (void)
    adj = (GtkAdjustment *) gtk_adjustment_new (conf.thumbalbum_row_space,
                                                0.0, 255.0, 1.0, 5.0, 0.0);
    spinner = gtkutil_create_spin_button (adj);
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_int_cb),
-                       &config_changed->thumbalbum_row_space);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_int_cb),
+                     &config_changed->thumbalbum_row_space);
    gtk_table_attach (GTK_TABLE (table), spinner, 1, 2, 1, 2,
                      GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
 
@@ -79,9 +79,9 @@ prefs_ui_thumbalbum (void)
    adj = (GtkAdjustment *) gtk_adjustment_new (conf.thumbalbum_col_space,
                                                0.0, 255.0, 1.0, 5.0, 0.0);
    spinner = gtkutil_create_spin_button (adj);
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_int_cb),
-                       &config_changed->thumbalbum_col_space);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_int_cb),
+                     &config_changed->thumbalbum_col_space);
    gtk_table_attach (GTK_TABLE (table), spinner, 3, 4, 1, 2,
                      GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
 

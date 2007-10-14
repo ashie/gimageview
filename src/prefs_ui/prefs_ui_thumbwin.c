@@ -368,8 +368,8 @@ prefs_thumbwin_page (void)
 
    main_vbox = gtk_vbox_new (FALSE, 0);
    gtk_container_set_border_width(GTK_CONTAINER(main_vbox), 5);
-   gtk_signal_connect (GTK_OBJECT (main_vbox), "destroy",
-                       GTK_SIGNAL_FUNC (cb_thumbwin_page_destroy), NULL);
+   g_signal_connect (G_OBJECT (main_vbox), "destroy",
+                     G_CALLBACK (cb_thumbwin_page_destroy), NULL);
 
 
    /**********************************************
@@ -394,9 +394,9 @@ prefs_thumbwin_page (void)
                                                1.0, 10000.0, 1.0, 5.0, 0.0);
    spinner = prefs_win.thumbwin_width_spin = gtkutil_create_spin_button (adj);
    gtk_widget_set_usize(spinner, 50, -1);
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_int_cb),
-                       &config_changed->thumbwin_width);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_int_cb),
+                     &config_changed->thumbwin_width);
    gtk_box_pack_start (GTK_BOX (hbox), spinner, FALSE, FALSE, 0);
 
    label = gtk_label_new (_("height"));
@@ -405,9 +405,9 @@ prefs_thumbwin_page (void)
                                                1.0, 10000.0, 1.0, 5.0, 0.0);
    spinner = prefs_win.thumbwin_height_spin = gtkutil_create_spin_button (adj);
    gtk_widget_set_usize(spinner, 50, -1);
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_int_cb),
-                       &config_changed->thumbwin_height);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_int_cb),
+                     &config_changed->thumbwin_height);
    gtk_box_pack_start (GTK_BOX (hbox), spinner, FALSE, FALSE, 0);
 
    /* Toolbar Style */
@@ -498,25 +498,25 @@ prefs_thumbwin_page (void)
 
    radio[0] = gtk_radio_button_new_with_label (NULL, _("Show"));
    gtk_box_pack_start (GTK_BOX (hbox3), radio[0], FALSE, FALSE, 0);
-   gtk_signal_connect (GTK_OBJECT (radio[0]), "toggled",
-                       GTK_SIGNAL_FUNC (cb_player_visible),
-                       GINT_TO_POINTER(GimvImageViewPlayerVisibleShow));
+   g_signal_connect (G_OBJECT (radio[0]), "toggled",
+                     G_CALLBACK (cb_player_visible),
+                     GINT_TO_POINTER(GimvImageViewPlayerVisibleShow));
    prefs_win.thumbwin_player_radio[0] = radio[0];
 
    radio[1] = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (radio[0]),
                                                            _("Hide"));
    gtk_box_pack_start (GTK_BOX (hbox3), radio[1], FALSE, FALSE, 0);
-   gtk_signal_connect (GTK_OBJECT (radio[1]), "toggled",
-                       GTK_SIGNAL_FUNC (cb_player_visible),
-                       GINT_TO_POINTER(GimvImageViewPlayerVisibleHide));
+   g_signal_connect (G_OBJECT (radio[1]), "toggled",
+                     G_CALLBACK (cb_player_visible),
+                     GINT_TO_POINTER(GimvImageViewPlayerVisibleHide));
    prefs_win.thumbwin_player_radio[1] = radio[1];
 
    radio[2] = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (radio[1]),
                                                            _("Auto"));
    gtk_box_pack_start (GTK_BOX (hbox3), radio[2], FALSE, FALSE, 0);
-   gtk_signal_connect (GTK_OBJECT (radio[2]), "toggled",
-                       GTK_SIGNAL_FUNC (cb_player_visible),
-                       GINT_TO_POINTER(GimvImageViewPlayerVisibleAuto));
+   g_signal_connect (G_OBJECT (radio[2]), "toggled",
+                     G_CALLBACK (cb_player_visible),
+                     GINT_TO_POINTER(GimvImageViewPlayerVisibleAuto));
    prefs_win.thumbwin_player_radio[2] = radio[2];
 
    switch (config_changed->preview_player_visible) {
@@ -569,9 +569,9 @@ prefs_thumbwin_page (void)
                                                1.0, 1000.0, 1.0, 5.0, 0.0);
    spinner = gtkutil_create_spin_button (adj);
    gtk_widget_set_usize(spinner, 50, -1);
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_int_cb),
-                       &config_changed->thumbwin_redraw_interval);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_int_cb),
+                     &config_changed->thumbwin_redraw_interval);
    gtk_box_pack_start (GTK_BOX (hbox), spinner, FALSE, FALSE, 0);
 
    label = gtk_label_new (_("files"));
@@ -629,8 +629,8 @@ prefs_thumbwin_tab_page (void)
 
    main_vbox = gtk_vbox_new (FALSE, 0);
    gtk_container_set_border_width(GTK_CONTAINER(main_vbox), 5);
-   gtk_signal_connect (GTK_OBJECT (main_vbox), "destroy",
-                       GTK_SIGNAL_FUNC (cb_thumbwin_tab_page_destroy), NULL);
+   g_signal_connect (G_OBJECT (main_vbox), "destroy",
+                     G_CALLBACK (cb_thumbwin_tab_page_destroy), NULL);
 
 
    /**********************************************
@@ -709,8 +709,8 @@ prefs_thumbview_page (void)
 
    main_vbox = gtk_vbox_new (FALSE, 0);
    gtk_container_set_border_width(GTK_CONTAINER(main_vbox), 5);
-   gtk_signal_connect (GTK_OBJECT (main_vbox), "destroy",
-                       GTK_SIGNAL_FUNC (cb_thumbview_page_destroy), NULL);
+   g_signal_connect (G_OBJECT (main_vbox), "destroy",
+                     G_CALLBACK (cb_thumbview_page_destroy), NULL);
 
 
    /**********************************************
@@ -767,9 +767,9 @@ prefs_thumbview_page (void)
                                                1.0, 5.0, 0.0);
    spinner = gtkutil_create_spin_button (adj);
    prefs_win.thumbview_thumb_size = spinner;
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_int_cb),
-                       &config_changed->thumbwin_thumb_size);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_int_cb),
+                     &config_changed->thumbwin_thumb_size);
    gtk_box_pack_start(GTK_BOX(hbox), spinner, FALSE, TRUE, 0);
 
 
@@ -817,8 +817,8 @@ prefs_dirview_page (void)
 
    main_vbox = gtk_vbox_new (FALSE, 0);
    gtk_container_set_border_width(GTK_CONTAINER(main_vbox), 5);
-   gtk_signal_connect (GTK_OBJECT (main_vbox), "destroy",
-                       GTK_SIGNAL_FUNC (cb_dirview_page_destroy), NULL);
+   g_signal_connect (G_OBJECT (main_vbox), "destroy",
+                     G_CALLBACK (cb_dirview_page_destroy), NULL);
 
 
    /**********************************************
@@ -896,8 +896,8 @@ prefs_preview_page (void)
 
    main_vbox = gtk_vbox_new (FALSE, 0);
    gtk_container_set_border_width(GTK_CONTAINER(main_vbox), 5);
-   gtk_signal_connect (GTK_OBJECT (main_vbox), "destroy",
-                       GTK_SIGNAL_FUNC (cb_preview_page_destroy), NULL);
+   g_signal_connect (G_OBJECT (main_vbox), "destroy",
+                     G_CALLBACK (cb_preview_page_destroy), NULL);
 
 
    /********************************************** 
@@ -961,9 +961,9 @@ prefs_preview_page (void)
                                                1.0, 10000.0, 1.0, 5.0, 0.0);
    prefs_win.preview_scale_spin = spinner = gtkutil_create_spin_button (adj);
    gtk_widget_set_usize(spinner, 50, -1);
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_float_cb),
-                       &config_changed->preview_scale);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_float_cb),
+                     &config_changed->preview_scale);
    gtk_box_pack_start (GTK_BOX (hbox), spinner, FALSE, FALSE, 0);
    label = gtk_label_new (_("%"));
    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);

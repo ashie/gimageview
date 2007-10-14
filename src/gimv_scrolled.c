@@ -102,20 +102,22 @@ gimv_scrolled_class_init (GimvScrolledClass *klass)
    container_class = (GtkContainerClass*) klass;
 
    widget_class->set_scroll_adjustments_signal =
-      gtk_signal_new ("set_scroll_adjustments",
-                      GTK_RUN_LAST,
-                      GTK_CLASS_TYPE(object_class),
-                      GTK_SIGNAL_OFFSET(GimvScrolledClass, set_scroll_adjustments),
-                      gtk_marshal_NONE__POINTER_POINTER,
-                      GTK_TYPE_NONE, 2, GTK_TYPE_POINTER, GTK_TYPE_POINTER);
+      g_signal_new ("set_scroll_adjustments",
+                    G_TYPE_FROM_CLASS(object_class),
+                    G_SIGNAL_RUN_LAST,
+                    G_STRUCT_OFFSET(GimvScrolledClass, set_scroll_adjustments),
+                    NULL, NULL,
+                    gtk_marshal_NONE__POINTER_POINTER,
+                    G_TYPE_NONE, 2, G_TYPE_POINTER, G_TYPE_POINTER);
     
    gimv_scrolled_signals[ADJUST_ADJUSTMENTS] = 
-      gtk_signal_new ("adjust_adjustments",
-                      GTK_RUN_FIRST,
-                      GTK_CLASS_TYPE(object_class),
-                      GTK_SIGNAL_OFFSET(GimvScrolledClass, adjust_adjustments),
-                      gtk_marshal_NONE__NONE,
-                      GTK_TYPE_NONE, 0);
+      g_signal_new ("adjust_adjustments",
+                    G_TYPE_FROM_CLASS(object_class),
+                    G_SIGNAL_RUN_FIRST,
+                    G_STRUCT_OFFSET(GimvScrolledClass, adjust_adjustments),
+                    NULL, NULL,
+                    g_cclosure_marshal_VOID__VOID,
+                    G_TYPE_NONE, 0);
 
    widget_class->button_press_event     = gimv_scrolled_button_press;
    widget_class->button_release_event   = gimv_scrolled_button_release;
@@ -343,8 +345,10 @@ gimv_scrolled_set_scroll_adjustments (GtkWidget *widget,
 
    if (scrolled->h_adjustment != hadjustment) {
       if (scrolled->h_adjustment) {
-         gtk_signal_disconnect_by_data (GTK_OBJECT(scrolled->h_adjustment),
-                                        scrolled);
+         g_signal_handlers_disconnect_matched (
+            G_OBJECT (scrolled->h_adjustment),
+            G_SIGNAL_MATCH_DATA,
+            0, 0, NULL, NULL, scrolled);
          gtk_object_unref (GTK_OBJECT(scrolled->h_adjustment));
       }
 	    
@@ -352,18 +356,20 @@ gimv_scrolled_set_scroll_adjustments (GtkWidget *widget,
 
       if (hadjustment) {
          gtk_object_ref (GTK_OBJECT(hadjustment));
-         gtk_signal_connect (GTK_OBJECT(hadjustment),
-                             "value_changed", 
-                             (GtkSignalFunc) hadjustment_value_changed,
-                             scrolled);
+         g_signal_connect (G_OBJECT(hadjustment),
+                           "value_changed", 
+                           G_CALLBACK (hadjustment_value_changed),
+                           scrolled);
       }
    }
 
 
    if (scrolled->v_adjustment != vadjustment) {
       if (scrolled->v_adjustment) {
-         gtk_signal_disconnect_by_data (GTK_OBJECT(scrolled->v_adjustment),
-                                        scrolled);
+         g_signal_handlers_disconnect_matched (
+            G_OBJECT (scrolled->v_adjustment),
+            G_SIGNAL_MATCH_DATA,
+            0, 0, NULL, NULL, scrolled);
          gtk_object_unref (GTK_OBJECT(scrolled->v_adjustment));
       }
 	    
@@ -371,15 +377,15 @@ gimv_scrolled_set_scroll_adjustments (GtkWidget *widget,
 
       if (vadjustment) {
          gtk_object_ref (GTK_OBJECT(vadjustment));
-         gtk_signal_connect (GTK_OBJECT(vadjustment),
-                             "value_changed", 
-                             (GtkSignalFunc) vadjustment_value_changed,
-                             scrolled);
+         g_signal_connect (G_OBJECT(vadjustment),
+                           "value_changed", 
+                           G_CALLBACK (vadjustment_value_changed),
+                           scrolled);
       }
    }
 
-   gtk_signal_emit (GTK_OBJECT(scrolled),
-                    gimv_scrolled_signals[ADJUST_ADJUSTMENTS]);
+   g_signal_emit (G_OBJECT(scrolled),
+                  gimv_scrolled_signals[ADJUST_ADJUSTMENTS], 0);
 }
 
 void
@@ -399,8 +405,8 @@ gimv_scrolled_thawn (GimvScrolled *scrolled)
 
    scrolled->freeze_count --;
    if (!scrolled->freeze_count) {
-      gtk_signal_emit (GTK_OBJECT(scrolled),
-                       gimv_scrolled_signals [ADJUST_ADJUSTMENTS]);
+      g_signal_emit (G_OBJECT(scrolled),
+                     gimv_scrolled_signals [ADJUST_ADJUSTMENTS], 0);
       gtk_widget_draw (GTK_WIDGET(scrolled), NULL);
    }
 }
@@ -419,7 +425,7 @@ gimv_scrolled_page_up (GimvScrolled *scrolled)
    vadj->value -= vadj->page_size;
    adjustment_check_value (vadj->value, vadj);
 
-   gtk_signal_emit_by_name (GTK_OBJECT(vadj), "value_changed"); 
+   g_signal_emit_by_name (G_OBJECT(vadj), "value_changed"); 
 }
 
 
@@ -436,7 +442,7 @@ gimv_scrolled_page_down (GimvScrolled *scrolled)
    vadj->value += vadj->page_size;
    adjustment_check_value (vadj->value, vadj);
 
-   gtk_signal_emit_by_name (GTK_OBJECT(vadj), "value_changed"); 
+   g_signal_emit_by_name (G_OBJECT(vadj), "value_changed"); 
 }
 
 
@@ -453,7 +459,7 @@ gimv_scrolled_page_left (GimvScrolled *scrolled)
    hadj->value -= hadj->page_size;
    adjustment_check_value (hadj->value, hadj);
 
-   gtk_signal_emit_by_name (GTK_OBJECT(hadj), "value_changed"); 
+   g_signal_emit_by_name (G_OBJECT(hadj), "value_changed"); 
 }
 
 
@@ -471,7 +477,7 @@ gimv_scrolled_page_right (GimvScrolled *scrolled)
    hadj->value += hadj->page_size;
    adjustment_check_value (hadj->value, hadj);
 
-   gtk_signal_emit_by_name (GTK_OBJECT(hadj), "value_changed"); 
+   g_signal_emit_by_name (G_OBJECT(hadj), "value_changed"); 
 }
 
 
@@ -578,7 +584,7 @@ vertical_timeout (gpointer data)
       vadj->value = vadj->value + step;
 
    adjustment_check_value (vadj->value, vadj);
-   gtk_signal_emit_by_name (GTK_OBJECT(vadj), "value_changed"); 
+   g_signal_emit_by_name (G_OBJECT(vadj), "value_changed"); 
 
    return TRUE;
 }
@@ -606,7 +612,7 @@ horizontal_timeout (gpointer data)
       hadj->value = hadj->value + step;
 
    adjustment_check_value (hadj->value, hadj);
-   gtk_signal_emit_by_name (GTK_OBJECT(hadj), "value_changed"); 
+   g_signal_emit_by_name (G_OBJECT(hadj), "value_changed"); 
 
    return TRUE;
 }

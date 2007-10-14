@@ -625,15 +625,15 @@ prefs_common_page (void)
    else
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio1), TRUE);
 
-   gtk_signal_connect (GTK_OBJECT (radio0), "toggled",
-                       GTK_SIGNAL_FUNC (cb_recursive_follow_symlink),
-                       GINT_TO_POINTER(0));
-   gtk_signal_connect (GTK_OBJECT (radio1), "toggled",
-                       GTK_SIGNAL_FUNC (cb_recursive_follow_symlink),
-                       GINT_TO_POINTER(1));
-   gtk_signal_connect (GTK_OBJECT (radio2), "toggled",
-                       GTK_SIGNAL_FUNC (cb_recursive_follow_symlink),
-                       GINT_TO_POINTER(2));
+   g_signal_connect (G_OBJECT (radio0), "toggled",
+                     G_CALLBACK (cb_recursive_follow_symlink),
+                     GINT_TO_POINTER(0));
+   g_signal_connect (G_OBJECT (radio1), "toggled",
+                     G_CALLBACK (cb_recursive_follow_symlink),
+                     GINT_TO_POINTER(1));
+   g_signal_connect (G_OBJECT (radio2), "toggled",
+                     G_CALLBACK (cb_recursive_follow_symlink),
+                     GINT_TO_POINTER(2));
 
 
    /********************************************** 
@@ -778,12 +778,12 @@ prefs_filter_page (void)
 
    filter_set_value ();
 
-   gtk_signal_connect (GTK_OBJECT (editlist), "action_confirm",
-                       GTK_SIGNAL_FUNC (cb_filter_editlist_confirm),
-                       NULL);
-   gtk_signal_connect (GTK_OBJECT (editlist), "list_updated",
-                       GTK_SIGNAL_FUNC (cb_filter_editlist_updated),
-                       NULL);
+   g_signal_connect (G_OBJECT (editlist), "action_confirm",
+                     G_CALLBACK (cb_filter_editlist_confirm),
+                     NULL);
+   g_signal_connect (G_OBJECT (editlist), "list_updated",
+                     G_CALLBACK (cb_filter_editlist_updated),
+                     NULL);
 
 
    /* Ignore filename extension or not */
@@ -845,8 +845,8 @@ prefs_charset_page (void)
                      GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
    gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (combo)->entry),
                        conf.charset_locale);
-   gtk_signal_connect (GTK_OBJECT (GTK_COMBO (combo)->entry), "changed",
-                       GTK_SIGNAL_FUNC (cb_locale_charset_changed), NULL);
+   g_signal_connect (G_OBJECT (GTK_COMBO (combo)->entry), "changed",
+                     G_CALLBACK (cb_locale_charset_changed), NULL);
 
    /* internal charset */
    hbox = gtk_hbox_new (FALSE, 0);
@@ -862,8 +862,8 @@ prefs_charset_page (void)
                      GTK_FILL | GTK_EXPAND, GTK_FILL, 0, 0);
    gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (combo)->entry),
                        conf.charset_internal);
-   gtk_signal_connect (GTK_OBJECT (GTK_COMBO (combo)->entry), "changed",
-                       GTK_SIGNAL_FUNC (cb_internal_charset_changed), NULL);
+   g_signal_connect (G_OBJECT (GTK_COMBO (combo)->entry), "changed",
+                     G_CALLBACK (cb_internal_charset_changed), NULL);
 
    /* Language to detect */
    hbox = gtk_hbox_new (FALSE, 0);
@@ -894,8 +894,8 @@ prefs_charset_page (void)
                                   charset_get_known_list(NULL));
    gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (combo)->entry),
                        conf.charset_filename);
-   gtk_signal_connect (GTK_OBJECT (GTK_COMBO (combo)->entry), "changed",
-                       GTK_SIGNAL_FUNC (cb_filename_charset_changed), NULL);
+   g_signal_connect (G_OBJECT (GTK_COMBO (combo)->entry), "changed",
+                     G_CALLBACK (cb_filename_charset_changed), NULL);
 
    option_menu = create_option_menu (charset_to_internal_items,
                                      conf.charset_filename_mode,

@@ -644,38 +644,38 @@ thumbalbum_create (GimvThumbView *tv, const gchar *dest_mode)
 
    gtk_widget_show (tv_data->album);
 
-   gtk_signal_connect_after (GTK_OBJECT (tv_data->album), "button_press_event",
-                             GTK_SIGNAL_FUNC (cb_album_button_press), tv);
-   gtk_signal_connect_after (GTK_OBJECT (tv_data->album), "button_release_event",
-                             GTK_SIGNAL_FUNC (cb_album_button_release), tv);
+   g_signal_connect_after (G_OBJECT (tv_data->album), "button_press_event",
+                           G_CALLBACK (cb_album_button_press), tv);
+   g_signal_connect_after (G_OBJECT (tv_data->album), "button_release_event",
+                           G_CALLBACK (cb_album_button_release), tv);
    SIGNAL_CONNECT_TRANSRATE_SCROLL (tv_data->album);
-   gtk_signal_connect_after (GTK_OBJECT (tv_data->album), "key-press-event",
-                             GTK_SIGNAL_FUNC (cb_album_key_press), tv);
+   g_signal_connect_after (G_OBJECT (tv_data->album), "key-press-event",
+                           G_CALLBACK (cb_album_key_press), tv);
 
-   gtk_signal_connect_after (GTK_OBJECT (tv_data->album), "cell_select",
-                             GTK_SIGNAL_FUNC (cb_select_cell), tv);
-   gtk_signal_connect_after (GTK_OBJECT (tv_data->album), "cell_unselect",
-                             GTK_SIGNAL_FUNC (cb_unselect_cell), tv);
+   g_signal_connect_after (G_OBJECT (tv_data->album), "cell_select",
+                           G_CALLBACK (cb_select_cell), tv);
+   g_signal_connect_after (G_OBJECT (tv_data->album), "cell_unselect",
+                           G_CALLBACK (cb_unselect_cell), tv);
 
    /* Drag and Drop */
    dnd_src_set  (tv_data->album, dnd_types_uri, dnd_types_uri_num);
    dnd_dest_set (tv_data->album, dnd_types_uri, dnd_types_uri_num);
    gtk_object_set_data (GTK_OBJECT (tv_data->album), "gimv-tab", tv);
 
-   gtk_signal_connect_after (GTK_OBJECT (tv_data->album), "drag_begin",
-                             GTK_SIGNAL_FUNC (gimv_thumb_view_drag_begin_cb),
-                             tv);
-   gtk_signal_connect_after (GTK_OBJECT (tv_data->album), "drag_data_get",
-                             GTK_SIGNAL_FUNC (gimv_thumb_view_drag_data_get_cb),
-                             tv);
-   gtk_signal_connect_after (GTK_OBJECT (tv_data->album), "drag_data_received",
-                             GTK_SIGNAL_FUNC (gimv_thumb_view_drag_data_received_cb),
-                             tv);
-   gtk_signal_connect_after (GTK_OBJECT (tv_data->album), "drag-data-delete",
-                             GTK_SIGNAL_FUNC (gimv_thumb_view_drag_data_delete_cb),
-                             tv);
-   gtk_signal_connect_after (GTK_OBJECT (tv_data->album), "drag_end",
-                             GTK_SIGNAL_FUNC (gimv_thumb_view_drag_end_cb), tv);
+   g_signal_connect_after (G_OBJECT (tv_data->album), "drag_begin",
+                           G_CALLBACK (gimv_thumb_view_drag_begin_cb),
+                           tv);
+   g_signal_connect_after (G_OBJECT (tv_data->album), "drag_data_get",
+                           G_CALLBACK (gimv_thumb_view_drag_data_get_cb),
+                           tv);
+   g_signal_connect_after (G_OBJECT (tv_data->album), "drag_data_received",
+                           G_CALLBACK (gimv_thumb_view_drag_data_received_cb),
+                           tv);
+   g_signal_connect_after (G_OBJECT (tv_data->album), "drag-data-delete",
+                           G_CALLBACK (gimv_thumb_view_drag_data_delete_cb),
+                           tv);
+   g_signal_connect_after (G_OBJECT (tv_data->album), "drag_end",
+                           G_CALLBACK (gimv_thumb_view_drag_end_cb), tv);
 
    /* append thumbnail frames */
    if (tv->thumblist) {

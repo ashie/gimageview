@@ -168,128 +168,70 @@ gimv_zlist_class_init (GimvZListClass *klass)
    container_class = (GtkContainerClass*) klass;
    scrolled_class  = (GimvScrolledClass*) klass;
 
-#ifdef GTK_DISABLE_DEPRECATED
    gimv_zlist_signals [CLEAR] = 
       g_signal_new ("clear",
-                    G_TYPE_FROM_CLASS (object_class),
+                    G_TYPE_FROM_CLASS(object_class),
                     G_SIGNAL_RUN_FIRST,
-                    G_STRUCT_OFFSET (GimvZListClass, clear),
+                    G_STRUCT_OFFSET(GimvZListClass, clear),
                     NULL, NULL,
                     g_cclosure_marshal_VOID__VOID,
                     G_TYPE_NONE, 0);
 
    gimv_zlist_signals [CELL_DRAW] = 
       g_signal_new ("cell_draw",
-                    G_TYPE_FROM_CLASS (object_class),
+                    G_TYPE_FROM_CLASS(object_class),
                     G_SIGNAL_RUN_FIRST,
-                    G_STRUCT_OFFSET (GimvZListClass, cell_draw),
+                    G_STRUCT_OFFSET(GimvZListClass, cell_draw),
                     NULL, NULL,
-                    gimv_marshal_VOID__POINTER_POINTER_POINTER,
-                    G_TYPE_NONE, 3, G_TYPE_POINTER, G_TYPE_POINTER, G_TYPE_POINTER);
+                    gtk_marshal_NONE__POINTER_POINTER_POINTER,
+                    G_TYPE_NONE, 3,
+                    G_TYPE_POINTER, G_TYPE_POINTER, G_TYPE_POINTER);
 
    gimv_zlist_signals [CELL_SIZE_REQUEST] = 
       g_signal_new ("cell_size_request",
-                    G_TYPE_FROM_CLASS (object_class),
+                    G_TYPE_FROM_CLASS(object_class),
                     G_SIGNAL_RUN_FIRST,
-                    G_STRUCT_OFFSET (GimvZListClass, cell_size_request),
+                    G_STRUCT_OFFSET(GimvZListClass, cell_size_request),
                     NULL, NULL,
-                    gimv_marshal_VOID__POINTER_POINTER,
-                    G_TYPE_NONE, 2, G_TYPE_POINTER, G_TYPE_POINTER);
+                    gtk_marshal_NONE__POINTER_POINTER,
+                    G_TYPE_NONE, 2,
+                    G_TYPE_POINTER, G_TYPE_POINTER);
 
    gimv_zlist_signals [CELL_DRAW_FOCUS] = 
       g_signal_new ("cell_draw_focus",
-                    G_TYPE_FROM_CLASS (object_class),
+                    G_TYPE_FROM_CLASS(object_class),
                     G_SIGNAL_RUN_FIRST,
-                    G_STRUCT_OFFSET (GimvZListClass, cell_draw_focus),
+                    G_STRUCT_OFFSET(GimvZListClass, cell_draw_focus),
                     NULL, NULL,
-                    gimv_marshal_VOID__POINTER_POINTER,
+                    gtk_marshal_NONE__POINTER_POINTER,
                     G_TYPE_NONE, 2, G_TYPE_POINTER, G_TYPE_POINTER);
 
    gimv_zlist_signals [CELL_DRAW_DEFAULT] = 
       g_signal_new ("cell_draw_default",
-                    G_TYPE_FROM_CLASS (object_class),
+                    G_TYPE_FROM_CLASS(object_class),
                     G_SIGNAL_RUN_FIRST,
-                    G_STRUCT_OFFSET (GimvZListClass, cell_draw_default),
+                    G_STRUCT_OFFSET(GimvZListClass, cell_draw_default),
                     NULL, NULL,
-                    gimv_marshal_VOID__POINTER_POINTER,
+                    gtk_marshal_NONE__POINTER_POINTER,
                     G_TYPE_NONE, 2, G_TYPE_POINTER, G_TYPE_POINTER);
 
    gimv_zlist_signals [CELL_SELECT] = 
       g_signal_new ("cell_select",
-                    G_TYPE_FROM_CLASS (object_class),
+                    G_TYPE_FROM_CLASS(object_class),
                     G_SIGNAL_RUN_FIRST,
-                    G_STRUCT_OFFSET (GimvZListClass, cell_select),
+                    G_STRUCT_OFFSET(GimvZListClass, cell_select),
                     NULL, NULL,
                     g_cclosure_marshal_VOID__INT,
                     G_TYPE_NONE, 1, G_TYPE_INT);
 
    gimv_zlist_signals [CELL_UNSELECT] = 
       g_signal_new ("cell_unselect",
-                    G_TYPE_FROM_CLASS (object_class),
+                    G_TYPE_FROM_CLASS(object_class),
                     G_SIGNAL_RUN_FIRST,
-                    G_STRUCT_OFFSET (GimvZListClass, cell_unselect),
+                    G_STRUCT_OFFSET(GimvZListClass, cell_unselect),
                     NULL, NULL,
                     g_cclosure_marshal_VOID__INT,
                     G_TYPE_NONE, 1, G_TYPE_INT);
-#else /* GTK_DISABLE_DEPRECATED */
-   gimv_zlist_signals [CLEAR] = 
-      gtk_signal_new ("clear",
-                      GTK_RUN_FIRST,
-                      GTK_CLASS_TYPE(object_class),
-                      GTK_SIGNAL_OFFSET(GimvZListClass, clear),
-                      gtk_marshal_NONE__NONE,
-                      GTK_TYPE_NONE, 0);
-
-   gimv_zlist_signals [CELL_DRAW] = 
-      gtk_signal_new ("cell_draw",
-                      GTK_RUN_FIRST,
-                      GTK_CLASS_TYPE(object_class),
-                      GTK_SIGNAL_OFFSET(GimvZListClass, cell_draw),
-                      gtk_marshal_NONE__POINTER_POINTER_POINTER,
-                      GTK_TYPE_NONE, 3,
-                      GTK_TYPE_POINTER, GTK_TYPE_POINTER, GTK_TYPE_POINTER);
-
-   gimv_zlist_signals [CELL_SIZE_REQUEST] = 
-      gtk_signal_new ("cell_size_request",
-                      GTK_RUN_FIRST,
-                      GTK_CLASS_TYPE(object_class),
-                      GTK_SIGNAL_OFFSET(GimvZListClass, cell_size_request),
-                      gtk_marshal_NONE__POINTER_POINTER,
-                      GTK_TYPE_NONE, 2,
-                      GTK_TYPE_POINTER, GTK_TYPE_POINTER);
-
-   gimv_zlist_signals [CELL_DRAW_FOCUS] = 
-      gtk_signal_new ("cell_draw_focus",
-                      GTK_RUN_FIRST,
-                      GTK_CLASS_TYPE(object_class),
-                      GTK_SIGNAL_OFFSET(GimvZListClass, cell_draw_focus),
-                      gtk_marshal_NONE__POINTER_POINTER,
-                      GTK_TYPE_NONE, 2, GTK_TYPE_POINTER, GTK_TYPE_POINTER);
-
-   gimv_zlist_signals [CELL_DRAW_DEFAULT] = 
-      gtk_signal_new ("cell_draw_default",
-                      GTK_RUN_FIRST,
-                      GTK_CLASS_TYPE(object_class),
-                      GTK_SIGNAL_OFFSET(GimvZListClass, cell_draw_default),
-                      gtk_marshal_NONE__POINTER_POINTER,
-                      GTK_TYPE_NONE, 2, GTK_TYPE_POINTER, GTK_TYPE_POINTER);
-
-   gimv_zlist_signals [CELL_SELECT] = 
-      gtk_signal_new ("cell_select",
-                      GTK_RUN_FIRST,
-                      GTK_CLASS_TYPE(object_class),
-                      GTK_SIGNAL_OFFSET(GimvZListClass, cell_select),
-                      gtk_marshal_NONE__INT,
-                      GTK_TYPE_NONE, 1, GTK_TYPE_INT);
-
-   gimv_zlist_signals [CELL_UNSELECT] = 
-      gtk_signal_new ("cell_unselect",
-                      GTK_RUN_FIRST,
-                      GTK_CLASS_TYPE(object_class),
-                      GTK_SIGNAL_OFFSET(GimvZListClass, cell_unselect),
-                      gtk_marshal_NONE__INT,
-                      GTK_TYPE_NONE, 1, GTK_TYPE_INT);
-#endif /* GTK_DISABLE_DEPRECATED */
 
    G_OBJECT_CLASS(klass)->finalize = gimv_zlist_finalize;
 
