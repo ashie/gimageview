@@ -554,100 +554,112 @@ gimv_image_view_class_init (GimvImageViewClass *klass)
                             ARG_CONTINUANCE_PLAY);
 
    gimv_image_view_signals[IMAGE_CHANGED_SIGNAL]
-      = gtk_signal_new ("image_changed",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvImageViewClass, image_changed),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
+      = g_signal_new ("image_changed",
+                      G_TYPE_FROM_CLASS(object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvImageViewClass, image_changed),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
    gimv_image_view_signals[LOAD_START_SIGNAL]
-      = gtk_signal_new ("load_start",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvImageViewClass, load_start),
-                        gtk_marshal_NONE__POINTER,
-                        GTK_TYPE_NONE, 1, GTK_TYPE_POINTER);
+      = g_signal_new ("load_start",
+                      G_TYPE_FROM_CLASS(object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvImageViewClass, load_start),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__POINTER,
+                      G_TYPE_NONE, 1, G_TYPE_POINTER);
 
    gimv_image_view_signals[LOAD_END_SIGNAL]
-      = gtk_signal_new ("load_end",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvImageViewClass, load_end),
-                        gtk_marshal_NONE__POINTER_INT,
-                        GTK_TYPE_NONE, 2, GTK_TYPE_POINTER, GTK_TYPE_INT);
+      = g_signal_new ("load_end",
+                      G_TYPE_FROM_CLASS(object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvImageViewClass, load_end),
+                      NULL, NULL,
+                      gtk_marshal_NONE__POINTER_INT,
+                      G_TYPE_NONE, 2, G_TYPE_POINTER, G_TYPE_INT);
 
    gimv_image_view_signals[SET_LIST_SIGNAL]
-      = gtk_signal_new ("set_list",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvImageViewClass, set_list),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
+      = g_signal_new ("set_list",
+                      G_TYPE_FROM_CLASS(object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvImageViewClass, set_list),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
    gimv_image_view_signals[UNSET_LIST_SIGNAL]
-      = gtk_signal_new ("unset_list",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvImageViewClass, unset_list),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
+      = g_signal_new ("unset_list",
+                      G_TYPE_FROM_CLASS(object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvImageViewClass, unset_list),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
    gimv_image_view_signals[RENDERED_SIGNAL]
-      = gtk_signal_new ("rendered",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvImageViewClass, rendered),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
+      = g_signal_new ("rendered",
+                      G_TYPE_FROM_CLASS(object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvImageViewClass, rendered),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
    gimv_image_view_signals[TOGGLE_ASPECT_SIGNAL]
-      = gtk_signal_new ("toggle_aspect",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvImageViewClass, toggle_aspect),
-                        gtk_marshal_NONE__INT,
-                        GTK_TYPE_NONE, 1, GTK_TYPE_INT);
+      = g_signal_new ("toggle_aspect",
+                      G_TYPE_FROM_CLASS(object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvImageViewClass, toggle_aspect),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__INT,
+                      G_TYPE_NONE, 1, G_TYPE_INT);
 
    gimv_image_view_signals[TOGGLE_BUFFER_SIGNAL]
-      = gtk_signal_new ("toggle_buffer",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvImageViewClass, toggle_buffer),
-                        gtk_marshal_NONE__INT,
-                        GTK_TYPE_NONE, 1, GTK_TYPE_INT);
+      = g_signal_new ("toggle_buffer",
+                      G_TYPE_FROM_CLASS(object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvImageViewClass, toggle_buffer),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__INT,
+                      G_TYPE_NONE, 1, G_TYPE_INT);
 
    gimv_image_view_signals[THUMBNAIL_CREATED_SIGNAL]
-      = gtk_signal_new ("thumbnail_created",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvImageViewClass, thumbnail_created),
-                        gtk_marshal_NONE__POINTER,
-                        GTK_TYPE_NONE, 1, GTK_TYPE_POINTER);
+      = g_signal_new ("thumbnail_created",
+                      G_TYPE_FROM_CLASS(object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvImageViewClass, thumbnail_created),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__POINTER,
+                      G_TYPE_NONE, 1, G_TYPE_POINTER);
 
    gimv_image_view_signals[IMAGE_PRESSED_SIGNAL]
-      = gtk_signal_new ("image_pressed",
-                        GTK_RUN_LAST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvImageViewClass, image_pressed),
-                        gtk_marshal_BOOL__POINTER,
-                        GTK_TYPE_BOOL, 1, GTK_TYPE_POINTER);
+      = g_signal_new ("image_pressed",
+                      G_TYPE_FROM_CLASS(object_class),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (GimvImageViewClass, image_pressed),
+                      NULL, NULL,
+                      gtk_marshal_BOOL__POINTER,
+                      G_TYPE_BOOLEAN, 1, G_TYPE_POINTER);
 
    gimv_image_view_signals[IMAGE_RELEASED_SIGNAL]
-      = gtk_signal_new ("image_released",
-                        GTK_RUN_LAST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvImageViewClass, image_released),
-                        gtk_marshal_BOOL__POINTER,
-                        GTK_TYPE_BOOL, 1, GTK_TYPE_POINTER);
+      = g_signal_new ("image_released",
+                      G_TYPE_FROM_CLASS(object_class),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (GimvImageViewClass, image_released),
+                      NULL, NULL,
+                      gtk_marshal_BOOL__POINTER,
+                      G_TYPE_BOOLEAN, 1, G_TYPE_POINTER);
 
    gimv_image_view_signals[IMAGE_CLICKED_SIGNAL]
-      = gtk_signal_new ("image_clicked",
-                        GTK_RUN_LAST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvImageViewClass, image_clicked),
-                        gtk_marshal_BOOL__POINTER,
-                        GTK_TYPE_BOOL, 1, GTK_TYPE_POINTER);
+      = g_signal_new ("image_clicked",
+                      G_TYPE_FROM_CLASS(object_class),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (GimvImageViewClass, image_clicked),
+                      NULL, NULL,
+                      gtk_marshal_BOOL__POINTER,
+                      G_TYPE_BOOLEAN, 1, G_TYPE_POINTER);
 
    object_class->set_arg = gimv_image_view_set_arg;
    object_class->get_arg = gimv_image_view_get_arg;
