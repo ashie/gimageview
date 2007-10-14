@@ -48,7 +48,6 @@ gimv_SOURCES = \
 	gimv_mime_types.c gimv_mime_types.h \
 	gimv_nav_win.c gimv_nav_win.h \
 	gimv_plugin.c gimv_plugin.h \
-	gimv_prefs.c gimv_prefs.h \
 	gimv_prefs_ui_utils.c gimv_prefs_ui_utils.h \
 	gimv_prefs_win.c gimv_prefs_win.h \
 	gimv_slideshow.c gimv_slideshow.h \

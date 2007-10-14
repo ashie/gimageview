@@ -110,8 +110,8 @@ cb_mouse_prefs_pressed_radio (GtkWidget *radio, gpointer data)
    g_return_if_fail (option_menu);
 
    if (option_menu->menu_item)
-      gtk_signal_emit_by_name (GTK_OBJECT (option_menu->menu_item),
-                               "activate");
+      g_signal_emit_by_name (G_OBJECT (option_menu->menu_item),
+                             "activate");
 }
 
 
@@ -245,12 +245,12 @@ gimv_prefs_ui_mouse_prefs (const gchar **items,
          radio1 = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (radio0),
                                                                _("Released"));
          gtk_box_pack_start (GTK_BOX (hbox), radio1, FALSE, FALSE, 0);
-         gtk_signal_connect (GTK_OBJECT (radio0), "toggled",
-                             GTK_SIGNAL_FUNC (cb_mouse_prefs_pressed_radio),
-                             option_menu);
-         gtk_signal_connect (GTK_OBJECT (radio1), "toggled",
-                             GTK_SIGNAL_FUNC (cb_mouse_prefs_pressed_radio),
-                             option_menu);
+         g_signal_connect (G_OBJECT (radio0), "toggled",
+                           G_CALLBACK (cb_mouse_prefs_pressed_radio),
+                           option_menu);
+         g_signal_connect (G_OBJECT (radio1), "toggled",
+                           G_CALLBACK (cb_mouse_prefs_pressed_radio),
+                           option_menu);
 
          if (def < 0)
             gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio1), TRUE);
@@ -277,9 +277,9 @@ gimv_prefs_ui_mouse_prefs (const gchar **items,
             gtk_object_set_data (GTK_OBJECT (menu_item),
                                  "prefs-prechanged",
                                  (gpointer) defval);
-            gtk_signal_connect(GTK_OBJECT(menu_item), "activate",
-                               GTK_SIGNAL_FUNC(cb_mouse_button),
-                               dest);
+            g_signal_connect(G_OBJECT(menu_item), "activate",
+                             G_CALLBACK(cb_mouse_button),
+                             dest);
 
             gtk_object_set_data (GTK_OBJECT (menu_item),
                                  "pressed",
@@ -435,9 +435,9 @@ gimv_prefs_ui_dir_list_prefs (const gchar *title,
    gtk_container_set_border_width (GTK_CONTAINER (frame), 5);
    gtk_container_add (GTK_CONTAINER (frame), frame_vbox);
 
-   gtk_signal_connect (GTK_OBJECT (frame),"destroy",
-                       GTK_SIGNAL_FUNC (cb_dirprefs_destroy),
-                       dirprefs);
+   g_signal_connect (G_OBJECT (frame),"destroy",
+                     G_CALLBACK (cb_dirprefs_destroy),
+                     dirprefs);
 
    /* clist */
    dirprefs->editlist = editlist
@@ -445,8 +445,8 @@ gimv_prefs_ui_dir_list_prefs (const gchar *title,
    gimv_elist_set_column_title_visible (GIMV_ELIST (editlist), FALSE);
    gtk_box_pack_start (GTK_BOX (frame_vbox), editlist, TRUE, TRUE, 0);
    set_default_dir_list (dirprefs);
-   gtk_signal_connect (GTK_OBJECT (editlist), "list_updated",
-                       GTK_SIGNAL_FUNC (cb_dirprefs_editlist_updated), dirprefs);
+   g_signal_connect (G_OBJECT (editlist), "list_updated",
+                     G_CALLBACK (cb_dirprefs_editlist_updated), dirprefs);
 
    /* entry area */
    hbox = GIMV_ELIST (editlist)->edit_area;
@@ -462,8 +462,8 @@ gimv_prefs_ui_dir_list_prefs (const gchar *title,
 
    button = dirprefs->select_button = gtk_button_new_with_label (_("Select"));
    gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT (button),"clicked",
-                       GTK_SIGNAL_FUNC (cb_dirprefs_dirsel_pressed), dirprefs);
+   g_signal_connect (G_OBJECT (button),"clicked",
+                     G_CALLBACK (cb_dirprefs_dirsel_pressed), dirprefs);
 
    return frame;
 }
@@ -578,11 +578,11 @@ gimv_prefs_ui_double_clist (const gchar *title,
       g_strfreev (titles);
    }
 
-   gtk_signal_connect (GTK_OBJECT (dslist), "destroy",
-                       GTK_SIGNAL_FUNC (cb_dslist_destroy), dsdata);
-   gtk_signal_connect (GTK_OBJECT (dslist), "enabled_list_updated",
-                       GTK_SIGNAL_FUNC (cb_gimv_dlist_updated),
-                       dsdata);
+   g_signal_connect (G_OBJECT (dslist), "destroy",
+                     G_CALLBACK (cb_dslist_destroy), dsdata);
+   g_signal_connect (G_OBJECT (dslist), "enabled_list_updated",
+                     G_CALLBACK (cb_gimv_dlist_updated),
+                     dsdata);
 
    return frame;
 }

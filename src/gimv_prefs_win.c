@@ -627,8 +627,8 @@ gimv_prefs_win_open (const gchar *path, GtkWindow *parent)
    gtk_window_set_wmclass(GTK_WINDOW(prefs_window), "prefs", GIMV_PROG_NAME);
    gtk_window_set_default_size (GTK_WINDOW(prefs_window), 600, 450);
    gtk_window_set_title (GTK_WINDOW (prefs_window), _("Preference")); 
-   gtk_signal_connect (GTK_OBJECT(prefs_window), "destroy",
-                       GTK_SIGNAL_FUNC(cb_prefs_win_destroy), NULL);
+   g_signal_connect (G_OBJECT(prefs_window), "destroy",
+                     G_CALLBACK(cb_prefs_win_destroy), NULL);
 
    /* pane */
    pane = gtk_hpaned_new ();
@@ -668,9 +668,9 @@ gimv_prefs_win_open (const gchar *path, GtkWindow *parent)
                            GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,
                            GTK_STOCK_OK,     GTK_RESPONSE_ACCEPT,
                            NULL);
-   gtk_signal_connect_object (GTK_OBJECT (prefs_window), "response",
-                              GTK_SIGNAL_FUNC (cb_dialog_response),
-                              NULL);
+   g_signal_connect (G_OBJECT (prefs_window), "response",
+                     G_CALLBACK (cb_dialog_response),
+                     NULL);
 
    gtk_window_set_position (GTK_WINDOW (prefs_window), GTK_WIN_POS_CENTER);
    gtk_widget_show (prefs_window);
