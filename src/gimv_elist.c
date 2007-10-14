@@ -105,28 +105,31 @@ gimv_elist_class_init (GimvEListClass *klass)
    object_class = (GtkObjectClass *) klass;
 
    gimv_elist_signals[LIST_UPDATED_SIGNAL]
-      = gtk_signal_new ("list-updated",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvEListClass, list_updated),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
+      = g_signal_new ("list-updated",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvEListClass, list_updated),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
    gimv_elist_signals[EDIT_AREA_SET_DATA_SIGNAL]
-      = gtk_signal_new ("edit-area-set-data",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvEListClass, edit_area_set_data),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
+      = g_signal_new ("edit-area-set-data",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvEListClass, edit_area_set_data),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
    gimv_elist_signals[ACTION_CONFIRM_SIGNAL]
-      = gtk_signal_new ("action-confirm",
-                        GTK_RUN_LAST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvEListClass, action_confirm),
-                        gtk_marshal_NONE__INT_INT_POINTER,
-                        GTK_TYPE_NONE, 3, GTK_TYPE_INT, GTK_TYPE_INT, GTK_TYPE_POINTER);
+      = g_signal_new ("action-confirm",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (GimvEListClass, action_confirm),
+                      NULL, NULL,
+                      gtk_marshal_NONE__INT_INT_POINTER,
+                      G_TYPE_NONE, 3, G_TYPE_INT, G_TYPE_INT, G_TYPE_POINTER);
 
    G_OBJECT_CLASS(klass)->finalize = gimv_elist_finalize;
 }
@@ -137,8 +140,8 @@ gimv_elist_updated (GimvEList *editlist)
 {
    g_return_if_fail (GIMV_IS_ELIST (editlist));
 
-   gtk_signal_emit (GTK_OBJECT (editlist),
-                    gimv_elist_signals[LIST_UPDATED_SIGNAL]);
+   g_signal_emit (G_OBJECT (editlist),
+                  gimv_elist_signals[LIST_UPDATED_SIGNAL], 0);
 }
 
 
@@ -643,8 +646,8 @@ gimv_elist_edit_area_set_data (GimvEList *editlist, gint row)
 
    g_return_if_fail (row < editlist->rows);
 
-   gtk_signal_emit (GTK_OBJECT (editlist),
-                    gimv_elist_signals[EDIT_AREA_SET_DATA_SIGNAL]);
+   g_signal_emit (G_OBJECT (editlist),
+                  gimv_elist_signals[EDIT_AREA_SET_DATA_SIGNAL], 0);
 
    for (i = 0; i < editlist->columns; i++) {
       GimvEListColumnFuncTable *table = editlist->column_func_tables[i];
@@ -1283,11 +1286,11 @@ gimv_elist_action_confirm (GimvEList *editlist,
       retval |= GIMV_ELIST_CONFIRM_CANNOT_DELETE;
    }
 
-   gtk_signal_emit (GTK_OBJECT (editlist),
-                    gimv_elist_signals[ACTION_CONFIRM_SIGNAL],
-                    type,
-                    editlist->selected,
-                    &retval);
+   g_signal_emit (G_OBJECT (editlist),
+                  gimv_elist_signals[ACTION_CONFIRM_SIGNAL], 0,
+                  type,
+                  editlist->selected,
+                  &retval);
 
    return retval;
 }
