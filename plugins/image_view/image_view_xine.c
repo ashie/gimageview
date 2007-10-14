@@ -536,10 +536,10 @@ imageview_xine_create (GimvImageView *iv)
    gtk_container_add (GTK_CONTAINER (widget), gxine);
    gtk_widget_show (gxine);
 
-   gtk_signal_connect (GTK_OBJECT (gxine), "playback_finished",
-                       GTK_SIGNAL_FUNC (cb_playback_finished), iv);
-   gtk_signal_connect (GTK_OBJECT (gxine), "destroy",
-                       GTK_SIGNAL_FUNC (cb_destroy), iv);
+   g_signal_connect (G_OBJECT (gxine), "playback_finished",
+                     G_CALLBACK (cb_playback_finished), iv);
+   g_signal_connect (G_OBJECT (gxine), "destroy",
+                     G_CALLBACK (cb_destroy), iv);
 
    return widget;
 }
@@ -586,9 +586,9 @@ imageview_xine_create_thumbnail (GimvImageView *iv, const gchar *cache_write_typ
 
    if (imcache) {
       gimv_image_unref (imcache);
-      gtk_signal_emit_by_name (GTK_OBJECT (iv),
-                               "thumbnail_created",
-                               iv->info);
+      g_signal_emit_by_name (G_OBJECT (iv),
+                             "thumbnail_created",
+                             iv->info);
    }
 }
 
