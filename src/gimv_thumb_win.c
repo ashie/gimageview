@@ -655,18 +655,18 @@ gimv_thumb_win_init (GimvThumbWin *tw)
    tw->location_entry = entry = gtk_entry_new ();
    gtk_widget_set_name (tw->location_entry, "LocationEntry");
    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-   gtk_signal_connect_after (GTK_OBJECT(entry), "key-press-event",
-                             GTK_SIGNAL_FUNC(cb_location_entry_key_press), tw);
+   g_signal_connect_after (G_OBJECT(entry), "key-press-event",
+                           G_CALLBACK(cb_location_entry_key_press), tw);
    dnd_dest_set (tw->location_entry, dnd_types_uri, dnd_types_uri_num);
-   gtk_signal_connect(GTK_OBJECT (tw->location_entry), "drag_data_received",
-                      GTK_SIGNAL_FUNC (cb_location_entry_drag_data_received), tw);
-   gtk_signal_connect(GTK_OBJECT (tw->location_entry), "activate",
-                      GTK_SIGNAL_FUNC (cb_location_entry_enter), tw);
+   g_signal_connect(G_OBJECT (tw->location_entry), "drag_data_received",
+                    G_CALLBACK (cb_location_entry_drag_data_received), tw);
+   g_signal_connect(G_OBJECT (tw->location_entry), "activate",
+                    G_CALLBACK (cb_location_entry_enter), tw);
 #if 1 /* FIXME */
-   gtk_signal_connect(GTK_OBJECT (tw->location_entry), "focus_in_event",
-                      GTK_SIGNAL_FUNC (cb_focus_in), tw);
-   gtk_signal_connect(GTK_OBJECT (tw->location_entry), "focus_out_event",
-                      GTK_SIGNAL_FUNC (cb_focus_out), tw);
+   g_signal_connect(G_OBJECT (tw->location_entry), "focus_in_event",
+                    G_CALLBACK (cb_focus_in), tw);
+   g_signal_connect(G_OBJECT (tw->location_entry), "focus_out_event",
+                    G_CALLBACK (cb_focus_out), tw);
 #endif
    gtk_widget_show (entry);
 
@@ -922,9 +922,9 @@ create_wincomp_sub_menu (GimvThumbWin *tw)
       gtk_object_set_data (GTK_OBJECT (item), "num", GINT_TO_POINTER (i));
       icon = create_composition_icon (i);
       gtk_container_add (GTK_CONTAINER (item), icon);
-      gtk_signal_connect (GTK_OBJECT (item), "activate",
-                          GTK_SIGNAL_FUNC (cb_win_composition_menu),
-                          tw);
+      g_signal_connect (G_OBJECT (item), "activate",
+                        G_CALLBACK (cb_win_composition_menu),
+                        tw);
       /* group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (item)); */
       gtk_menu_append (GTK_MENU (menu), item);
       gtk_widget_show (item);
@@ -1225,8 +1225,8 @@ create_wallpaper_submenu (GimvThumbWin *tw)
          gtk_object_set_data_full (GTK_OBJECT (menu_item), "command",
                                    g_strdup (pair[1]),
                                    (GtkDestroyNotify) g_free);
-         gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
-                             GTK_SIGNAL_FUNC (cb_wallpaper_setting), tw);
+         g_signal_connect (G_OBJECT (menu_item), "activate",
+                           G_CALLBACK (cb_wallpaper_setting), tw);
          gtk_menu_append (GTK_MENU (menu), menu_item);
          gtk_widget_show (menu_item);
       }
@@ -1356,26 +1356,26 @@ create_gimv_thumb_win_menus (GimvThumbWin *tw)
    tw->menuitem.sort_case   = gtk_item_factory_get_item (ifactory, "/Case insensitive");
    tw->menuitem.sort_dir    = gtk_item_factory_get_item (ifactory, "/Directory insensitive");
 
-   gtk_signal_connect (GTK_OBJECT (GTK_MENU_ITEM (tw->menuitem.file)->submenu),
-                       "show", GTK_SIGNAL_FUNC (cb_file_submenu_show), tw);
-   gtk_signal_connect (GTK_OBJECT (GTK_MENU_ITEM (tw->menuitem.file)->submenu),
-                       "hide", GTK_SIGNAL_FUNC (cb_file_submenu_hide), tw);
-   gtk_signal_connect (GTK_OBJECT (GTK_MENU_ITEM (tw->menuitem.edit)->submenu),
-                       "show", GTK_SIGNAL_FUNC (cb_edit_submenu_show), tw);
-   gtk_signal_connect (GTK_OBJECT (GTK_MENU_ITEM (tw->menuitem.edit)->submenu),
-                       "hide", GTK_SIGNAL_FUNC (cb_edit_submenu_hide), tw);
-   gtk_signal_connect (GTK_OBJECT (tw->view_menu),
-                       "show", GTK_SIGNAL_FUNC (cb_view_submenu_show), tw);
-   gtk_signal_connect (GTK_OBJECT (tw->view_menu),
-                       "hide", GTK_SIGNAL_FUNC (cb_view_submenu_hide), tw);
-   gtk_signal_connect (GTK_OBJECT (GTK_MENU_ITEM (item)->submenu),
-                       "show", GTK_SIGNAL_FUNC (cb_tab_submenu_show), tw);
-   gtk_signal_connect (GTK_OBJECT (GTK_MENU_ITEM (item)->submenu),
-                       "hide", GTK_SIGNAL_FUNC (cb_tab_submenu_hide), tw);
-   gtk_signal_connect (GTK_OBJECT (GTK_MENU_ITEM (tw->menuitem.tool)->submenu),
-                       "show", GTK_SIGNAL_FUNC (cb_tool_submenu_show), tw);
-   gtk_signal_connect (GTK_OBJECT (GTK_MENU_ITEM (tw->menuitem.tool)->submenu),
-                       "hide", GTK_SIGNAL_FUNC (cb_tool_submenu_hide), tw);
+   g_signal_connect (G_OBJECT (GTK_MENU_ITEM (tw->menuitem.file)->submenu),
+                     "show", G_CALLBACK (cb_file_submenu_show), tw);
+   g_signal_connect (G_OBJECT (GTK_MENU_ITEM (tw->menuitem.file)->submenu),
+                     "hide", G_CALLBACK (cb_file_submenu_hide), tw);
+   g_signal_connect (G_OBJECT (GTK_MENU_ITEM (tw->menuitem.edit)->submenu),
+                     "show", G_CALLBACK (cb_edit_submenu_show), tw);
+   g_signal_connect (G_OBJECT (GTK_MENU_ITEM (tw->menuitem.edit)->submenu),
+                     "hide", G_CALLBACK (cb_edit_submenu_hide), tw);
+   g_signal_connect (G_OBJECT (tw->view_menu),
+                     "show", G_CALLBACK (cb_view_submenu_show), tw);
+   g_signal_connect (G_OBJECT (tw->view_menu),
+                     "hide", G_CALLBACK (cb_view_submenu_hide), tw);
+   g_signal_connect (G_OBJECT (GTK_MENU_ITEM (item)->submenu),
+                     "show", G_CALLBACK (cb_tab_submenu_show), tw);
+   g_signal_connect (G_OBJECT (GTK_MENU_ITEM (item)->submenu),
+                     "hide", G_CALLBACK (cb_tab_submenu_hide), tw);
+   g_signal_connect (G_OBJECT (GTK_MENU_ITEM (tw->menuitem.tool)->submenu),
+                     "show", G_CALLBACK (cb_tool_submenu_show), tw);
+   g_signal_connect (G_OBJECT (GTK_MENU_ITEM (tw->menuitem.tool)->submenu),
+                     "hide", G_CALLBACK (cb_tool_submenu_hide), tw);
 
    /* initialize check menu items */
    if (tw->layout_type < 0)
@@ -1513,7 +1513,7 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
                                     _("File Open"),
                                     _("File Open"),
                                     iconw,
-                                    GTK_SIGNAL_FUNC (cb_open_button),
+                                    G_CALLBACK (cb_open_button),
                                     tw);
    tw->button.fileopen = button;
 
@@ -1524,7 +1524,7 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
                                     _("Preference"),
                                     _("Preference"),
                                     iconw,
-                                    GTK_SIGNAL_FUNC (cb_prefs_button),
+                                    G_CALLBACK (cb_prefs_button),
                                     tw);
    tw->button.prefs = button;
 
@@ -1537,7 +1537,7 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
                                     _("Go to previous page"), 
                                     _("Go to previous page"),
                                     iconw,
-                                    GTK_SIGNAL_FUNC (cb_previous_button),
+                                    G_CALLBACK (cb_previous_button),
                                     tw);
    tw->button.prev = button;
 
@@ -1548,7 +1548,7 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
                                     _("Go to next page"), 
                                     _("Go to next page"),
                                     iconw,
-                                    GTK_SIGNAL_FUNC (cb_next_button),
+                                    G_CALLBACK (cb_next_button),
                                     tw);
    tw->button.next = button;
 
@@ -1561,7 +1561,7 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
                                     _("Reload Cache"), 
                                     _("Reload Cache"),
                                     iconw,
-                                    GTK_SIGNAL_FUNC (cb_refresh_button),
+                                    G_CALLBACK (cb_refresh_button),
                                     tw);
    tw->button.refresh = button;
 
@@ -1572,7 +1572,7 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
                                     _("Skip creating current thumbnail table"), 
                                     _("Skip creating current thumbnail table"),
                                     iconw,
-                                    GTK_SIGNAL_FUNC (cb_skip_button),
+                                    G_CALLBACK (cb_skip_button),
                                     tw);
    gtk_widget_set_sensitive (button, FALSE);
    tw->button.skip = button;
@@ -1584,7 +1584,7 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
                                     _("Stop creating thumbnails"), 
                                     _("Stop creating thumbnails"),
                                     iconw,
-                                    GTK_SIGNAL_FUNC (cb_stop_button),
+                                    G_CALLBACK (cb_stop_button),
                                     tw);
    gtk_widget_set_sensitive (button, FALSE);
    tw->button.stop = button;
@@ -1599,8 +1599,8 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
    tw->button.size_spin = spinner;
    gtk_toolbar_append_widget (GTK_TOOLBAR (toolbar), spinner,
                               _("Thumbnail Size"), _("Thumbnail Size"));
-   gtk_signal_connect (GTK_OBJECT(spinner), "key-press-event",
-                       GTK_SIGNAL_FUNC(cb_size_spinner_key_press), tw);
+   g_signal_connect (G_OBJECT(spinner), "key-press-event",
+                     G_CALLBACK(cb_size_spinner_key_press), tw);
    gtk_widget_show (spinner);
 
    gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
@@ -1612,7 +1612,7 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
                                     _("Exit this program"),
                                     _("Exit this program"),
                                     iconw,
-                                    GTK_SIGNAL_FUNC (cb_quit_button),
+                                    G_CALLBACK (cb_quit_button),
                                     NULL);
    tw->button.quit = button;
    gtk_widget_hide (tw->button.quit);
@@ -1838,29 +1838,29 @@ thumbnail_view_new (GimvThumbWin *tw)
    gtk_notebook_popup_enable (GTK_NOTEBOOK (notebook));
    gtk_notebook_set_tab_hborder (GTK_NOTEBOOK (notebook), 0);
    gtk_notebook_set_tab_vborder (GTK_NOTEBOOK (notebook), 0);
-   gtk_signal_connect (GTK_OBJECT(notebook), "switch-page",
-                       GTK_SIGNAL_FUNC(cb_thumb_notebook_switch_page), tw);
+   g_signal_connect (G_OBJECT(notebook), "switch-page",
+                     G_CALLBACK(cb_thumb_notebook_switch_page), tw);
 
    gtk_object_set_data (GTK_OBJECT (notebook), "thumbwin", tw);
    dnd_src_set  (notebook, dnd_types_tab_component, dnd_types_tab_component_num);
-   gtk_signal_connect (GTK_OBJECT (notebook), "drag_begin",
-                       GTK_SIGNAL_FUNC (cb_com_drag_begin), tw);
-   gtk_signal_connect (GTK_OBJECT (notebook), "drag_data_get",
-                       GTK_SIGNAL_FUNC (cb_com_drag_data_get), tw);
+   g_signal_connect (G_OBJECT (notebook), "drag_begin",
+                     G_CALLBACK (cb_com_drag_begin), tw);
+   g_signal_connect (G_OBJECT (notebook), "drag_data_get",
+                     G_CALLBACK (cb_com_drag_data_get), tw);
 
    dnd_dest_set (notebook, dnd_types_all, dnd_types_all_num);
    gtk_object_set_data (GTK_OBJECT (notebook),
                         "gimv-component",
                         GINT_TO_POINTER (GIMV_COM_THUMB_VIEW));
-   gtk_signal_connect (GTK_OBJECT (notebook), "drag_data_received",
-                       GTK_SIGNAL_FUNC (cb_notebook_drag_data_received), tw);
+   g_signal_connect (G_OBJECT (notebook), "drag_data_received",
+                     G_CALLBACK (cb_notebook_drag_data_received), tw);
 
    dnd_dest_set (vbox, dnd_types_all, dnd_types_all_num);
    gtk_object_set_data (GTK_OBJECT (vbox),
                         "gimv-component",
                         GINT_TO_POINTER (GIMV_COM_THUMB_VIEW));
-   gtk_signal_connect (GTK_OBJECT (vbox), "drag_data_received",
-                       GTK_SIGNAL_FUNC (cb_notebook_drag_data_received), tw);
+   g_signal_connect (G_OBJECT (vbox), "drag_data_received",
+                     G_CALLBACK (cb_notebook_drag_data_received), tw);
 
    tw->notebook = notebook;
 
@@ -2020,17 +2020,17 @@ image_preview_new (GimvThumbWin *tw)
       gtk_accel_group_ref (cv->accel_group);
       gtk_window_add_accel_group (GTK_WINDOW (tw), cv->accel_group);
    }
-   gtk_signal_connect (GTK_OBJECT (cv->main_vbox), "delete_event",
-                       GTK_SIGNAL_FUNC (cb_comment_view_delete), tw);
+   g_signal_connect (G_OBJECT (cv->main_vbox), "delete_event",
+                     G_CALLBACK (cb_comment_view_delete), tw);
 #if 1 /* FIXME */
-   gtk_signal_connect(GTK_OBJECT (cv->value_entry), "focus_in_event",
-                      GTK_SIGNAL_FUNC (cb_focus_in), tw);
-   gtk_signal_connect(GTK_OBJECT (cv->value_entry), "focus_out_event",
-                      GTK_SIGNAL_FUNC (cb_focus_out), tw);
-   gtk_signal_connect(GTK_OBJECT (cv->note_box), "focus_in_event",
-                      GTK_SIGNAL_FUNC (cb_focus_in), tw);
-   gtk_signal_connect(GTK_OBJECT (cv->note_box), "focus_out_event",
-                      GTK_SIGNAL_FUNC (cb_focus_out), tw);
+   g_signal_connect(G_OBJECT (cv->value_entry), "focus_in_event",
+                    G_CALLBACK (cb_focus_in), tw);
+   g_signal_connect(G_OBJECT (cv->value_entry), "focus_out_event",
+                    G_CALLBACK (cb_focus_out), tw);
+   g_signal_connect(G_OBJECT (cv->note_box), "focus_in_event",
+                    G_CALLBACK (cb_focus_in), tw);
+   g_signal_connect(G_OBJECT (cv->note_box), "focus_out_event",
+                    G_CALLBACK (cb_focus_out), tw);
 #endif
 
    /* create image view and attach to comment view notebook */
@@ -2039,10 +2039,10 @@ image_preview_new (GimvThumbWin *tw)
 
    tw->iv = GIMV_IMAGE_VIEW (gimv_image_view_new (NULL));
 
-   gtk_signal_connect (GTK_OBJECT (tw->iv), "image_pressed",
-                       GTK_SIGNAL_FUNC (cb_image_preview_pressed), tw);
-   gtk_signal_connect (GTK_OBJECT (tw->iv), "image_clicked",
-                       GTK_SIGNAL_FUNC (cb_image_preview_clicked), tw);
+   g_signal_connect (G_OBJECT (tw->iv), "image_pressed",
+                     G_CALLBACK (cb_image_preview_pressed), tw);
+   g_signal_connect (G_OBJECT (tw->iv), "image_clicked",
+                     G_CALLBACK (cb_image_preview_clicked), tw);
 
    /* override prefs */
    gimv_image_view_set_player_visible (tw->iv, tw->player_visible);
@@ -2065,37 +2065,37 @@ image_preview_new (GimvThumbWin *tw)
    gtk_object_set_data (GTK_OBJECT (cv->notebook),
                         "gimv-component",
                         GINT_TO_POINTER (GIMV_COM_IMAGE_VIEW));
-   gtk_signal_connect (GTK_OBJECT (cv->notebook), "drag_begin",
-                       GTK_SIGNAL_FUNC (cb_com_drag_begin), tw);
-   gtk_signal_connect (GTK_OBJECT (cv->notebook), "drag_data_get",
-                       GTK_SIGNAL_FUNC (cb_com_drag_data_get), tw);
+   g_signal_connect (G_OBJECT (cv->notebook), "drag_begin",
+                     G_CALLBACK (cb_com_drag_begin), tw);
+   g_signal_connect (G_OBJECT (cv->notebook), "drag_data_get",
+                     G_CALLBACK (cb_com_drag_data_get), tw);
 
    dnd_dest_set (cv->main_vbox, dnd_types_component, dnd_types_component_num);
    gtk_object_set_data (GTK_OBJECT (cv->main_vbox),
                         "gimv-component",
                         GINT_TO_POINTER (GIMV_COM_IMAGE_VIEW));
-   gtk_signal_connect (GTK_OBJECT (cv->main_vbox), "drag_data_received",
-                       GTK_SIGNAL_FUNC (cb_com_swap_drag_data_received), tw);
+   g_signal_connect (G_OBJECT (cv->main_vbox), "drag_data_received",
+                     G_CALLBACK (cb_com_swap_drag_data_received), tw);
    /* END FIXME!! */
 
    /* FIXME!! */
    /* for avoiding gtk's bug */
-   gtk_signal_connect (GTK_OBJECT (tw->iv), "button_press_event",
-                       GTK_SIGNAL_FUNC (cb_unset_com_dnd), tw);
-   gtk_signal_connect (GTK_OBJECT (tw->iv), "button_release_event",
-                       GTK_SIGNAL_FUNC (cb_reset_com_dnd), tw);
-   gtk_signal_connect (GTK_OBJECT (tw->cv->comment_clist->parent),
-                       "button_press_event",
-                       GTK_SIGNAL_FUNC (cb_unset_com_dnd), tw);
-   gtk_signal_connect (GTK_OBJECT (tw->cv->comment_clist->parent),
-                       "button_release_event",
-                       GTK_SIGNAL_FUNC (cb_reset_com_dnd), tw);
-   gtk_signal_connect (GTK_OBJECT (tw->cv->note_box->parent),
-                       "button_press_event",
-                       GTK_SIGNAL_FUNC (cb_unset_com_dnd), tw);
-   gtk_signal_connect (GTK_OBJECT (tw->cv->note_box->parent),
-                       "button_release_event",
-                       GTK_SIGNAL_FUNC (cb_reset_com_dnd), tw);
+   g_signal_connect (G_OBJECT (tw->iv), "button_press_event",
+                     G_CALLBACK (cb_unset_com_dnd), tw);
+   g_signal_connect (G_OBJECT (tw->iv), "button_release_event",
+                     G_CALLBACK (cb_reset_com_dnd), tw);
+   g_signal_connect (G_OBJECT (tw->cv->comment_clist->parent),
+                     "button_press_event",
+                     G_CALLBACK (cb_unset_com_dnd), tw);
+   g_signal_connect (G_OBJECT (tw->cv->comment_clist->parent),
+                     "button_release_event",
+                     G_CALLBACK (cb_reset_com_dnd), tw);
+   g_signal_connect (G_OBJECT (tw->cv->note_box->parent),
+                     "button_press_event",
+                     G_CALLBACK (cb_unset_com_dnd), tw);
+   g_signal_connect (G_OBJECT (tw->cv->note_box->parent),
+                     "button_release_event",
+                     G_CALLBACK (cb_reset_com_dnd), tw);
    /* END FIXME!! */
 
    gtk_widget_show (GTK_WIDGET (tw->iv));
@@ -2685,7 +2685,7 @@ cb_win_composition_menu (GtkMenuItem *item, gpointer data)
    active = menuitem->active;
    gtk_check_menu_item_set_active (menuitem, TRUE);
    if (active)
-      gtk_signal_emit_by_name (GTK_OBJECT (menuitem), "activate");
+      g_signal_emit_by_name (G_OBJECT (menuitem), "activate");
 }
 
 
@@ -2858,15 +2858,15 @@ cb_refresh_button (GtkWidget *widget, GimvThumbWin *tw)
 
    if (!tw) return;
 
-   gtk_signal_handler_block_by_func (GTK_OBJECT (widget),
-                                     GTK_SIGNAL_FUNC (cb_refresh_button),
-                                     tw);
+   g_signal_handlers_block_by_func (G_OBJECT (widget),
+                                    G_CALLBACK (cb_refresh_button),
+                                    tw);
 
    gimv_thumb_win_reload_thumbnail (tw, LOAD_CACHE);
 
-   gtk_signal_handler_unblock_by_func (GTK_OBJECT (widget),
-                                       GTK_SIGNAL_FUNC (cb_refresh_button),
-                                       tw);
+   g_signal_handlers_unblock_by_func (G_OBJECT (widget),
+                                      G_CALLBACK (cb_refresh_button),
+                                      tw);
 }
 
 
@@ -2960,18 +2960,18 @@ cb_display_mode_menu (GtkWidget *widget, GimvThumbWin *tw)
    summary_mode = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget), "num"));
    tw->thumbview_summary_mode = gimv_thumb_view_num_to_label (summary_mode);
 
-   gtk_signal_handler_block_by_func (GTK_OBJECT (widget),
-                                     GTK_SIGNAL_FUNC (cb_display_mode_menu),
-                                     tw);
+   g_signal_handlers_block_by_func (G_OBJECT (widget),
+                                    G_CALLBACK (cb_display_mode_menu),
+                                    tw);
 
    gimv_thumb_view_change_summary_mode (
       tv, gimv_thumb_view_num_to_label (summary_mode));
    gtk_option_menu_set_history (GTK_OPTION_MENU (tw->summary_mode_menu),
                                 summary_mode);
 
-   gtk_signal_handler_unblock_by_func (GTK_OBJECT (widget),
-                                       GTK_SIGNAL_FUNC(cb_display_mode_menu),
-                                       tw);
+   g_signal_handlers_unblock_by_func (G_OBJECT (widget),
+                                      G_CALLBACK(cb_display_mode_menu),
+                                      tw);
 }
 
 
@@ -3761,18 +3761,18 @@ gimv_thumb_win_create_tab_container (GimvThumbWin *tw)
    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(scrolled_window),
                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
    gtk_widget_show (scrolled_window);
-   gtk_signal_connect_after (GTK_OBJECT(scrolled_window), "button_press_event",
-                             GTK_SIGNAL_FUNC(cb_pagecontainer_button_press), tw);
-   gtk_signal_connect_after (GTK_OBJECT(scrolled_window), "button_release_event",
-                             GTK_SIGNAL_FUNC(cb_pagecontainer_thumb_button_release), tw);
-   gtk_signal_connect_after (GTK_OBJECT(scrollwin->hscrollbar), "button_press_event",
-                             GTK_SIGNAL_FUNC(cb_pagecontainer_button_press), tw);
-   gtk_signal_connect_after (GTK_OBJECT(scrollwin->hscrollbar), "button_release_event",
-                             GTK_SIGNAL_FUNC(cb_pagecontainer_thumb_button_release), tw);
-   gtk_signal_connect_after (GTK_OBJECT(scrollwin->vscrollbar), "button_press_event",
-                             GTK_SIGNAL_FUNC(cb_pagecontainer_button_press), tw);
-   gtk_signal_connect_after (GTK_OBJECT(scrollwin->vscrollbar), "button_release_event",
-                             GTK_SIGNAL_FUNC(cb_pagecontainer_thumb_button_release), tw);
+   g_signal_connect_after (G_OBJECT(scrolled_window), "button_press_event",
+                           G_CALLBACK(cb_pagecontainer_button_press), tw);
+   g_signal_connect_after (G_OBJECT(scrolled_window), "button_release_event",
+                           G_CALLBACK(cb_pagecontainer_thumb_button_release), tw);
+   g_signal_connect_after (G_OBJECT(scrollwin->hscrollbar), "button_press_event",
+                           G_CALLBACK(cb_pagecontainer_button_press), tw);
+   g_signal_connect_after (G_OBJECT(scrollwin->hscrollbar), "button_release_event",
+                           G_CALLBACK(cb_pagecontainer_thumb_button_release), tw);
+   g_signal_connect_after (G_OBJECT(scrollwin->vscrollbar), "button_press_event",
+                           G_CALLBACK(cb_pagecontainer_button_press), tw);
+   g_signal_connect_after (G_OBJECT(scrollwin->vscrollbar), "button_release_event",
+                           G_CALLBACK(cb_pagecontainer_thumb_button_release), tw);
 
    /* page label widget */
    hbox = gtk_hbox_new (FALSE, 0);
@@ -3791,8 +3791,8 @@ gimv_thumb_win_create_tab_container (GimvThumbWin *tw)
    pixmap = gimv_icon_stock_get_widget ("small_close");
    gtk_object_set_data (GTK_OBJECT (button), "page-container", scrolled_window);
    gtk_object_set_data (GTK_OBJECT (tablabel), "close-button", button);
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_tab_close_button_clicked), tw);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_tab_close_button_clicked), tw);
 
    gtk_container_add(GTK_CONTAINER(button), pixmap);
    gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
@@ -3809,8 +3809,8 @@ gimv_thumb_win_create_tab_container (GimvThumbWin *tw)
    gtk_object_set_data (GTK_OBJECT (hbox),
                         "gimv-component",
                         GINT_TO_POINTER (GIMV_COM_THUMB_VIEW));
-   gtk_signal_connect (GTK_OBJECT (hbox), "drag_data_received",
-                       GTK_SIGNAL_FUNC (cb_tab_drag_data_received), tw);
+   g_signal_connect (G_OBJECT (hbox), "drag_data_received",
+                     G_CALLBACK (cb_tab_drag_data_received), tw);
 
    /* create page */
    gtk_notebook_append_page (GTK_NOTEBOOK(tw->notebook), scrolled_window, hbox);
@@ -4320,7 +4320,7 @@ gimv_thumb_win_swap_component (GimvThumbWin *tw,
    active = menuitem->active;
    gtk_check_menu_item_set_active (menuitem, TRUE);
    if (active)
-      gtk_signal_emit_by_name (GTK_OBJECT (menuitem), "activate");
+      g_signal_emit_by_name (GTK_OBJECT (menuitem), "activate");
 }
 
 

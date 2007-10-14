@@ -350,10 +350,10 @@ gimv_slideshow_open_window (GimvSlideShow *slideshow)
                              remove_list,
                              iw);
 
-   gtk_signal_connect_after (GTK_OBJECT (iw), "show_fullscreen",
-                             GTK_SIGNAL_FUNC (cb_show_fullscreen), slideshow);
-   gtk_signal_connect_after (GTK_OBJECT (iw), "hide_fullscreen",
-                             GTK_SIGNAL_FUNC (cb_hide_fullscreen), slideshow);
+   g_signal_connect_after (G_OBJECT (iw), "show_fullscreen",
+                           G_CALLBACK (cb_show_fullscreen), slideshow);
+   g_signal_connect_after (G_OBJECT (iw), "hide_fullscreen",
+                           G_CALLBACK (cb_hide_fullscreen), slideshow);
 
    gtk_widget_show (GTK_WIDGET (slideshow->iw));
 

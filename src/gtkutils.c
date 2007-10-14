@@ -138,8 +138,8 @@ gtkutil_create_check_button (const gchar *label_text, gboolean def_val,
    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(toggle), def_val);
 
    if (func)
-      gtk_signal_connect (GTK_OBJECT (toggle), "toggled",
-                          GTK_SIGNAL_FUNC (func), data);
+      g_signal_connect (G_OBJECT (toggle), "toggled",
+                        G_CALLBACK (func), data);
 
    return toggle;
 }
@@ -322,8 +322,8 @@ gtkutil_confirm_dialog (const gchar *title, const gchar *message,
    gtk_window_set_default_size (GTK_WINDOW (window), 300, 120);
    /* gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (window)->vbox), 5); */
    gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
-   gtk_signal_connect (GTK_OBJECT (window), "delete_event",
-                       GTK_SIGNAL_FUNC (cb_dummy), NULL);
+   g_signal_connect (G_OBJECT (window), "delete_event",
+                     G_CALLBACK (cb_dummy), NULL);
 
    /* message area */
    vbox = gtk_vbox_new (FALSE, 0);
@@ -351,9 +351,9 @@ gtkutil_confirm_dialog (const gchar *title, const gchar *message,
    button = gtk_button_new_with_label (_("Yes"));
    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (window)->action_area), 
                        button, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_confirm_yes),
-                       &retval);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_confirm_yes),
+                     &retval);
    GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
    gtk_widget_show (button);
    gtk_widget_grab_focus (button);
@@ -362,9 +362,9 @@ gtkutil_confirm_dialog (const gchar *title, const gchar *message,
       button = gtk_button_new_with_label (_("Yes to All"));
       gtk_box_pack_start (GTK_BOX (GTK_DIALOG (window)->action_area), 
                           button, TRUE, TRUE, 0);
-      gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                          GTK_SIGNAL_FUNC (cb_confirm_yes_to_all),
-                          &retval);
+      g_signal_connect (G_OBJECT (button), "clicked",
+                        G_CALLBACK (cb_confirm_yes_to_all),
+                        &retval);
       GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
       gtk_widget_show (button);
    }
@@ -372,9 +372,9 @@ gtkutil_confirm_dialog (const gchar *title, const gchar *message,
    button = gtk_button_new_with_label (_("No"));
    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (window)->action_area), 
                        button, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_confirm_no),
-                       &retval);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_confirm_no),
+                     &retval);
    GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
    gtk_widget_show (button);
 
@@ -382,9 +382,9 @@ gtkutil_confirm_dialog (const gchar *title, const gchar *message,
       button = gtk_button_new_with_label (_("Cancel"));
       gtk_box_pack_start (GTK_BOX (GTK_DIALOG (window)->action_area), 
                           button, TRUE, TRUE, 0);
-      gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                          GTK_SIGNAL_FUNC (cb_confirm_cancel),
-                          &retval);
+      g_signal_connect (G_OBJECT (button), "clicked",
+                        G_CALLBACK (cb_confirm_cancel),
+                        &retval);
       GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
       gtk_widget_show (button);
    }
@@ -521,8 +521,8 @@ gtkutil_overwrite_confirm_dialog (const gchar *title, const gchar *message,
    gtk_window_set_default_size (GTK_WINDOW (window), 300, 120);
    /* gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (window)->vbox), 5); */
    gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
-   gtk_signal_connect (GTK_OBJECT (window), "delete_event",
-                       GTK_SIGNAL_FUNC (cb_dummy), NULL);
+   g_signal_connect (G_OBJECT (window), "delete_event",
+                     G_CALLBACK (cb_dummy), NULL);
 
    /* message area */
    vbox = gtk_vbox_new (FALSE, 0);
@@ -556,24 +556,24 @@ gtkutil_overwrite_confirm_dialog (const gchar *title, const gchar *message,
 
       label = gtk_button_new_with_label (_("Show destination"));
       gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 2);
-      gtk_signal_connect (GTK_OBJECT (label), "clicked",
-                          GTK_SIGNAL_FUNC (cb_show_image1),
-                          &dialog);
+      g_signal_connect (G_OBJECT (label), "clicked",
+                        G_CALLBACK (cb_show_image1),
+                        &dialog);
       gtk_widget_show (label);
 
       button = gtk_button_new_with_label (_("Show both images"));
       dialog.show_compare_button = button;
       gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 2);
-      gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                          GTK_SIGNAL_FUNC (cb_show_compare),
-                          &dialog);
+      g_signal_connect (G_OBJECT (button), "clicked",
+                        G_CALLBACK (cb_show_compare),
+                        &dialog);
       gtk_widget_show (button);
 
       label = gtk_button_new_with_label (_("Show source"));
       gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 2);
-      gtk_signal_connect (GTK_OBJECT (label), "clicked",
-                          GTK_SIGNAL_FUNC (cb_show_image2),
-                          &dialog);
+      g_signal_connect (G_OBJECT (label), "clicked",
+                        G_CALLBACK (cb_show_image2),
+                        &dialog);
       gtk_widget_show (label);
 
       /* view */
@@ -631,8 +631,8 @@ gtkutil_overwrite_confirm_dialog (const gchar *title, const gchar *message,
 
    dialog.entry = entry = gtk_entry_new ();
    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT (entry), "activate",
-                       GTK_SIGNAL_FUNC (cb_confirm_rename_enter), &dialog);
+   g_signal_connect (G_OBJECT (entry), "activate",
+                     G_CALLBACK (cb_confirm_rename_enter), &dialog);
    filename = charset_to_internal (g_basename (src_file),
                                    conf.charset_filename,
                                    conf.charset_auto_detect_fn,
@@ -644,9 +644,9 @@ gtkutil_overwrite_confirm_dialog (const gchar *title, const gchar *message,
 
    button = gtk_button_new_with_label (_("Rename"));
    gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 0);
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_confirm_rename),
-                       &dialog);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_confirm_rename),
+                     &dialog);
    GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
    gtk_widget_show (button);
 
@@ -658,9 +658,9 @@ gtkutil_overwrite_confirm_dialog (const gchar *title, const gchar *message,
 
    button = gtk_button_new_with_label (_("Yes"));
    gtk_box_pack_start (GTK_BOX (hbox),  button, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_confirm_yes),
-                       &dialog.retval);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_confirm_yes),
+                     &dialog.retval);
    GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
    gtk_widget_show (button);
    gtk_widget_grab_focus (button);
@@ -668,35 +668,35 @@ gtkutil_overwrite_confirm_dialog (const gchar *title, const gchar *message,
    if (flags & ConfirmDialogMultipleFlag) {
       button = gtk_button_new_with_label (_("Yes to All"));
       gtk_box_pack_start (GTK_BOX (hbox),button, TRUE, TRUE, 0);
-      gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                          GTK_SIGNAL_FUNC (cb_confirm_yes_to_all),
-                          &dialog.retval);
+      g_signal_connect (G_OBJECT (button), "clicked",
+                        G_CALLBACK (cb_confirm_yes_to_all),
+                        &dialog.retval);
       GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
       gtk_widget_show (button);
    }
 
    button = gtk_button_new_with_label (_("Skip"));
    gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_confirm_no),
-                       &dialog.retval);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_confirm_no),
+                     &dialog.retval);
    GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
    gtk_widget_show (button);
 
    button = gtk_button_new_with_label (_("Skip all"));
    gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_confirm_no_to_all),
-                       &dialog.retval);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_confirm_no_to_all),
+                     &dialog.retval);
    GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
    gtk_widget_show (button);
 
    if (flags & ConfirmDialogMultipleFlag) {
       button = gtk_button_new_with_label (_("Cancel"));
       gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
-      gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                          GTK_SIGNAL_FUNC (cb_confirm_cancel),
-                          &dialog.retval);
+      g_signal_connect (G_OBJECT (button), "clicked",
+                        G_CALLBACK (cb_confirm_cancel),
+                        &dialog.retval);
       GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
       gtk_widget_show (button);
    }
@@ -740,8 +740,8 @@ gtkutil_message_dialog (const gchar *title, const gchar *message, GtkWindow *par
       gtk_window_set_transient_for (GTK_WINDOW (window), parent);
    gtk_window_set_title (GTK_WINDOW (window), title); 
    gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
-   gtk_signal_connect (GTK_OBJECT (window), "delete_event",
-                       GTK_SIGNAL_FUNC (cb_dummy), NULL);
+   g_signal_connect (G_OBJECT (window), "delete_event",
+                     G_CALLBACK (cb_dummy), NULL);
 
    /* message area */
    vbox = gtk_vbox_new (FALSE, 0);
@@ -770,8 +770,8 @@ gtkutil_message_dialog (const gchar *title, const gchar *message, GtkWindow *par
    button = gtk_button_new_with_label (_("OK"));
    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (window)->action_area), 
                        button, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_message_dialog_quit), NULL);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_message_dialog_quit), NULL);
    GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
    gtk_widget_show (button);
 
@@ -849,8 +849,8 @@ gtkutil_create_progress_window (gchar *title, gchar *initial_message,
    gtk_window_set_title (GTK_WINDOW (window), title);
    gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
    gtk_window_set_default_size (GTK_WINDOW (window), width, height);
-   gtk_signal_connect (GTK_OBJECT (window), "delete_event",
-                       GTK_SIGNAL_FUNC (cb_dummy), NULL);
+   g_signal_connect (G_OBJECT (window), "delete_event",
+                     G_CALLBACK (cb_dummy), NULL);
 
    /* message area */
    vbox = gtk_vbox_new (FALSE, 5);
@@ -873,8 +873,8 @@ gtkutil_create_progress_window (gchar *title, gchar *initial_message,
    gtk_container_border_width (GTK_CONTAINER (button), 0);
    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (window)->action_area), button,
                        TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT(button), "clicked",
-                       GTK_SIGNAL_FUNC(cb_progress_win_cancel), cancel_pressed);
+   g_signal_connect (G_OBJECT(button), "clicked",
+                     G_CALLBACK(cb_progress_win_cancel), cancel_pressed);
    GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
 
    gtk_object_set_data (GTK_OBJECT (window), "label", label);
@@ -1012,8 +1012,8 @@ gtkutil_popup_textentry (const gchar   *title,
       gtk_window_set_transient_for (GTK_WINDOW (window), parent);
    gtk_window_set_title (GTK_WINDOW (window), title); 
    gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
-   gtk_signal_connect (GTK_OBJECT (window), "delete_event",
-                       GTK_SIGNAL_FUNC (cb_dummy), NULL);
+   g_signal_connect (G_OBJECT (window), "delete_event",
+                     G_CALLBACK (cb_dummy), NULL);
 
    /* main area */
    vbox = gtk_vbox_new (FALSE, 0);
@@ -1046,8 +1046,8 @@ gtkutil_popup_textentry (const gchar   *title,
       gtk_widget_hide (GTK_COMBO (combo)->button);
 
    gtk_box_pack_start (GTK_BOX (box), combo, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT (entry), "activate",
-                       GTK_SIGNAL_FUNC (cb_textpop_enter), &ok_pressed);
+   g_signal_connect (G_OBJECT (entry), "activate",
+                     G_CALLBACK (cb_textpop_enter), &ok_pressed);
    if (entry_text)
       gtk_entry_set_text (GTK_ENTRY (entry), entry_text);
    if (flags & TEXT_ENTRY_CURSOR_TOP)
@@ -1055,9 +1055,9 @@ gtkutil_popup_textentry (const gchar   *title,
    if (entry_width > 0)
       gtk_widget_set_usize (combo, entry_width, -1);
    if (flags & TEXT_ENTRY_AUTOCOMP_PATH)
-      gtk_signal_connect_after (GTK_OBJECT(entry), "key-press-event",
-                                GTK_SIGNAL_FUNC(cb_textpop_key_press),
-                                &ok_pressed);
+      g_signal_connect_after (G_OBJECT(entry), "key-press-event",
+                              G_CALLBACK(cb_textpop_key_press),
+                              &ok_pressed);
    gtk_widget_show (combo);
 
    if (flags & TEXT_ENTRY_NO_EDITABLE)
@@ -1069,16 +1069,16 @@ gtkutil_popup_textentry (const gchar   *title,
    button = gtk_button_new_with_label (_("OK"));
    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (window)->action_area), 
                        button, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT(button), "clicked",
-                       GTK_SIGNAL_FUNC(cb_textpop_ok_button), &ok_pressed);
+   g_signal_connect (G_OBJECT(button), "clicked",
+                     G_CALLBACK(cb_textpop_ok_button), &ok_pressed);
    GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
    gtk_widget_show (button);
 
    button = gtk_button_new_with_label (_("Cancel"));
    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (window)->action_area), 
                        button, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT(button), "clicked",
-                       GTK_SIGNAL_FUNC(cb_textpop_cancel_button), &ok_pressed);
+   g_signal_connect (G_OBJECT(button), "clicked",
+                     G_CALLBACK(cb_textpop_cancel_button), &ok_pressed);
    GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
    gtk_widget_show (button);
 
@@ -1133,17 +1133,17 @@ gtkutil_modal_file_dialog (const gchar   *title,
       gtk_window_set_transient_for (GTK_WINDOW (filesel), parent);
 
    gtk_window_set_position (GTK_WINDOW (filesel), GTK_WIN_POS_CENTER);
-   gtk_signal_connect (GTK_OBJECT (filesel), "delete_event",
-                       GTK_SIGNAL_FUNC (cb_dummy), NULL);
+   g_signal_connect (G_OBJECT (filesel), "delete_event",
+                     G_CALLBACK (cb_dummy), NULL);
 
    button = GTK_FILE_SELECTION (filesel)->ok_button;
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_filesel_ok),
-                       &retval);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_filesel_ok),
+                     &retval);
    button = GTK_FILE_SELECTION (filesel)->cancel_button;
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_filesel_cancel),
-                       &retval);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_filesel_cancel),
+                     &retval);
 
    if (default_path && *default_path)
       gtk_file_selection_set_filename (GTK_FILE_SELECTION (filesel),
@@ -1211,17 +1211,17 @@ cb_choose_color (GtkWidget *widget, gint color[3])
    selcol[3] = 0.0;
    csel = GTK_COLOR_SELECTION_DIALOG (dialog)->colorsel;     
    gtk_color_selection_set_color (GTK_COLOR_SELECTION (csel), selcol);
-   gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-                       GTK_SIGNAL_FUNC (cb_dummy), NULL);
+   g_signal_connect (G_OBJECT (dialog), "delete_event",
+                     G_CALLBACK (cb_dummy), NULL);
 
    button = GTK_COLOR_SELECTION_DIALOG (dialog)->ok_button;
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_colorsel_ok),
-                       &retval);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_colorsel_ok),
+                     &retval);
    button = GTK_COLOR_SELECTION_DIALOG (dialog)->cancel_button;
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_colorsel_cancel),
-                       &retval);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_colorsel_cancel),
+                     &retval);
    button = GTK_COLOR_SELECTION_DIALOG (dialog)->help_button;
    gtk_widget_hide (button);
    gtk_widget_show (dialog);
@@ -1245,9 +1245,9 @@ gtkutil_color_sel_button (const gchar *label, gint color[3])
    GtkWidget *button;
 
    button = gtk_button_new_with_label (label);
-   gtk_signal_connect (GTK_OBJECT (button),"clicked",
-                       GTK_SIGNAL_FUNC (cb_choose_color),
-                       color);
+   g_signal_connect (G_OBJECT (button),"clicked",
+                     G_CALLBACK (cb_choose_color),
+                     color);
 
    return button;
 }

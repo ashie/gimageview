@@ -98,8 +98,8 @@ menubar_create (GtkWidget *window,
    gtk_window_add_accel_group (GTK_WINDOW (window), accel_group);
 
    widget = gtk_item_factory_get_widget (factory, path);
-   gtk_signal_connect (GTK_OBJECT (widget), "destroy",
-                       GTK_SIGNAL_FUNC (cb_menu_destroy), factory);
+   g_signal_connect (G_OBJECT (widget), "destroy",
+                     G_CALLBACK (cb_menu_destroy), factory);
 
    return widget;
 }
@@ -141,8 +141,8 @@ menu_create_items (GtkWidget *window,
       gtk_window_add_accel_group (GTK_WINDOW (window), accel_group);
 
    widget = gtk_item_factory_get_widget (factory, path);
-   gtk_signal_connect (GTK_OBJECT (widget), "destroy",
-                       GTK_SIGNAL_FUNC (cb_menu_destroy), factory);
+   g_signal_connect (G_OBJECT (widget), "destroy",
+                     G_CALLBACK (cb_menu_destroy), factory);
 
    return widget;
 }
@@ -283,9 +283,9 @@ create_option_menu_simple (const gchar **menu_items, gint def_val, gint *data)
    for (i = 0; menu_items[i]; i++) {
       menu_item = gtk_menu_item_new_with_label (_(menu_items[i]));
       gtk_object_set_data (GTK_OBJECT (menu_item), "num", GINT_TO_POINTER(i));
-      gtk_signal_connect(GTK_OBJECT(menu_item), "activate",
-                         GTK_SIGNAL_FUNC(cb_get_data_from_menuitem),
-                         data);
+      g_signal_connect(G_OBJECT(menu_item), "activate",
+                       G_CALLBACK(cb_get_data_from_menuitem),
+                       data);
       gtk_menu_append (GTK_MENU(menu), menu_item);
       gtk_widget_show (menu_item);
    }
@@ -322,9 +322,9 @@ create_option_menu (const gchar **menu_items, gint def_val,
    for (i = 0; menu_items[i]; i++) {
       menu_item = gtk_menu_item_new_with_label (_(menu_items[i]));
       gtk_object_set_data (GTK_OBJECT (menu_item), "num", GINT_TO_POINTER(i));
-      gtk_signal_connect(GTK_OBJECT(menu_item), "activate",
-                         GTK_SIGNAL_FUNC(func),
-                         data);
+      g_signal_connect(G_OBJECT(menu_item), "activate",
+                       G_CALLBACK(func),
+                       data);
       gtk_menu_append (GTK_MENU(menu), menu_item);
       gtk_widget_show (menu_item);
    }
@@ -392,9 +392,9 @@ menu_popup_modal (GtkWidget *popup,
 
    gtk_object_set_data (GTK_OBJECT (popup), "return_val", GINT_TO_POINTER (-1));
 
-   id = gtk_signal_connect (GTK_OBJECT (popup), "deactivate",
-                            (GtkSignalFunc) menu_shell_deactivated,
-                            NULL);
+   id = g_signal_connect (G_OBJECT (popup), "deactivate",
+                          G_CALLBACK (menu_shell_deactivated),
+                          NULL);
 
    if (event) {
       button = event->button;
@@ -410,7 +410,7 @@ menu_popup_modal (GtkWidget *popup,
    gtk_main ();
    gtk_grab_remove (popup);
 
-   gtk_signal_disconnect (GTK_OBJECT (popup), id);
+   g_signal_handler_disconnect (GTK_OBJECT (popup), id);
 
    retval = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (popup),
                                                   "return_val"));

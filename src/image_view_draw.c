@@ -122,7 +122,7 @@ cb_load_end_create_thumbnail (GimvImageView *iv, GimvImageInfo *info,
    id_p = g_hash_table_lookup (create_thumbnail_id_table, iv);
    id = GPOINTER_TO_UINT (id_p);
    if (id > 0)
-      gtk_signal_disconnect (GTK_OBJECT (iv), id);
+      g_signal_handler_disconnect (GTK_OBJECT (iv), id);
    g_hash_table_remove (create_thumbnail_id_table, iv);
 
    if (cancel) return;
@@ -144,9 +144,9 @@ cb_load_end_create_thumbnail (GimvImageView *iv, GimvImageInfo *info,
 
    if (imcache) {
       gimv_image_unref (imcache);
-      gtk_signal_emit_by_name (GTK_OBJECT (iv),
-                               "thumbnail_created",
-                               iv->info);
+      g_signal_emit_by_name (G_OBJECT (iv),
+                             "thumbnail_created",
+                             iv->info);
    }
 }
 
@@ -305,14 +305,14 @@ imageview_draw_create (GimvImageView *iv)
 
    widget = gtk_drawing_area_new ();
 
-   gtk_signal_connect       (GTK_OBJECT (widget), "destroy",
-                             GTK_SIGNAL_FUNC (cb_destroy), iv);
-   gtk_signal_connect_after (GTK_OBJECT (widget), "map",
-                             GTK_SIGNAL_FUNC (cb_draw_area_map), iv);
-   gtk_signal_connect       (GTK_OBJECT (widget), "configure_event",
-                             GTK_SIGNAL_FUNC (cb_image_configure), iv);
-   gtk_signal_connect       (GTK_OBJECT (widget), "expose_event",
-                             GTK_SIGNAL_FUNC (cb_image_expose), iv);
+   g_signal_connect       (G_OBJECT (widget), "destroy",
+                           G_CALLBACK (cb_destroy), iv);
+   g_signal_connect_after (G_OBJECT (widget), "map",
+                           G_CALLBACK (cb_draw_area_map), iv);
+   g_signal_connect       (G_OBJECT (widget), "configure_event",
+                           G_CALLBACK (cb_image_configure), iv);
+   g_signal_connect       (G_OBJECT (widget), "expose_event",
+                           G_CALLBACK (cb_image_expose), iv);
 
    gtk_widget_add_events (widget,
                           GDK_FOCUS_CHANGE
@@ -336,10 +336,10 @@ imageview_draw_create_thumbnail (GimvImageView *iv, const gchar *cache_write_typ
       id_p = g_hash_table_lookup (create_thumbnail_id_table, iv);
       id = GPOINTER_TO_UINT (id_p);
       if (id > 0)
-         gtk_signal_disconnect (GTK_OBJECT (iv), id);
-      id = gtk_signal_connect (GTK_OBJECT (iv), "load_end",
-                               GTK_SIGNAL_FUNC (cb_load_end_create_thumbnail),
-                               GINT_TO_POINTER (TRUE));
+         g_signal_handler_disconnect (GTK_OBJECT (iv), id);
+      id = g_signal_connect (G_OBJECT (iv), "load_end",
+                             G_CALLBACK (cb_load_end_create_thumbnail),
+                             GINT_TO_POINTER (TRUE));
       g_hash_table_insert (create_thumbnail_id_table,
                            iv, GUINT_TO_POINTER (id));
       gimv_image_view_load_image_buf (iv);

@@ -138,8 +138,8 @@ cb_cache_write_prefs_button_pressed (GtkWidget *option_menu)
    dialog = gtk_dialog_new ();
    gtk_window_set_title (GTK_WINDOW (dialog), _("Preference - Cache Writing -")); 
    gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
-   gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-                       GTK_SIGNAL_FUNC (cb_dummy), NULL);
+   g_signal_connect (G_OBJECT (dialog), "delete_event",
+                     G_CALLBACK (cb_dummy), NULL);
 
    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
                        widget, TRUE, TRUE, 0);
@@ -148,9 +148,9 @@ cb_cache_write_prefs_button_pressed (GtkWidget *option_menu)
    button = gtk_button_new_with_label (_("OK"));
    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
                        button, TRUE, TRUE, 0);
-   gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-                              GTK_SIGNAL_FUNC (cb_cache_write_prefs_ok),
-                              GTK_OBJECT (dialog));
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_cache_write_prefs_ok),
+                     dialog);
 
    gtk_widget_show_all (dialog);
 
@@ -369,7 +369,7 @@ cb_comment_editlist_confirm (GimvEList *editlist,
    if (!check_value (key, name)) {
       *flags |= GIMV_ELIST_CONFIRM_CANNOT_ADD;
       *flags |= GIMV_ELIST_CONFIRM_CANNOT_CHANGE;
-      gtk_signal_emit_stop_by_name (GTK_OBJECT (editlist), "action_confirm");
+      g_signal_emission_stop_by_name (G_OBJECT (editlist), "action_confirm");
       return;
    }
 
@@ -401,7 +401,7 @@ cb_comment_editlist_confirm (GimvEList *editlist,
                               GTK_WINDOW (gimv_prefs_win_get ()));
       *flags |= GIMV_ELIST_CONFIRM_CANNOT_ADD;
       *flags |= GIMV_ELIST_CONFIRM_CANNOT_CHANGE;
-      gtk_signal_emit_stop_by_name (GTK_OBJECT (editlist), "action_confirm");
+      g_signal_emission_stop_by_name (G_OBJECT (editlist), "action_confirm");
    }
 }
 
@@ -568,8 +568,8 @@ prefs_cache_page (void)
       if (!strcmp(text, conf.cache_write_type)) item = i;
       menu_item = gtk_menu_item_new_with_label (_(text));
       gtk_object_set_data (GTK_OBJECT (menu_item), "label", text);
-      gtk_signal_connect(GTK_OBJECT(menu_item), "activate",
-                         GTK_SIGNAL_FUNC(cb_cache_write_type), text);
+      g_signal_connect(G_OBJECT(menu_item), "activate",
+                       G_CALLBACK(cb_cache_write_type), text);
       gtk_menu_append (GTK_MENU(menu), menu_item);
       gtk_widget_show (menu_item);
    }
@@ -581,9 +581,9 @@ prefs_cache_page (void)
    button1 = gtk_button_new_with_label (_("Preference"));
    prefs_win.cache_write_prefs = button1;
    gtk_box_pack_start (GTK_BOX (hbox), button1, FALSE, FALSE, 0);
-   gtk_signal_connect_object (GTK_OBJECT (button1),"clicked",
-                              GTK_SIGNAL_FUNC (cb_cache_write_prefs_button_pressed),
-                              GTK_OBJECT (option_menu));
+   g_signal_connect (G_OBJECT (button1),"clicked",
+                     G_CALLBACK (cb_cache_write_prefs_button_pressed),
+                     option_menu);
 
    g_list_free (list);
 
@@ -711,12 +711,12 @@ prefs_comment_page (void)
                                      cb_editlist_get_row_data);
 
    set_default_comment_key_list ();
-   gtk_signal_connect (GTK_OBJECT (editlist), "action_confirm",
-                       GTK_SIGNAL_FUNC (cb_comment_editlist_confirm),
-                       NULL);
-   gtk_signal_connect (GTK_OBJECT (editlist), "list_updated",
-                       GTK_SIGNAL_FUNC (cb_comment_editlist_updated),
-                       NULL);
+   g_signal_connect (G_OBJECT (editlist), "action_confirm",
+                     G_CALLBACK (cb_comment_editlist_confirm),
+                     NULL);
+   g_signal_connect (G_OBJECT (editlist), "list_updated",
+                     G_CALLBACK (cb_comment_editlist_updated),
+                     NULL);
 
 
    /********************************************** 
@@ -737,8 +737,8 @@ prefs_comment_page (void)
                                   charset_get_known_list(NULL));
    gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (combo)->entry),
                        conf.comment_charset);
-   gtk_signal_connect (GTK_OBJECT (GTK_COMBO (combo)->entry), "changed",
-                       GTK_SIGNAL_FUNC (cb_comment_charset_changed), NULL);
+   g_signal_connect (G_OBJECT (GTK_COMBO (combo)->entry), "changed",
+                     G_CALLBACK (cb_comment_charset_changed), NULL);
    gtk_widget_show_all (frame);
 
    return main_vbox;
@@ -778,9 +778,9 @@ prefs_search_page (void)
    spinner = gtkutil_create_spin_button (adj);
    gtk_spin_button_set_digits (GTK_SPIN_BUTTON (spinner), 2);
    gtk_widget_set_usize(spinner, 50, -1);
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_float_cb),
-                       &config_changed->search_similar_accuracy);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_float_cb),
+                     &config_changed->search_similar_accuracy);
    gtk_box_pack_start (GTK_BOX (hbox), spinner, FALSE, FALSE, 0);
 
    /**********************************************
@@ -854,9 +854,9 @@ prefs_slideshow_page (void)
    spinner = gtkutil_create_spin_button (adj);
    gtk_widget_set_usize(spinner, 70, -1);
    gtk_spin_button_set_digits (GTK_SPIN_BUTTON (spinner), 2);
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_float_cb),
-                       &config_changed->slideshow_interval);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_float_cb),
+                     &config_changed->slideshow_interval);
    gtk_box_pack_start (GTK_BOX (hbox), spinner, FALSE, FALSE, 0);
 
    label = gtk_label_new (_("[sec]"));
@@ -959,9 +959,9 @@ prefs_slideshow_page (void)
    spinner = gtkutil_create_spin_button (adj);
    gtk_widget_set_usize(spinner, 50, -1);
    prefs_win.slideshow_scale_spin = spinner;
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_int_cb),
-                       &config_changed->slideshow_img_scale);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_int_cb),
+                     &config_changed->slideshow_img_scale);
    gtk_box_pack_start (GTK_BOX (hbox), spinner, FALSE, FALSE, 0);
    label = gtk_label_new (_("%"));
    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);

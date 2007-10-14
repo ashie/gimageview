@@ -195,9 +195,9 @@ prefs_imagewin_page (void)
    spinner = gtkutil_create_spin_button (adj);
    prefs_win.imgwin_width_spin = spinner;
    gtk_widget_set_usize(spinner, 50, -1);
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_int_cb),
-                       &config_changed->imgwin_width);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_int_cb),
+                     &config_changed->imgwin_width);
    gtk_box_pack_start (GTK_BOX (hbox), spinner, FALSE, FALSE, 0);
 
    label = gtk_label_new (_("height"));
@@ -207,9 +207,9 @@ prefs_imagewin_page (void)
    spinner = gtkutil_create_spin_button (adj);
    prefs_win.imgwin_height_spin = spinner;
    gtk_widget_set_usize(spinner, 50, -1);
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_int_cb),
-                       &config_changed->imgwin_height);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_int_cb),
+                     &config_changed->imgwin_height);
    gtk_box_pack_start (GTK_BOX (hbox), spinner, FALSE, FALSE, 0);
 
    /* Auto resize window to image size */
@@ -297,25 +297,25 @@ prefs_imagewin_page (void)
 
    radio[0] = gtk_radio_button_new_with_label (NULL, _("Show"));
    gtk_box_pack_start (GTK_BOX (hbox3), radio[0], FALSE, FALSE, 0);
-   gtk_signal_connect (GTK_OBJECT (radio[0]), "toggled",
-                       GTK_SIGNAL_FUNC (cb_player_visible),
-                       GINT_TO_POINTER(GimvImageViewPlayerVisibleShow));
+   g_signal_connect (G_OBJECT (radio[0]), "toggled",
+                     G_CALLBACK (cb_player_visible),
+                     GINT_TO_POINTER(GimvImageViewPlayerVisibleShow));
    prefs_win.imgwin_player_radio[0] = radio[0];
 
    radio[1] = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (radio[0]),
                                                            _("Hide"));
    gtk_box_pack_start (GTK_BOX (hbox3), radio[1], FALSE, FALSE, 0);
-   gtk_signal_connect (GTK_OBJECT (radio[1]), "toggled",
-                       GTK_SIGNAL_FUNC (cb_player_visible),
-                       GINT_TO_POINTER(GimvImageViewPlayerVisibleHide));
+   g_signal_connect (G_OBJECT (radio[1]), "toggled",
+                     G_CALLBACK (cb_player_visible),
+                     GINT_TO_POINTER(GimvImageViewPlayerVisibleHide));
    prefs_win.imgwin_player_radio[1] = radio[1];
 
    radio[2] = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (radio[1]),
                                                            _("Auto"));
    gtk_box_pack_start (GTK_BOX (hbox3), radio[2], FALSE, FALSE, 0);
-   gtk_signal_connect (GTK_OBJECT (radio[2]), "toggled",
-                       GTK_SIGNAL_FUNC (cb_player_visible),
-                       GINT_TO_POINTER(GimvImageViewPlayerVisibleAuto));
+   g_signal_connect (G_OBJECT (radio[2]), "toggled",
+                     G_CALLBACK (cb_player_visible),
+                     GINT_TO_POINTER(GimvImageViewPlayerVisibleAuto));
    prefs_win.imgwin_player_radio[2] = radio[2];
 
    switch (config_changed->imgview_player_visible) {
@@ -449,9 +449,9 @@ prefs_imagewin_image_page (void)
    spinner = gtkutil_create_spin_button (adj);
    gtk_widget_set_usize(spinner, 50, -1);
    prefs_win.image_scale_spin = spinner;
-   gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
-                       GTK_SIGNAL_FUNC (gtkutil_get_data_from_adjustment_by_float_cb),
-                       &config_changed->imgview_scale);
+   g_signal_connect (G_OBJECT (adj), "value_changed",
+                     G_CALLBACK (gtkutil_get_data_from_adjustment_by_float_cb),
+                     &config_changed->imgview_scale);
    gtk_box_pack_start (GTK_BOX (hbox), spinner, FALSE, FALSE, 0);
    label = gtk_label_new (_("%"));
    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);

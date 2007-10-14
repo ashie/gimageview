@@ -189,9 +189,9 @@ dlg_prop (const gchar *path, fprop * prop, gint flags)
    dl.prop = prop;
    dl.top = gtk_dialog_new ();
    gtk_window_set_title (GTK_WINDOW (dl.top), _("Properties"));
-   gtk_signal_connect (GTK_OBJECT (dl.top), "destroy",
-                       GTK_SIGNAL_FUNC (on_cancel),
-                       (gpointer) ((long) DLG_RC_DESTROY));
+   g_signal_connect (G_OBJECT (dl.top), "destroy",
+                     G_CALLBACK (on_cancel),
+                     (gpointer) ((long) DLG_RC_DESTROY));
    gtk_window_set_modal (GTK_WINDOW (dl.top), TRUE);
    gtk_window_set_position (GTK_WINDOW (dl.top), GTK_WIN_POS_MOUSE);
 
@@ -211,12 +211,12 @@ dlg_prop (const gchar *path, fprop * prop, gint flags)
    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dl.top)->action_area),
                        cancel, TRUE, FALSE, 0);
 
-   gtk_signal_connect (GTK_OBJECT (ok), "clicked",
-                       GTK_SIGNAL_FUNC (on_ok),
-                       (gpointer) ((long) DLG_RC_OK));
-   gtk_signal_connect (GTK_OBJECT (cancel), "clicked",
-                       GTK_SIGNAL_FUNC (on_cancel),
-                       (gpointer) ((long) DLG_RC_CANCEL));
+   g_signal_connect (G_OBJECT (ok), "clicked",
+                     G_CALLBACK (on_ok),
+                     (gpointer) ((long) DLG_RC_OK));
+   g_signal_connect (G_OBJECT (cancel), "clicked",
+                     G_CALLBACK (on_cancel),
+                     (gpointer) ((long) DLG_RC_CANCEL));
    gtk_widget_grab_default (ok);
 
    if (flags & GTK_PROP_MULTI) {
@@ -226,12 +226,12 @@ dlg_prop (const gchar *path, fprop * prop, gint flags)
                           TRUE, FALSE, 0);
       gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dl.top)->action_area), all,
                           TRUE, FALSE, 0);
-      gtk_signal_connect (GTK_OBJECT (skip), "clicked",
-                          GTK_SIGNAL_FUNC (on_cancel),
-                          (gpointer) ((long) DLG_RC_SKIP));
-      gtk_signal_connect (GTK_OBJECT (all), "clicked",
-                          GTK_SIGNAL_FUNC (on_ok),
-                          (gpointer) ((long) DLG_RC_ALL));
+      g_signal_connect (G_OBJECT (skip), "clicked",
+                        G_CALLBACK (on_cancel),
+                        (gpointer) ((long) DLG_RC_SKIP));
+      g_signal_connect (G_OBJECT (all), "clicked",
+                        G_CALLBACK (on_ok),
+                        (gpointer) ((long) DLG_RC_ALL));
       GTK_WIDGET_SET_FLAGS (skip, GTK_CAN_DEFAULT);
       GTK_WIDGET_SET_FLAGS (all, GTK_CAN_DEFAULT);
    }
@@ -357,27 +357,27 @@ dlg_prop (const gchar *path, fprop * prop, gint flags)
       perm[1] = gtk_check_button_new_with_label (_("Read"));
       if (prop->mode & S_IRUSR)
          gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (perm[1]), 1);
-      gtk_signal_connect (GTK_OBJECT (perm[1]), "clicked",
-                          GTK_SIGNAL_FUNC (cb_perm),
-                          (gpointer) ((long) S_IRUSR));
+      g_signal_connect (G_OBJECT (perm[1]), "clicked",
+                        G_CALLBACK (cb_perm),
+                        (gpointer) ((long) S_IRUSR));
       perm[2] = gtk_check_button_new_with_label (_("Write"));
       if (prop->mode & S_IWUSR)
          gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (perm[2]), 1);
-      gtk_signal_connect (GTK_OBJECT (perm[2]), "clicked",
-                          GTK_SIGNAL_FUNC (cb_perm), 
-                          (gpointer) ((long) S_IWUSR));
+      g_signal_connect (G_OBJECT (perm[2]), "clicked",
+                        G_CALLBACK (cb_perm), 
+                        (gpointer) ((long) S_IWUSR));
       perm[3] = gtk_check_button_new_with_label (_("Execute"));
       if (prop->mode & S_IXUSR)
          gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (perm[3]), 1);
-      gtk_signal_connect (GTK_OBJECT (perm[3]), "clicked",
-                          GTK_SIGNAL_FUNC (cb_perm),
-                          (gpointer) ((long) S_IXUSR));
+      g_signal_connect (G_OBJECT (perm[3]), "clicked",
+                        G_CALLBACK (cb_perm),
+                        (gpointer) ((long) S_IXUSR));
       perm[4] = gtk_check_button_new_with_label (_("Set UID"));
       if (prop->mode & S_ISUID)
          gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (perm[4]), 1);
-      gtk_signal_connect (GTK_OBJECT (perm[4]), "clicked",
-                          GTK_SIGNAL_FUNC (cb_perm),
-                          (gpointer) ((long) S_ISUID));
+      g_signal_connect (G_OBJECT (perm[4]), "clicked",
+                        G_CALLBACK (cb_perm),
+                        (gpointer) ((long) S_ISUID));
 
       gtk_table_attach (GTK_TABLE (table), perm[0], 0, 1, 0, 1, 0, 0, X_PAD, 0);
       gtk_table_attach (GTK_TABLE (table), perm[1], 1, 2, 0, 1, 0, 0, X_PAD, 0);
@@ -389,27 +389,27 @@ dlg_prop (const gchar *path, fprop * prop, gint flags)
       perm[6] = gtk_check_button_new_with_label (_("Read"));
       if (prop->mode & S_IRGRP)
          gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (perm[6]), 1);
-      gtk_signal_connect (GTK_OBJECT (perm[6]), "clicked",
-                          GTK_SIGNAL_FUNC (cb_perm),
-                          (gpointer) ((long) S_IRGRP));
+      g_signal_connect (G_OBJECT (perm[6]), "clicked",
+                        G_CALLBACK (cb_perm),
+                        (gpointer) ((long) S_IRGRP));
       perm[7] = gtk_check_button_new_with_label (_("Write"));
       if (prop->mode & S_IWGRP)
          gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (perm[7]), 1);
-      gtk_signal_connect (GTK_OBJECT (perm[7]), "clicked",
-                          GTK_SIGNAL_FUNC (cb_perm),
-                          (gpointer) ((long) S_IWGRP));
+      g_signal_connect (G_OBJECT (perm[7]), "clicked",
+                        G_CALLBACK (cb_perm),
+                        (gpointer) ((long) S_IWGRP));
       perm[8] = gtk_check_button_new_with_label (_("Execute"));
       if (prop->mode & S_IXGRP)
          gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (perm[8]), 1);
-      gtk_signal_connect (GTK_OBJECT (perm[8]), "clicked",
-                          GTK_SIGNAL_FUNC (cb_perm),
-                          (gpointer) ((long) S_IXGRP));
+      g_signal_connect (G_OBJECT (perm[8]), "clicked",
+                        G_CALLBACK (cb_perm),
+                        (gpointer) ((long) S_IXGRP));
       perm[9] = gtk_check_button_new_with_label (_("Set GID"));
       if (prop->mode & S_ISGID)
          gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (perm[9]), 1);
-      gtk_signal_connect (GTK_OBJECT (perm[9]), "clicked",
-                          GTK_SIGNAL_FUNC (cb_perm),
-                          (gpointer) ((long) S_ISGID));
+      g_signal_connect (G_OBJECT (perm[9]), "clicked",
+                        G_CALLBACK (cb_perm),
+                        (gpointer) ((long) S_ISGID));
       gtk_table_attach (GTK_TABLE (table), perm[5], 0, 1, 1, 2, 0, 0, X_PAD, 0);
       gtk_table_attach (GTK_TABLE (table), perm[6], 1, 2, 1, 2, 0, 0, X_PAD, 0);
       gtk_table_attach (GTK_TABLE (table), perm[7], 2, 3, 1, 2, 0, 0, X_PAD, 0);
@@ -420,27 +420,27 @@ dlg_prop (const gchar *path, fprop * prop, gint flags)
       perm[11] = gtk_check_button_new_with_label (_("Read"));
       if (prop->mode & S_IROTH)
          gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (perm[11]), 1);
-      gtk_signal_connect (GTK_OBJECT (perm[11]), "clicked",
-                          GTK_SIGNAL_FUNC (cb_perm),
-                          (gpointer) ((long) S_IROTH));
+      g_signal_connect (G_OBJECT (perm[11]), "clicked",
+                        G_CALLBACK (cb_perm),
+                        (gpointer) ((long) S_IROTH));
       perm[12] = gtk_check_button_new_with_label (_("Write"));
       if (prop->mode & S_IWOTH)
          gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (perm[12]), 1);
-      gtk_signal_connect (GTK_OBJECT (perm[12]), "clicked",
-                          GTK_SIGNAL_FUNC (cb_perm),
-                          (gpointer) ((long) S_IWOTH));
+      g_signal_connect (G_OBJECT (perm[12]), "clicked",
+                        G_CALLBACK (cb_perm),
+                        (gpointer) ((long) S_IWOTH));
       perm[13] = gtk_check_button_new_with_label (_("Execute"));
       if (prop->mode & S_IXOTH)
          gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (perm[13]), 1);
-      gtk_signal_connect (GTK_OBJECT (perm[13]), "clicked",
-                          GTK_SIGNAL_FUNC (cb_perm),
-                          (gpointer) ((long) S_IXOTH));
+      g_signal_connect (G_OBJECT (perm[13]), "clicked",
+                        G_CALLBACK (cb_perm),
+                        (gpointer) ((long) S_IXOTH));
       perm[14] = gtk_check_button_new_with_label (_("Sticky"));
       if (prop->mode & S_ISVTX)
          gtk_toggle_button_set_state (GTK_TOGGLE_BUTTON (perm[14]), 1);
-      gtk_signal_connect (GTK_OBJECT (perm[14]), "clicked",
-                          GTK_SIGNAL_FUNC (cb_perm),
-                          (gpointer) ((long) S_ISVTX));
+      g_signal_connect (G_OBJECT (perm[14]), "clicked",
+                        G_CALLBACK (cb_perm),
+                        (gpointer) ((long) S_ISVTX));
       gtk_table_attach (GTK_TABLE (table), perm[10], 0, 1, 2, 3, 0, 0, X_PAD, 0);
       gtk_table_attach (GTK_TABLE (table), perm[11], 1, 2, 2, 3, 0, 0, X_PAD, 0);
       gtk_table_attach (GTK_TABLE (table), perm[12], 2, 3, 2, 3, 0, 0, X_PAD, 0);
@@ -503,9 +503,9 @@ dlg_prop (const gchar *path, fprop * prop, gint flags)
       }
    }
 
-   gtk_signal_connect (GTK_OBJECT (dl.top), "key_press_event",
-                       GTK_SIGNAL_FUNC (on_key_press),
-                       (gpointer) cancel);
+   g_signal_connect (G_OBJECT (dl.top), "key_press_event",
+                     G_CALLBACK (on_key_press),
+                     (gpointer) cancel);
    gtk_widget_show_all (dl.top);
 
    gtk_main ();

@@ -106,8 +106,8 @@ text_viewer_create (gchar *filename)
    gtk_window_set_title (GTK_WINDOW (window), GIMV_PROG_NAME" -Text Viewer-");
    gtk_window_set_default_size (GTK_WINDOW(window), 600, 500);
    gtk_widget_show (window);
-   gtk_signal_connect (GTK_OBJECT (window), "destroy",
-                       GTK_SIGNAL_FUNC (cb_text_viewer_destroy), text_viewer);
+   g_signal_connect (G_OBJECT (window), "destroy",
+                     G_CALLBACK (cb_text_viewer_destroy), text_viewer);
 
    /* main vbox */
    vbox = gtk_vbox_new (FALSE, 0);

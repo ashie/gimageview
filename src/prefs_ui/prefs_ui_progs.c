@@ -212,8 +212,8 @@ prefs_progs_page (void)
    editlist = gimv_elist_new_with_titles (titles_num, titles);
    set_default_progs_list (GIMV_ELIST (editlist));
    gtk_box_pack_start (GTK_BOX (frame_vbox), editlist, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT (editlist), "list_updated",
-                       GTK_SIGNAL_FUNC (cb_editlist_updated), NULL);
+   g_signal_connect (G_OBJECT (editlist), "list_updated",
+                     G_CALLBACK (cb_editlist_updated), NULL);
 
    /*
     *  create edit area
@@ -277,8 +277,8 @@ prefs_progs_page (void)
    tmpstr = charset_locale_to_internal (conf.web_browser);
    gtk_entry_set_text (GTK_ENTRY (entry), tmpstr);
    g_free (tmpstr);
-   gtk_signal_connect (GTK_OBJECT (entry),"changed",
-                       GTK_SIGNAL_FUNC (cb_web_browser_command_changed), NULL);
+   g_signal_connect (G_OBJECT (entry),"changed",
+                     G_CALLBACK (cb_web_browser_command_changed), NULL);
 
 
    /**********************************************
@@ -305,8 +305,8 @@ prefs_progs_page (void)
    tmpstr = charset_locale_to_internal (conf.text_viewer);
    gtk_entry_set_text (GTK_ENTRY (entry), tmpstr);
    g_free (tmpstr);
-   gtk_signal_connect (GTK_OBJECT (entry),"changed",
-                       GTK_SIGNAL_FUNC (cb_text_view_command_changed), NULL);
+   g_signal_connect (G_OBJECT (entry),"changed",
+                     G_CALLBACK (cb_text_view_command_changed), NULL);
 
    gtk_widget_set_sensitive (prefs_win.text_viewer_command,
                              !config_changed->text_viewer_use_internal);

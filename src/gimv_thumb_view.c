@@ -1882,9 +1882,9 @@ remove_list (GimvImageView *iv, gpointer list_owner, gpointer data)
    g_return_if_fail (GIMV_IS_IMAGE_VIEW (iv));
    g_return_if_fail (GIMV_IS_THUMB_VIEW (tv));
 
-   gtk_signal_disconnect_by_func (
-      GTK_OBJECT (iv),
-      GTK_SIGNAL_FUNC (cb_imageview_thumbnail_created),
+   g_signal_handlers_disconnect_by_func (
+      G_OBJECT (iv),
+      G_CALLBACK (cb_imageview_thumbnail_created),
       tv);
 
    node = g_list_find (GimvThumbViewList, tv);
@@ -2009,8 +2009,8 @@ create_progs_submenu (GimvThumbView *tv)
 
          menu_item = gtk_menu_item_new_with_label (label);
          gtk_object_set_data (GTK_OBJECT (menu_item), "num", GINT_TO_POINTER (i));
-         gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
-                             GTK_SIGNAL_FUNC (cb_open_image_by_external), tv);
+         g_signal_connect (G_OBJECT (menu_item), "activate",
+                           G_CALLBACK (cb_open_image_by_external), tv);
          gtk_menu_append (GTK_MENU (menu), menu_item);
          gtk_widget_show (menu_item);
 
@@ -2117,8 +2117,8 @@ gimv_thumb_view_open_image (GimvThumbView *tv, GimvThumb *thumb, gint type)
                                 nth_image,
                                 remove_list,
                                 iw);
-      gtk_signal_connect (GTK_OBJECT (iv), "thumbnail_created",
-                          GTK_SIGNAL_FUNC (cb_imageview_thumbnail_created), tv);
+      g_signal_connect (G_OBJECT (iv), "thumbnail_created",
+                        G_CALLBACK (cb_imageview_thumbnail_created), tv);
       node = g_list_find (tv->priv->related_image_view, iv);
       if (!node) {
          gint num;
@@ -2556,10 +2556,10 @@ create_scripts_submenu (GimvThumbView *tv)
                                 "script",
                                 g_strdup (filename),
                                 (GtkDestroyNotify) g_free);
-      gtk_signal_connect (GTK_OBJECT (menu_item),
-                          "activate",
-                          GTK_SIGNAL_FUNC (cb_open_image_by_script),
-                          tv);
+      g_signal_connect (G_OBJECT (menu_item),
+                        "activate",
+                        G_CALLBACK (cb_open_image_by_script),
+                        tv);
       gtk_menu_append (GTK_MENU (menu), menu_item);
       gtk_widget_show (menu_item);
 
@@ -2615,14 +2615,14 @@ gimv_thumb_view_set_scrollbar_callback (GimvThumbView *tv)
    vadj = gtk_scrolled_window_get_vadjustment (
                GTK_SCROLLED_WINDOW (tv->container));
 
-   gtk_signal_connect (GTK_OBJECT (hadj),
-                       "value_changed",
-                       GTK_SIGNAL_FUNC (cb_thumbview_scrollbar_value_changed),
-                       tv);
-   gtk_signal_connect (GTK_OBJECT (vadj),
-                       "value_changed",
-                       GTK_SIGNAL_FUNC (cb_thumbview_scrollbar_value_changed),
-                       tv);
+   g_signal_connect (G_OBJECT (hadj),
+                     "value_changed",
+                     G_CALLBACK (cb_thumbview_scrollbar_value_changed),
+                     tv);
+   g_signal_connect (G_OBJECT (vadj),
+                     "value_changed",
+                     G_CALLBACK (cb_thumbview_scrollbar_value_changed),
+                     tv);
 }
 
 
@@ -2636,12 +2636,14 @@ gimv_thumb_view_remove_scrollbar_callback (GimvThumbView *tv)
    hadj = gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (tv->container));
    vadj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (tv->container));
 
-   gtk_signal_disconnect_by_func (GTK_OBJECT (hadj),
-                                  GTK_SIGNAL_FUNC (cb_thumbview_scrollbar_value_changed),
-                                  tv);
-   gtk_signal_disconnect_by_func (GTK_OBJECT (vadj),
-                                  GTK_SIGNAL_FUNC (cb_thumbview_scrollbar_value_changed),
-                                  tv);
+   g_signal_handlers_disconnect_by_func (
+      G_OBJECT (hadj),
+      G_CALLBACK (cb_thumbview_scrollbar_value_changed),
+      tv);
+   g_signal_handlers_disconnect_by_func (
+      G_OBJECT (vadj),
+      G_CALLBACK (cb_thumbview_scrollbar_value_changed),
+      tv);
 }
 
 
@@ -2707,9 +2709,10 @@ gimv_thumb_view_destroy_dupl_win_relation (GimvDuplWin *sw,GimvThumbView *tv)
    g_return_if_fail (GIMV_IS_THUMB_VIEW (tv));
 
    gimv_dupl_win_unset_relation (sw);
-   gtk_signal_disconnect_by_func (GTK_OBJECT (sw),
-                                  GTK_SIGNAL_FUNC (cb_dupl_win_destroy),
-                                  tv);
+   g_signal_handlers_disconnect_by_func (
+      G_OBJECT (sw),
+      G_CALLBACK (cb_dupl_win_destroy),
+      tv);
 }
 
 
@@ -3403,9 +3406,9 @@ gimv_thumb_view_find_duplicates (GimvThumbView *tv, GimvThumb *thumb,
 
    /* create window */
    sw = gimv_dupl_win_new (tv->thumb_size);
-   gtk_signal_connect (GTK_OBJECT (sw), "destroy",
-                       GTK_SIGNAL_FUNC (cb_dupl_win_destroy),
-                       tv);
+   g_signal_connect (G_OBJECT (sw), "destroy",
+                     G_CALLBACK (cb_dupl_win_destroy),
+                     tv);
    gimv_dupl_win_set_relation (sw, tv);
    tv->priv->related_dupl_win
       = g_list_append (tv->priv->related_dupl_win, sw);
@@ -3571,8 +3574,8 @@ gimv_thumb_view_redraw (GimvThumbView *tv,
                GTK_SCROLLED_WINDOW (tv->container));
    hadj->value = 0.0;
    vadj->value = 0.0;
-   gtk_signal_emit_by_name (GTK_OBJECT(hadj), "value_changed"); 
-   gtk_signal_emit_by_name (GTK_OBJECT(vadj), "value_changed"); 
+   g_signal_emit_by_name (G_OBJECT(hadj), "value_changed"); 
+   g_signal_emit_by_name (G_OBJECT(vadj), "value_changed"); 
 
    /* sort thumbnail list */
    gimv_thumb_view_sort_data (tv);

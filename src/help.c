@@ -330,8 +330,8 @@ get_dirlist_sub_menu (const gchar *dir, gpointer func, GList **filelist)
       if (!filename) continue;
 
       menuitem = gtk_menu_item_new_with_label (g_basename(filename));
-      gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
-                          GTK_SIGNAL_FUNC (func), filename);
+      g_signal_connect (G_OBJECT (menuitem), "activate",
+                        G_CALLBACK (func), filename);
       gtk_menu_append (GTK_MENU (menu), menuitem);
       gtk_widget_show (menuitem);
 
@@ -540,9 +540,9 @@ gimvhelp_create_info_widget (void)
    label = gtk_label_new (GIMV_PROG_URI);
    gtk_container_add (GTK_CONTAINER (button), label);
    gtk_widget_show (label);
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_progurl_clicked),
-                       GIMV_PROG_URI);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_progurl_clicked),
+                     GIMV_PROG_URI);
    gtk_box_pack_start (GTK_BOX (hbox2), 
                        button, FALSE, FALSE, 0);
    gtk_widget_show (button);
@@ -576,30 +576,30 @@ gimvhelp_create_info_widget (void)
    gtk_widget_show (hbox2);
 
    radio = gtk_radio_button_new_with_label (NULL, _("License"));
-   gtk_signal_connect (GTK_OBJECT (radio), "clicked",
-                       GTK_SIGNAL_FUNC (cb_gimv_info_change_text), NULL);
+   g_signal_connect (G_OBJECT (radio), "clicked",
+                     G_CALLBACK (cb_gimv_info_change_text), NULL);
    gtk_box_pack_start (GTK_BOX (hbox2), radio, FALSE, FALSE, 0);
    gtk_widget_show (radio);
 
    radio = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (radio),
                                                         _("Authors"));
-   gtk_signal_connect (GTK_OBJECT (radio), "clicked",
-                       GTK_SIGNAL_FUNC (cb_gimv_info_change_text),
-                       _(authors));
+   g_signal_connect (G_OBJECT (radio), "clicked",
+                     G_CALLBACK (cb_gimv_info_change_text),
+                     _(authors));
    gtk_box_pack_start (GTK_BOX (hbox2), radio, FALSE, FALSE, 0);
    gtk_widget_show (radio);
 
    radio = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (radio),
                                                         _("System Info"));
-   gtk_signal_connect (GTK_OBJECT (radio), "clicked",
-                       GTK_SIGNAL_FUNC (cb_gimv_info_change_text), system_info);
+   g_signal_connect (G_OBJECT (radio), "clicked",
+                     G_CALLBACK (cb_gimv_info_change_text), system_info);
    gtk_box_pack_start (GTK_BOX (hbox2), radio, FALSE, FALSE, 0);
    gtk_widget_show (radio);
 
    radio = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (radio),
                                                         _("Plugin Info"));
-   gtk_signal_connect (GTK_OBJECT (radio), "clicked",
-                       GTK_SIGNAL_FUNC (cb_gimv_info_change_text), plugin_info);
+   g_signal_connect (G_OBJECT (radio), "clicked",
+                     G_CALLBACK (cb_gimv_info_change_text), plugin_info);
    gtk_box_pack_start (GTK_BOX (hbox2), radio, FALSE, FALSE, 0);
    gtk_widget_show (radio);
 
@@ -633,9 +633,9 @@ gimvhelp_open_info_window (void)
    button = gtk_button_new_with_label (_("OK"));
    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (window)->action_area), 
                        button, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_gimv_info_win_ok_button),
-                       window);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_gimv_info_win_ok_button),
+                     window);
    GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
    gtk_widget_show (button);
 
