@@ -199,15 +199,15 @@ gimv_dupl_win_init (GimvDuplWin *sw)
    /* radio button */
    radio = gtk_radio_button_new_with_label (NULL, _("Thumbnail"));
    sw->radio_thumb = radio;
-   gtk_signal_connect (GTK_OBJECT (radio), "clicked",
-                       GTK_SIGNAL_FUNC (cb_change_to_thumbnail_button), sw);
+   g_signal_connect (G_OBJECT (radio), "clicked",
+                     G_CALLBACK (cb_change_to_thumbnail_button), sw);
    gtk_box_pack_start (GTK_BOX (hbox), radio, FALSE, FALSE, 0);
 
    radio = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (radio),
                                                         _("Icon"));
    sw->radio_icon  = radio;
-   gtk_signal_connect (GTK_OBJECT (radio), "clicked",
-                       GTK_SIGNAL_FUNC (cb_change_to_icon_button), sw);
+   g_signal_connect (G_OBJECT (radio), "clicked",
+                     G_CALLBACK (cb_change_to_icon_button), sw);
    gtk_box_pack_start (GTK_BOX (hbox), radio, FALSE, FALSE, 0);
 
    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
@@ -216,8 +216,8 @@ gimv_dupl_win_init (GimvDuplWin *sw)
    button = gtk_button_new_with_label (_("Select All"));
    sw->select_button = button;
    gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_select_all_button), sw);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_select_all_button), sw);
    GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
    gtk_widget_show (button);
 
@@ -225,8 +225,8 @@ gimv_dupl_win_init (GimvDuplWin *sw)
    button = gtk_button_new_with_label (_("Stop"));
    sw->stop_button = button;
    gtk_box_pack_start (GTK_BOX (hbox), button, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT (button), "clicked",
-                       GTK_SIGNAL_FUNC (cb_finder_stop_button), sw);
+   g_signal_connect (G_OBJECT (button), "clicked",
+                     G_CALLBACK (cb_finder_stop_button), sw);
    GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
    gtk_widget_show (button);
 
@@ -237,14 +237,14 @@ gimv_dupl_win_init (GimvDuplWin *sw)
    gtk_box_pack_end (GTK_BOX (hbox), sw->progressbar, FALSE, FALSE, 0);
 
    /* finder */
-   gtk_signal_connect (GTK_OBJECT (sw->finder), "start",
-                       GTK_SIGNAL_FUNC (cb_finder_start), sw);
-   gtk_signal_connect (GTK_OBJECT (sw->finder), "stop",
-                       GTK_SIGNAL_FUNC (cb_finder_stop), sw);
-   gtk_signal_connect (GTK_OBJECT (sw->finder), "progress_update",
-                       GTK_SIGNAL_FUNC (cb_finder_progress_update), sw);
-   gtk_signal_connect (GTK_OBJECT (sw->finder), "found",
-                       GTK_SIGNAL_FUNC (cb_finder_found), sw);
+   g_signal_connect (G_OBJECT (sw->finder), "start",
+                     G_CALLBACK (cb_finder_start), sw);
+   g_signal_connect (G_OBJECT (sw->finder), "stop",
+                     G_CALLBACK (cb_finder_stop), sw);
+   g_signal_connect (G_OBJECT (sw->finder), "progress_update",
+                     G_CALLBACK (cb_finder_progress_update), sw);
+   g_signal_connect (G_OBJECT (sw->finder), "found",
+                     G_CALLBACK (cb_finder_found), sw);
 }
 
 

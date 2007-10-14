@@ -82,12 +82,13 @@ gimv_dlist_class_init (GimvDListClass *klass)
    object_class = (GtkObjectClass *) klass;
 
    gimv_dlist_signals[ENABLED_LIST_UPDATED_SIGNAL]
-      = gtk_signal_new ("enabled-list-updated",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvDListClass, enabled_list_updated),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
+      = g_signal_new ("enabled-list-updated",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvDListClass, enabled_list_updated),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
    G_OBJECT_CLASS(klass)->finalize = gimv_dlist_finalize;
 }
@@ -389,8 +390,8 @@ gimv_dlist_enabled_list_updated (GimvDList *dslist)
 {
    g_return_if_fail (GIMV_IS_DLIST (dslist));
 
-   gtk_signal_emit (GTK_OBJECT (dslist),
-                    gimv_dlist_signals[ENABLED_LIST_UPDATED_SIGNAL]);
+   g_signal_emit (G_OBJECT (dslist),
+                  gimv_dlist_signals[ENABLED_LIST_UPDATED_SIGNAL], 0);
 }
 
 

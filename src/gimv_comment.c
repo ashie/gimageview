@@ -104,20 +104,22 @@ gimv_comment_class_init (GimvCommentClass *klass)
    object_class = (GtkObjectClass *) klass;
 
    gimv_comment_signals[FILE_SAVED]
-      = gtk_signal_new ("file_saved",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GimvCommentClass, file_saved),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
+      = g_signal_new ("file_saved",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvCommentClass, file_saved),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
    gimv_comment_signals[FILE_DELETED]
-      = gtk_signal_new ("file_deleted",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GimvCommentClass, file_deleted),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
+      = g_signal_new ("file_deleted",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvCommentClass, file_deleted),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
    object_class->destroy = gimv_comment_destroy;
 
@@ -805,14 +807,14 @@ gimv_comment_save_file (GimvComment *comment)
 
    fclose (file);
 
-   gtk_signal_emit (GTK_OBJECT (comment), gimv_comment_signals[FILE_SAVED]);
+   g_signal_emit (G_OBJECT (comment), gimv_comment_signals[FILE_SAVED], 0);
 
    return TRUE;
 
 ERROR:
    fclose (file);
 
-   gtk_signal_emit (GTK_OBJECT (comment), gimv_comment_signals[FILE_SAVED]);
+   g_signal_emit (G_OBJECT (comment), gimv_comment_signals[FILE_SAVED], 0);
    return FALSE;
 }
 

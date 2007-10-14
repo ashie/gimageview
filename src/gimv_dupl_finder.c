@@ -94,37 +94,41 @@ gimv_dupl_finder_class_init (GimvDuplFinderClass *klass)
    object_class = (GtkObjectClass *) klass;
 
    gimv_dupl_finder_signals[START_SIGNAL]
-      = gtk_signal_new ("start",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GimvDuplFinderClass, start),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
+      = g_signal_new ("start",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvDuplFinderClass, start),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
    gimv_dupl_finder_signals[STOP_SIGNAL]
-      = gtk_signal_new ("stop",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GimvDuplFinderClass, stop),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
+      = g_signal_new ("stop",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvDuplFinderClass, stop),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
    gimv_dupl_finder_signals[PROGRESS_UPDATE_SIGNAL]
-      = gtk_signal_new ("progress_update",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GimvDuplFinderClass,
-                                           progress_update),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
+      = g_signal_new ("progress_update",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvDuplFinderClass,
+                                       progress_update),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
    gimv_dupl_finder_signals[FOUND_SIGNAL]
-      = gtk_signal_new ("found",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GimvDuplFinderClass, found),
-                        gtk_marshal_NONE__POINTER,
-                        GTK_TYPE_NONE, 1, GTK_TYPE_POINTER);
+      = g_signal_new ("found",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvDuplFinderClass, found),
+                      NULL, NULL,
+                      gtk_marshal_NONE__POINTER,
+                      G_TYPE_NONE, 1, G_TYPE_POINTER);
 
    object_class->destroy = gimv_dupl_finder_destroy;
 
@@ -307,9 +311,9 @@ idle_duplicates_find (gpointer user_data)
 
          finder->pairs_found++;
 
-         gtk_signal_emit (GTK_OBJECT (finder),
-                          gimv_dupl_finder_signals[FOUND_SIGNAL],
-                          &pair);
+         g_signal_emit (G_OBJECT (finder),
+                        gimv_dupl_finder_signals[FOUND_SIGNAL], 0,
+                        &pair);
       }
 
       finder->pos++;
@@ -323,8 +327,8 @@ idle_duplicates_find (gpointer user_data)
       if (!finder->cur1 || !finder->cur2) goto STOP;
    }
 
-   gtk_signal_emit (GTK_OBJECT (finder),
-                    gimv_dupl_finder_signals[PROGRESS_UPDATE_SIGNAL]);
+   g_signal_emit (G_OBJECT (finder),
+                  gimv_dupl_finder_signals[PROGRESS_UPDATE_SIGNAL], 0);
 
    finder->timer_id  = gtk_timeout_add (finder->timer_rate,
                                         idle_duplicates_find, finder);
@@ -346,7 +350,7 @@ gimv_dupl_finder_start (GimvDuplFinder *finder)
 
    g_return_if_fail (GIMV_IS_DUPL_FINDER (finder));
 
-   gtk_signal_emit (GTK_OBJECT (finder), gimv_dupl_finder_signals[START_SIGNAL]);
+   g_signal_emit (G_OBJECT (finder), gimv_dupl_finder_signals[START_SIGNAL], 0);
 
    if (!finder->table)
       finder->table = g_hash_table_new (g_direct_hash, g_direct_equal);
@@ -385,8 +389,8 @@ gimv_dupl_finder_stop (GimvDuplFinder *finder)
       finder->table = NULL;
    }
 
-   gtk_signal_emit (GTK_OBJECT (finder),
-                    gimv_dupl_finder_signals[STOP_SIGNAL]);
+   g_signal_emit (G_OBJECT (finder),
+                  gimv_dupl_finder_signals[STOP_SIGNAL], 0);
 }
 
 

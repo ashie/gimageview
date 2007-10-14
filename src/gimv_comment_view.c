@@ -166,8 +166,8 @@ cb_destroyed (GtkWidget *widget, GimvCommentView *cv)
 {
    g_return_if_fail (cv);
 
-   gtk_signal_disconnect_by_func (GTK_OBJECT (cv->notebook),
-                                  GTK_SIGNAL_FUNC (cb_switch_page), cv);
+   g_signal_handlers_disconnect_by_func (G_OBJECT (cv->notebook),
+                                         G_CALLBACK (cb_switch_page), cv);
 
    if (cv->comment) {
       gimv_comment_unref (cv->comment);
@@ -230,8 +230,8 @@ cb_data_list_key_press (GtkWidget *widget, GdkEventKey *event, GimvCommentView *
    case GDK_Return:
       if (cv->selected_item) {
          gtk_widget_grab_focus (cv->value_entry);
-         gtk_signal_emit_stop_by_name (GTK_OBJECT (widget),
-                                       "key_press_event");
+         g_signal_stop_emission_by_name (G_OBJECT (widget),
+                                         "key_press_event");
          return TRUE;
       }
       break;
@@ -261,8 +261,8 @@ cb_entry_key_press (GtkWidget *widget, GdkEventKey *event, GimvCommentView *cv)
       } else {
          gtk_widget_grab_focus (cv->save_button);
       }
-      gtk_signal_emit_stop_by_name (GTK_OBJECT (widget),
-                                    "key_press_event");
+      g_signal_stop_emission_by_name (G_OBJECT (widget),
+                                      "key_press_event");
       return TRUE;
       break;
 
@@ -453,12 +453,12 @@ create_data_page (GimvCommentView *cv)
    gtk_tree_view_column_add_attribute (col, render, "text", COLUMN_VALUE);
    gtk_tree_view_append_column (GTK_TREE_VIEW (clist), col);
 
-   gtk_signal_connect (GTK_OBJECT (clist),"cursor-changed",
-                       GTK_SIGNAL_FUNC (cb_tree_view_cursor_changed), cv);
+   g_signal_connect (G_OBJECT (clist),"cursor-changed",
+                     G_CALLBACK (cb_tree_view_cursor_changed), cv);
 
    gtk_container_add (GTK_CONTAINER (scrolledwin), clist);
-   gtk_signal_connect (GTK_OBJECT (clist), "key_press_event",
-                       GTK_SIGNAL_FUNC (cb_data_list_key_press), cv);
+   g_signal_connect (G_OBJECT (clist), "key_press_event",
+                     G_CALLBACK (cb_data_list_key_press), cv);
    /* entry area */
    hbox = gtk_hbox_new (FALSE, 0);
    gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
@@ -485,12 +485,12 @@ create_data_page (GimvCommentView *cv)
    gtk_box_pack_start (GTK_BOX (hbox1), label, FALSE, FALSE, 0);
    cv->value_entry = entry = gtk_entry_new ();
    gtk_box_pack_start (GTK_BOX (vbox1), entry, TRUE, TRUE, 0);
-   gtk_signal_connect (GTK_OBJECT (entry), "changed",
-                       GTK_SIGNAL_FUNC (cb_entry_changed), cv);
-   gtk_signal_connect (GTK_OBJECT (entry), "activate",
-                       GTK_SIGNAL_FUNC (cb_entry_enter), cv);
-   gtk_signal_connect (GTK_OBJECT (entry), "key_press_event",
-                       GTK_SIGNAL_FUNC (cb_entry_key_press), cv);
+   g_signal_connect (G_OBJECT (entry), "changed",
+                     G_CALLBACK (cb_entry_changed), cv);
+   g_signal_connect (G_OBJECT (entry), "activate",
+                     G_CALLBACK (cb_entry_enter), cv);
+   g_signal_connect (G_OBJECT (entry), "key_press_event",
+                     G_CALLBACK (cb_entry_key_press), cv);
 
    gtk_widget_show_all (cv->data_page);
 
@@ -631,10 +631,10 @@ gimv_comment_view_set_combo_list (GimvCommentView *cv)
                          label);
       gtk_widget_show (label);
 
-      gtk_signal_connect (GTK_OBJECT(label), "select",
-                          GTK_SIGNAL_FUNC (cb_combo_select), cv);
-      gtk_signal_connect (GTK_OBJECT(label), "deselect",
-                          GTK_SIGNAL_FUNC (cb_combo_deselect), cv);
+      g_signal_connect (G_OBJECT(label), "select",
+                        G_CALLBACK (cb_combo_select), cv);
+      g_signal_connect (G_OBJECT(label), "deselect",
+                        G_CALLBACK (cb_combo_deselect), cv);
 
       if (!first_label)
          first_label = label;
@@ -793,8 +793,8 @@ gimv_comment_view_change_file (GimvCommentView *cv, GimvImageInfo *info)
    }
 
    cv->comment = gimv_comment_get_from_image_info (info);
-   gtk_signal_connect (GTK_OBJECT (cv->comment), "file_saved",
-                       GTK_SIGNAL_FUNC (cb_file_saved), cv);
+   g_signal_connect (G_OBJECT (cv->comment), "file_saved",
+                     G_CALLBACK (cb_file_saved), cv);
 
    gimv_comment_view_reset_data (cv);
    gimv_comment_view_set_combo_list (cv);
@@ -821,8 +821,8 @@ gimv_comment_view_create (void)
 
    cv->main_vbox = gtk_vbox_new (FALSE, 0);
    gtk_widget_set_name (cv->main_vbox, "GimvCommentView");
-   gtk_signal_connect (GTK_OBJECT (cv->main_vbox), "destroy",
-                       GTK_SIGNAL_FUNC (cb_destroyed), cv);
+   g_signal_connect (G_OBJECT (cv->main_vbox), "destroy",
+                     G_CALLBACK (cb_destroyed), cv);
 
    cv->notebook = gtk_notebook_new ();
    gtk_container_set_border_width (GTK_CONTAINER (cv->notebook), 1);
@@ -830,8 +830,8 @@ gimv_comment_view_create (void)
    gtk_box_pack_start(GTK_BOX(cv->main_vbox), cv->notebook, TRUE, TRUE, 0);
    gtk_widget_show (cv->notebook);
 
-   gtk_signal_connect (GTK_OBJECT(cv->notebook), "switch-page",
-                       GTK_SIGNAL_FUNC(cb_switch_page), cv);
+   g_signal_connect (G_OBJECT(cv->notebook), "switch-page",
+                     G_CALLBACK(cb_switch_page), cv);
 
    create_data_page (cv);
    create_note_page (cv);
@@ -851,8 +851,8 @@ gimv_comment_view_create (void)
                                _("_Save"));
    gtk_widget_add_accelerator(button, "clicked",
                               cv->accel_group, key, GDK_MOD1_MASK, 0);
-   gtk_signal_connect (GTK_OBJECT (button),"clicked",
-                       GTK_SIGNAL_FUNC (cb_save_button_pressed), cv);
+   g_signal_connect (G_OBJECT (button),"clicked",
+                     G_CALLBACK (cb_save_button_pressed), cv);
    gtk_box_pack_start (GTK_BOX (hbox1), button, FALSE, TRUE, 2);
    /* GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT); */
 
@@ -862,8 +862,8 @@ gimv_comment_view_create (void)
                                _("_Reset"));
    gtk_widget_add_accelerator(button, "clicked",
                               cv->accel_group, key, GDK_MOD1_MASK, 0);
-   gtk_signal_connect (GTK_OBJECT (button),"clicked",
-                       GTK_SIGNAL_FUNC (cb_reset_button_pressed), cv);
+   g_signal_connect (G_OBJECT (button),"clicked",
+                     G_CALLBACK (cb_reset_button_pressed), cv);
    gtk_box_pack_start (GTK_BOX (hbox1), button, FALSE, TRUE, 2);
    /* GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT); */
 
@@ -873,8 +873,8 @@ gimv_comment_view_create (void)
                                _("_Delete"));
    gtk_widget_add_accelerator(button, "clicked",
                               cv->accel_group, key, GDK_MOD1_MASK, 0);
-   gtk_signal_connect (GTK_OBJECT (button),"clicked",
-                       GTK_SIGNAL_FUNC (cb_del_button_pressed), cv);
+   g_signal_connect (G_OBJECT (button),"clicked",
+                     G_CALLBACK (cb_del_button_pressed), cv);
    gtk_box_pack_start (GTK_BOX (hbox1), button, FALSE, TRUE, 2);
    /* GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT); */
 
@@ -963,8 +963,8 @@ gimv_comment_view_set_image_view (GimvCommentView *cv, GimvImageView *iv)
                                   _("_Prev"));
       gtk_widget_add_accelerator(button, "clicked",
                                  cv->accel_group, key, GDK_MOD1_MASK, 0);
-      gtk_signal_connect (GTK_OBJECT (button),"clicked",
-                          GTK_SIGNAL_FUNC (cb_prev_button_pressed), cv);
+      g_signal_connect (G_OBJECT (button),"clicked",
+                        G_CALLBACK (cb_prev_button_pressed), cv);
       gtk_box_pack_start (GTK_BOX (hbox),
                           button, FALSE, TRUE, 2);
 
@@ -974,8 +974,8 @@ gimv_comment_view_set_image_view (GimvCommentView *cv, GimvImageView *iv)
                                   _("_Next"));
       gtk_widget_add_accelerator(button, "clicked",
                                  cv->accel_group, key, GDK_MOD1_MASK, 0);
-      gtk_signal_connect (GTK_OBJECT (button),"clicked",
-                          GTK_SIGNAL_FUNC (cb_next_button_pressed), cv);
+      g_signal_connect (G_OBJECT (button),"clicked",
+                        G_CALLBACK (cb_next_button_pressed), cv);
       gtk_box_pack_start (GTK_BOX (hbox),
                           button, FALSE, TRUE, 2);
    }

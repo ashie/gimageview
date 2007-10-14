@@ -138,28 +138,31 @@ gimv_image_loader_class_init (GimvImageLoaderClass *klass)
    object_class = (GObjectClass *) klass;
 
    gimv_image_loader_signals[LOAD_START_SIGNAL]
-      = gtk_signal_new ("load_start",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GimvImageLoaderClass, load_start),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
+      = g_signal_new ("load_start",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvImageLoaderClass, load_start),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
    gimv_image_loader_signals[PROGRESS_UPDATE_SIGNAL]
-      = gtk_signal_new ("progress_update",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GimvImageLoaderClass, load_end),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
+      = g_signal_new ("progress_update",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvImageLoaderClass, load_end),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
    gimv_image_loader_signals[LOAD_END_SIGNAL]
-      = gtk_signal_new ("load_end",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GimvImageLoaderClass, load_end),
-                        gtk_signal_default_marshaller,
-                        GTK_TYPE_NONE, 0);
+      = g_signal_new ("load_end",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvImageLoaderClass, load_end),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
    object_class->dispose  = gimv_image_loader_dispose;
 
