@@ -99,12 +99,13 @@ gimv_nav_win_class_init (GimvNavWinClass *klass)
    widget_class->motion_notify_event  = gimv_nav_win_motion_notify;
 
    gimv_nav_win_signals[MOVE_SIGNAL]
-      = gtk_signal_new ("move",
-                        GTK_RUN_FIRST,
-                        GTK_CLASS_TYPE(object_class),
-                        GTK_SIGNAL_OFFSET (GimvNavWinClass, move),
-                        gtk_marshal_NONE__INT_INT,
-                        GTK_TYPE_NONE, 2, GTK_TYPE_INT, GTK_TYPE_INT);
+      = g_signal_new ("move",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_FIRST,
+                      G_STRUCT_OFFSET (GimvNavWinClass, move),
+                      NULL, NULL,
+                      gtk_marshal_NONE__INT_INT,
+                      G_TYPE_NONE, 2, G_TYPE_INT, G_TYPE_INT);
 }
 
 
@@ -250,9 +251,9 @@ gimv_nav_win_key_press (GtkWidget *widget,
       if (navwin->fix_y_pos < 0) my = navwin->fix_y_pos;
       navwin->view_pos_x = mx;
       navwin->view_pos_y = my;
-      gtk_signal_emit (GTK_OBJECT (navwin),
-                       gimv_nav_win_signals[MOVE_SIGNAL],
-                       mx, my);
+      g_signal_emit (G_OBJECT (navwin),
+                     gimv_nav_win_signals[MOVE_SIGNAL], 0,
+                     mx, my);
       mx *= navwin->factor;
       my *= navwin->factor;
       navwin_draw_sqr (navwin, TRUE, mx, my);
@@ -277,8 +278,8 @@ gimv_nav_win_button_release  (GtkWidget *widget,
 
    switch (event->button) {
    case 1:
-      gtk_signal_emit_stop_by_name (GTK_OBJECT (widget),
-                                    "button_release_event");
+      g_signal_stop_emission_by_name (G_OBJECT (widget),
+                                      "button_release_event");
       gimv_nav_win_hide (navwin);
       /* gtk_widget_destroy (GTK_WIDGET (navwin)); */
       return TRUE;
@@ -319,9 +320,9 @@ gimv_nav_win_motion_notify (GtkWidget *widget,
    if (navwin->fix_x_pos < 0) mx = navwin->fix_x_pos;
    if (navwin->fix_y_pos < 0) my = navwin->fix_y_pos;
 
-   gtk_signal_emit (GTK_OBJECT (navwin),
-                    gimv_nav_win_signals[MOVE_SIGNAL],
-                    mx, my);
+   g_signal_emit (G_OBJECT (navwin),
+                  gimv_nav_win_signals[MOVE_SIGNAL], 0,
+                  mx, my);
 
    if (GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->motion_notify_event)
       return GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->motion_notify_event (widget, event);
