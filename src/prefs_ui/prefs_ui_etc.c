@@ -369,7 +369,7 @@ cb_comment_editlist_confirm (GimvEList *editlist,
    if (!check_value (key, name)) {
       *flags |= GIMV_ELIST_CONFIRM_CANNOT_ADD;
       *flags |= GIMV_ELIST_CONFIRM_CANNOT_CHANGE;
-      g_signal_emission_stop_by_name (G_OBJECT (editlist), "action_confirm");
+      g_signal_stop_emission_by_name (G_OBJECT (editlist), "action_confirm");
       return;
    }
 
@@ -401,7 +401,7 @@ cb_comment_editlist_confirm (GimvEList *editlist,
                               GTK_WINDOW (gimv_prefs_win_get ()));
       *flags |= GIMV_ELIST_CONFIRM_CANNOT_ADD;
       *flags |= GIMV_ELIST_CONFIRM_CANNOT_CHANGE;
-      g_signal_emission_stop_by_name (G_OBJECT (editlist), "action_confirm");
+      g_signal_stop_emission_by_name (G_OBJECT (editlist), "action_confirm");
    }
 }
 
