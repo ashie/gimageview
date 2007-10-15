@@ -1,24 +1,11 @@
 dnl -*- Mode: Autoconf; tab-width: 8; indent-tabs-mode: nil; -*-
 dnl Process this file with autoconf to produce a configure script.
-AC_PREREQ(2.61)
-AC_INIT(src/gimageview.c)
-PACKAGE=gimageview
-
-dnl version number
-MAJOR_VERSION=0
-MINOR_VERSION=2
-MICRO_VERSION=27
-EXTRA_VERSION=
-VERSION=$MAJOR_VERSION.$MINOR_VERSION.$MICRO_VERSION$EXTRA_VERSION
 
 dnl 
-AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
-AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
-AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
-
-dnl Specify a header configuration file
+AC_PREREQ(2.61)
+AC_INIT(gimageview, 0.3.0)
+AM_INIT_AUTOMAKE(1.6)
 AM_CONFIG_HEADER(config.h)
-
 
 
 dnl ******************************
