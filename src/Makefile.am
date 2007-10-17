@@ -51,6 +51,7 @@ gimv_SOURCES = \
 	gimv_prefs_ui_utils.c gimv_prefs_ui_utils.h \
 	gimv_prefs_win.c gimv_prefs_win.h \
 	gimv_slideshow.c gimv_slideshow.h \
+	gimv_text_win.c gimv_text_win.h \
 	gimv_thumb.c gimv_thumb.h \
 	gimv_thumb_cache.c gimv_thumb_cache.h \
 	gimv_thumb_view.c gimv_thumb_view.h \
@@ -62,7 +63,6 @@ gimv_SOURCES = \
 	menu.c menu.h \
 	pixbuf_utils.c pixbuf_utils.h \
 	prefs.c prefs.h \
-	text_viewer.c text_viewer.h \
 	utils.c utils.h \
 \
 	compare_filesize.c \

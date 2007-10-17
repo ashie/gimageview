@@ -26,7 +26,7 @@
 #include "gimageview.h"
 #include "charset.h"
 #include "prefs.h"
-#include "text_viewer.h"
+#include "gimv_text_win.h"
 
 static void
 cb_text_viewer_destroy (GtkWidget *widget, TextViewer *text_viewer)
