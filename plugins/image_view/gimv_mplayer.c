@@ -530,7 +530,7 @@ gimv_mplayer_is_running (GimvMPlayer *player)
 GtkWidget *
 gimv_mplayer_new (void)
 {
-   GimvMPlayer *player = GIMV_MPLAYER (gtk_type_new (gimv_mplayer_get_type ()));
+   GimvMPlayer *player = GIMV_MPLAYER (g_object_new (GIMV_TYPE_MPLAYER, NULL));
 
    return GTK_WIDGET (player);
 }

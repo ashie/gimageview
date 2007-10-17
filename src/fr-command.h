@@ -25,20 +25,18 @@
 #ifndef FR_COMMAND_H
 #define FR_COMMAND_H
 
-
 #include <gtk/gtk.h>
 #include "fr-process.h"
 
-
-#define FR_COMMAND_TYPE        fr_command_get_type ()
-#define FR_COMMAND(o)          GTK_CHECK_CAST (o, FR_COMMAND_TYPE, FRCommand)
-#define FR_COMMAND_CLASS(k)    GTK_CHECK_CLASS_CAST (k, FR_COMMAND_TYPE, FRCommandClass)
-#define IS_FR_COMMAND(o)       GTK_CHECK_TYPE (o, FR_COMMAND_TYPE)
-
+#define FR_TYPE_COMMAND            (fr_command_get_type ())
+#define FR_COMMAND(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), FR_TYPE_COMMAND, FRCommand))
+#define FR_COMMAND_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), FR_TYPE_COMMAND, FRCommandClass))
+#define FR_IS_COMMAND(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FR_TYPE_COMMAND))
+#define FR_IS_COMMAND_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), FR_TYPE_COMMAND))
+#define FR_COMMAND_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), FR_TYPE_COMMAND, FRCommandClass))
 
 typedef struct _FRCommand       FRCommand;
 typedef struct _FRCommandClass  FRCommandClass;
-
 
 typedef enum {
    FR_ACTION_LIST,
@@ -47,10 +45,9 @@ typedef enum {
    FR_ACTION_EXTRACT,
 } FRAction;
 
-
 struct _FRCommand
 {
-   GtkObject  __parent;
+   GObject  __parent;
    GList *file_list; /* FileData elements */
 
    /*<protected>*/
@@ -69,10 +66,9 @@ struct _FRCommand
    char       *filename;
 };
 
-
 struct _FRCommandClass
 {
-   GtkObjectClass __parent_class;
+   GObjectClass __parent_class;
 
    /*<virtual functions>*/
 
@@ -103,8 +99,7 @@ struct _FRCommandClass
                                 FRProcError error);
 };
 
-
-GtkType        fr_command_get_type           (void);
+GType          fr_command_get_type           (void);
 void           fr_command_construct          (FRCommand *comm,
                                               FRProcess *process,
                                               const char *filename);
@@ -123,6 +118,5 @@ void           fr_command_extract            (FRCommand *comm,
                                               gboolean overwrite,
                                               gboolean skip_older,
                                               gboolean junk_paths);
-
 
 #endif /* FR_COMMAND_H */

@@ -25,22 +25,20 @@
 #ifndef FR_COMMAND_RAR_H
 #define FR_COMMAND_RAR_H
 
-
-#include <gtk/gtk.h>
+#include <glib-object.h>
 #include "fr-command.h"
 #include "fr-process.h"
 #include "gimv_image_info.h"
 
-
-#define FR_COMMAND_RAR_TYPE        fr_command_rar_get_type ()
-#define FR_COMMAND_RAR(o)          GTK_CHECK_CAST (o, FR_COMMAND_RAR_TYPE, FRCommandRar)
-#define FR_COMMAND_RAR_CLASS(k)    GTK_CHECK_CLASS_CAST (k, FR_COMMAND_RAR_TYPE, FRCommandRarClass)
-#define IS_FR_COMMAND_RAR(o)       GTK_CHECK_TYPE (o, FR_COMMAND_RAR_TYPE)
-
+#define FR_TYPE_COMMAND_RAR            (fr_command_rar_get_type ())
+#define FR_COMMAND_RAR(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), FR_TYPE_COMMAND_RAR, FRCommandRar))
+#define FR_COMMAND_RAR_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), FR_TYPE_COMMAND_RAR, FRCommandRarClass))
+#define FR_IS_COMMAND_RAR(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FR_TYPE_COMMAND_RAR))
+#define FR_IS_COMMAND_RAR_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), FR_TYPE_COMMAND_RAR))
+#define FR_COMMAND_RAR_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), FR_TYPE_COMMAND_RAR, FRCommandRarClass))
 
 typedef struct _FRCommandRar       FRCommandRar;
 typedef struct _FRCommandRarClass  FRCommandRarClass;
-
 
 struct _FRCommandRar
 {
@@ -51,18 +49,15 @@ struct _FRCommandRar
 	GimvImageInfo *fdata;
 };
 
-
 struct _FRCommandRarClass
 {
 	FRCommandClass __parent_class;
 };
 
-
-GtkType      fr_command_rar_get_type (void);
+GType        fr_command_rar_get_type (void);
 
 FRCommand*   fr_command_rar_new      (FRProcess  *process,
                                       const char *filename,
                                       FRArchive  *archive);
-
 
 #endif /* FR_COMMAND_RAR_H */

@@ -49,7 +49,7 @@ typedef enum {
 } GimvCommentSignalType;
 
 
-static void gimv_comment_destroy    (GtkObject    *object);
+static void gimv_comment_dispose (GObject *object);
 
 static gchar *defval_time                 (GimvImageInfo *info, gpointer data);
 static gchar *defval_file_url             (GimvImageInfo *info, gpointer data);
@@ -93,19 +93,19 @@ GList *gimv_comment_data_entry_list = NULL;
  *   GimvComment class funcs
  *
  ******************************************************************************/
-G_DEFINE_TYPE (GimvComment, gimv_comment, GTK_TYPE_OBJECT)
+G_DEFINE_TYPE (GimvComment, gimv_comment, G_TYPE_OBJECT)
 
 
 static void
 gimv_comment_class_init (GimvCommentClass *klass)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
 
-   object_class = (GtkObjectClass *) klass;
+   gobject_class = (GObjectClass *) klass;
 
    gimv_comment_signals[FILE_SAVED]
       = g_signal_new ("file_saved",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvCommentClass, file_saved),
                       NULL, NULL,
@@ -114,14 +114,14 @@ gimv_comment_class_init (GimvCommentClass *klass)
 
    gimv_comment_signals[FILE_DELETED]
       = g_signal_new ("file_deleted",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvCommentClass, file_deleted),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
 
-   object_class->destroy = gimv_comment_destroy;
+   gobject_class->dispose = gimv_comment_dispose;
 
    klass->file_saved    = NULL;
    klass->file_deleted  = NULL;
@@ -137,14 +137,11 @@ gimv_comment_init (GimvComment *comment)
    comment->data_list = NULL;
 
    comment->note      = NULL;
-
-   g_object_ref (G_OBJECT (comment));
-   gtk_object_sink (GTK_OBJECT (comment));
 }
 
 
 static void
-gimv_comment_destroy (GtkObject *object)
+gimv_comment_dispose (GObject *object)
 {
    GimvComment *comment = GIMV_COMMENT (object);
    GList *node;
@@ -176,8 +173,8 @@ gimv_comment_destroy (GtkObject *object)
       comment->note = NULL;
    }
 
-   if (GTK_OBJECT_CLASS (gimv_comment_parent_class)->destroy)
-      (*GTK_OBJECT_CLASS (gimv_comment_parent_class)->destroy) (object);
+   if (G_OBJECT_CLASS (gimv_comment_parent_class)->dispose)
+      G_OBJECT_CLASS (gimv_comment_parent_class)->dispose (object);
 }
 
 
@@ -362,7 +359,7 @@ gimv_comment_new ()
 {
    GimvComment *comment;
 
-   comment = GIMV_COMMENT (gtk_type_new (gimv_comment_get_type ()));
+   comment = GIMV_COMMENT (g_object_new (GIMV_TYPE_COMMENT, NULL));
    g_return_val_if_fail (comment, NULL);
 
    return comment;

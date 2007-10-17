@@ -51,11 +51,11 @@ static GList *archive_ext_list = NULL;
 static guint fr_archive_signals[LAST_SIGNAL] = { 0 };
 
 
-G_DEFINE_TYPE (FRArchive, fr_archive, GTK_TYPE_OBJECT)
+G_DEFINE_TYPE (FRArchive, fr_archive, G_TYPE_OBJECT)
 
 
 static void
-fr_archive_destroy (GtkObject *object)
+fr_archive_dispose (GObject *object)
 {
    FRArchive *archive;
 
@@ -75,21 +75,21 @@ fr_archive_destroy (GtkObject *object)
       g_free (archive->filename);
 
    /* Chain up */
-   if (GTK_OBJECT_CLASS (fr_archive_parent_class)->destroy)
-      (* GTK_OBJECT_CLASS (fr_archive_parent_class)->destroy) (object);
+   if (G_OBJECT_CLASS (fr_archive_parent_class)->dispose)
+      G_OBJECT_CLASS (fr_archive_parent_class)->dispose (object);
 }
 
 
 static void
 fr_archive_class_init (FRArchiveClass *class)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
 
-   object_class = (GtkObjectClass *) class;
+   gobject_class = (GObjectClass *) class;
 
    fr_archive_signals[START] =
       g_signal_new ("start",
-                    G_TYPE_FROM_CLASS (object_class),
+                    G_TYPE_FROM_CLASS (gobject_class),
                     G_SIGNAL_RUN_LAST,
                     G_STRUCT_OFFSET (FRArchiveClass, start),
                     NULL, NULL,
@@ -99,7 +99,7 @@ fr_archive_class_init (FRArchiveClass *class)
 
    fr_archive_signals[DONE] =
       g_signal_new ("done",
-                    G_TYPE_FROM_CLASS (object_class),
+                    G_TYPE_FROM_CLASS (gobject_class),
                     G_SIGNAL_RUN_LAST,
                     G_STRUCT_OFFSET (FRArchiveClass, done),
                     NULL, NULL,
@@ -108,7 +108,7 @@ fr_archive_class_init (FRArchiveClass *class)
                     G_TYPE_INT,
                     G_TYPE_INT);
 
-   object_class->destroy = fr_archive_destroy;
+   gobject_class->dispose = fr_archive_dispose;
    class->start = NULL;
    class->done  = NULL;
 }
@@ -120,9 +120,6 @@ fr_archive_init (FRArchive *archive)
    archive->filename = NULL;
    archive->command = NULL;
    archive->process = fr_process_new ();
-
-   g_object_ref (G_OBJECT (archive));
-   gtk_object_sink (GTK_OBJECT (archive));
 }
 
 
@@ -130,7 +127,7 @@ FRArchive *
 fr_archive_new (void)
 {
    FRArchive *archive;
-   archive = FR_ARCHIVE (gtk_type_new (fr_archive_get_type ()));
+   archive = FR_ARCHIVE (g_object_new (FR_TYPE_ARCHIVE, NULL));
    return archive;
 }
 

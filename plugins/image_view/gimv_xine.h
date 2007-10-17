@@ -45,10 +45,12 @@ extern "C" {
  */
 
 
-#define GIMV_XINE(obj)            (GTK_CHECK_CAST ((obj), gimv_xine_get_type (), GimvXine))
-#define GIMV_XINE_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), gimv_xine_get_type (), GimvXineClass))
-#define GIMV_IS_XINE(obj)         (GTK_CHECK_TYPE (obj, gimv_xine_get_type ()))
-#define GIMV_IS_XINE_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), gimv_xine_get_type ()))
+#define GIMV_TYPE_XINE            (gimv_xine_get_type ())
+#define GIMV_XINE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_XINE, GimvXine))
+#define GIMV_XINE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_XINE, GimvXineClass))
+#define GIMV_IS_XINE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_XINE))
+#define GIMV_IS_XINE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_XINE))
+#define GIMV_XINE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_XINE, GimvXineClass))
 
 typedef enum
 {

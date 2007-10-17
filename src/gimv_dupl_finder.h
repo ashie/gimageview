@@ -29,11 +29,11 @@
 #include <glib.h>
 
 #define GIMV_TYPE_DUPL_FINDER            (gimv_dupl_finder_get_type ())
-#define GIMV_DUPL_FINDER(obj)            (GTK_CHECK_CAST (obj, gimv_dupl_finder_get_type (), GimvDuplFinder))
-#define GIMV_DUPL_FINDER_CLASS(klass)    (GTK_CHECK_CLASS_CAST (klass, gimv_dupl_finder_get_type, GimvDuplFinderClass))
-#define GIMV_IS_DUPL_FINDER(obj)         (GTK_CHECK_TYPE (obj, gimv_dupl_finder_get_type ()))
-#define GIMV_IS_DUPL_FINDER_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_DUPL_FINDER))
-
+#define GIMV_DUPL_FINDER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_DUPL_FINDER, GimvDuplFinder))
+#define GIMV_DUPL_FINDER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_DUPL_FINDER, GimvDuplFinderClass))
+#define GIMV_IS_DUPL_FINDER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_DUPL_FINDER))
+#define GIMV_IS_DUPL_FINDER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_DUPL_FINDER))
+#define GIMV_DUPL_FINDER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_DUPL_FINDER, GimvDuplFinderClass))
 
 typedef struct GimvDuplFinder_Tag         GimvDuplFinder;
 typedef struct GimvDuplFinderPriv_Tag     GimvDuplFinderPriv;
@@ -41,10 +41,9 @@ typedef struct GimvDuplFinderClass_Tag    GimvDuplFinderClass;
 typedef struct GimvDuplPair_Tag           GimvDuplPair;
 typedef struct GimvDuplCompFuncTable_Tag  GimvDuplCompFuncTable;
 
-
 struct GimvDuplFinder_Tag
 {
-   GtkObject parent;
+   GObject parent;
 
    GList *src_list, *dest_list;
    GList *cur1, *cur2;
@@ -65,10 +64,9 @@ struct GimvDuplFinder_Tag
    guint  idle_id;
 };
 
-
 struct GimvDuplFinderClass_Tag
 {
-   GtkObjectClass parent_class;
+   GObjectClass parent_class;
 
    void (*start)           (GimvDuplFinder *finder);
    void (*stop)            (GimvDuplFinder *finder);
@@ -77,14 +75,12 @@ struct GimvDuplFinderClass_Tag
                             GimvDuplPair   *pair);
 };
 
-
 struct GimvDuplPair_Tag
 {
    GimvThumb *thumb1;
    GimvThumb *thumb2;
    gfloat similarity;
 };
-
 
 struct GimvDuplCompFuncTable_Tag
 {
@@ -97,8 +93,7 @@ struct GimvDuplCompFuncTable_Tag
    void     (*data_delete) (gpointer   data);
 };
 
-
-GtkType       gimv_dupl_finder_get_type           (void);
+GType         gimv_dupl_finder_get_type           (void);
 
 const gchar **gimv_dupl_finder_get_algol_types    (void);
 

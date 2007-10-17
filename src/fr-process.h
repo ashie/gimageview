@@ -26,14 +26,15 @@
 #define FR_PROCESS_H
 
 #include <glib.h>
-#include <gtk/gtkobject.h>
+#include <glib-object.h>
 #include <sys/types.h>
 
 #define FR_TYPE_PROCESS            (fr_process_get_type ())
-#define FR_PROCESS(obj)            (GTK_CHECK_CAST ((obj), FR_TYPE_PROCESS, FRProcess))
-#define FR_PROCESS_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), FR_TYPE_PROCESS, FRProcessClass))
-#define FR_IS_PROCESS(obj)         (GTK_CHECK_TYPE ((obj), FR_TYPE_PROCESS))
-#define FR_IS_PROCESS_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), FR_TYPE_PROCESS))
+#define FR_PROCESS(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), FR_TYPE_PROCESS, FRProcess))
+#define FR_PROCESS_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), FR_TYPE_PROCESS, FRProcessClass))
+#define FR_IS_PROCESS(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FR_TYPE_PROCESS))
+#define FR_IS_PROCESS_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), FR_TYPE_PROCESS))
+#define FR_PROCESS_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), FR_TYPE_PROCESS, FRProcessClass))
 
 #define FR_PROCCESS_BUFFER_SIZE 4096
 
@@ -54,7 +55,7 @@ typedef struct _FRProcess       FRProcess;
 typedef struct _FRProcessClass  FRProcessClass;
 
 struct _FRProcess {
-   GtkObject __parent;
+   GObject __parent;
 
    GPtrArray  *comm;
    GPtrArray  *dir;
@@ -81,7 +82,7 @@ struct _FRProcess {
 };
 
 struct _FRProcessClass {
-   GtkObjectClass __parent_class;
+   GObjectClass __parent_class;
 
    /* -- Signals -- */
 
@@ -91,7 +92,7 @@ struct _FRProcessClass {
                    FRProcError error);
 };
 
-GtkType     fr_process_get_type             (void);
+GType       fr_process_get_type             (void);
 FRProcess * fr_process_new                  (void);
 void        fr_process_clear                (FRProcess *fr_proc);
 void        fr_process_begin_command        (FRProcess *fr_proc,

@@ -32,15 +32,16 @@
 #include "fr-command.h"
 
 #define FR_TYPE_ARCHIVE            (fr_archive_get_type ())
-#define FR_ARCHIVE(obj)            (GTK_CHECK_CAST ((obj), FR_TYPE_ARCHIVE, FRArchive))
-#define FR_ARCHIVE_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), FR_TYPE_ARCHIVE, FRArchiveClass))
-#define FR_IS_ARCHIVE(obj)         (GTK_CHECK_TYPE ((obj), FR_TYPE_ARCHIVE))
-#define FR_IS_ARCHIVE_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), FR_TYPE_ARCHIVE))
+#define FR_ARCHIVE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), FR_TYPE_ARCHIVE, FRArchive))
+#define FR_ARCHIVE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), FR_TYPE_ARCHIVE, FRArchiveClass))
+#define FR_IS_ARCHIVE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FR_TYPE_ARCHIVE))
+#define FR_IS_ARCHIVE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), FR_TYPE_ARCHIVE))
+#define FR_ARCHIVE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), FR_TYPE_ARCHIVE, FRArchiveClass))
 
 typedef struct _FRArchiveClass  FRArchiveClass;
 
 struct _FRArchive {
-   GtkObject __parent;
+   GObject __parent;
 
    char *           filename;       /* The archive filename. */
    FRCommand *      command;
@@ -50,7 +51,7 @@ struct _FRArchive {
 };
 
 struct _FRArchiveClass {
-   GtkObjectClass __parent_class;
+   GObjectClass __parent_class;
 
    /* -- Signals -- */
    void (*start) (FRArchive *archive,
@@ -61,13 +62,11 @@ struct _FRArchiveClass {
                   FRProcError  error);
 };
 
-
 #define GIMV_ARCHIVER_IF_VERSION 1
 
 typedef FRCommand *(*ExtArchiverNewFn) (FRProcess  *process,
                                         const char *filename,
                                         FRArchive  *archive);
-
 
 typedef struct ExtArchiverPlugin_Tag
 {
@@ -77,8 +76,7 @@ typedef struct ExtArchiverPlugin_Tag
    gboolean               is_compressed;
 } ExtArchiverPlugin;
 
-
-GtkType      fr_archive_get_type              (void);
+GType        fr_archive_get_type              (void);
 FRArchive *  fr_archive_new                   (void);
 void         fr_archive_free                  (FRArchive *archive);
 void         fr_archive_new_file              (FRArchive *archive,

@@ -750,7 +750,7 @@ gimv_thumb_win_init (GimvThumbWin *tw)
 GtkWidget *
 gimv_thumb_win_new (void)
 {
-   GimvThumbWin *tw = gtk_type_new (GIMV_TYPE_THUMB_WIN);
+   GimvThumbWin *tw = g_object_new (GIMV_TYPE_THUMB_WIN, NULL);
 
    return GTK_WIDGET (tw);
 }

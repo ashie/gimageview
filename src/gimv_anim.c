@@ -29,17 +29,17 @@
 G_DEFINE_TYPE (GimvAnim, gimv_anim, GIMV_TYPE_IMAGE)
 
 
-static void gimv_anim_destroy       (GtkObject     *object);
+static void gimv_anim_dispose (GObject *object);
 
 
 static void
 gimv_anim_class_init (GimvAnimClass *klass)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
 
-   object_class = (GtkObjectClass *) klass;
+   gobject_class = (GObjectClass *) klass;
 
-   object_class->destroy  = gimv_anim_destroy;
+   gobject_class->dispose = gimv_anim_dispose;
 }
 
 
@@ -53,7 +53,7 @@ gimv_anim_init (GimvAnim *anim)
 
 
 static void
-gimv_anim_destroy (GtkObject *object)
+gimv_anim_dispose (GObject *object)
 {
    GimvAnim *anim;
 
@@ -70,15 +70,15 @@ gimv_anim_destroy (GtkObject *object)
    }
    anim->table = NULL;
 
-   if (GTK_OBJECT_CLASS (gimv_anim_parent_class)->destroy)
-      (*GTK_OBJECT_CLASS (gimv_anim_parent_class)->destroy) (object);
+   if (G_OBJECT_CLASS (gimv_anim_parent_class)->dispose)
+      G_OBJECT_CLASS (gimv_anim_parent_class)->dispose (object);
 }
 
 
 GimvAnim *
 gimv_anim_new (void)
 {
-   GimvAnim *anim = GIMV_ANIM (gtk_type_new (GIMV_TYPE_ANIM));
+   GimvAnim *anim = GIMV_ANIM (g_object_new (GIMV_TYPE_ANIM, NULL));
    return anim;
 }
 

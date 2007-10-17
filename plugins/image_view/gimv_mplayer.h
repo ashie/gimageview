@@ -39,10 +39,12 @@
 extern "C" {
 #endif /* __cplusplus */
 
-#define GIMV_MPLAYER(obj)            (GTK_CHECK_CAST ((obj), gimv_mplayer_get_type (), GimvMPlayer))
-#define GIMV_MPLAYER_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), gimv_mplayer_get_type (), GimvMPlayerClass))
-#define GIMV_IS_MPLAYER(obj)         (GTK_CHECK_TYPE (obj, gimv_mplayer_get_type ()))
-#define GIMV_IS_MPLAYER_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), gimv_mplayer_get_type ()))
+#define GIMV_TYPE_MPLAYER            (gimv_mplayer_get_type ())
+#define GIMV_MPLAYER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_MPLAYER, GimvMPlayer))
+#define GIMV_MPLAYER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_MPLAYER, GimvMPlayerClass))
+#define GIMV_IS_MPLAYER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_MPLAYER))
+#define GIMV_IS_MPLAYER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_MPLAYER))
+#define GIMV_MPLAYER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_MPLAYER, GimvMPlayerClass))
 
 
 #ifdef DATADIR

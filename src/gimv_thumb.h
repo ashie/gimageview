@@ -27,24 +27,21 @@
 #include "gimageview.h"
 #include "fileload.h"
 
-
 #define GIMV_TYPE_THUMB            (gimv_thumb_get_type ())
-#define GIMV_THUMB(obj)            (GTK_CHECK_CAST (obj, gimv_thumb_get_type (), GimvThumb))
-#define GIMV_THUMB_CLASS(klass)    (GTK_CHECK_CLASS_CAST (klass, gimv_thumb_get_type, GimvThumbClass))
-#define GIMV_IS_THUMB(obj)         (GTK_CHECK_TYPE (obj, gimv_thumb_get_type ()))
-#define GIMV_IS_THUMB_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_THUMB))
-
+#define GIMV_THUMB(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_THUMB, GimvThumb))
+#define GIMV_THUMB_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_THUMB, GimvThumbClass))
+#define GIMV_IS_THUMB(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_THUMB))
+#define GIMV_IS_THUMB_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_THUMB))
+#define GIMV_THUMB_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_THUMB, GimvThumbClass))
 
 typedef struct GimvThumbPriv_Tag  GimvThumbPriv;
 typedef struct GimvThumbClass_Tag GimvThumbClass;
 
-
 #define ICON_SIZE 18
-
 
 struct GimvThumb_Tag
 {
-   GtkObject       parent;
+   GObject       parent;
 
    GimvImageInfo  *info;
 
@@ -62,14 +59,12 @@ struct GimvThumb_Tag
    gboolean        selected;
 };
 
-
 struct GimvThumbClass_Tag
 {
-   GtkObjectClass  parent_class;
+   GObjectClass  parent_class;
 };
 
-
-GtkType        gimv_thumb_get_type             (void);
+GType          gimv_thumb_get_type             (void);
 GimvThumb     *gimv_thumb_new                  (GimvImageInfo  *info);
 gboolean       gimv_thumb_load                 (GimvThumb      *thumb,
                                                 gint            thumb_size,

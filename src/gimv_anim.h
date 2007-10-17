@@ -26,18 +26,16 @@
 
 #include "gimv_image.h"
 
-
 #define GIMV_TYPE_ANIM            (gimv_anim_get_type ())
-#define GIMV_ANIM(obj)            (GTK_CHECK_CAST (obj, gimv_anim_get_type (), GimvAnim))
-#define GIMV_ANIM_CLASS(klass)    (GTK_CHECK_CLASS_CAST (klass, gimv_anim_get_type, GimvAnimClass))
-#define GIMV_IS_ANIM(obj)         (GTK_CHECK_TYPE (obj, gimv_anim_get_type ()))
-#define GIMV_IS_ANIM_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_ANIM))
-
+#define GIMV_ANIM(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_ANIM, GimvAnim))
+#define GIMV_ANIM_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_ANIM, GimvAnimClass))
+#define GIMV_IS_ANIM(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_ANIM))
+#define GIMV_IS_ANIM_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_ANIM))
+#define GIMV_ANIM_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_ANIM, GimvAnimClass))
 
 typedef struct GimvAnim_Tag          GimvAnim;
 typedef struct GimvAnimClass_Tag     GimvAnimClass;
 typedef struct GimvAnimFuncTable_Tag GimvAnimFuncTable;
-
 
 struct GimvAnim_Tag
 {
@@ -48,12 +46,10 @@ struct GimvAnim_Tag
    GimvAnimFuncTable *table;
 };
 
-
 struct GimvAnimClass_Tag
 {
    GimvImageClass parent_class;
 };
-
 
 struct GimvAnimFuncTable_Tag
 {
@@ -66,8 +62,7 @@ struct GimvAnimFuncTable_Tag
    void     (*delete)       (GimvAnim    *anim);
 };
 
-
-GtkType    gimv_anim_get_type     (void);
+GType      gimv_anim_get_type     (void);
 GimvAnim  *gimv_anim_new          (void);
 
 /* public */

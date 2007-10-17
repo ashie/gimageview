@@ -585,7 +585,7 @@ gimv_image_win_init (GimvImageWin *iw)
 GtkWidget *
 gimv_image_win_new (GimvImageInfo *info)
 {
-   GimvImageWin *iw = gtk_type_new (GIMV_TYPE_IMAGE_WIN);
+   GimvImageWin *iw = g_object_new (GIMV_TYPE_IMAGE_WIN, NULL);
 
    gimv_image_view_change_image (iw->iv, info);
 

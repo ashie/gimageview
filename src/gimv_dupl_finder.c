@@ -39,7 +39,7 @@ typedef enum {
 } GimvDuplFinderSignalType;
 
 
-static void gimv_dupl_finder_destroy    (GtkObject             *object);
+static void gimv_dupl_finder_dispose (GObject *object);
 
 gboolean idle_duplicates_find    (gpointer user_data);
 gboolean timeout_duplicates_find (gpointer data);
@@ -83,19 +83,19 @@ gimv_dupl_finder_get_algol_types (void)
 }
 
 
-G_DEFINE_TYPE (GimvDuplFinder, gimv_dupl_finder, GTK_TYPE_OBJECT)
+G_DEFINE_TYPE (GimvDuplFinder, gimv_dupl_finder, G_TYPE_OBJECT)
 
 
 static void
 gimv_dupl_finder_class_init (GimvDuplFinderClass *klass)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
 
-   object_class = (GtkObjectClass *) klass;
+   gobject_class = (GObjectClass *) klass;
 
    gimv_dupl_finder_signals[START_SIGNAL]
       = g_signal_new ("start",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvDuplFinderClass, start),
                       NULL, NULL,
@@ -104,7 +104,7 @@ gimv_dupl_finder_class_init (GimvDuplFinderClass *klass)
 
    gimv_dupl_finder_signals[STOP_SIGNAL]
       = g_signal_new ("stop",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvDuplFinderClass, stop),
                       NULL, NULL,
@@ -113,7 +113,7 @@ gimv_dupl_finder_class_init (GimvDuplFinderClass *klass)
 
    gimv_dupl_finder_signals[PROGRESS_UPDATE_SIGNAL]
       = g_signal_new ("progress_update",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvDuplFinderClass,
                                        progress_update),
@@ -123,14 +123,14 @@ gimv_dupl_finder_class_init (GimvDuplFinderClass *klass)
 
    gimv_dupl_finder_signals[FOUND_SIGNAL]
       = g_signal_new ("found",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvDuplFinderClass, found),
                       NULL, NULL,
                       gtk_marshal_NONE__POINTER,
                       G_TYPE_NONE, 1, G_TYPE_POINTER);
 
-   object_class->destroy = gimv_dupl_finder_destroy;
+   gobject_class->dispose = gimv_dupl_finder_dispose;
 
    klass->start           = NULL;
    klass->stop            = NULL;
@@ -156,9 +156,6 @@ gimv_dupl_finder_init (GimvDuplFinder *finder)
    finder->timer_rate   = 10;
    finder->timer_id     = 0;
    finder->idle_id      = 0;
-
-   g_object_ref (G_OBJECT (finder));
-   gtk_object_sink (GTK_OBJECT (finder));
 }
 
 
@@ -167,7 +164,7 @@ gimv_dupl_finder_new (const gchar *type)
 {
    GimvDuplFinder *finder;
 
-   finder = GIMV_DUPL_FINDER (gtk_type_new (gimv_dupl_finder_get_type ()));
+   finder = GIMV_DUPL_FINDER (g_object_new (GIMV_TYPE_DUPL_FINDER, NULL));
    gimv_dupl_finder_set_algol_type (finder, type);
 
    return finder;
@@ -175,7 +172,7 @@ gimv_dupl_finder_new (const gchar *type)
 
 
 static void
-gimv_dupl_finder_destroy (GtkObject *object)
+gimv_dupl_finder_dispose (GObject *object)
 {
    GimvDuplFinder *finder = GIMV_DUPL_FINDER (object);
 
@@ -188,8 +185,8 @@ gimv_dupl_finder_destroy (GtkObject *object)
    finder->src_list  = NULL;
    finder->dest_list = NULL;
 
-   if (GTK_OBJECT_CLASS (gimv_dupl_finder_parent_class)->destroy)
-      (*GTK_OBJECT_CLASS (gimv_dupl_finder_parent_class)->destroy) (object);
+   if (G_OBJECT_CLASS (gimv_dupl_finder_parent_class)->dispose)
+      G_OBJECT_CLASS (gimv_dupl_finder_parent_class)->dispose (object);
 }
 
 

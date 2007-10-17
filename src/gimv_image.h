@@ -26,18 +26,16 @@
 
 #include "gimageview.h"
 
-
 #define GIMV_TYPE_IMAGE            (gimv_image_get_type ())
-#define GIMV_IMAGE(obj)            (GTK_CHECK_CAST (obj, gimv_image_get_type (), GimvImage))
-#define GIMV_IMAGE_CLASS(klass)    (GTK_CHECK_CLASS_CAST (klass, gimv_image_get_type, GimvImageClass))
-#define GIMV_IS_IMAGE(obj)         (GTK_CHECK_TYPE (obj, gimv_image_get_type ()))
-#define GIMV_IS_IMAGE_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_IMAGE))
-
+#define GIMV_IMAGE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_IMAGE, GimvImage))
+#define GIMV_IMAGE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_IMAGE, GimvImageClass))
+#define GIMV_IS_IMAGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_IMAGE))
+#define GIMV_IS_IMAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_IMAGE))
+#define GIMV_IMAGE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_IMAGE, GimvImageClass))
 
 typedef struct GimvImage_Tag      GimvImage;
 typedef struct GimvImagePriv_Tag  GimvImagePriv;
 typedef struct GimvImageClass_Tag GimvImageClass;
-
 
 typedef enum {
    GIMV_IMAGE_NORMAL_MODE       = 0,
@@ -56,11 +54,9 @@ typedef enum {
    GIMV_IMAGE_VALUE_MODE        = 14
 } GimvImageLayerMode;
 
-
 typedef enum {
    GIMV_IMAGE_VECTOR_FLAGS   = 1 << 0
 } GimvImageFlags;
-
 
 typedef enum {
    GIMV_IMAGE_ROTATE_0,
@@ -69,10 +65,9 @@ typedef enum {
    GIMV_IMAGE_ROTATE_270
 } GimvImageAngle;
 
-
 struct GimvImage_Tag
 {
-   GtkObject      parent;
+   GObject      parent;
 
    gpointer       image;   /* library dependent data */
    GimvImageAngle angle;
@@ -81,14 +76,12 @@ struct GimvImage_Tag
    gpointer       additional_data;
 };
 
-
 struct GimvImageClass_Tag
 {
-   GtkObjectClass parent_class;
+   GObjectClass parent_class;
 };
 
-
-GtkType      gimv_image_get_type             (void);
+GType        gimv_image_get_type             (void);
 
 const gchar *gimv_image_detect_type_by_ext   (const gchar  *str);
 GimvImage   *gimv_image_load_file            (const gchar  *filename,

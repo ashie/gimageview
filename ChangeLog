@@ -1,5 +1,25 @@
 2007-10-16 Takuro Ashie <ashie@homa.ne.jp>
 
+	* plugins/archiver/zip-ext.c, plugins/archiver/lha-ext.c,
+	  plugins/archiver/rar-ext.c, plugins/archiver/tar-ext.c,
+	  plugins/archiver/zip-ext.h, plugins/archiver/lha-ext.h,
+	  plugins/archiver/rar-ext.h, plugins/archiver/tar-ext.h,
+	  plugins/image_view/gimv_mplayer.h, plugins/image_view/gimv_xine.c,
+	  plugins/image_view/gimv_xine.h, plugins/image_view/gimv_mplayer.c,
+	  src/gimv_thumb_view.h, src/gimv_thumb.c, src/gimv_thumb.h,
+	  src/gimv_dupl_finder.c, src/gimv_dupl_finder.h, src/fr-archive.c,
+	  src/fr-archive.h, src/gimv_image_view.c, src/gimv_anim.c,
+	  src/gimv_anim.h, src/gimv_image_win.c, src/gimv_comment.c,
+	  src/gimv_comment.h, src/gimv_image_loader.h, src/gimv_image.c,
+	  src/gimv_image.h, src/fr-command.c, src/fr-command.h,
+	  src/gimv_dupl_win.c, src/gimv_image_saver.c, src/gimv_image_saver.h,
+	  src/gimv_thumb_win.c, src/fr-process.c, src/fr-process.h,
+	  src/gimv_thumb_view.c:
+	  - GtkObject -> GObject.
+	  - gtk_type_new -> g_object_new.
+
+2007-10-16 Takuro Ashie <ashie@homa.ne.jp>
+
 	* plugins/thumbnail/gqview.c,  plugins/image_view/image_view_xine.c,
 	  src/gimv_thumb.c, src/gimv_dupl_finder.c,  src/gimv_comment_view.c,
 	  src/gimv_nav_win.c, src/gimv_slideshow.c, src/fr-archive.c,

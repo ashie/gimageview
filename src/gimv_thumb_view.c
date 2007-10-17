@@ -84,7 +84,7 @@ struct GimvThumbViewPriv_Tag
 };
 
 
-static void gimv_thumb_view_destroy    (GtkObject     *object);
+static void gimv_thumb_view_dispose    (GObject       *object);
 
 
 /* callback functions */
@@ -3479,19 +3479,19 @@ gimv_thumb_view_reset_tab_label (GimvThumbView *tv, const gchar *title)
 }
 
 
-G_DEFINE_TYPE (GimvThumbView, gimv_thumb_view, GTK_TYPE_OBJECT)
+G_DEFINE_TYPE (GimvThumbView, gimv_thumb_view, G_TYPE_OBJECT)
 
 
 static void
 gimv_thumb_view_class_init (GimvThumbViewClass *klass)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
 
    gimv_thumb_view_get_summary_mode_list ();
 
-   object_class = (GtkObjectClass *) klass;
+   gobject_class = (GObjectClass *) klass;
 
-   object_class->destroy  = gimv_thumb_view_destroy;
+   gobject_class->dispose = gimv_thumb_view_dispose;
 }
 
 
@@ -3530,9 +3530,6 @@ gimv_thumb_view_init (GimvThumbView *tv)
    tv->priv->related_dupl_win      = NULL;
    tv->priv->button_2pressed_queue = 0;
 
-   g_object_ref (G_OBJECT (tv));
-   gtk_object_sink (GTK_OBJECT (tv));
-
    GimvThumbViewList = g_list_append (GimvThumbViewList, tv);
    total_tab_count++;
 }
@@ -3543,7 +3540,7 @@ gimv_thumb_view_new (void)
 {
    GimvThumbView *tv;
 
-   tv = GIMV_THUMB_VIEW (gtk_type_new (gimv_thumb_view_get_type ()));
+   tv = GIMV_THUMB_VIEW (g_object_new (GIMV_TYPE_THUMB_VIEW, NULL));
 
    return tv;
 }
@@ -3773,7 +3770,7 @@ gimv_thumb_view_reload (GimvThumbView *tv, FilesLoader *files, GimvThumbViewMode
 
 
 static void
-gimv_thumb_view_destroy (GtkObject *object)
+gimv_thumb_view_dispose (GObject *object)
 {
    GimvThumbView *tv;
    GList *node;
@@ -3851,7 +3848,7 @@ gimv_thumb_view_destroy (GtkObject *object)
    g_free (tv->tabtitle);
    tv->tabtitle = NULL;
 
-   if (GTK_OBJECT_CLASS (gimv_thumb_view_parent_class)->destroy)
-      (GTK_OBJECT_CLASS (gimv_thumb_view_parent_class)->destroy) (object);
+   if (G_OBJECT_CLASS (gimv_thumb_view_parent_class)->dispose)
+      G_OBJECT_CLASS (gimv_thumb_view_parent_class)->dispose (object);
 }
 
