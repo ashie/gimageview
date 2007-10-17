@@ -21,8 +21,8 @@
  * $Id$
  */
 
-#ifndef __EXIF_VIEW__
-#define __EXIF_VIEW__
+#ifndef __GIMV_EXIF_VIEW_H__
+#define __GIMV_EXIF_VIEW_H__
 
 #include "gimageview.h"
 
@@ -47,4 +47,4 @@ ExifView *exif_view_create        (const gchar *filename,
 
 #endif /* ENABLE_EXIF */
 
-#endif /* __EXIF_VIEW__ */
+#endif /* __GIMV_EXIF_VIEW_H__ */
