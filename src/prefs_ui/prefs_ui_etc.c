@@ -777,7 +777,7 @@ prefs_search_page (void)
                                                0.0, 1.0, 0.01, 0.1, 0.0);
    spinner = gtkutil_create_spin_button (adj);
    gtk_spin_button_set_digits (GTK_SPIN_BUTTON (spinner), 2);
-   gtk_widget_set_usize(spinner, 50, -1);
+   gtk_widget_set_size_request(spinner, 50, -1);
    g_signal_connect (G_OBJECT (adj), "value_changed",
                      G_CALLBACK (gtkutil_get_data_from_adjustment_by_float_cb),
                      &config_changed->search_similar_accuracy);
@@ -852,7 +852,7 @@ prefs_slideshow_page (void)
    adj = (GtkAdjustment *) gtk_adjustment_new (conf.slideshow_interval,
                                                0.0, 7200.0, 0.01, 0.1, 0.0);
    spinner = gtkutil_create_spin_button (adj);
-   gtk_widget_set_usize(spinner, 70, -1);
+   gtk_widget_set_size_request(spinner, 70, -1);
    gtk_spin_button_set_digits (GTK_SPIN_BUTTON (spinner), 2);
    g_signal_connect (G_OBJECT (adj), "value_changed",
                      G_CALLBACK (gtkutil_get_data_from_adjustment_by_float_cb),
@@ -957,7 +957,7 @@ prefs_slideshow_page (void)
    adj = (GtkAdjustment *) gtk_adjustment_new (conf.slideshow_img_scale,
                                                1.0, 10000.0, 1.0, 5.0, 0.0);
    spinner = gtkutil_create_spin_button (adj);
-   gtk_widget_set_usize(spinner, 50, -1);
+   gtk_widget_set_size_request(spinner, 50, -1);
    prefs_win.slideshow_scale_spin = spinner;
    g_signal_connect (G_OBJECT (adj), "value_changed",
                      G_CALLBACK (gtkutil_get_data_from_adjustment_by_int_cb),

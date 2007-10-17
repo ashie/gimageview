@@ -276,7 +276,7 @@ prefs_mplayer_page (void)
                      GTK_EXPAND | GTK_FILL, GTK_FILL, 5, 1);
    gtk_widget_show (alignment);
    gtk_widget_show (vo_combo);
-   gtk_widget_set_usize (vo_combo, 100, -1);
+   gtk_widget_set_size_request (vo_combo, 100, -1);
 
    /* audio driver combo */
    label = gtk_label_new (_("Audio driver : "));
@@ -294,7 +294,7 @@ prefs_mplayer_page (void)
                      GTK_EXPAND | GTK_FILL, GTK_FILL, 5, 1);
    gtk_widget_show (alignment);
    gtk_widget_show (ao_combo);
-   gtk_widget_set_usize (ao_combo, 100, -1);
+   gtk_widget_set_size_request (ao_combo, 100, -1);
 
 
    /**********************************************
@@ -321,7 +321,7 @@ prefs_mplayer_page (void)
    adj = (GtkAdjustment *) gtk_adjustment_new (mconf.thumb_pos,
                                                0.0, 100.0, 0.01, 0.1, 0.0);
    spinner = gtkutil_create_spin_button (adj);
-   gtk_widget_set_usize(spinner, 70, -1);
+   gtk_widget_set_size_request(spinner, 70, -1);
    gtk_spin_button_set_digits (GTK_SPIN_BUTTON (spinner), 2);
    g_signal_connect (G_OBJECT (adj), "value_changed",
                      G_CALLBACK (gtkutil_get_data_from_adjustment_by_float_cb),

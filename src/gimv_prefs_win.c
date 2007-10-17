@@ -651,7 +651,7 @@ gimv_prefs_win_open (const gchar *path, GtkWindow *parent)
                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
    gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolledwin),
                                        GTK_SHADOW_IN);
-   gtk_widget_set_usize (scrolledwin, 170, -1);
+   gtk_widget_set_size_request (scrolledwin, 170, -1);
    gtk_widget_show (scrolledwin);
 
    /* navigation tree */

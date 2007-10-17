@@ -434,7 +434,7 @@ auto_compl_show_alternatives (GtkWidget *entry)
    gdk_window_get_geometry (entry->window, &x, &y, &w, &h, NULL);
    gdk_window_get_deskrelative_origin (entry->window, &x, &y);
    gtk_widget_set_uposition (ac_window, x, y + h);
-   gtk_widget_set_usize (ac_window, w, 200);
+   gtk_widget_set_size_request (ac_window, w, 200);
 
    gtk_widget_show_all (ac_window);
    gdk_pointer_grab (ac_window->window, 

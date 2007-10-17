@@ -768,7 +768,7 @@ gimv_elist_new (gint colnum)
                                        GTK_SHADOW_IN);
    gtk_container_set_border_width(GTK_CONTAINER (scrollwin), 5);
    gtk_box_pack_start (GTK_BOX (hbox), scrollwin, TRUE, TRUE, 0);
-   gtk_widget_set_usize (scrollwin, -1, 120);
+   gtk_widget_set_size_request (scrollwin, -1, 120);
    gtk_widget_show (scrollwin);
 
    clist = gimv_elist_create_list_widget (editlist, colnum);

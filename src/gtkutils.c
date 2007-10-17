@@ -593,7 +593,7 @@ gtkutil_overwrite_confirm_dialog (const gchar *title, const gchar *message,
                     "keep_aspect",     TRUE,
                     NULL);
       gimv_image_view_hide_scrollbar (GIMV_IMAGE_VIEW (dialog.iv1));
-      gtk_widget_set_usize (dialog.iv1, -1, 150);
+      gtk_widget_set_size_request (dialog.iv1, -1, 150);
       gtk_box_pack_start (GTK_BOX (vbox2), dialog.iv1, TRUE, TRUE, 0);
       gtk_widget_show (dialog.iv1);
 
@@ -612,7 +612,7 @@ gtkutil_overwrite_confirm_dialog (const gchar *title, const gchar *message,
                     "keep_aspect",     TRUE,
                     NULL);
       gimv_image_view_hide_scrollbar (GIMV_IMAGE_VIEW (dialog.iv2));
-      gtk_widget_set_usize (dialog.iv2, -1, 150);
+      gtk_widget_set_size_request (dialog.iv2, -1, 150);
       gtk_box_pack_start (GTK_BOX (vbox2), dialog.iv2, TRUE, TRUE, 0);
       gtk_widget_show (dialog.iv2);
 
@@ -1053,7 +1053,7 @@ gtkutil_popup_textentry (const gchar   *title,
    if (flags & TEXT_ENTRY_CURSOR_TOP)
       gtk_entry_set_position (GTK_ENTRY (entry), 0);
    if (entry_width > 0)
-      gtk_widget_set_usize (combo, entry_width, -1);
+      gtk_widget_set_size_request (combo, entry_width, -1);
    if (flags & TEXT_ENTRY_AUTOCOMP_PATH)
       g_signal_connect_after (G_OBJECT(entry), "key-press-event",
                               G_CALLBACK(cb_textpop_key_press),

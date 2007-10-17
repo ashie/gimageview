@@ -546,7 +546,7 @@ gimv_image_win_init (GimvImageWin *iw)
    gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(iw->status_bar1), FALSE);
    gtk_widget_set_name (iw->status_bar1, "StatuBar1");
    gtk_container_border_width (GTK_CONTAINER (iw->status_bar1), 1);
-   gtk_widget_set_usize(iw->status_bar1, 200, -1);
+   gtk_widget_set_size_request(iw->status_bar1, 200, -1);
    gtk_box_pack_start (GTK_BOX (hbox), iw->status_bar1, TRUE, TRUE, 0);
    gtk_statusbar_push(GTK_STATUSBAR (iw->status_bar1), 1, _("New Window"));
    gtk_widget_show (iw->status_bar1);
@@ -555,7 +555,7 @@ gimv_image_win_init (GimvImageWin *iw)
    gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(iw->status_bar2), FALSE);
    gtk_widget_set_name (iw->status_bar1, "StatuBar2");
    gtk_container_border_width (GTK_CONTAINER (iw->status_bar2), 1);
-   gtk_widget_set_usize(iw->status_bar2, 50, -1);
+   gtk_widget_set_size_request(iw->status_bar2, 50, -1);
    gtk_box_pack_start (GTK_BOX (hbox), iw->status_bar2, TRUE, TRUE, 0);
    gtk_widget_show (iw->status_bar2);
 
@@ -2315,18 +2315,12 @@ gimv_image_win_real_show_fullscreen (GimvImageWin *iw)
 
    need_resize = get_fullscreen_geometory (iw, &area);
 
-#if (GTK_MAJOR_VERION >= 2) && (GTK_MINOR_VERSION >= 2)
    gdk_window_fullscreen (iw->fullscreen->window);
    if (need_resize) {
       gtk_window_move (iw->fullscreen, area.x, area.y);
       gtk_window_resize (GTK_WINDOW (iw->fullscreen),
                          area.width, area.height);
    }
-#else /* (GTK_MAJOR_VERION >= 2) && (GTK_MINOR_VERSION >= 2) */
-   gtk_widget_set_uposition (iw->fullscreen, area.x, area.y);
-   gtk_window_set_default_size (GTK_WINDOW (iw->fullscreen),
-                                area.width, area.height);
-#endif /* (GTK_MAJOR_VERION >= 2) && (GTK_MINOR_VERSION >= 2) */
 
    gimv_image_view_set_fullscreen (iw->iv, GTK_WINDOW (iw->fullscreen));
 
