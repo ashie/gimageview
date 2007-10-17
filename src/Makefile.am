@@ -21,7 +21,6 @@ gimv_SOURCES = \
 	cursors.c cursors.h \
 	dither.c dither.h \
 	dnd.c dnd.h \
-	exif_view.c exif_view.h \
 	fileload.c fileload.h \
 	fileutil.c fileutil.h \
 	fr-archive.c fr-archive.h \
@@ -35,6 +34,7 @@ gimv_SOURCES = \
 	gimv_dir_view.c gimv_dir_view.h \
 	gimv_dupl_finder.c gimv_dupl_finder.h \
 	gimv_dupl_win.c gimv_dupl_win.h \
+	gimv_exif_view.c gimv_exif_view.h \
 	gimv_icon_stock.c gimv_icon_stock.h \
 	gimv_image.c gimv_image.h \
 	gimv_image_info.c gimv_image_info.h \

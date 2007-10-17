@@ -51,7 +51,7 @@
 #include "prefs.h"
 
 #ifdef ENABLE_EXIF
-#   include "exif_view.h"
+#   include "gimv_exif_view.h"
 #endif /* ENABLE_EXIF */
 
 
