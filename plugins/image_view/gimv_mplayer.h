@@ -144,7 +144,7 @@ struct GimvMPlayerClass_Tag
 };
 
 
-GtkType           gimv_mplayer_get_type              (void);
+GType             gimv_mplayer_get_type              (void);
 GtkWidget        *gimv_mplayer_new                   (void);
 gboolean          gimv_mplayer_set_file              (GimvMPlayer  *player,
                                                       const gchar  *file);

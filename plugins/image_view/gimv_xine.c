@@ -60,7 +60,7 @@ extern int XShmGetEventBase (Display *);
 #endif /* defined(GDK_WINDOWING_X11) */
 
 /* object class methods */
-static void gimv_xine_destroy       (GtkObject      *object);
+static void gimv_xine_dispose       (GObject        *object);
 
 /* widget class methods */
 static void gimv_xine_realize       (GtkWidget      *widget);
@@ -79,15 +79,15 @@ G_DEFINE_TYPE (GimvXine, gimv_xine, GTK_TYPE_WIDGET)
 static void
 gimv_xine_class_init (GimvXineClass *class)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
    GtkWidgetClass *widget_class;
 
-   object_class = (GtkObjectClass *) class;
+   gobject_class = (GObjectClass *) class;
    widget_class = (GtkWidgetClass *) class;
 
    gimv_xine_signals[PLAY_SIGNAL]
       = g_signal_new ("play",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvXineClass, play),
                       NULL, NULL,
@@ -97,7 +97,7 @@ gimv_xine_class_init (GimvXineClass *class)
    gimv_xine_signals[STOP_SIGNAL]
       = g_signal_new ("stop",
                       G_SIGNAL_RUN_FIRST,
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_STRUCT_OFFSET (GimvXineClass, stop),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
@@ -105,7 +105,7 @@ gimv_xine_class_init (GimvXineClass *class)
 
    gimv_xine_signals[PLAYBACK_FINISHED_SIGNAL]
       = g_signal_new ("playback_finished",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvXineClass, playback_finished),
                       NULL, NULL,
@@ -132,7 +132,7 @@ gimv_xine_class_init (GimvXineClass *class)
                       G_TYPE_NONE, 0);
    */
 
-   object_class->destroy       = gimv_xine_destroy;
+   gobject_class->dispose      = gimv_xine_dispose;
 
    widget_class->realize       = gimv_xine_realize;
    widget_class->unrealize     = gimv_xine_unrealize;
@@ -152,7 +152,7 @@ gimv_xine_init (GimvXine *this)
 
 
 static void
-gimv_xine_destroy (GtkObject *object)
+gimv_xine_dispose (GObject *object)
 {
    GimvXine *gtx = GIMV_XINE (object);
 
@@ -163,8 +163,8 @@ gimv_xine_destroy (GtkObject *object)
       gtx->private = NULL;
    }
 
-   if (GTK_OBJECT_CLASS (gimv_xine_parent_class)->destroy)
-      GTK_OBJECT_CLASS (gimv_xine_parent_class)->destroy (object);
+   if (G_OBJECT_CLASS (gimv_xine_parent_class)->dispose)
+      G_OBJECT_CLASS (gimv_xine_parent_class)->dispose (object);
 }
 
 

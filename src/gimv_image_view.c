@@ -158,7 +158,7 @@ struct GimvImageViewPrivate_Tag
 
 
 /* object class methods */
-static void gimv_image_view_destroy       (GtkObject *object);
+static void gimv_image_view_dispose       (GObject *object);
 
 /* image view class methods */
 static void gimv_image_view_image_changed (GimvImageView *iv);
@@ -508,8 +508,10 @@ gimv_image_view_get_arg (GtkObject *object,
 static void
 gimv_image_view_class_init (GimvImageViewClass *klass)
 {
+   GObjectClass *gobject_class;
    GtkObjectClass *object_class;
 
+   gobject_class = (GObjectClass *) klass;
    object_class = (GtkObjectClass *) klass;
 
    gtk_object_add_arg_type ("GimvImageView::x_scale",
@@ -555,7 +557,7 @@ gimv_image_view_class_init (GimvImageViewClass *klass)
 
    gimv_image_view_signals[IMAGE_CHANGED_SIGNAL]
       = g_signal_new ("image_changed",
-                      G_TYPE_FROM_CLASS(object_class),
+                      G_TYPE_FROM_CLASS(gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvImageViewClass, image_changed),
                       NULL, NULL,
@@ -564,7 +566,7 @@ gimv_image_view_class_init (GimvImageViewClass *klass)
 
    gimv_image_view_signals[LOAD_START_SIGNAL]
       = g_signal_new ("load_start",
-                      G_TYPE_FROM_CLASS(object_class),
+                      G_TYPE_FROM_CLASS(gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvImageViewClass, load_start),
                       NULL, NULL,
@@ -573,7 +575,7 @@ gimv_image_view_class_init (GimvImageViewClass *klass)
 
    gimv_image_view_signals[LOAD_END_SIGNAL]
       = g_signal_new ("load_end",
-                      G_TYPE_FROM_CLASS(object_class),
+                      G_TYPE_FROM_CLASS(gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvImageViewClass, load_end),
                       NULL, NULL,
@@ -582,7 +584,7 @@ gimv_image_view_class_init (GimvImageViewClass *klass)
 
    gimv_image_view_signals[SET_LIST_SIGNAL]
       = g_signal_new ("set_list",
-                      G_TYPE_FROM_CLASS(object_class),
+                      G_TYPE_FROM_CLASS(gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvImageViewClass, set_list),
                       NULL, NULL,
@@ -591,7 +593,7 @@ gimv_image_view_class_init (GimvImageViewClass *klass)
 
    gimv_image_view_signals[UNSET_LIST_SIGNAL]
       = g_signal_new ("unset_list",
-                      G_TYPE_FROM_CLASS(object_class),
+                      G_TYPE_FROM_CLASS(gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvImageViewClass, unset_list),
                       NULL, NULL,
@@ -600,7 +602,7 @@ gimv_image_view_class_init (GimvImageViewClass *klass)
 
    gimv_image_view_signals[RENDERED_SIGNAL]
       = g_signal_new ("rendered",
-                      G_TYPE_FROM_CLASS(object_class),
+                      G_TYPE_FROM_CLASS(gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvImageViewClass, rendered),
                       NULL, NULL,
@@ -609,7 +611,7 @@ gimv_image_view_class_init (GimvImageViewClass *klass)
 
    gimv_image_view_signals[TOGGLE_ASPECT_SIGNAL]
       = g_signal_new ("toggle_aspect",
-                      G_TYPE_FROM_CLASS(object_class),
+                      G_TYPE_FROM_CLASS(gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvImageViewClass, toggle_aspect),
                       NULL, NULL,
@@ -618,7 +620,7 @@ gimv_image_view_class_init (GimvImageViewClass *klass)
 
    gimv_image_view_signals[TOGGLE_BUFFER_SIGNAL]
       = g_signal_new ("toggle_buffer",
-                      G_TYPE_FROM_CLASS(object_class),
+                      G_TYPE_FROM_CLASS(gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvImageViewClass, toggle_buffer),
                       NULL, NULL,
@@ -627,7 +629,7 @@ gimv_image_view_class_init (GimvImageViewClass *klass)
 
    gimv_image_view_signals[THUMBNAIL_CREATED_SIGNAL]
       = g_signal_new ("thumbnail_created",
-                      G_TYPE_FROM_CLASS(object_class),
+                      G_TYPE_FROM_CLASS(gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvImageViewClass, thumbnail_created),
                       NULL, NULL,
@@ -636,7 +638,7 @@ gimv_image_view_class_init (GimvImageViewClass *klass)
 
    gimv_image_view_signals[IMAGE_PRESSED_SIGNAL]
       = g_signal_new ("image_pressed",
-                      G_TYPE_FROM_CLASS(object_class),
+                      G_TYPE_FROM_CLASS(gobject_class),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (GimvImageViewClass, image_pressed),
                       NULL, NULL,
@@ -645,7 +647,7 @@ gimv_image_view_class_init (GimvImageViewClass *klass)
 
    gimv_image_view_signals[IMAGE_RELEASED_SIGNAL]
       = g_signal_new ("image_released",
-                      G_TYPE_FROM_CLASS(object_class),
+                      G_TYPE_FROM_CLASS(gobject_class),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (GimvImageViewClass, image_released),
                       NULL, NULL,
@@ -654,16 +656,17 @@ gimv_image_view_class_init (GimvImageViewClass *klass)
 
    gimv_image_view_signals[IMAGE_CLICKED_SIGNAL]
       = g_signal_new ("image_clicked",
-                      G_TYPE_FROM_CLASS(object_class),
+                      G_TYPE_FROM_CLASS(gobject_class),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (GimvImageViewClass, image_clicked),
                       NULL, NULL,
                       gtk_marshal_BOOL__POINTER,
                       G_TYPE_BOOLEAN, 1, G_TYPE_POINTER);
 
-   object_class->set_arg = gimv_image_view_set_arg;
-   object_class->get_arg = gimv_image_view_get_arg;
-   object_class->destroy = gimv_image_view_destroy;
+   gobject_class->dispose   = gimv_image_view_dispose;
+
+   object_class->set_arg    = gimv_image_view_set_arg;
+   object_class->get_arg    = gimv_image_view_get_arg;
 
    klass->image_changed     = gimv_image_view_image_changed;
    klass->load_start        = NULL;
@@ -817,7 +820,7 @@ gimv_image_view_new (GimvImageInfo *info)
 
 
 static void
-gimv_image_view_destroy (GtkObject *object)
+gimv_image_view_dispose (GObject *object)
 {
    GimvImageView *iv = GIMV_IMAGE_VIEW (object);
 
@@ -874,8 +877,8 @@ gimv_image_view_destroy (GtkObject *object)
       iv->priv = NULL;
    }
 
-   if (GTK_OBJECT_CLASS (gimv_image_view_parent_class)->destroy)
-      GTK_OBJECT_CLASS (gimv_image_view_parent_class)->destroy (object);
+   if (G_OBJECT_CLASS (gimv_image_view_parent_class)->dispose)
+      G_OBJECT_CLASS (gimv_image_view_parent_class)->dispose (object);
 }
 
 

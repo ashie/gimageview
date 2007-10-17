@@ -68,7 +68,7 @@ struct GimvDuplWinClass_Tag
 
 
 /* result window */
-GtkType              gimv_dupl_win_get_type       (void);
+GType                gimv_dupl_win_get_type       (void);
 GimvDuplWin         *gimv_dupl_win_new            (gint thumbnail_size);
 void                 gimv_dupl_win_set_relation   (GimvDuplWin         *sw,
                                                    GimvThumbView       *tv);

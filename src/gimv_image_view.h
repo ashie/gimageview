@@ -201,7 +201,7 @@ struct GimvImageViewClass_Tag
 
 
 GList     *gimv_image_view_get_list               (void);
-GtkType    gimv_image_view_get_type               (void);
+GType      gimv_image_view_get_type               (void);
 GtkWidget *gimv_image_view_new                    (GimvImageInfo  *info);
 
 void       gimv_image_view_change_image           (GimvImageView  *iv,

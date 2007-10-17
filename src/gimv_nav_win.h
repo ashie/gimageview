@@ -91,7 +91,7 @@ struct GimvNavWinClass_Tag
 };
 
 
-GtkType    gimv_nav_win_get_type             (void);
+GType      gimv_nav_win_get_type             (void);
 GtkWidget *gimv_nav_win_new                  (GdkPixmap  *pixmap,
                                               GdkBitmap  *mask,
                                               gint        image_width,

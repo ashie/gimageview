@@ -100,13 +100,13 @@ gimv_elist_init (GimvEList *editlist)
 static void
 gimv_elist_class_init (GimvEListClass *klass)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
 
-   object_class = (GtkObjectClass *) klass;
+   gobject_class = (GObjectClass *) klass;
 
    gimv_elist_signals[LIST_UPDATED_SIGNAL]
       = g_signal_new ("list-updated",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvEListClass, list_updated),
                       NULL, NULL,
@@ -115,7 +115,7 @@ gimv_elist_class_init (GimvEListClass *klass)
 
    gimv_elist_signals[EDIT_AREA_SET_DATA_SIGNAL]
       = g_signal_new ("edit-area-set-data",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvEListClass, edit_area_set_data),
                       NULL, NULL,
@@ -124,14 +124,14 @@ gimv_elist_class_init (GimvEListClass *klass)
 
    gimv_elist_signals[ACTION_CONFIRM_SIGNAL]
       = g_signal_new ("action-confirm",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (GimvEListClass, action_confirm),
                       NULL, NULL,
                       gtk_marshal_NONE__INT_INT_POINTER,
                       G_TYPE_NONE, 3, G_TYPE_INT, G_TYPE_INT, G_TYPE_POINTER);
 
-   G_OBJECT_CLASS(klass)->finalize = gimv_elist_finalize;
+   gobject_class->finalize = gimv_elist_finalize;
 }
 
 

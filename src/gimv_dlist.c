@@ -77,13 +77,13 @@ gimv_dlist_init (GimvDList *dslist)
 static void
 gimv_dlist_class_init (GimvDListClass *klass)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
 
-   object_class = (GtkObjectClass *) klass;
+   gobject_class = (GObjectClass *) klass;
 
    gimv_dlist_signals[ENABLED_LIST_UPDATED_SIGNAL]
       = g_signal_new ("enabled-list-updated",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvDListClass, enabled_list_updated),
                       NULL, NULL,

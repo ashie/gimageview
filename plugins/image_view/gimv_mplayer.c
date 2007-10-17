@@ -107,7 +107,7 @@ typedef struct  GetDriversContext_Tag
 
 
 /* object class */
-static void     gimv_mplayer_destroy       (GtkObject        *object);
+static void     gimv_mplayer_dispose       (GObject          *object);
 
 /* widget class */
 static void     gimv_mplayer_realize       (GtkWidget        *widget);
@@ -163,15 +163,15 @@ G_DEFINE_TYPE (GimvMPlayer, gimv_mplayer, GTK_TYPE_WIDGET)
 static void
 gimv_mplayer_class_init (GimvMPlayerClass *class)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
    GtkWidgetClass *widget_class;
 
-   object_class = (GtkObjectClass *) class;
+   gobject_class = (GObjectClass *) class;
    widget_class = (GtkWidgetClass *) class;
 
    gimv_mplayer_signals[PLAY_SIGNAL]
       = g_signal_new ("play",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvMPlayerClass, play),
                       NULL, NULL,
@@ -180,7 +180,7 @@ gimv_mplayer_class_init (GimvMPlayerClass *class)
 
    gimv_mplayer_signals[STOP_SIGNAL]
       = g_signal_new ("stop",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvMPlayerClass, stop),
                       NULL, NULL,
@@ -189,7 +189,7 @@ gimv_mplayer_class_init (GimvMPlayerClass *class)
 
    gimv_mplayer_signals[PAUSE_SIGNAL]
       = g_signal_new ("pause",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvMPlayerClass, pause),
                       NULL, NULL,
@@ -198,7 +198,7 @@ gimv_mplayer_class_init (GimvMPlayerClass *class)
 
    gimv_mplayer_signals[POS_CHANGED_SIGNAL]
       = g_signal_new ("position-chaned",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvMPlayerClass, position_changed),
                       NULL, NULL,
@@ -207,7 +207,7 @@ gimv_mplayer_class_init (GimvMPlayerClass *class)
 
    gimv_mplayer_signals[IDENTIFIED_SIGNAL]
       = g_signal_new ("identified",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvMPlayerClass, identified),
                       NULL, NULL,
@@ -215,7 +215,7 @@ gimv_mplayer_class_init (GimvMPlayerClass *class)
                       G_TYPE_NONE, 0);
 
    /* object class methods */
-   object_class->destroy       = gimv_mplayer_destroy;
+   gobject_class->dispose      = gimv_mplayer_dispose;
 
    /* widget class methods */
    widget_class->realize       = gimv_mplayer_realize;
@@ -286,7 +286,7 @@ gimv_mplayer_init (GimvMPlayer *player)
 
 
 static void
-gimv_mplayer_destroy (GtkObject *object)
+gimv_mplayer_dispose (GObject *object)
 {
    GimvMPlayer *player = GIMV_MPLAYER (object);
 
@@ -312,8 +312,8 @@ gimv_mplayer_destroy (GtkObject *object)
 
    /* FIXME: free player->args */
 
-   if (GTK_OBJECT_CLASS (gimv_mplayer_parent_class)->destroy)
-      GTK_OBJECT_CLASS (gimv_mplayer_parent_class)->destroy (object);
+   if (G_OBJECT_CLASS (gimv_mplayer_parent_class)->dispose)
+      G_OBJECT_CLASS (gimv_mplayer_parent_class)->dispose (object);
 }
 
 

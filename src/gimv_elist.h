@@ -145,7 +145,7 @@ struct GimvEListColumnFuncTable_Tag {
 };
 
 
-GtkType       gimv_elist_get_type              (void);
+GType         gimv_elist_get_type              (void);
 GtkWidget    *gimv_elist_new                   (gint          colnum);
 GtkWidget    *gimv_elist_new_with_titles       (gint          colnum,
                                                 gchar        *titles[]);

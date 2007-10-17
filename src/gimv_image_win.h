@@ -123,7 +123,7 @@ struct GimvImageWinClass_Tag
 };
 
 
-GtkType       gimv_image_win_get_type                  (void);
+GType         gimv_image_win_get_type                  (void);
 GtkWidget    *gimv_image_win_new                       (GimvImageInfo *info);
 GimvImageWin *gimv_image_win_open_window               (GimvImageInfo *info);
 GimvImageWin *gimv_image_win_open_shared_window        (GimvImageInfo *info);

@@ -117,7 +117,7 @@ struct _GimvZListClass
 };
 
 
-GtkType    gimv_zlist_get_type                    (void);
+GType      gimv_zlist_get_type                    (void);
 
 void       gimv_zlist_construct                   (GimvZList        *list,
                                                    gint              flags);

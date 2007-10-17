@@ -102,7 +102,7 @@ struct _GimvScrolledClass {
 };
 
 
-GtkType    gimv_scrolled_get_type (void);
+GType      gimv_scrolled_get_type (void);
 
 void       gimv_scrolled_realize                      (GimvScrolled *scrolled);
 void       gimv_scrolled_unrealize                    (GimvScrolled *scrolled);
