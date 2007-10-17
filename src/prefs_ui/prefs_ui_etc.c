@@ -85,7 +85,7 @@ set_sensitive_cache_write (void)
    menu_item = gtkutil_option_menu_get_current (option_menu);
    if (!menu_item) return;
 
-   label = gtk_object_get_data (GTK_OBJECT (menu_item), "label");
+   label = g_object_get_data (G_OBJECT (menu_item), "label");
    if (!label) return;
 
    if (gimv_thumb_cache_has_save_prefs (label)) {
@@ -128,7 +128,7 @@ cb_cache_write_prefs_button_pressed (GtkWidget *option_menu)
    menu_item = GTK_OPTION_MENU (option_menu)->menu_item;
    if (!menu_item) return;
 
-   label = gtk_object_get_data (GTK_OBJECT (menu_item), "label");
+   label = g_object_get_data (G_OBJECT (menu_item), "label");
    if (!label) return;
 
    widget = gimv_thumb_cache_get_save_prefs (label, NULL);
@@ -508,7 +508,7 @@ static void
 cb_zoom_menu (GtkWidget *menu)
 {
    config_changed->slideshow_zoom =
-      GPOINTER_TO_INT (gtk_object_get_data(GTK_OBJECT(menu), "num"));
+      GPOINTER_TO_INT (g_object_get_data(G_OBJECT(menu), "num"));
 
    gtk_widget_set_sensitive (prefs_win.slideshow_scale_spin,
                              config_changed->slideshow_zoom == 0 ||
@@ -567,7 +567,7 @@ prefs_cache_page (void)
 
       if (!strcmp(text, conf.cache_write_type)) item = i;
       menu_item = gtk_menu_item_new_with_label (_(text));
-      gtk_object_set_data (GTK_OBJECT (menu_item), "label", text);
+      g_object_set_data (G_OBJECT (menu_item), "label", text);
       g_signal_connect(G_OBJECT(menu_item), "activate",
                        G_CALLBACK(cb_cache_write_type), text);
       gtk_menu_append (GTK_MENU(menu), menu_item);

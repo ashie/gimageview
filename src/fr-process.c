@@ -129,7 +129,7 @@ fr_process_init (FRProcess *fr_proc)
 
    fr_proc->use_standard_locale = TRUE;
 
-   gtk_object_ref (GTK_OBJECT (fr_proc));
+   g_object_ref (G_OBJECT (fr_proc));
    gtk_object_sink (GTK_OBJECT (fr_proc));
 }
 

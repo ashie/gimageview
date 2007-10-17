@@ -138,7 +138,7 @@ gimv_comment_init (GimvComment *comment)
 
    comment->note      = NULL;
 
-   gtk_object_ref (GTK_OBJECT (comment));
+   g_object_ref (G_OBJECT (comment));
    gtk_object_sink (GTK_OBJECT (comment));
 }
 
@@ -187,7 +187,7 @@ gimv_comment_ref (GimvComment *comment)
    g_return_val_if_fail (comment, NULL);
    g_return_val_if_fail (GIMV_IS_COMMENT (comment), NULL);
 
-   gtk_object_ref (GTK_OBJECT (comment));
+   g_object_ref (G_OBJECT (comment));
 
    return comment;
 }
@@ -199,7 +199,7 @@ gimv_comment_unref (GimvComment *comment)
    g_return_if_fail (comment);
    g_return_if_fail (GIMV_IS_COMMENT (comment));
 
-   gtk_object_unref (GTK_OBJECT (comment));
+   g_object_unref (G_OBJECT (comment));
 }
 
 

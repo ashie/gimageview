@@ -428,7 +428,7 @@ cb_open_image_by_external (GtkWidget *menuitem, GimvThumbView *tv)
    thumblist = node = gimv_thumb_view_get_selection_list (tv);
    if (!thumblist) return;
 
-   action = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (menuitem), "num"));
+   action = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (menuitem), "num"));
 
    /* find command */
    if (action < sizeof (conf.progs) / sizeof (conf.progs[0])) {
@@ -509,7 +509,7 @@ cb_open_image_by_script (GtkWidget *menuitem, GimvThumbView *tv)
    thumblist = node = gimv_thumb_view_get_selection_list (tv);
    if (!thumblist) return;
 
-   script = gtk_object_get_data (GTK_OBJECT (menuitem), "script");
+   script = g_object_get_data (G_OBJECT (menuitem), "script");
    if (!script || !script || !isexecutable (script)) goto ERROR;
 
    cmd = g_strdup (script);
@@ -623,7 +623,7 @@ cb_remove_thumbnail (GimvThumbView *tv, guint action, GtkWidget *menuitem)
 
       tv->vfuncs->remove_thumb (tv, thumb);
       gimv_thumb_view_remove_thumb_data (tv, thumb);
-      gtk_object_unref (GTK_OBJECT(thumb));
+      g_object_unref (G_OBJECT(thumb));
    }
 
    if (tv->vfuncs->thaw)
@@ -1048,8 +1048,8 @@ gimv_thumb_view_drag_data_received_cb (GtkWidget *widget,
    if (src_widget == widget) return;
 
    if (src_widget)
-      src_tab  = gtk_object_get_data (GTK_OBJECT (src_widget), "gimv-tab");
-   dest_tab = gtk_object_get_data (GTK_OBJECT (widget), "gimv-tab");
+      src_tab  = g_object_get_data (G_OBJECT (src_widget), "gimv-tab");
+   dest_tab = g_object_get_data (G_OBJECT (widget), "gimv-tab");
    if (src_tab == dest_tab) return;
 
    if (tv->mode == GIMV_THUMB_VIEW_MODE_DIR) {
@@ -2008,7 +2008,7 @@ create_progs_submenu (GimvThumbView *tv)
             label = g_strdup (pair[0]);
 
          menu_item = gtk_menu_item_new_with_label (label);
-         gtk_object_set_data (GTK_OBJECT (menu_item), "num", GINT_TO_POINTER (i));
+         g_object_set_data (G_OBJECT (menu_item), "num", GINT_TO_POINTER (i));
          g_signal_connect (G_OBJECT (menu_item), "activate",
                            G_CALLBACK (cb_open_image_by_external), tv);
          gtk_menu_append (GTK_MENU (menu), menu_item);
@@ -2288,7 +2288,7 @@ gimv_thumb_view_popup_menu (GimvThumbView *tv, GimvThumb *thumb,
                   NULL, NULL, button, time);
 
    tv->popup_menu = popup_menu;
-   gtk_object_ref (GTK_OBJECT (tv->popup_menu));
+   g_object_ref (G_OBJECT (tv->popup_menu));
    gtk_object_sink (GTK_OBJECT (tv->popup_menu));
 
    g_list_free (thumblist);
@@ -2552,10 +2552,10 @@ create_scripts_submenu (GimvThumbView *tv)
          label = g_strdup (g_basename (filename));
 
       menu_item = gtk_menu_item_new_with_label (label);
-      gtk_object_set_data_full (GTK_OBJECT (menu_item),
-                                "script",
-                                g_strdup (filename),
-                                (GtkDestroyNotify) g_free);
+      g_object_set_data_full (G_OBJECT (menu_item),
+                              "script",
+                              g_strdup (filename),
+                              (GtkDestroyNotify) g_free);
       g_signal_connect (G_OBJECT (menu_item),
                         "activate",
                         G_CALLBACK (cb_open_image_by_script),
@@ -2844,7 +2844,7 @@ gimv_thumb_view_load_thumbnails (GimvThumbView *tv, GList *loadlist,
 
       if(files->status < 0) {
          GimvThumbViewList = g_list_remove (GimvThumbViewList, tv);
-         gtk_object_unref (GTK_OBJECT (tv));
+         g_object_unref (G_OBJECT (tv));
          break;
       } else {
          /* update progress info */
@@ -2933,7 +2933,7 @@ gimv_thumb_view_clear (GimvThumbView *tv)
 
       tv->vfuncs->remove_thumb (tv, thumb);
       gimv_thumb_view_remove_thumb_data (tv, thumb);
-      gtk_object_unref (GTK_OBJECT(thumb));
+      g_object_unref (G_OBJECT(thumb));
    }
 
    /* destroy relation */
@@ -3105,7 +3105,7 @@ gimv_thumb_view_refresh_list (GimvThumbView *tv)
          if (!exist) {
             tv->vfuncs->remove_thumb (tv, thumb);
             gimv_thumb_view_remove_thumb_data (tv, thumb);
-            gtk_object_unref (GTK_OBJECT (thumb));
+            g_object_unref (G_OBJECT (thumb));
          }
 
          exist = FALSE;
@@ -3530,7 +3530,7 @@ gimv_thumb_view_init (GimvThumbView *tv)
    tv->priv->related_dupl_win      = NULL;
    tv->priv->button_2pressed_queue = 0;
 
-   gtk_object_ref (GTK_OBJECT (tv));
+   g_object_ref (G_OBJECT (tv));
    gtk_object_sink (GTK_OBJECT (tv));
 
    GimvThumbViewList = g_list_append (GimvThumbViewList, tv);
@@ -3838,7 +3838,7 @@ gimv_thumb_view_destroy (GtkObject *object)
    }
 
    /* remove thumbnails */
-   g_list_foreach (tv->thumblist, (GFunc) gtk_object_unref, NULL);
+   g_list_foreach (tv->thumblist, (GFunc) g_object_unref, NULL);
    g_list_free(tv->thumblist);
    tv->thumblist = NULL;
 
@@ -3854,3 +3854,4 @@ gimv_thumb_view_destroy (GtkObject *object)
    if (GTK_OBJECT_CLASS (gimv_thumb_view_parent_class)->destroy)
       (GTK_OBJECT_CLASS (gimv_thumb_view_parent_class)->destroy) (object);
 }
+

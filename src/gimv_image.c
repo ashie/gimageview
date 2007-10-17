@@ -70,7 +70,7 @@ gimv_image_init (GimvImage *image)
    image->comments        = NULL;
    image->additional_data = NULL;
 
-   gtk_object_ref (GTK_OBJECT (image));
+   g_object_ref (G_OBJECT (image));
    gtk_object_sink (GTK_OBJECT (image));
 }
 
@@ -688,7 +688,7 @@ gimv_image_get_comment (GimvImage *image, const gchar *key)
 GimvImage  *
 gimv_image_ref (GimvImage *image)
 {
-   gtk_object_ref (GTK_OBJECT (image));
+   g_object_ref (G_OBJECT (image));
    return image;
 }
 
@@ -696,7 +696,7 @@ gimv_image_ref (GimvImage *image)
 void
 gimv_image_unref (GimvImage *image)
 {
-   gtk_object_unref (GTK_OBJECT (image));
+   g_object_unref (G_OBJECT (image));
 }
 
 

@@ -296,13 +296,13 @@ gimv_slideshow_open_window (GimvSlideShow *slideshow)
    iv = iw->iv;
 
    /* override some parameters */
-   gtk_object_set(GTK_OBJECT(iv),
-                  "x_scale",           conf.slideshow_img_scale,
-                  "y_scale",           conf.slideshow_img_scale,
-                  "default_zoom",      conf.slideshow_zoom,
-                  "default_rotation",  conf.slideshow_rotation,
-                  "keep_aspect",       conf.slideshow_keep_aspect,
-                  NULL);
+   g_object_set(G_OBJECT(iv),
+                "x_scale",           conf.slideshow_img_scale,
+                "y_scale",           conf.slideshow_img_scale,
+                "default_zoom",      conf.slideshow_zoom,
+                "default_rotation",  conf.slideshow_rotation,
+                "keep_aspect",       conf.slideshow_keep_aspect,
+                NULL);
 
    gimv_image_win_change_image (GIMV_IMAGE_WIN (iw), current->data);
 

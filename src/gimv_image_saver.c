@@ -150,7 +150,7 @@ gimv_image_saver_init (GimvImageSaver *saver)
    saver->priv        = g_new0 (GimvImageSaverPriv, 1);
    saver->priv->flags = 0;
 
-   gtk_object_ref (GTK_OBJECT (saver));
+   g_object_ref (G_OBJECT (saver));
    gtk_object_sink (GTK_OBJECT (saver));
 }
 
@@ -208,7 +208,7 @@ gimv_image_saver_ref (GimvImageSaver *saver)
 {
    g_return_val_if_fail (GIMV_IS_IMAGE_SAVER (saver), NULL);
 
-   gtk_object_ref (GTK_OBJECT (saver));
+   g_object_ref (G_OBJECT (saver));
 
    return saver;
 }
@@ -219,7 +219,7 @@ gimv_image_saver_unref (GimvImageSaver *saver)
 {
    g_return_if_fail (GIMV_IS_IMAGE_SAVER (saver));
 
-   gtk_object_unref (GTK_OBJECT (saver));
+   g_object_unref (G_OBJECT (saver));
 }
 
 

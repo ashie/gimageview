@@ -301,9 +301,9 @@ cb_playback_finished (GimvXine *gtx, GimvImageView *iv)
 
    g_return_if_fail (GIMV_IS_IMAGE_VIEW (iv));
 
-   gtk_object_get (GTK_OBJECT (iv),
-                   "continuance_play", &next,
-                   NULL);
+   g_object_get (G_OBJECT (iv),
+                 "continuance_play", &next,
+                 NULL);
 
    if (next)
       gimv_image_view_next (iv);

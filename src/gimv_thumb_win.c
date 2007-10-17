@@ -788,7 +788,7 @@ gimv_thumb_win_destroy (GtkObject *object)
          if (tv->progress) {
             tv->progress->status = WINDOW_DESTROYED;
          } else {
-            gtk_object_unref (GTK_OBJECT (tv));
+            g_object_unref (G_OBJECT (tv));
          }
       }
 
@@ -919,7 +919,7 @@ create_wincomp_sub_menu (GimvThumbWin *tw)
    for (i = 0; i < 6; i++) {
       /* item = gtk_menu_item_new (group); */
       item = gtk_menu_item_new ();
-      gtk_object_set_data (GTK_OBJECT (item), "num", GINT_TO_POINTER (i));
+      g_object_set_data (G_OBJECT (item), "num", GINT_TO_POINTER (i));
       icon = create_composition_icon (i);
       gtk_container_add (GTK_CONTAINER (item), icon);
       g_signal_connect (G_OBJECT (item), "activate",
@@ -1191,7 +1191,7 @@ cb_wallpaper_setting (GtkWidget *menuitem, GimvThumbWin *tw)
    const gchar *str;
    gchar *cmd;
 
-   str = gtk_object_get_data (GTK_OBJECT (menuitem), "command");
+   str = g_object_get_data (G_OBJECT (menuitem), "command");
    if (!str) return;
 
    cmd = g_strconcat (str, " &", NULL);
@@ -1222,9 +1222,9 @@ create_wallpaper_submenu (GimvThumbWin *tw)
 
       if (pair && pair[0] && pair[1]) {
          menu_item = gtk_menu_item_new_with_label (pair[0]);
-         gtk_object_set_data_full (GTK_OBJECT (menu_item), "command",
-                                   g_strdup (pair[1]),
-                                   (GtkDestroyNotify) g_free);
+         g_object_set_data_full (G_OBJECT (menu_item), "command",
+                                 g_strdup (pair[1]),
+                                 (GtkDestroyNotify) g_free);
          g_signal_connect (G_OBJECT (menu_item), "activate",
                            G_CALLBACK (cb_wallpaper_setting), tw);
          gtk_menu_append (GTK_MENU (menu), menu_item);
@@ -1841,7 +1841,7 @@ thumbnail_view_new (GimvThumbWin *tw)
    g_signal_connect (G_OBJECT(notebook), "switch-page",
                      G_CALLBACK(cb_thumb_notebook_switch_page), tw);
 
-   gtk_object_set_data (GTK_OBJECT (notebook), "thumbwin", tw);
+   g_object_set_data (G_OBJECT (notebook), "thumbwin", tw);
    dnd_src_set  (notebook, dnd_types_tab_component, dnd_types_tab_component_num);
    g_signal_connect (G_OBJECT (notebook), "drag_begin",
                      G_CALLBACK (cb_com_drag_begin), tw);
@@ -1849,16 +1849,16 @@ thumbnail_view_new (GimvThumbWin *tw)
                      G_CALLBACK (cb_com_drag_data_get), tw);
 
    dnd_dest_set (notebook, dnd_types_all, dnd_types_all_num);
-   gtk_object_set_data (GTK_OBJECT (notebook),
-                        "gimv-component",
-                        GINT_TO_POINTER (GIMV_COM_THUMB_VIEW));
+   g_object_set_data (G_OBJECT (notebook),
+                      "gimv-component",
+                      GINT_TO_POINTER (GIMV_COM_THUMB_VIEW));
    g_signal_connect (G_OBJECT (notebook), "drag_data_received",
                      G_CALLBACK (cb_notebook_drag_data_received), tw);
 
    dnd_dest_set (vbox, dnd_types_all, dnd_types_all_num);
-   gtk_object_set_data (GTK_OBJECT (vbox),
-                        "gimv-component",
-                        GINT_TO_POINTER (GIMV_COM_THUMB_VIEW));
+   g_object_set_data (G_OBJECT (vbox),
+                      "gimv-component",
+                      GINT_TO_POINTER (GIMV_COM_THUMB_VIEW));
    g_signal_connect (G_OBJECT (vbox), "drag_data_received",
                      G_CALLBACK (cb_notebook_drag_data_received), tw);
 
@@ -2046,15 +2046,15 @@ image_preview_new (GimvThumbWin *tw)
 
    /* override prefs */
    gimv_image_view_set_player_visible (tw->iv, tw->player_visible);
-   gtk_object_set(GTK_OBJECT(tw->iv),
-                  "x_scale",           conf.preview_scale,
-                  "y_scale",           conf.preview_scale,
-                  "default_zoom",      conf.preview_zoom,
-                  "default_rotation",  conf.preview_rotation,
-                  "keep_aspect",       conf.preview_keep_aspect,
-                  "keep_buffer",       conf.preview_buffer,
-                  "show_scrollbar",    conf.preview_scrollbar,
-                  NULL);
+   g_object_set(G_OBJECT(tw->iv),
+                "x_scale",           conf.preview_scale,
+                "y_scale",           conf.preview_scale,
+                "default_zoom",      conf.preview_zoom,
+                "default_rotation",  conf.preview_rotation,
+                "keep_aspect",       conf.preview_keep_aspect,
+                "keep_buffer",       conf.preview_buffer,
+                "show_scrollbar",    conf.preview_scrollbar,
+                NULL);
 
    gimv_image_view_create_popup_menu (GTK_WIDGET (tw),
                                       tw->iv, "<ThumbWinPreviewPop>");
@@ -2062,18 +2062,18 @@ image_preview_new (GimvThumbWin *tw)
    /* set component DnD */
    /* FIXME!! image view and comment view shuold be seperated */
    dnd_src_set  (cv->notebook, dnd_types_component, dnd_types_component_num);
-   gtk_object_set_data (GTK_OBJECT (cv->notebook),
-                        "gimv-component",
-                        GINT_TO_POINTER (GIMV_COM_IMAGE_VIEW));
+   g_object_set_data (G_OBJECT (cv->notebook),
+                      "gimv-component",
+                      GINT_TO_POINTER (GIMV_COM_IMAGE_VIEW));
    g_signal_connect (G_OBJECT (cv->notebook), "drag_begin",
                      G_CALLBACK (cb_com_drag_begin), tw);
    g_signal_connect (G_OBJECT (cv->notebook), "drag_data_get",
                      G_CALLBACK (cb_com_drag_data_get), tw);
 
    dnd_dest_set (cv->main_vbox, dnd_types_component, dnd_types_component_num);
-   gtk_object_set_data (GTK_OBJECT (cv->main_vbox),
-                        "gimv-component",
-                        GINT_TO_POINTER (GIMV_COM_IMAGE_VIEW));
+   g_object_set_data (G_OBJECT (cv->main_vbox),
+                      "gimv-component",
+                      GINT_TO_POINTER (GIMV_COM_IMAGE_VIEW));
    g_signal_connect (G_OBJECT (cv->main_vbox), "drag_data_received",
                      G_CALLBACK (cb_com_swap_drag_data_received), tw);
    /* END FIXME!! */
@@ -2099,9 +2099,9 @@ image_preview_new (GimvThumbWin *tw)
    /* END FIXME!! */
 
    gtk_widget_show (GTK_WIDGET (tw->iv));
-   gtk_object_get (GTK_OBJECT (tw->iv),
-                   "show_scrollbar", &show_scrollbar,
-                   NULL);
+   g_object_get (G_OBJECT (tw->iv),
+                 "show_scrollbar", &show_scrollbar,
+                 NULL);
    if (!show_scrollbar)
       gimv_image_view_hide_scrollbar (tw->iv);
    gtk_notebook_prepend_page (GTK_NOTEBOOK(cv->notebook), GTK_WIDGET (tw->iv), label);
@@ -2672,7 +2672,7 @@ cb_win_composition_menu (GtkMenuItem *item, gpointer data)
 
    g_return_if_fail (tw);
 
-   p = gtk_object_get_data (GTK_OBJECT (item), "num");
+   p = g_object_get_data (G_OBJECT (item), "num");
    num = GPOINTER_TO_INT (p);
    n_win_comps = sizeof (win_comp) / sizeof (gboolean) / 3;
    if (num < 0 || num > n_win_comps) return;
@@ -2957,7 +2957,7 @@ cb_display_mode_menu (GtkWidget *widget, GimvThumbWin *tw)
    tv = gimv_thumb_win_find_thumbtable (tw, GIMV_THUMB_WIN_CURRENT_PAGE);
    if (!tv) return;
 
-   summary_mode = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget), "num"));
+   summary_mode = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (widget), "num"));
    tw->thumbview_summary_mode = gimv_thumb_view_num_to_label (summary_mode);
 
    g_signal_handlers_block_by_func (G_OBJECT (widget),
@@ -3074,7 +3074,7 @@ cb_tab_close_button_clicked (GtkWidget *button, GimvThumbWin *tw)
    GtkWidget *container;
    gint num;
 
-   container = gtk_object_get_data (GTK_OBJECT (button), "page-container");
+   container = g_object_get_data (G_OBJECT (button), "page-container");
    num = gtk_notebook_page_num (GTK_NOTEBOOK (tw->notebook), container);
 
    gimv_thumb_win_close_tab (tw, num);
@@ -3162,7 +3162,7 @@ cb_notebook_drag_data_received (GtkWidget *widget,
       if (src_widget && GTK_IS_NOTEBOOK (src_widget)) {
          GimvThumbWin *tw_src, *tw_dest = tw;
 
-         tw_src = gtk_object_get_data (GTK_OBJECT (src_widget), "thumbwin");
+         tw_src = g_object_get_data (G_OBJECT (src_widget), "thumbwin");
          if (!tw_src) return;
 
          /* if deferent window, detach tab */
@@ -3184,11 +3184,11 @@ cb_notebook_drag_data_received (GtkWidget *widget,
             return;
          }
 
-      p = gtk_object_get_data (GTK_OBJECT (src_widget), "gimv-component");
+      p = g_object_get_data (G_OBJECT (src_widget), "gimv-component");
       src = GPOINTER_TO_INT (p);
       if (!src) return;
 
-      p = gtk_object_get_data (GTK_OBJECT (widget), "gimv-component");
+      p = g_object_get_data (G_OBJECT (widget), "gimv-component");
       dest = GPOINTER_TO_INT (p);
       if (!dest) return;
 
@@ -3227,7 +3227,7 @@ cb_tab_drag_data_received (GtkWidget *widget,
 
    g_return_if_fail (widget && tw);
 
-   page_container = gtk_object_get_data (GTK_OBJECT (widget), "page-container");
+   page_container = g_object_get_data (G_OBJECT (widget), "page-container");
    if (!page_container) return;
 
    switch (info) {
@@ -3250,7 +3250,7 @@ cb_tab_drag_data_received (GtkWidget *widget,
          GimvThumbWin *tw_src, *tw_dest = tw;
          gint src_pagenum, dest_pagenum;
 
-         tw_src = gtk_object_get_data (GTK_OBJECT (src_widget), "thumbwin");
+         tw_src = g_object_get_data (G_OBJECT (src_widget), "thumbwin");
          if (!tw_src) return;
 
          dest_pagenum = gtk_notebook_page_num (GTK_NOTEBOOK (tw_dest->notebook),
@@ -3289,11 +3289,11 @@ cb_tab_drag_data_received (GtkWidget *widget,
             return;
          }
 
-      p = gtk_object_get_data (GTK_OBJECT (src_widget), "gimv-component");
+      p = g_object_get_data (G_OBJECT (src_widget), "gimv-component");
       src = GPOINTER_TO_INT (p);
       if (!src) return;
 
-      p = gtk_object_get_data (GTK_OBJECT (widget), "gimv-component");
+      p = g_object_get_data (G_OBJECT (widget), "gimv-component");
       dest = GPOINTER_TO_INT (p);
       if (!dest) return;
 
@@ -3336,11 +3336,11 @@ cb_com_swap_drag_data_received (GtkWidget *widget,
             return;
          }
 
-      p = gtk_object_get_data (GTK_OBJECT (src_widget), "gimv-component");
+      p = g_object_get_data (G_OBJECT (src_widget), "gimv-component");
       src = GPOINTER_TO_INT (p);
       if (!src) return;
 
-      p = gtk_object_get_data (GTK_OBJECT (widget), "gimv-component");
+      p = g_object_get_data (G_OBJECT (widget), "gimv-component");
       dest = GPOINTER_TO_INT (p);
       if (!dest) return;
 
@@ -3691,10 +3691,10 @@ gimv_thumb_win_set_tab_label_text (GtkWidget *page_container,
 {
    GtkWidget *tablabel, *button;
 
-   tablabel = gtk_object_get_data (GTK_OBJECT (page_container), "tab-label");
+   tablabel = g_object_get_data (G_OBJECT (page_container), "tab-label");
 
    if (tablabel) {
-      button =   gtk_object_get_data (GTK_OBJECT (tablabel), "close-button");
+      button =   g_object_get_data (G_OBJECT (tablabel), "close-button");
       gtk_label_set_text (GTK_LABEL (tablabel), title);
 
       if (conf.thumbwin_show_tab_close) {
@@ -3715,7 +3715,7 @@ gimv_thumb_win_set_tab_label_state (GtkWidget *page_container,
 {
    GtkWidget *tablabel;
 
-   tablabel = gtk_object_get_data (GTK_OBJECT (page_container), "tab-label");
+   tablabel = g_object_get_data (G_OBJECT (page_container), "tab-label");
 
    if (tablabel) {
       gtk_widget_set_state (tablabel, state);
@@ -3776,7 +3776,7 @@ gimv_thumb_win_create_tab_container (GimvThumbWin *tw)
 
    /* page label widget */
    hbox = gtk_hbox_new (FALSE, 0);
-   gtk_object_set_data (GTK_OBJECT (hbox), "page-container", scrolled_window);
+   g_object_set_data (G_OBJECT (hbox), "page-container", scrolled_window);
 
    tablabel = gtk_label_new (_("New Tab"));
    gtk_widget_set_name (tablabel, "TabLabel");
@@ -3789,8 +3789,8 @@ gimv_thumb_win_create_tab_container (GimvThumbWin *tw)
    gtk_widget_set_usize (button, 16, 16);
    gtk_button_set_relief((GtkButton *) button, GTK_RELIEF_NONE);
    pixmap = gimv_icon_stock_get_widget ("small_close");
-   gtk_object_set_data (GTK_OBJECT (button), "page-container", scrolled_window);
-   gtk_object_set_data (GTK_OBJECT (tablabel), "close-button", button);
+   g_object_set_data (G_OBJECT (button), "page-container", scrolled_window);
+   g_object_set_data (G_OBJECT (tablabel), "close-button", button);
    g_signal_connect (G_OBJECT (button), "clicked",
                      G_CALLBACK (cb_tab_close_button_clicked), tw);
 
@@ -3806,15 +3806,15 @@ gimv_thumb_win_create_tab_container (GimvThumbWin *tw)
    }
 
    dnd_dest_set (hbox, dnd_types_all, dnd_types_all_num);
-   gtk_object_set_data (GTK_OBJECT (hbox),
-                        "gimv-component",
-                        GINT_TO_POINTER (GIMV_COM_THUMB_VIEW));
+   g_object_set_data (G_OBJECT (hbox),
+                      "gimv-component",
+                      GINT_TO_POINTER (GIMV_COM_THUMB_VIEW));
    g_signal_connect (G_OBJECT (hbox), "drag_data_received",
                      G_CALLBACK (cb_tab_drag_data_received), tw);
 
    /* create page */
    gtk_notebook_append_page (GTK_NOTEBOOK(tw->notebook), scrolled_window, hbox);
-   gtk_object_set_data (GTK_OBJECT (scrolled_window), "tab-label", tablabel);
+   g_object_set_data (G_OBJECT (scrolled_window), "tab-label", tablabel);
 
    tw->pagenum++;
 
@@ -3917,7 +3917,7 @@ gimv_thumb_win_close_tab (GimvThumbWin *tw, gint page)
    if (tv && (tv->status == GIMV_THUMB_VIEW_STATUS_CHECK_DUPLICATE)) return;
 
    if (tv)
-      gtk_object_unref (GTK_OBJECT (tv));
+      g_object_unref (G_OBJECT (tv));
 
    if (page == GIMV_THUMB_WIN_CURRENT_PAGE)
       page_tmp = gtk_notebook_get_current_page (GTK_NOTEBOOK(tw->notebook));
@@ -4320,7 +4320,7 @@ gimv_thumb_win_swap_component (GimvThumbWin *tw,
    active = menuitem->active;
    gtk_check_menu_item_set_active (menuitem, TRUE);
    if (active)
-      g_signal_emit_by_name (GTK_OBJECT (menuitem), "activate");
+      g_signal_emit_by_name (G_OBJECT (menuitem), "activate");
 }
 
 
@@ -4358,10 +4358,10 @@ gimv_thumb_win_save_state (GimvThumbWin *tw)
    conf.thumbwin_show_preview_tab
       = GTK_CHECK_MENU_ITEM (tw->menuitem.preview_tab)->active;
 
-   gtk_object_get (GTK_OBJECT (tw->iv),
-                   "show_scrollbar",   &conf.preview_scrollbar,
-                   "continuance_play", &conf.imgview_movie_continuance,
-                   NULL);
+   g_object_get (G_OBJECT (tw->iv),
+                 "show_scrollbar",   &conf.preview_scrollbar,
+                 "continuance_play", &conf.imgview_movie_continuance,
+                 NULL);
    conf.preview_player_visible = tw->player_visible;
 
    conf.thumbwin_layout_type = tw->layout_type;

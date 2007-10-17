@@ -587,11 +587,11 @@ gtkutil_overwrite_confirm_dialog (const gchar *title, const gchar *message,
       gtk_widget_show (vbox2);
 
       dialog.iv1 = gimv_image_view_new (NULL);
-      gtk_object_set (GTK_OBJECT (dialog.iv1),
-                      "default_zoom",     3,
-                      "default_rotation", 0,
-                      "keep_aspect",     TRUE,
-                      NULL);
+      g_object_set (G_OBJECT (dialog.iv1),
+                    "default_zoom",     3,
+                    "default_rotation", 0,
+                    "keep_aspect",     TRUE,
+                    NULL);
       gimv_image_view_hide_scrollbar (GIMV_IMAGE_VIEW (dialog.iv1));
       gtk_widget_set_usize (dialog.iv1, -1, 150);
       gtk_box_pack_start (GTK_BOX (vbox2), dialog.iv1, TRUE, TRUE, 0);
@@ -606,11 +606,11 @@ gtkutil_overwrite_confirm_dialog (const gchar *title, const gchar *message,
       gtk_widget_show (vbox2);
 
       dialog.iv2 = gimv_image_view_new (NULL);
-      gtk_object_set (GTK_OBJECT (dialog.iv2),
-                      "default_zoom",     3,
-                      "default_rotation", 0,
-                      "keep_aspect",     TRUE,
-                      NULL);
+      g_object_set (G_OBJECT (dialog.iv2),
+                    "default_zoom",     3,
+                    "default_rotation", 0,
+                    "keep_aspect",     TRUE,
+                    NULL);
       gimv_image_view_hide_scrollbar (GIMV_IMAGE_VIEW (dialog.iv2));
       gtk_widget_set_usize (dialog.iv2, -1, 150);
       gtk_box_pack_start (GTK_BOX (vbox2), dialog.iv2, TRUE, TRUE, 0);
@@ -809,8 +809,8 @@ gtkutil_progress_window_update (GtkWidget *window,
 
    g_return_if_fail (window);
 
-   label = gtk_object_get_data (GTK_OBJECT (window), "label");
-   progressbar = gtk_object_get_data (GTK_OBJECT (window), "progressbar");
+   label = g_object_get_data (G_OBJECT (window), "label");
+   progressbar = g_object_get_data (G_OBJECT (window), "progressbar");
 
    g_return_if_fail (label && progressbar);
 
@@ -877,8 +877,8 @@ gtkutil_create_progress_window (gchar *title, gchar *initial_message,
                      G_CALLBACK(cb_progress_win_cancel), cancel_pressed);
    GTK_WIDGET_SET_FLAGS(button,GTK_CAN_DEFAULT);
 
-   gtk_object_set_data (GTK_OBJECT (window), "label", label);
-   gtk_object_set_data (GTK_OBJECT (window), "progressbar", progressbar);
+   g_object_set_data (G_OBJECT (window), "label", label);
+   g_object_set_data (G_OBJECT (window), "progressbar", progressbar);
 
    gtk_widget_show_all (window);
 

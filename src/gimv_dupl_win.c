@@ -267,7 +267,7 @@ gimv_dupl_win_destroy (GtkObject *object)
    g_return_if_fail (sw);
 
    if (sw->priv) {
-      g_list_foreach (sw->priv->thumb_list, (GFunc) gtk_object_unref, NULL);
+      g_list_foreach (sw->priv->thumb_list, (GFunc) g_object_unref, NULL);
       g_list_free (sw->priv->thumb_list);
       sw->priv->thumb_list = NULL;
       g_free (sw->priv);
@@ -275,7 +275,7 @@ gimv_dupl_win_destroy (GtkObject *object)
    }
 
    if (sw->finder) {
-      gtk_object_unref (GTK_OBJECT (sw->finder));
+      g_object_unref (G_OBJECT (sw->finder));
       sw->finder = NULL;
    }
 
@@ -522,7 +522,7 @@ insert_node (GimvDuplWin *sw,
    text[3] = charset_locale_to_internal (tmpstr);
    g_free (tmpstr);
 
-   gtk_object_ref (GTK_OBJECT(thumb));
+   g_object_ref (G_OBJECT(thumb));
    sw->priv->thumb_list = g_list_append (sw->priv->thumb_list, thumb);
 
    model = gtk_tree_view_get_model (GTK_TREE_VIEW (sw->ctree));

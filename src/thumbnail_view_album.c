@@ -146,7 +146,7 @@ cb_album_button_press (GtkWidget *widget, GdkEventButton *event, gpointer data)
    row = gimv_zlist_cell_index_from_xy (GIMV_ZLIST (widget), event->x, event->y);
    if (row < 0) {
       gtk_drag_source_unset (widget);
-      gtk_object_set_data (GTK_OBJECT (widget), "drag-unset", GINT_TO_POINTER (1));
+      g_object_set_data (G_OBJECT (widget), "drag-unset", GINT_TO_POINTER (1));
       gimv_thumb_win_notebook_drag_src_unset (tv->tw);   /* FIXME!! */
       return retval;
    }
@@ -171,7 +171,7 @@ cb_album_button_release (GtkWidget *widget, GdkEventButton *event, gpointer data
 
    g_return_val_if_fail (GIMV_IS_THUMB_VIEW (tv), FALSE);
 
-   dnd_unset = gtk_object_get_data (GTK_OBJECT (widget), "drag-unset");
+   dnd_unset = g_object_get_data (G_OBJECT (widget), "drag-unset");
    if (dnd_unset)
       dnd_src_set  (widget, dnd_types_uri, dnd_types_uri_num);
    dnd_unset = FALSE;
@@ -291,12 +291,12 @@ thumbalbum_new (GimvThumbView *tv)
 
    g_return_val_if_fail (GIMV_IS_THUMB_VIEW (tv), NULL);
 
-   tv_data = gtk_object_get_data (GTK_OBJECT (tv), THUMBALBUM_LABEL);
+   tv_data = g_object_get_data (G_OBJECT (tv), THUMBALBUM_LABEL);
    if (!tv_data) {
       tv_data = g_new0 (ThumbViewData, 1);
       tv_data->album = NULL;
-      gtk_object_set_data_full (GTK_OBJECT (tv), THUMBALBUM_LABEL, tv_data,
-                                (GtkDestroyNotify) g_free);
+      g_object_set_data_full (G_OBJECT (tv), THUMBALBUM_LABEL, tv_data,
+                              (GtkDestroyNotify) g_free);
    }
 
    return tv_data;
@@ -316,7 +316,7 @@ thumbalbum_freeze (GimvThumbView *tv)
 
    g_return_if_fail (GIMV_IS_THUMB_VIEW (tv));
 
-   tv_data = gtk_object_get_data (GTK_OBJECT (tv), THUMBALBUM_LABEL);
+   tv_data = g_object_get_data (G_OBJECT (tv), THUMBALBUM_LABEL);
    g_return_if_fail (tv_data && GIMV_IS_ZALBUM (tv_data->album));
 
    gimv_zalbum_freeze (tv_data->album);
@@ -330,7 +330,7 @@ thumbalbum_thaw (GimvThumbView *tv)
 
    g_return_if_fail (GIMV_IS_THUMB_VIEW (tv));
 
-   tv_data = gtk_object_get_data (GTK_OBJECT (tv), THUMBALBUM_LABEL);
+   tv_data = g_object_get_data (G_OBJECT (tv), THUMBALBUM_LABEL);
    g_return_if_fail (tv_data && GIMV_IS_ZALBUM (tv_data->album));
 
    gimv_zalbum_thawn (tv_data->album);
@@ -352,7 +352,7 @@ thumbalbum_append_thumb_frame (GimvThumbView *tv, GimvThumb *thumb,
    g_return_if_fail (GIMV_IS_THUMB_VIEW (tv));
    g_return_if_fail (GIMV_IS_THUMB (thumb));
 
-   tv_data = gtk_object_get_data (GTK_OBJECT (tv), THUMBALBUM_LABEL);
+   tv_data = g_object_get_data (G_OBJECT (tv), THUMBALBUM_LABEL);
    g_return_if_fail (tv_data);
 
    pos = g_list_index (tv->thumblist, thumb);
@@ -395,7 +395,7 @@ thumbalbum_update_thumbnail (GimvThumbView *tv, GimvThumb *thumb,
    g_return_if_fail (GIMV_IS_THUMB_VIEW (tv));
    g_return_if_fail (GIMV_IS_THUMB (thumb));
 
-   tv_data = gtk_object_get_data (GTK_OBJECT (tv), THUMBALBUM_LABEL);
+   tv_data = g_object_get_data (G_OBJECT (tv), THUMBALBUM_LABEL);
    g_return_if_fail (tv_data && tv_data->album);
 
    pos = g_list_index (tv->thumblist, thumb);
@@ -445,7 +445,7 @@ thumbalbum_remove_thumbnail (GimvThumbView *tv, GimvThumb *thumb)
    g_return_if_fail (GIMV_IS_THUMB_VIEW (tv));
    g_return_if_fail (GIMV_IS_THUMB (thumb));
 
-   tv_data = gtk_object_get_data (GTK_OBJECT (tv), THUMBALBUM_LABEL);
+   tv_data = g_object_get_data (G_OBJECT (tv), THUMBALBUM_LABEL);
    g_return_if_fail (tv_data && tv_data->album);
 
    pos = g_list_index (tv->thumblist, thumb);
@@ -466,7 +466,7 @@ thumbalbum_set_selection (GimvThumbView *tv, GimvThumb *thumb, gboolean select)
 
    if (g_list_length (tv->thumblist) < 1) return FALSE;
 
-   tv_data = gtk_object_get_data (GTK_OBJECT (tv), THUMBALBUM_LABEL);
+   tv_data = g_object_get_data (G_OBJECT (tv), THUMBALBUM_LABEL);
    g_return_val_if_fail (tv_data && tv_data->album, FALSE);
 
    pos = g_list_index (tv->thumblist, thumb);
@@ -491,7 +491,7 @@ thumbalbum_set_focus (GimvThumbView *tv, GimvThumb *thumb)
 
    g_return_if_fail (GIMV_IS_THUMB_VIEW (tv));
 
-   tv_data = gtk_object_get_data (GTK_OBJECT (tv), THUMBALBUM_LABEL);
+   tv_data = g_object_get_data (G_OBJECT (tv), THUMBALBUM_LABEL);
    g_return_if_fail (tv_data && tv_data->album);
 
    pos = g_list_index (tv->thumblist, thumb);
@@ -512,7 +512,7 @@ thumbalbum_get_focus (GimvThumbView *tv)
 
    g_return_val_if_fail (GIMV_IS_THUMB_VIEW (tv), NULL);
 
-   tv_data = gtk_object_get_data (GTK_OBJECT (tv), THUMBALBUM_LABEL);
+   tv_data = g_object_get_data (G_OBJECT (tv), THUMBALBUM_LABEL);
    g_return_val_if_fail (tv_data && tv_data->album, NULL);
 
    pos = GIMV_ZLIST (tv_data->album)->focus;
@@ -538,7 +538,7 @@ thumbalbum_thumbnail_is_in_viewport (GimvThumbView *tv, GimvThumb *thumb)
    g_return_val_if_fail (GIMV_IS_THUMB_VIEW (tv), FALSE);
    g_return_val_if_fail (GIMV_IS_THUMB (thumb), FALSE);
 
-   tv_data = gtk_object_get_data (GTK_OBJECT (tv), THUMBALBUM_LABEL);
+   tv_data = g_object_get_data (G_OBJECT (tv), THUMBALBUM_LABEL);
    g_return_val_if_fail (tv_data, FALSE);
 
    node = g_list_find (tv->thumblist, thumb);
@@ -571,7 +571,7 @@ thumbalbum_adjust (GimvThumbView *tv, GimvThumb *thumb)
    node = g_list_find (gimv_thumb_view_get_list(), tv);
    if (!node) return;
 
-   tv_data = gtk_object_get_data (GTK_OBJECT (tv), THUMBALBUM_LABEL);
+   tv_data = g_object_get_data (G_OBJECT (tv), THUMBALBUM_LABEL);
    g_return_if_fail (tv_data);
 
    pos = g_list_index (tv->thumblist, thumb);
@@ -589,7 +589,7 @@ thumbalbum_create (GimvThumbView *tv, const gchar *dest_mode)
 
    g_return_val_if_fail (GIMV_IS_THUMB_VIEW (tv), NULL);
 
-   tv_data = gtk_object_get_data (GTK_OBJECT (tv), THUMBALBUM_LABEL);
+   tv_data = g_object_get_data (G_OBJECT (tv), THUMBALBUM_LABEL);
    if (!tv_data) {
       tv_data = thumbalbum_new (tv);
       g_return_val_if_fail (tv_data, NULL);
@@ -660,7 +660,7 @@ thumbalbum_create (GimvThumbView *tv, const gchar *dest_mode)
    /* Drag and Drop */
    dnd_src_set  (tv_data->album, dnd_types_uri, dnd_types_uri_num);
    dnd_dest_set (tv_data->album, dnd_types_uri, dnd_types_uri_num);
-   gtk_object_set_data (GTK_OBJECT (tv_data->album), "gimv-tab", tv);
+   g_object_set_data (G_OBJECT (tv_data->album), "gimv-tab", tv);
 
    g_signal_connect_after (G_OBJECT (tv_data->album), "drag_begin",
                            G_CALLBACK (gimv_thumb_view_drag_begin_cb),

@@ -129,7 +129,7 @@ files_loader_delete (FilesLoader *files)
    }
 
    if (files->archive)
-      gtk_object_unref (GTK_OBJECT (files->archive));
+      g_object_unref (G_OBJECT (files->archive));
 
    loading_stop = FALSE;
 
@@ -620,7 +620,7 @@ cb_archive_destroy (FRArchive *archive,
                     gpointer data)
 {
    gchar *temp_dir;
-   temp_dir = gtk_object_get_data (GTK_OBJECT (archive), "temp-dir");
+   temp_dir = g_object_get_data (G_OBJECT (archive), "temp-dir");
 
    if (!temp_dir || !*temp_dir) return;
 
@@ -694,8 +694,8 @@ open_archive_images (const gchar *filename,
    temp_dir = g_strconcat (get_temp_dir_name (),
                            FR_ARCHIVE (archive)->filename,
                            NULL);
-   gtk_object_set_data_full (GTK_OBJECT (archive), "temp-dir", temp_dir,
-                             (GtkDestroyNotify) g_free);
+   g_object_set_data_full (G_OBJECT (archive), "temp-dir", temp_dir,
+                           (GtkDestroyNotify) g_free);
 
    files = files_loader_new ();
    files->thumb_load_type = type;
@@ -713,7 +713,7 @@ open_archive_images (const gchar *filename,
    success = fr_archive_load (archive, filename);
    if (!success) {
       GtkWindow *window = tw_tmp ? GTK_WINDOW (tw_tmp) : NULL;
-      gtk_object_unref (GTK_OBJECT (archive));
+      g_object_unref (G_OBJECT (archive));
       /* gtk_object_remove_data (GTK_OBJECT (archive), "progress-bar"); */
       gtkutil_message_dialog (_("Error!!"),
                               _("Cannot load this archive file.\n"),
@@ -969,8 +969,8 @@ create_filebrowser (gpointer parent)
    filesel = g_new0 (FileSel, 1);
    filesel->filebrowser = filebrowser;
    filesel->tw          = (GimvThumbWin *) parent;
-   gtk_object_set_data_full (GTK_OBJECT (filebrowser), "filesel",
-                             filesel, (GtkDestroyNotify) g_free);
+   g_object_set_data_full (G_OBJECT (filebrowser), "filesel",
+                           filesel, (GtkDestroyNotify) g_free);
 
    if (filesel->tw)
       gtk_window_set_transient_for (GTK_WINDOW (filebrowser),

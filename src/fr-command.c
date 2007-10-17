@@ -149,7 +149,7 @@ fr_command_init (FRCommand *comm)
    comm->filename = NULL;
    comm->file_list = NULL;
 
-   gtk_object_ref (GTK_OBJECT (comm));
+   g_object_ref (G_OBJECT (comm));
    gtk_object_sink (GTK_OBJECT (comm));
 }
 
@@ -176,7 +176,7 @@ fr_command_destroy (GtkObject *object)
    g_signal_handlers_disconnect_matched (G_OBJECT (comm->process),
                                          G_SIGNAL_MATCH_DATA,
                                          0, 0, NULL, NULL, comm);
-   gtk_object_unref (GTK_OBJECT (comm->process));
+   g_object_unref (G_OBJECT (comm->process));
 
    /* Chain up */
    if (GTK_OBJECT_CLASS (fr_command_parent_class)->destroy)
@@ -191,7 +191,7 @@ fr_command_construct (FRCommand *comm,
 {
    fr_command_set_filename (comm, fr_command_name);
 
-   gtk_object_ref (GTK_OBJECT (process));
+   g_object_ref (G_OBJECT (process));
    comm->process = process;
    g_signal_connect (G_OBJECT (comm->process), "start",
                      G_CALLBACK (fr_command_start),
@@ -237,7 +237,7 @@ fr_command_list (FRCommand *comm)
    }
 
    comm->action = FR_ACTION_LIST;
-   FR_COMMAND_CLASS (GTK_OBJECT_GET_CLASS (comm))->list (comm);
+   FR_COMMAND_CLASS (G_OBJECT_GET_CLASS (comm))->list (comm);
 }
 
 
@@ -248,10 +248,10 @@ fr_command_add (FRCommand *comm,
                 gboolean update)
 {
    comm->action = FR_ACTION_ADD;
-   FR_COMMAND_CLASS (GTK_OBJECT_GET_CLASS (comm))->add (comm, 
-                                                        file_list,
-                                                        base_dir,
-                                                        update);
+   FR_COMMAND_CLASS (G_OBJECT_GET_CLASS (comm))->add (comm, 
+                                                      file_list,
+                                                      base_dir,
+                                                      update);
 }
 
 
@@ -277,7 +277,7 @@ fr_command_delete (FRCommand *comm,
 
    } 
 
-   FR_COMMAND_CLASS (GTK_OBJECT_GET_CLASS (comm))->delete (comm, file_list);
+   FR_COMMAND_CLASS (G_OBJECT_GET_CLASS (comm))->delete (comm, file_list);
 
    if (free_file_list) {
       g_list_foreach (file_list, (GFunc) g_free, NULL);
@@ -295,10 +295,10 @@ fr_command_extract (FRCommand *comm,
                     gboolean junk_paths)
 {
    comm->action = FR_ACTION_EXTRACT;
-   FR_COMMAND_CLASS (GTK_OBJECT_GET_CLASS (comm))->extract (comm, 
-                                                            file_list, 
-                                                            dest_dir,
-                                                            overwrite,
-                                                            skip_older,
-                                                            junk_paths);
+   FR_COMMAND_CLASS (G_OBJECT_GET_CLASS (comm))->extract (comm, 
+                                                          file_list, 
+                                                          dest_dir,
+                                                          overwrite,
+                                                          skip_older,
+                                                          junk_paths);
 }

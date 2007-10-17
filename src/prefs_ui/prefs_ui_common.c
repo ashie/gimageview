@@ -513,7 +513,7 @@ cb_filename_charset_conv (GtkWidget *widget, gpointer data)
    GtkWidget *combo = data;
 
    config_changed->charset_filename_mode
-      = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget), "num"));
+      = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (widget), "num"));
 
    set_sensitive_filename_charset_mode (config_changed->charset_filename_mode,
                                         combo);
