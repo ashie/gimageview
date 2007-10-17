@@ -175,8 +175,6 @@ static gint       cb_image_preview_clicked           (GimvImageView  *iv,
                                                       GdkEventButton *event,
                                                       gpointer        data);
 static GtkWidget *image_preview_new                  (GimvThumbWin   *tw);
-static void       add_accel_label_to_disp_mode_menu  (GtkWidget      *widget,
-                                                      GtkWidget      *window);
 static void       location_entry_set_text            (GimvThumbWin   *tw,
                                                       GimvThumbView  *tv,
                                                       const gchar    *location);
@@ -683,7 +681,6 @@ gimv_thumb_win_init (GimvThumbWin *tw)
                                                summary_mode,
                                                cb_display_mode_menu, tw);
    gtk_widget_set_name (tw->summary_mode_menu, "DispModeOptionMenu");
-   add_accel_label_to_disp_mode_menu (tw->summary_mode_menu, GTK_WIDGET (tw));
    gtk_box_pack_end (GTK_BOX (hbox), tw->summary_mode_menu, FALSE, FALSE, 0);
    gtk_widget_show (tw->summary_mode_menu);
 
@@ -2108,43 +2105,6 @@ image_preview_new (GimvThumbWin *tw)
    gtk_notebook_set_page (GTK_NOTEBOOK(cv->notebook), 0);
 
    return cv->main_vbox;
-}
-
-
-static void
-add_accel_label_to_disp_mode_menu (GtkWidget *widget, GtkWidget *window)
-{
-   GtkAccelGroup *accel_group;
-   GtkWidget *menu;
-   GList *list, *node;
-   gint i, num = sizeof (akey.thumbwin_disp_mode) / sizeof (gchar *);
-
-   g_return_if_fail (widget);
-
-   menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (widget));
-   if (!menu) return;
-
-   accel_group = gtk_accel_group_new ();
-   gtk_menu_set_accel_group (GTK_MENU (menu), accel_group);
-   gtk_window_add_accel_group (GTK_WINDOW (window), accel_group);
-
-   list = gtk_container_children (GTK_CONTAINER (menu));
-   if (!list) return;
-
-   for (node = list, i = 0; node && i < num; node = g_list_next (node), i++) {
-      GtkWidget *item = node->data;
-      guint keyval = 0;
-      GdkModifierType mod = 0;
-
-      if (!item) continue;
-
-      if (akey.thumbwin_disp_mode[i] && *akey.thumbwin_disp_mode[i]) {
-         gtk_accelerator_parse (akey.thumbwin_disp_mode[i], &keyval, &mod);
-         gtk_widget_add_accelerator (item, "activate",
-                                     accel_group,
-                                     keyval, mod, 0);
-      }
-   }
 }
 
 

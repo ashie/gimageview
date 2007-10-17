@@ -543,6 +543,7 @@ gimv_image_win_init (GimvImageWin *iw)
    gtk_widget_show (hbox);
 
    iw->status_bar1 = gtk_statusbar_new ();
+   gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(iw->status_bar1), FALSE);
    gtk_widget_set_name (iw->status_bar1, "StatuBar1");
    gtk_container_border_width (GTK_CONTAINER (iw->status_bar1), 1);
    gtk_widget_set_usize(iw->status_bar1, 200, -1);
@@ -551,6 +552,7 @@ gimv_image_win_init (GimvImageWin *iw)
    gtk_widget_show (iw->status_bar1);
 
    iw->status_bar2 = gtk_statusbar_new ();
+   gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(iw->status_bar2), FALSE);
    gtk_widget_set_name (iw->status_bar1, "StatuBar2");
    gtk_container_border_width (GTK_CONTAINER (iw->status_bar2), 1);
    gtk_widget_set_usize(iw->status_bar2, 50, -1);
