@@ -434,9 +434,9 @@ GtkItemFactoryEntry gimv_thumb_win_menu_items[] =
    {N_("/Too_l/---"),                  NULL,         NULL,              0,              "<Separator>"},
    {N_("/Too_l/_Find duplicates"),     NULL,         NULL,              0,              "<Branch>"},
    {N_("/Too_l/---"),                  NULL,         NULL,              0,              "<Separator>"},
-   {N_("/Too_l/_Wallpaper setting"),   NULL,         NULL,              0,               "<Branch>"},
+   {N_("/Too_l/_Wallpaper setting"),   NULL,         NULL,              0,              "<Branch>"},
 
-   {N_("/_Help"), NULL, NULL, 0, "<LastBranch>"},
+   {N_("/_Help"), NULL, NULL, 0, "<Branch>"},
    {NULL, NULL, NULL, 0, NULL},
 };
 

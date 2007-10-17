@@ -290,7 +290,7 @@ GtkItemFactoryEntry gimv_image_win_menu_items[] =
 
    {N_("/M_ovie"),                       NULL,         NULL,              0,  "<Branch>"},
 
-   {N_("/_Help"),                        NULL,         NULL,              0,  "<LastBranch>"},
+   {N_("/_Help"),                        NULL,         NULL,              0,  "<Branch>"},
    {NULL, NULL, NULL, 0, NULL},
 };
 
