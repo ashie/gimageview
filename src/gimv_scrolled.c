@@ -34,6 +34,8 @@
 
 #include "gimv_scrolled.h"
 
+G_DEFINE_TYPE (GimvScrolled, gimv_scrolled, GTK_TYPE_CONTAINER)
+
 /* for auto-scroll and auto-expand at drag */
 #define AUTO_SCROLL_TIMEOUT    100
 #define AUTO_SCROLL_EDGE_WIDTH 20
@@ -59,22 +61,22 @@ enum {
 };
 
 static void     gimv_scrolled_set_scroll_adjustments (GtkWidget      *widget, 
-                                                 GtkAdjustment  *hadjustment, 
-                                                 GtkAdjustment  *vadjustment);
+                                                      GtkAdjustment  *hadjustment, 
+                                                      GtkAdjustment  *vadjustment);
 static gint     gimv_scrolled_button_press           (GtkWidget      *widget,
-                                                 GdkEventButton *event);
+                                                      GdkEventButton *event);
 static gint     gimv_scrolled_button_release         (GtkWidget      *widget,
-                                                 GdkEventButton *event);
+                                                      GdkEventButton *event);
 static gint     gimv_scrolled_motion_notify          (GtkWidget      *widget,
-                                                 GdkEventMotion *event);
+                                                      GdkEventMotion *event);
 static gint     gimv_scrolled_drag_motion            (GtkWidget      *widget,
-                                                 GdkDragContext *context,
-                                                 gint            x,
-                                                 gint            y,
-                                                 guint           time);
+                                                      GdkDragContext *context,
+                                                      gint            x,
+                                                      gint            y,
+                                                      guint           time);
 static void     gimv_scrolled_drag_leave             (GtkWidget      *dirtree,
-                                                 GdkDragContext *context,
-                                                 guint           time);
+                                                      GdkDragContext *context,
+                                                      guint           time);
 
 static void     hadjustment_value_changed      (GtkAdjustment   *hadjustment,
                                                 gpointer         data);
@@ -84,11 +86,7 @@ static gboolean horizontal_timeout             (gpointer         data);
 static gboolean vertical_timeout               (gpointer         data);
 
 
-static guint           gimv_scrolled_signals [LAST_SIGNAL] = {0};
-
-
-G_DEFINE_TYPE (GimvScrolled, gimv_scrolled, GTK_TYPE_CONTAINER)
-
+static guint gimv_scrolled_signals [LAST_SIGNAL] = {0};
 
 static void
 gimv_scrolled_class_init (GimvScrolledClass *klass)

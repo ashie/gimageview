@@ -43,10 +43,11 @@
 #include "gimv_zlist.h"
 
 #define GIMV_TYPE_ZALBUM            (gimv_zalbum_get_type ())
-#define GIMV_ZALBUM(widget)         (GTK_CHECK_CAST ((widget), GIMV_TYPE_ZALBUM, GimvZAlbum))
-#define GIMV_ZALBUM_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), GIMV_TYPE_ZALBUM, GimvZAlbumClass))
-#define GIMV_IS_ZALBUM(widget)      (GTK_CHECK_TYPE ((widget), GIMV_TYPE_ZALBUM))
-#define GIMV_IS_ZALBUM_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_ZALBUM))
+#define GIMV_ZALBUM(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_ZALBUM, GimvZAlbum))
+#define GIMV_ZALBUM_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_ZALBUM, GimvZAlbumClass))
+#define GIMV_IS_ZALBUM(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_ZALBUM))
+#define GIMV_IS_ZALBUM_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_ZALBUM))
+#define GIMV_ZALBUM_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_ZALBUM, GimvZAlbumClass))
 
 typedef struct _GimvZAlbum            GimvZAlbum;
 typedef struct _GimvZAlbumCell        GimvZAlbumCell;

@@ -31,10 +31,11 @@
 #include "gimv_image_loader.h"
 
 #define GIMV_TYPE_IMAGE_VIEW            (gimv_image_view_get_type ())
-#define GIMV_IMAGE_VIEW(obj)            (GTK_CHECK_CAST (obj, gimv_image_view_get_type (), GimvImageView))
-#define GIMV_IMAGE_VIEW_CLASS(klass)    (GTK_CHECK_CLASS_CAST (klass, gimv_image_view_get_type, GimvImageViewClass))
-#define GIMV_IS_IMAGE_VIEW(obj)         (GTK_CHECK_TYPE (obj, gimv_image_view_get_type ()))
-#define GIMV_IS_IMAGE_VIEW_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_IMAGE_VIEW))
+#define GIMV_IMAGE_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_IMAGE_VIEW, GimvImageView))
+#define GIMV_IMAGE_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_IMAGE_VIEW, GimvImageViewClass))
+#define GIMV_IS_IMAGE_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_IMAGE_VIEW))
+#define GIMV_IS_IMAGE_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_IMAGE_VIEW))
+#define GIMV_IMAGE_VIEW_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_IMAGE_VIEW, GimvImageViewClass))
 
 
 #define GIMV_IMAGE_VIEW_DEFAULT_VIEW_MODE N_("Default Image Viewer")

@@ -31,22 +31,19 @@
 #ifndef _GIMV_SCROLLED_H_
 #define _GIMV_SCROLLED_H_
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #include <gtk/gtk.h>
 
+#define GIMV_TYPE_SCROLLED            (gimv_scrolled_get_type ())
+#define GIMV_SCROLLED(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_SCROLLED, GimvScrolled))
+#define GIMV_SCROLLED_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_SCROLLED, GimvScrolledClass))
+#define GIMV_IS_SCROLLED(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_SCROLLED))
+#define GIMV_IS_SCROLLED_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_SCROLLED))
+#define GIMV_SCROLLED_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_SCROLLED, GimvScrolledClass))
 
-#define GIMV_TYPE_SCROLLED            gimv_scrolled_get_type ()
-#define GIMV_SCROLLED(obj)            GTK_CHECK_CAST (obj, GIMV_TYPE_SCROLLED, GimvScrolled)
-#define GIMV_SCROLLED_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), GIMV_TYPE_SCROLLED, GimvScrolledClass))
-#define GIMV_IS_SCROLLED(obj)         GTK_CHECK_TYPE (obj, GIMV_TYPE_SCROLLED)
 #define GIMV_SCROLLED_X(scrolled, x)  (-GIMV_SCROLLED(scrolled)->x_offset + (x))
 #define GIMV_SCROLLED_Y(scrolled, y)  (-GIMV_SCROLLED(scrolled)->y_offset + (y))
 #define GIMV_SCROLLED_VX(scrolled, x) (GIMV_SCROLLED(scrolled)->x_offset + (x))
 #define GIMV_SCROLLED_VY(scrolled, y) (GIMV_SCROLLED(scrolled)->y_offset + (y))
-
 
 typedef struct _GimvScrolled GimvScrolled;
 typedef struct _GimvScrolledClass GimvScrolledClass;
@@ -91,7 +88,6 @@ struct _GimvScrolled {
    gint          vscroll_timer_id;
 };
 
-
 struct _GimvScrolledClass {
    GtkContainerClass parent_class;
 
@@ -100,7 +96,6 @@ struct _GimvScrolledClass {
                                                 GtkAdjustment *vadjustment);
    void              (*adjust_adjustments)     (GimvScrolled *scrolled);
 };
-
 
 GType      gimv_scrolled_get_type (void);
 

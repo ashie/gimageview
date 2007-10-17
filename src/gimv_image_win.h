@@ -27,17 +27,15 @@
 #include "gimageview.h"
 #include "gimv_image_view.h"
 
-
 #define GIMV_TYPE_IMAGE_WIN            (gimv_image_win_get_type ())
-#define GIMV_IMAGE_WIN(obj)            (GTK_CHECK_CAST (obj, gimv_image_win_get_type (), GimvImageWin))
-#define GIMV_IMAGE_WIN_CLASS(klass)    (GTK_CHECK_CLASS_CAST (klass, gimv_image_win_get_type, GimvImageWinClass))
-#define GIMV_IS_IMAGE_WIN(obj)         (GTK_CHECK_TYPE (obj, gimv_image_win_get_type ()))
-#define GIMV_IS_IMAGE_WIN_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_IMAGE_WIN))
-
+#define GIMV_IMAGE_WIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_IMAGE_WIN, GimvImageWin))
+#define GIMV_IMAGE_WIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_IMAGE_WIN, GimvImageWinClass))
+#define GIMV_IS_IMAGE_WIN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_IMAGE_WIN))
+#define GIMV_IS_IMAGE_WIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_IMAGE_WIN))
+#define GIMV_IMAGE_WIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_IMAGE_WIN, GimvImageWinClass))
 
 typedef struct GimvImageWinClass_Tag GimvImageWinClass;
 typedef struct GimvImageWinPriv_Tag  GimvImageWinPriv;
-
 
 typedef enum {
    GimvImageWinCreatingFlag                 = 1 << 0,
@@ -55,7 +53,6 @@ typedef enum {
    GimvImageWinSlideShowSeekBarDraggingFlag = 1 << 12,
    GimvImageWinNotSaveStateFlag             = 1 << 13
 } GimvImageWinFlags;
-
 
 struct GimvImageWin_Tag
 {
@@ -112,7 +109,6 @@ struct GimvImageWin_Tag
    GimvImageWinPriv *priv;
 };
 
-
 struct GimvImageWinClass_Tag
 {
    GtkWindowClass parent_class;
@@ -121,7 +117,6 @@ struct GimvImageWinClass_Tag
    void (*show_fullscreen) (GimvImageWin *iw);
    void (*hide_fullscreen) (GimvImageWin *iw);
 };
-
 
 GType         gimv_image_win_get_type                  (void);
 GtkWidget    *gimv_image_win_new                       (GimvImageInfo *info);
