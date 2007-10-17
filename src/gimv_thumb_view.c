@@ -30,7 +30,6 @@
 #include "gimageview.h"
 
 #include "charset.h"
-#include "dirview.h"
 #include "dnd.h"
 #include "fileload.h"
 #include "fileutil.h"
@@ -38,6 +37,7 @@
 #include "gtk_prop.h"
 #include "gtkutils.h"
 #include "gimv_comment_view.h"
+#include "gimv_dir_view.h"
 #include "gimv_dupl_finder.h"
 #include "gimv_dupl_win.h"
 #include "gimv_image.h"

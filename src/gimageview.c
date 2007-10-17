@@ -31,10 +31,10 @@
 
 #include "argparse.h"
 #include "charset.h"
-#include "dirview.h"
 #include "fileload.h"
 #include "fileutil.h"
 #include "gfileutil.h"
+#include "gimv_dir_view.h"
 #include "gimv_image.h"
 #include "gimv_icon_stock.h"
 #include "gimv_image_win.h"

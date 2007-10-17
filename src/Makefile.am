@@ -19,7 +19,6 @@ gimv_SOURCES = \
 	auto_completion.c auto_completion.h \
 	charset.c charset.h \
 	cursors.c cursors.h \
-	dirview.c dirview.h \
 	dither.c dither.h \
 	dnd.c dnd.h \
 	exif_view.c exif_view.h \
@@ -33,6 +32,7 @@ gimv_SOURCES = \
 	gimv_anim.c gimv_anim.h \
 	gimv_comment.c gimv_comment.h \
 	gimv_comment_view.c gimv_comment_view.h \
+	gimv_dir_view.c gimv_dir_view.h \
 	gimv_dupl_finder.c gimv_dupl_finder.h \
 	gimv_dupl_win.c gimv_dupl_win.h \
 	gimv_icon_stock.c gimv_icon_stock.h \
