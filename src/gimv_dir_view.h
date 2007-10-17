@@ -21,8 +21,8 @@
  * $Id$
  */
 
-#ifndef __DIRVIEW_H__
-#define __DIRVIEW_H__
+#ifndef __GIMV_DIR_VIEW_H__
+#define __GIMV_DIR_VIEW_H__
 
 #include "gimageview.h"
 
@@ -79,4 +79,4 @@ DirView   *dirview_create                (const gchar *root_dir,
                                           GtkWidget   *parent_win,
                                           GimvThumbWin *tw);
 
-#endif /* __DIRVIEW_H__ */
+#endif /* __GIMV_DIR_VIEW_H__ */
