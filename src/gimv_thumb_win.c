@@ -874,7 +874,7 @@ create_composition_icon (gint type)
    else
       return NULL;
 
-   gtk_widget_set_usize (table, 24, 24);
+   gtk_widget_set_size_request (table, 24, 24);
    gtk_widget_show (table);
 
    hbox = gtk_hbox_new (FALSE, 0);
@@ -3746,7 +3746,7 @@ gimv_thumb_win_create_tab_container (GimvThumbWin *tw)
 
    button = gtk_button_new();
    gtk_container_set_border_width (GTK_CONTAINER (button), 1);
-   gtk_widget_set_usize (button, 16, 16);
+   gtk_widget_set_size_request (button, 16, 16);
    gtk_button_set_relief((GtkButton *) button, GTK_RELIEF_NONE);
    pixmap = gimv_icon_stock_get_widget ("small_close");
    g_object_set_data (G_OBJECT (button), "page-container", scrolled_window);

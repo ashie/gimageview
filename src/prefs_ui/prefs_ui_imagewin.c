@@ -194,7 +194,7 @@ prefs_imagewin_page (void)
                                                1.0, 10000.0, 1.0, 5.0, 0.0);
    spinner = gtkutil_create_spin_button (adj);
    prefs_win.imgwin_width_spin = spinner;
-   gtk_widget_set_usize(spinner, 50, -1);
+   gtk_widget_set_size_request(spinner, 50, -1);
    g_signal_connect (G_OBJECT (adj), "value_changed",
                      G_CALLBACK (gtkutil_get_data_from_adjustment_by_int_cb),
                      &config_changed->imgwin_width);
@@ -206,7 +206,7 @@ prefs_imagewin_page (void)
                                                1.0, 10000.0, 1.0, 5.0, 0.0);
    spinner = gtkutil_create_spin_button (adj);
    prefs_win.imgwin_height_spin = spinner;
-   gtk_widget_set_usize(spinner, 50, -1);
+   gtk_widget_set_size_request(spinner, 50, -1);
    g_signal_connect (G_OBJECT (adj), "value_changed",
                      G_CALLBACK (gtkutil_get_data_from_adjustment_by_int_cb),
                      &config_changed->imgwin_height);
@@ -447,7 +447,7 @@ prefs_imagewin_image_page (void)
    adj = (GtkAdjustment *) gtk_adjustment_new (conf.imgview_scale,
                                                1.0, 10000.0, 1.0, 5.0, 0.0);
    spinner = gtkutil_create_spin_button (adj);
-   gtk_widget_set_usize(spinner, 50, -1);
+   gtk_widget_set_size_request(spinner, 50, -1);
    prefs_win.image_scale_spin = spinner;
    g_signal_connect (G_OBJECT (adj), "value_changed",
                      G_CALLBACK (gtkutil_get_data_from_adjustment_by_float_cb),

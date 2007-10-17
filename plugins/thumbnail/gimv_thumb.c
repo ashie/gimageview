@@ -384,7 +384,7 @@ prefs_save (gpointer data)
                                                CACHE_GIMV_MAX_SIZE,
                                                1.0, 5.0, 0.0);
    spinner = gtk_spin_button_new (adj, 0, 0);
-   gtk_widget_set_usize(spinner, 70, -1);
+   gtk_widget_set_size_request(spinner, 70, -1);
    gtk_spin_button_set_wrap (GTK_SPIN_BUTTON (spinner), TRUE);
    gtk_signal_connect (GTK_OBJECT (adj), "value_changed",
                        GTK_SIGNAL_FUNC (cb_gimvthumb_get_data_from_adjustment_by_int),

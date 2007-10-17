@@ -393,7 +393,7 @@ prefs_thumbwin_page (void)
    adj = (GtkAdjustment *) gtk_adjustment_new (conf.thumbwin_width,
                                                1.0, 10000.0, 1.0, 5.0, 0.0);
    spinner = prefs_win.thumbwin_width_spin = gtkutil_create_spin_button (adj);
-   gtk_widget_set_usize(spinner, 50, -1);
+   gtk_widget_set_size_request(spinner, 50, -1);
    g_signal_connect (G_OBJECT (adj), "value_changed",
                      G_CALLBACK (gtkutil_get_data_from_adjustment_by_int_cb),
                      &config_changed->thumbwin_width);
@@ -404,7 +404,7 @@ prefs_thumbwin_page (void)
    adj = (GtkAdjustment *) gtk_adjustment_new (conf.thumbwin_height,
                                                1.0, 10000.0, 1.0, 5.0, 0.0);
    spinner = prefs_win.thumbwin_height_spin = gtkutil_create_spin_button (adj);
-   gtk_widget_set_usize(spinner, 50, -1);
+   gtk_widget_set_size_request(spinner, 50, -1);
    g_signal_connect (G_OBJECT (adj), "value_changed",
                      G_CALLBACK (gtkutil_get_data_from_adjustment_by_int_cb),
                      &config_changed->thumbwin_height);
@@ -568,7 +568,7 @@ prefs_thumbwin_page (void)
    adj = (GtkAdjustment *) gtk_adjustment_new (conf.thumbwin_redraw_interval,
                                                1.0, 1000.0, 1.0, 5.0, 0.0);
    spinner = gtkutil_create_spin_button (adj);
-   gtk_widget_set_usize(spinner, 50, -1);
+   gtk_widget_set_size_request(spinner, 50, -1);
    g_signal_connect (G_OBJECT (adj), "value_changed",
                      G_CALLBACK (gtkutil_get_data_from_adjustment_by_int_cb),
                      &config_changed->thumbwin_redraw_interval);
@@ -960,7 +960,7 @@ prefs_preview_page (void)
    adj = (GtkAdjustment *) gtk_adjustment_new (conf.preview_scale,
                                                1.0, 10000.0, 1.0, 5.0, 0.0);
    prefs_win.preview_scale_spin = spinner = gtkutil_create_spin_button (adj);
-   gtk_widget_set_usize(spinner, 50, -1);
+   gtk_widget_set_size_request(spinner, 50, -1);
    g_signal_connect (G_OBJECT (adj), "value_changed",
                      G_CALLBACK (gtkutil_get_data_from_adjustment_by_float_cb),
                      &config_changed->preview_scale);

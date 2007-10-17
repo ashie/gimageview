@@ -733,7 +733,7 @@ prefs_filter_page (void)
 
    entry = gimv_elist_create_entry (GIMV_ELIST (editlist), 0, NULL, FALSE);
    prefs_win.filter_ext_entry = entry;
-   gtk_widget_set_usize (entry, 100, -1);
+   gtk_widget_set_size_request (entry, 100, -1);
    gtk_box_pack_start (GTK_BOX (vbox), entry, FALSE, TRUE, 0);
    gtk_widget_show (entry);
 
@@ -889,7 +889,7 @@ prefs_charset_page (void)
 
    /* filename charset */
    combo = gtk_combo_new ();
-   gtk_widget_set_usize (combo, 120, -1);
+   gtk_widget_set_size_request (combo, 120, -1);
    gtk_combo_set_popdown_strings (GTK_COMBO (combo),
                                   charset_get_known_list(NULL));
    gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (combo)->entry),

@@ -233,7 +233,7 @@ prefs_progs_page (void)
 
    entry = gimv_elist_create_entry (GIMV_ELIST (editlist), 0,
                                     NULL, FALSE);
-   gtk_widget_set_usize (entry, 100, -1);
+   gtk_widget_set_size_request (entry, 100, -1);
    gtk_box_pack_start (GTK_BOX (vbox), entry, FALSE, TRUE, 0);
 
    /* command entry */

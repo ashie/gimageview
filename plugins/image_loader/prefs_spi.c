@@ -235,7 +235,7 @@ create_spi_admin_widget (GList *plugin_list)
                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
    gtk_container_set_border_width(GTK_CONTAINER(scrollwin), 5);
    gtk_box_pack_start (GTK_BOX (hbox), scrollwin, TRUE, TRUE, 0);
-   gtk_widget_set_usize (scrollwin, -1, 200);
+   gtk_widget_set_size_request (scrollwin, -1, 200);
 
    store = gtk_list_store_new (titles_num,
                                G_TYPE_STRING,
