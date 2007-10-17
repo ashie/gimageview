@@ -29,13 +29,12 @@
 #include "gimv_image_view.h"
 #include "gimv_thumb_view.h"
 
-
 #define GIMV_TYPE_THUMB_WIN            (gimv_thumb_win_get_type ())
-#define GIMV_THUMB_WIN(obj)            (GTK_CHECK_CAST (obj, gimv_thumb_win_get_type (), GimvThumbWin))
-#define GIMV_THUMB_WIN_CLASS(klass)    (GTK_CHECK_CLASS_CAST (klass, gimv_thumb_win_get_type, GimvThumbWinClass))
-#define GIMV_IS_THUMB_WIN(obj)         (GTK_CHECK_TYPE (obj, gimv_thumb_win_get_type ()))
-#define GIMV_IS_THUMB_WIN_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_THUMB_WIN))
-
+#define GIMV_THUMB_WIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_THUMB_WIN, GimvThumbWin))
+#define GIMV_THUMB_WIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_THUMB_WIN, GimvThumbWinClass))
+#define GIMV_IS_THUMB_WIN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_THUMB_WIN))
+#define GIMV_IS_THUMB_WIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_THUMB_WIN))
+#define GIMV_THUMB_WIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_THUMB_WIN, GimvThumbWinClass))
 
 #define GIMV_THUMB_WIN_MIN_THUMB_SIZE 4
 #define GIMV_THUMB_WIN_MAX_THUMB_SIZE 640

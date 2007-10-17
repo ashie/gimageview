@@ -39,10 +39,11 @@
 #include "gimv_scrolled.h"
 
 #define GIMV_TYPE_ZLIST            (gimv_zlist_get_type ())
-#define GIMV_ZLIST(widget)         (GTK_CHECK_CAST ((widget), GIMV_TYPE_ZLIST, GimvZList))
-#define GIMV_ZLIST_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), GIMV_TYPE_ZLIST, GimvZListClass))
-#define GIMV_IS_ZLIST(widget)      (GTK_CHECK_TYPE ((widget), GIMV_TYPE_ZLIST))
-#define GIMV_IS_ZLIST_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_ZLIST))
+#define GIMV_ZLIST(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_ZLIST, GimvZList))
+#define GIMV_ZLIST_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_ZLIST, GimvZListClass))
+#define GIMV_IS_ZLIST(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_ZLIST))
+#define GIMV_IS_ZLIST_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_ZLIST))
+#define GIMV_ZLIST_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_ZLIST, GimvZListClass))
 
 enum {
    GIMV_ZLIST_HORIZONTAL        = 1 << 1,

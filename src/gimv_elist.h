@@ -31,9 +31,12 @@
 
 #include <gtk/gtk.h>
 
-#define GIMV_ELIST(obj)         GTK_CHECK_CAST (obj, gimv_elist_get_type (), GimvEList)
-#define GIMV_ELIST_CLASS(klass) GTK_CHECK_CLASS_CAST (klass, gimv_elist_get_type, GimvEListClass)
-#define GIMV_IS_ELIST(obj)      GTK_CHECK_TYPE (obj, gimv_elist_get_type ())
+#define GIMV_TYPE_ELIST            (gimv_elist_get_type ())
+#define GIMV_ELIST(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_ELIST, GimvEList))
+#define GIMV_ELIST_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_ELIST, GimvEListClass))
+#define GIMV_IS_ELIST(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_ELIST))
+#define GIMV_IS_ELIST_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_ELIST))
+#define GIMV_ELIST_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_ELIST, GimvEListClass))
 
 
 typedef struct GimvEList_Tag      GimvEList;

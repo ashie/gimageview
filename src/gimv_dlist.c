@@ -21,6 +21,10 @@
  * $Id$
  */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif /* HAVE_CONFIG_H */
+
 #include "gimv_dlist.h"
 
 #include <string.h>

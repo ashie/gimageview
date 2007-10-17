@@ -28,27 +28,16 @@
 #ifndef __GIMV_CELL_RENDERER_PIXMAP_H__
 #define __GIMV_CELL_RENDERER_PIXMAP_H__
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
-
-#include <gtk/gtk.h>
-
-#if (GTK_MAJOR_VERSION >= 2)
-
 #include <gtk/gtkcellrenderer.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
-
-#define GIMV_TYPE_CELL_RENDERER_PIXMAP			     (gimv_cell_renderer_pixmap_get_type ())
-#define GIMV_CELL_RENDERER_PIXMAP(obj)			     (GTK_CHECK_CAST ((obj), GIMV_TYPE_CELL_RENDERER_PIXMAP, GimvCellRendererPixmap))
-#define GIMV_CELL_RENDERER_PIXMAP_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), GIMV_TYPE_CELL_RENDERER_PIXMAP, GimvCellRendererPixmapClass))
-#define GIMV_IS_CELL_RENDERER_PIXMAP(obj)		     (GTK_CHECK_TYPE ((obj), GIMV_TYPE_CELL_RENDERER_PIXMAP))
-#define GIMV_IS_CELL_RENDERER_PIXMAP_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_CELL_RENDERER_PIXMAP))
-#define GIMV_CELL_RENDERER_PIXMAP_GET_CLASS(obj)  (GTK_CHECK_GET_CLASS ((obj), GIMV_TYPE_CELL_RENDERER_PIXMAP, GimvCellRendererPixmapClass))
+#define GIMV_TYPE_CELL_RENDERER_PIXMAP            (gimv_cell_renderer_pixmap_get_type ())
+#define GIMV_CELL_RENDERER_PIXMAP(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_CELL_RENDERER_PIXMAP, GimvCellRendererPixmap))
+#define GIMV_CELL_RENDERER_PIXMAP_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_CELL_RENDERER_PIXMAP, GimvCellRendererPixmapClass))
+#define GIMV_IS_CELL_RENDERER_PIXMAP(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_CELL_RENDERER_PIXMAP))
+#define GIMV_IS_CELL_RENDERER_PIXMAP_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_CELL_RENDERER_PIXMAP))
+#define GIMV_CELL_RENDERER_PIXMAP_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_CELL_RENDERER_PIXMAP, GimvCellRendererPixmapClass))
 
 typedef struct GimvCellRendererPixmap_Tag         GimvCellRendererPixmap;
 typedef struct GimvCellRendererPixmapClass_Tag    GimvCellRendererPixmapClass;
@@ -79,10 +68,6 @@ struct GimvCellRendererPixmapClass_Tag
 GType            gimv_cell_renderer_pixmap_get_type (void);
 GtkCellRenderer *gimv_cell_renderer_pixmap_new      (void);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* __GIMV_CELL_RENDERER_PIXMAP_H__ */
-
-#endif /* (GTK_MAJOR_VERSION >= 2) */

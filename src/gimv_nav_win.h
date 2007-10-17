@@ -32,21 +32,18 @@
 
 #include "gimageview.h"
 
-
 #define GIMV_TYPE_NAV_WIN            (gimv_nav_win_get_type ())
-#define GIMV_NAV_WIN(obj)            (GTK_CHECK_CAST (obj, gimv_nav_win_get_type (), GimvNavWin))
-#define GIMV_NAV_WIN_CLASS(klass)    (GTK_CHECK_CLASS_CAST (klass, gimv_nav_win_get_type, GimvNavWinClass))
-#define GIMV_IS_NAV_WIN(obj)         (GTK_CHECK_TYPE (obj, gimv_nav_win_get_type ()))
-#define GIMV_IS_NAV_WIN_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_NAV_WIN))
-
+#define GIMV_NAV_WIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_NAV_WIN, GimvNavWin))
+#define GIMV_NAV_WIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_NAV_WIN, GimvNavWinClass))
+#define GIMV_IS_NAV_WIN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_NAV_WIN))
+#define GIMV_IS_NAV_WIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_NAV_WIN))
+#define GIMV_NAV_WIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_NAV_WIN, GimvNavWinClass))
 
 #define GIMV_NAV_WIN_SIZE 128 /* Max size of the window. */
-
 
 typedef struct GimvNavWin_Tag      GimvNavWin;
 typedef struct GimvNavWinPriv_Tag  GimvNavWinPriv;
 typedef struct GimvNavWinClass_Tag GimvNavWinClass;
-
 
 struct GimvNavWin_Tag
 {
@@ -79,7 +76,6 @@ struct GimvNavWin_Tag
    gdouble factor;
 }; 
 
-
 struct GimvNavWinClass_Tag
 {
    GtkWindowClass parent_class;
@@ -89,7 +85,6 @@ struct GimvNavWinClass_Tag
                  gint        x,
                  gint        y);
 };
-
 
 GType      gimv_nav_win_get_type             (void);
 GtkWidget *gimv_nav_win_new                  (GdkPixmap  *pixmap,

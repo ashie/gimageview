@@ -24,20 +24,17 @@
 #ifndef __GIMV_DLIST_H__
 #define __GIMV_DLIST_H__
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif /* HAVE_CONFIG_H */
-
 #include <gtk/gtk.h>
 
-#define GIMV_DLIST(obj)         GTK_CHECK_CAST (obj, gimv_dlist_get_type (), GimvDList)
-#define GIMV_DLIST_CLASS(klass) GTK_CHECK_CLASS_CAST (klass, gimv_dlist_get_type, GimvDListClass)
-#define GIMV_IS_DLIST(obj)      GTK_CHECK_TYPE (obj, gimv_dlist_get_type ())
-
+#define GIMV_TYPE_DLIST            (gimv_dlist_get_type ())
+#define GIMV_DLIST(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_DLIST, GimvDList))
+#define GIMV_DLIST_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_DLIST, GimvDListClass))
+#define GIMV_IS_DLIST(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_DLIST))
+#define GIMV_IS_DLIST_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_DLIST))
+#define GIMV_DLIST_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_DLIST, GimvDListClass))
 
 typedef struct GimvDList_Tag      GimvDList;
 typedef struct GimvDListClass_Tag GimvDListClass;
-
 
 struct GimvDList_Tag {
    GtkHBox     parent;
@@ -60,7 +57,6 @@ struct GimvDList_Tag {
    GList       *available_list;
 };
 
-
 struct GimvDListClass_Tag {
    GtkHBoxClass parent_class;
 
@@ -69,7 +65,6 @@ struct GimvDListClass_Tag {
 #endif
    gboolean (*enabled_list_updated)   (GimvDList *dslist);
 };
-
 
 /*
  *  "available" or "clist1" means left side CList (or TreeView).
@@ -97,7 +92,6 @@ gint          gimv_dlist_get_n_enabled_items   (GimvDList  *dslist);
 /* FIXME: currently, this function returns the untranslated text */
 gchar        *gimv_dlist_get_enabled_row_text  (GimvDList   *dslist,
                                                 gint          row);
-
 
 #if 0   /* API draft */
 

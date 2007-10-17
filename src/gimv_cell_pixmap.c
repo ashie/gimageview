@@ -29,6 +29,10 @@
 #  define GTK_DISABLE_DEPRECATED
 #endif /* GTK_DISABLE_DEPRECATED */
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif /* HAVE_CONFIG_H */
+
 #include "gimv_cell_pixmap.h"
 
 #include <stdlib.h>
