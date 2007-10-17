@@ -28,7 +28,7 @@
 #include <libexif/jpeg-data.h>
 #include <libexif/exif-data.h>
 
-#include "exif_view.h"
+#include "gimv_exif_view.h"
 #include "gimv_image.h"
 #include "gimv_io_mem.h"
 #include "gtkutils.h"
