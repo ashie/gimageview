@@ -93,7 +93,7 @@ struct GimvXineClass_Tag
 };
 
 
-GtkType      gimv_xine_get_type               (void);
+GType        gimv_xine_get_type               (void);
 GtkWidget   *gimv_xine_new                    (const gchar *video_driver_id,
                                                const gchar *audio_driver_id);
 const char * const *

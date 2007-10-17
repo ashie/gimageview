@@ -93,17 +93,17 @@ G_DEFINE_TYPE (GimvScrolled, gimv_scrolled, GTK_TYPE_CONTAINER)
 static void
 gimv_scrolled_class_init (GimvScrolledClass *klass)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
    GtkWidgetClass *widget_class;
    GtkContainerClass *container_class;
 
-   object_class    = (GtkObjectClass*) klass;
+   gobject_class   = (GObjectClass*) klass;
    widget_class    = (GtkWidgetClass*) klass;
    container_class = (GtkContainerClass*) klass;
 
    widget_class->set_scroll_adjustments_signal =
       g_signal_new ("set_scroll_adjustments",
-                    G_TYPE_FROM_CLASS(object_class),
+                    G_TYPE_FROM_CLASS(gobject_class),
                     G_SIGNAL_RUN_LAST,
                     G_STRUCT_OFFSET(GimvScrolledClass, set_scroll_adjustments),
                     NULL, NULL,
@@ -112,7 +112,7 @@ gimv_scrolled_class_init (GimvScrolledClass *klass)
     
    gimv_scrolled_signals[ADJUST_ADJUSTMENTS] = 
       g_signal_new ("adjust_adjustments",
-                    G_TYPE_FROM_CLASS(object_class),
+                    G_TYPE_FROM_CLASS(gobject_class),
                     G_SIGNAL_RUN_FIRST,
                     G_STRUCT_OFFSET(GimvScrolledClass, adjust_adjustments),
                     NULL, NULL,

@@ -99,7 +99,7 @@ struct _GimvZAlbumCell
 };
 
 
-GtkType    gimv_zalbum_get_type                  (void);
+GType      gimv_zalbum_get_type                  (void);
 GtkWidget *gimv_zalbum_new                       (void);
 guint      gimv_zalbum_add                       (GimvZAlbum       *album,
                                                   const gchar      *name);

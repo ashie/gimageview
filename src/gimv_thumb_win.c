@@ -149,7 +149,7 @@ struct GimvThumbWinPriv_Tag {
 };
 
 
-static void       gimv_thumb_win_destroy             (GtkObject         *object);
+static void       gimv_thumb_win_dispose             (GObject           *object);
 static void       gimv_thumb_win_realize             (GtkWidget         *widget);
 static gboolean   gimv_thumb_win_delete_event        (GtkWidget         *widget,
                                                       GdkEventAny       *event);
@@ -556,13 +556,13 @@ G_DEFINE_TYPE (GimvThumbWin, gimv_thumb_win, GTK_TYPE_WINDOW)
 static void
 gimv_thumb_win_class_init (GimvThumbWinClass *klass)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
    GtkWidgetClass *widget_class;
 
-   object_class = (GtkObjectClass *) klass;
-   widget_class = (GtkWidgetClass *) klass;
+   gobject_class = (GObjectClass *) klass;
+   widget_class  = (GtkWidgetClass *) klass;
 
-   object_class->destroy = gimv_thumb_win_destroy;
+   gobject_class->dispose        = gimv_thumb_win_dispose;
 
    widget_class->realize         = gimv_thumb_win_realize;
    widget_class->delete_event    = gimv_thumb_win_delete_event;
@@ -768,7 +768,7 @@ gimv_thumb_win_open_window (void)
 
 
 static void
-gimv_thumb_win_destroy (GtkObject *object)
+gimv_thumb_win_dispose (GObject *object)
 {
    GimvThumbWin *tw = GIMV_THUMB_WIN (object);
    GimvThumbView *tv;
@@ -801,8 +801,8 @@ gimv_thumb_win_destroy (GtkObject *object)
       tw->priv = NULL;
    }
 
-   if (GTK_OBJECT_CLASS (gimv_thumb_win_parent_class)->destroy)
-      GTK_OBJECT_CLASS (gimv_thumb_win_parent_class)->destroy (object);
+   if (G_OBJECT_CLASS (gimv_thumb_win_parent_class)->dispose)
+      G_OBJECT_CLASS (gimv_thumb_win_parent_class)->dispose (object);
 
    /* quit when last window */
    if (!gimv_image_win_get_list() && !gimv_thumb_win_get_list()) {

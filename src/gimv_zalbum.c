@@ -110,15 +110,15 @@ G_DEFINE_TYPE (GimvZAlbum, gimv_zalbum, GIMV_TYPE_ZLIST)
 
 static void
 gimv_zalbum_class_init (GimvZAlbumClass *klass) {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
    GtkWidgetClass *widget_class;
    GimvZListClass *zlist_class;
 
-   object_class = (GtkObjectClass *) klass;
-   widget_class = (GtkWidgetClass *) klass;
-   zlist_class  = (GimvZListClass *) klass;
+   gobject_class = (GObjectClass *) klass;
+   widget_class  = (GtkWidgetClass *) klass;
+   zlist_class   = (GimvZListClass *) klass;
 
-   G_OBJECT_CLASS(klass)->finalize = gimv_zalbum_finalize;
+   gobject_class->finalize          = gimv_zalbum_finalize;
 
    zlist_class->clear               = gimv_zalbum_clear;
    zlist_class->cell_draw           = gimv_zalbum_draw_cell;

@@ -232,7 +232,7 @@ struct GimvThumbWinClass_Tag
 
 
 GList       *gimv_thumb_win_get_list                  (void);
-GtkType      gimv_thumb_win_get_type                  (void);
+GType        gimv_thumb_win_get_type                  (void);
 
 GtkWidget   *gimv_thumb_win_new                       (void);
 GimvThumbWin

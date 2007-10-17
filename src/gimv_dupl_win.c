@@ -41,7 +41,7 @@ struct GimvDuplWinPriv_Tag
    GtkCellRenderer   *pixmap_renderer;
 };
 
-static void gimv_dupl_win_destroy    (GtkObject        *object);
+static void gimv_dupl_win_dispose     (GObject          *object);
 
 static void cb_select_all_button      (GtkButton        *button,
                                        GimvDuplWin      *sw);
@@ -251,16 +251,16 @@ gimv_dupl_win_init (GimvDuplWin *sw)
 static void
 gimv_dupl_win_class_init (GimvDuplWinClass *klass)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
 
-   object_class = (GtkObjectClass *) klass;
+   gobject_class = (GObjectClass *) klass;
 
-   object_class->destroy = gimv_dupl_win_destroy;
+   gobject_class->dispose = gimv_dupl_win_dispose;
 }
 
 
 static void
-gimv_dupl_win_destroy (GtkObject *object)
+gimv_dupl_win_dispose (GObject *object)
 {
    GimvDuplWin *sw = GIMV_DUPL_WIN (object);
 
@@ -279,8 +279,8 @@ gimv_dupl_win_destroy (GtkObject *object)
       sw->finder = NULL;
    }
 
-   if (GTK_OBJECT_CLASS (gimv_dupl_win_parent_class)->destroy)
-      (*GTK_OBJECT_CLASS (gimv_dupl_win_parent_class)->destroy) (object);
+   if (G_OBJECT_CLASS (gimv_dupl_win_parent_class)->dispose)
+      G_OBJECT_CLASS (gimv_dupl_win_parent_class)->dispose (object);
 }
 
 

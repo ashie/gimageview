@@ -158,19 +158,19 @@ G_DEFINE_TYPE (GimvZList, gimv_zlist, GIMV_TYPE_SCROLLED)
 static void        
 gimv_zlist_class_init (GimvZListClass *klass)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
    GtkWidgetClass *widget_class;
    GtkContainerClass *container_class;
    GimvScrolledClass *scrolled_class;
 
-   object_class    = (GtkObjectClass*) klass;
+   gobject_class    = (GObjectClass*) klass;
    widget_class    = (GtkWidgetClass*) klass;
    container_class = (GtkContainerClass*) klass;
    scrolled_class  = (GimvScrolledClass*) klass;
 
    gimv_zlist_signals [CLEAR] = 
       g_signal_new ("clear",
-                    G_TYPE_FROM_CLASS(object_class),
+                    G_TYPE_FROM_CLASS(gobject_class),
                     G_SIGNAL_RUN_FIRST,
                     G_STRUCT_OFFSET(GimvZListClass, clear),
                     NULL, NULL,
@@ -179,7 +179,7 @@ gimv_zlist_class_init (GimvZListClass *klass)
 
    gimv_zlist_signals [CELL_DRAW] = 
       g_signal_new ("cell_draw",
-                    G_TYPE_FROM_CLASS(object_class),
+                    G_TYPE_FROM_CLASS(gobject_class),
                     G_SIGNAL_RUN_FIRST,
                     G_STRUCT_OFFSET(GimvZListClass, cell_draw),
                     NULL, NULL,
@@ -189,7 +189,7 @@ gimv_zlist_class_init (GimvZListClass *klass)
 
    gimv_zlist_signals [CELL_SIZE_REQUEST] = 
       g_signal_new ("cell_size_request",
-                    G_TYPE_FROM_CLASS(object_class),
+                    G_TYPE_FROM_CLASS(gobject_class),
                     G_SIGNAL_RUN_FIRST,
                     G_STRUCT_OFFSET(GimvZListClass, cell_size_request),
                     NULL, NULL,
@@ -199,7 +199,7 @@ gimv_zlist_class_init (GimvZListClass *klass)
 
    gimv_zlist_signals [CELL_DRAW_FOCUS] = 
       g_signal_new ("cell_draw_focus",
-                    G_TYPE_FROM_CLASS(object_class),
+                    G_TYPE_FROM_CLASS(gobject_class),
                     G_SIGNAL_RUN_FIRST,
                     G_STRUCT_OFFSET(GimvZListClass, cell_draw_focus),
                     NULL, NULL,
@@ -208,7 +208,7 @@ gimv_zlist_class_init (GimvZListClass *klass)
 
    gimv_zlist_signals [CELL_DRAW_DEFAULT] = 
       g_signal_new ("cell_draw_default",
-                    G_TYPE_FROM_CLASS(object_class),
+                    G_TYPE_FROM_CLASS(gobject_class),
                     G_SIGNAL_RUN_FIRST,
                     G_STRUCT_OFFSET(GimvZListClass, cell_draw_default),
                     NULL, NULL,
@@ -217,7 +217,7 @@ gimv_zlist_class_init (GimvZListClass *klass)
 
    gimv_zlist_signals [CELL_SELECT] = 
       g_signal_new ("cell_select",
-                    G_TYPE_FROM_CLASS(object_class),
+                    G_TYPE_FROM_CLASS(gobject_class),
                     G_SIGNAL_RUN_FIRST,
                     G_STRUCT_OFFSET(GimvZListClass, cell_select),
                     NULL, NULL,
@@ -226,14 +226,14 @@ gimv_zlist_class_init (GimvZListClass *klass)
 
    gimv_zlist_signals [CELL_UNSELECT] = 
       g_signal_new ("cell_unselect",
-                    G_TYPE_FROM_CLASS(object_class),
+                    G_TYPE_FROM_CLASS(gobject_class),
                     G_SIGNAL_RUN_FIRST,
                     G_STRUCT_OFFSET(GimvZListClass, cell_unselect),
                     NULL, NULL,
                     g_cclosure_marshal_VOID__INT,
                     G_TYPE_NONE, 1, G_TYPE_INT);
 
-   G_OBJECT_CLASS(klass)->finalize = gimv_zlist_finalize;
+   gobject_class->finalize              = gimv_zlist_finalize;
 
    widget_class->map                    = gimv_zlist_map;
    widget_class->unmap                  = gimv_zlist_unmap;

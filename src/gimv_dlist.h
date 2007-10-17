@@ -76,7 +76,7 @@ struct GimvDListClass_Tag {
  *  "enabled" or "clist2" means right side CList (or TreeView).
  */
 
-GtkType       gimv_dlist_get_type              (void);
+GType         gimv_dlist_get_type              (void);
 
 GtkWidget    *gimv_dlist_new                   (const gchar  *clist1_title,
                                                 const gchar  *clist2_title);

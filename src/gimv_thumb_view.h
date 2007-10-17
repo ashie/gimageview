@@ -153,7 +153,7 @@ gchar        **gimv_thumb_view_get_summary_mode_labels
 GList         *gimv_thumb_view_get_summary_mode_list
                                                   (void);
 
-GtkType        gimv_thumb_view_get_type           (void);
+GType          gimv_thumb_view_get_type           (void);
 GimvThumbView *gimv_thumb_view_new                (void);
 gboolean       gimv_thumb_view_set_widget         (GimvThumbView    *tv,
                                                    GimvThumbWin     *tw,

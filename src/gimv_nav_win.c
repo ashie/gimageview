@@ -48,7 +48,7 @@ static gint gimv_nav_win_signals[LAST_SIGNAL] = {0};
 
 
 /* object class */
-static void     gimv_nav_win_destroy        (GtkObject       *object);
+static void     gimv_nav_win_dispose        (GObject         *object);
 
 /* widget class */
 static void     gimv_nav_win_realize        (GtkWidget       *widget);
@@ -83,13 +83,13 @@ G_DEFINE_TYPE (GimvNavWin, gimv_nav_win, GTK_TYPE_WINDOW)
 static void
 gimv_nav_win_class_init (GimvNavWinClass *klass)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
    GtkWidgetClass *widget_class;
 
-   object_class = (GtkObjectClass *) klass;
-   widget_class = (GtkWidgetClass *) klass;
+   gobject_class = (GObjectClass *) klass;
+   widget_class  = (GtkWidgetClass *) klass;
 
-   object_class->destroy = gimv_nav_win_destroy;
+   gobject_class->dispose             = gimv_nav_win_dispose;
 
    widget_class->realize              = gimv_nav_win_realize;
    widget_class->unrealize            = gimv_nav_win_unrealize;
@@ -100,7 +100,7 @@ gimv_nav_win_class_init (GimvNavWinClass *klass)
 
    gimv_nav_win_signals[MOVE_SIGNAL]
       = g_signal_new ("move",
-                      G_TYPE_FROM_CLASS (object_class),
+                      G_TYPE_FROM_CLASS (gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvNavWinClass, move),
                       NULL, NULL,
@@ -135,7 +135,7 @@ gimv_nav_win_init (GimvNavWin *navwin)
 
 
 static void
-gimv_nav_win_destroy (GtkObject *object)
+gimv_nav_win_dispose (GObject *object)
 {
    GimvNavWin *navwin = GIMV_NAV_WIN (object);
 
@@ -143,8 +143,8 @@ gimv_nav_win_destroy (GtkObject *object)
       gdk_pixmap_unref (navwin->pixmap);
    navwin->pixmap = NULL;
 
-   if (GTK_OBJECT_CLASS (gimv_nav_win_parent_class)->destroy)
-      GTK_OBJECT_CLASS (gimv_nav_win_parent_class)->destroy (object);
+   if (G_OBJECT_CLASS (gimv_nav_win_parent_class)->dispose)
+      G_OBJECT_CLASS (gimv_nav_win_parent_class)->dispose (object);
 }
 
 

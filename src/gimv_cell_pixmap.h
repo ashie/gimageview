@@ -76,7 +76,7 @@ struct GimvCellRendererPixmapClass_Tag
    void (*_gimv_reserved4) (void);
 };
 
-GtkType          gimv_cell_renderer_pixmap_get_type (void);
+GType            gimv_cell_renderer_pixmap_get_type (void);
 GtkCellRenderer *gimv_cell_renderer_pixmap_new      (void);
 
 #ifdef __cplusplus

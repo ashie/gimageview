@@ -98,7 +98,7 @@ struct GimvImageWinPriv_Tag
 };
 
 
-static void     gimv_image_win_destroy              (GtkObject *object);
+static void     gimv_image_win_dispose              (GObject   *object);
 static void     gimv_image_win_realize              (GtkWidget *widget);
 static void     gimv_image_win_real_show_fullscreen (GimvImageWin *iw);
 static void     gimv_image_win_real_hide_fullscreen (GimvImageWin *iw);
@@ -345,15 +345,15 @@ G_DEFINE_TYPE (GimvImageWin, gimv_image_win, GTK_TYPE_WINDOW)
 static void
 gimv_image_win_class_init (GimvImageWinClass *klass)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
    GtkWidgetClass *widget_class;
 
-   object_class = (GtkObjectClass *) klass;
+   gobject_class = (GObjectClass *) klass;
    widget_class = (GtkWidgetClass *) klass;
 
    gimv_image_win_signals[SHOW_FULLSCREEN_SIGNAL]
       = g_signal_new ("show_fullscreen",
-                      G_TYPE_FROM_CLASS(object_class),
+                      G_TYPE_FROM_CLASS(gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvImageWinClass, show_fullscreen),
                       NULL, NULL,
@@ -361,14 +361,14 @@ gimv_image_win_class_init (GimvImageWinClass *klass)
                       G_TYPE_NONE, 0);
    gimv_image_win_signals[HIDE_FULLSCREEN_SIGNAL]
       = g_signal_new ("hide_fullscreen",
-                      G_TYPE_FROM_CLASS(object_class),
+                      G_TYPE_FROM_CLASS(gobject_class),
                       G_SIGNAL_RUN_FIRST,
                       G_STRUCT_OFFSET (GimvImageWinClass, hide_fullscreen),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
 
-   object_class->destroy  = gimv_image_win_destroy;
+   gobject_class->dispose = gimv_image_win_dispose;
 
    widget_class->realize  = gimv_image_win_realize;
 
@@ -594,7 +594,7 @@ gimv_image_win_new (GimvImageInfo *info)
 
 
 static void
-gimv_image_win_destroy (GtkObject *object)
+gimv_image_win_dispose (GObject *object)
 {
    GimvImageWin *iw = GIMV_IMAGE_WIN (object);
 
@@ -626,8 +626,8 @@ gimv_image_win_destroy (GtkObject *object)
    if (iw == shared_img_win)
       shared_img_win = NULL;
 
-   if (GTK_OBJECT_CLASS (gimv_image_win_parent_class)->destroy)
-      GTK_OBJECT_CLASS (gimv_image_win_parent_class)->destroy (object);
+   if (G_OBJECT_CLASS (gimv_image_win_parent_class)->dispose)
+      G_OBJECT_CLASS (gimv_image_win_parent_class)->dispose (object);
 
    /* quit when last window */
    if (!gimv_image_win_get_list() && !gimv_thumb_win_get_list()) {
