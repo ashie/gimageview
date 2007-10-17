@@ -28,7 +28,7 @@
 #  include "config.h"
 #endif
 
-#include <gtk/gtkobject.h>
+#include <glib-object.h>
 
 #include "gimv_image.h"
 #include "gimv_image_info.h"
