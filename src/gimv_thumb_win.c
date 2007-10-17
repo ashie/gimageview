@@ -30,11 +30,11 @@
 
 #include "auto_completion.h"
 #include "charset.h"
-#include "dirview.h"
 #include "dnd.h"
 #include "fileutil.h"
 #include "gfileutil.h"
 #include "gimv_comment_view.h"
+#include "gimv_dir_view.h"
 #include "gimv_dupl_finder.h"
 #include "gimv_icon_stock.h"
 #include "gimv_image_win.h"

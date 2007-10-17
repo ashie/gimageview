@@ -25,7 +25,7 @@
 
 #include "gimageview.h"
 
-#include "dirview.h"
+#include "gimv_dir_view.h"
 #include "gimv_prefs_ui_utils.h"
 #include "gimv_prefs_win.h"
 #include "gimv_thumb_view.h"

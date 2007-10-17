@@ -18,10 +18,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
- * $Id: dirview2.c 1079 2007-10-12 03:15:19Z makeinu $
+ * $Id$
  */
 
-#include "dirview.h"
+#include "gimv_dir_view.h"
 
 #include <string.h>
 
