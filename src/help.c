@@ -36,7 +36,7 @@
 #include "menu.h"
 #include "gimv_plugin.h"
 #include "prefs.h"
-#include "text_viewer.h"
+#include "gimv_text_win.h"
 
 #define DOC_HTML_DIR "html"
 #define DOC_TEXT_DIR "text"

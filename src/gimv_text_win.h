@@ -22,8 +22,8 @@
  */
 
 
-#ifndef __TEXT_VIEWER_H__
-#define __TEXT_VIEWER_H__
+#ifndef __GIMV_TEXT_WIN_H__
+#define __GIMV_TEXT_WIN_H__
 
 #include <gtk/gtk.h>
 
@@ -42,4 +42,4 @@ gboolean    text_viewer_load_file (TextViewer *text_viewer,
                                    gchar      *filename);
 TextViewer *text_viewer_create    (gchar      *filename);
 
-#endif /* __TEXT_VIEWER_H__ */
+#endif /* __GIMV_TEXT_WIN_H__ */
