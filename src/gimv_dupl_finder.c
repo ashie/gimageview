@@ -157,7 +157,7 @@ gimv_dupl_finder_init (GimvDuplFinder *finder)
    finder->timer_id     = 0;
    finder->idle_id      = 0;
 
-   gtk_object_ref (GTK_OBJECT (finder));
+   g_object_ref (G_OBJECT (finder));
    gtk_object_sink (GTK_OBJECT (finder));
 }
 
@@ -181,8 +181,8 @@ gimv_dupl_finder_destroy (GtkObject *object)
 
    gimv_dupl_finder_stop (finder);
 
-   g_list_foreach (finder->src_list,  (GFunc) gtk_object_unref, NULL);
-   g_list_foreach (finder->dest_list, (GFunc) gtk_object_unref, NULL);
+   g_list_foreach (finder->src_list,  (GFunc) g_object_unref, NULL);
+   g_list_foreach (finder->dest_list, (GFunc) g_object_unref, NULL);
    g_list_free (finder->src_list);
    g_list_free (finder->dest_list);
    finder->src_list  = NULL;
@@ -228,7 +228,7 @@ gimv_dupl_finder_append_src (GimvDuplFinder *finder,
    g_return_if_fail (GIMV_DUPL_FINDER (finder));
    g_return_if_fail (GIMV_IS_THUMB (thumb));
 
-   gtk_object_ref(GTK_OBJECT(thumb));
+   g_object_ref(G_OBJECT(thumb));
    finder->src_list = g_list_append (finder->src_list, thumb);
 }
 
@@ -240,7 +240,7 @@ gimv_dupl_finder_append_dest (GimvDuplFinder *finder,
    g_return_if_fail (GIMV_DUPL_FINDER (finder));
    g_return_if_fail (GIMV_IS_THUMB (thumb));
 
-   gtk_object_ref(GTK_OBJECT(thumb));
+   g_object_ref(G_OBJECT(thumb));
    finder->dest_list = g_list_append (finder->dest_list, thumb);
 }
 

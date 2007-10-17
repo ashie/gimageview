@@ -62,7 +62,7 @@ cb_menu_destroy (GtkWidget *widget, GtkItemFactory *factory)
    g_return_if_fail (factory);
    g_return_if_fail (GTK_IS_ITEM_FACTORY (factory));
 
-   gtk_object_unref (GTK_OBJECT (factory));
+   g_object_unref (G_OBJECT (factory));
 }
 
 
@@ -282,7 +282,7 @@ create_option_menu_simple (const gchar **menu_items, gint def_val, gint *data)
 
    for (i = 0; menu_items[i]; i++) {
       menu_item = gtk_menu_item_new_with_label (_(menu_items[i]));
-      gtk_object_set_data (GTK_OBJECT (menu_item), "num", GINT_TO_POINTER(i));
+      g_object_set_data (G_OBJECT (menu_item), "num", GINT_TO_POINTER(i));
       g_signal_connect(G_OBJECT(menu_item), "activate",
                        G_CALLBACK(cb_get_data_from_menuitem),
                        data);
@@ -321,7 +321,7 @@ create_option_menu (const gchar **menu_items, gint def_val,
 
    for (i = 0; menu_items[i]; i++) {
       menu_item = gtk_menu_item_new_with_label (_(menu_items[i]));
-      gtk_object_set_data (GTK_OBJECT (menu_item), "num", GINT_TO_POINTER(i));
+      g_object_set_data (G_OBJECT (menu_item), "num", GINT_TO_POINTER(i));
       g_signal_connect(G_OBJECT(menu_item), "activate",
                        G_CALLBACK(func),
                        data);
@@ -344,15 +344,15 @@ create_option_menu (const gchar **menu_items, gint def_val,
 static void
 cb_get_data_from_menuitem (GtkWidget *widget, gint *conf)
 {
-   *conf = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget), "num"));
+   *conf = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (widget), "num"));
 }
 
 
 void
 menu_modal_cb (gpointer data, guint action, GtkWidget *menuitem)
 {
-   gtk_object_set_data (GTK_OBJECT (menuitem->parent), "return_val",
-                        GINT_TO_POINTER (action));
+   g_object_set_data (G_OBJECT (menuitem->parent), "return_val",
+                      GINT_TO_POINTER (action));
 }
 
 
@@ -390,7 +390,7 @@ menu_popup_modal (GtkWidget *popup,
    g_return_val_if_fail (popup != NULL, -1);
    g_return_val_if_fail (GTK_IS_WIDGET (popup), -1);
 
-   gtk_object_set_data (GTK_OBJECT (popup), "return_val", GINT_TO_POINTER (-1));
+   g_object_set_data (G_OBJECT (popup), "return_val", GINT_TO_POINTER (-1));
 
    id = g_signal_connect (G_OBJECT (popup), "deactivate",
                           G_CALLBACK (menu_shell_deactivated),
@@ -410,10 +410,10 @@ menu_popup_modal (GtkWidget *popup,
    gtk_main ();
    gtk_grab_remove (popup);
 
-   g_signal_handler_disconnect (GTK_OBJECT (popup), id);
+   g_signal_handler_disconnect (G_OBJECT (popup), id);
 
-   retval = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (popup),
-                                                  "return_val"));
+   retval = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (popup),
+                                                "return_val"));
    return retval;
 }
 

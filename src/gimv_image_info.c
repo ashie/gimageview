@@ -604,7 +604,7 @@ gimv_image_info_get_temp_file_path (GimvImageInfo *info)
 
    filename = info->filename;
 
-   temp_dir = gtk_object_get_data (GTK_OBJECT (archive), "temp-dir");
+   temp_dir = g_object_get_data (G_OBJECT (archive), "temp-dir");
 
    g_return_val_if_fail (temp_dir && *temp_dir, NULL);
 
@@ -664,7 +664,7 @@ gimv_image_info_extract_archive (GimvImageInfo *info)
 
    filename = info->filename;
 
-   temp_dir = gtk_object_get_data (GTK_OBJECT (archive), "temp-dir");
+   temp_dir = g_object_get_data (G_OBJECT (archive), "temp-dir");
 
    g_return_val_if_fail (temp_dir && *temp_dir, FALSE);
 

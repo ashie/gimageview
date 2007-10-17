@@ -51,12 +51,12 @@ cb_mouse_button (GtkWidget *menu_item, gpointer user_data)
    g_return_if_fail (menu_item);
    g_return_if_fail (src && *src && **src);
 
-   bid_p    = gtk_object_get_data (GTK_OBJECT (menu_item), "button-id");
-   mid_p    = gtk_object_get_data (GTK_OBJECT (menu_item), "mod-id");
-   num_p    = gtk_object_get_data (GTK_OBJECT (menu_item), "num");
-   defval   = gtk_object_get_data (GTK_OBJECT (menu_item), "prefs-prechanged");
-   pressed  = gtk_object_get_data (GTK_OBJECT (menu_item), "pressed");
-   released = gtk_object_get_data (GTK_OBJECT (menu_item), "released");
+   bid_p    = g_object_get_data (G_OBJECT (menu_item), "button-id");
+   mid_p    = g_object_get_data (G_OBJECT (menu_item), "mod-id");
+   num_p    = g_object_get_data (G_OBJECT (menu_item), "num");
+   defval   = g_object_get_data (G_OBJECT (menu_item), "prefs-prechanged");
+   pressed  = g_object_get_data (G_OBJECT (menu_item), "pressed");
+   released = g_object_get_data (G_OBJECT (menu_item), "released");
 
    bid = GPOINTER_TO_INT (bid_p);
    mid = GPOINTER_TO_INT (mid_p);
@@ -265,28 +265,28 @@ gimv_prefs_ui_mouse_prefs (const gchar **items,
          /* create option menu items */
          for (k = 0; items[k]; k++) {
             menu_item = gtk_menu_item_new_with_label (_(items[k]));
-            gtk_object_set_data (GTK_OBJECT (menu_item),
-                                 "button-id",
-                                 GINT_TO_POINTER(id));
-            gtk_object_set_data (GTK_OBJECT (menu_item),
-                                 "mod-id",
-                                 GINT_TO_POINTER(j));
-            gtk_object_set_data (GTK_OBJECT (menu_item),
-                                 "num",
-                                 GINT_TO_POINTER(k));
-            gtk_object_set_data (GTK_OBJECT (menu_item),
-                                 "prefs-prechanged",
-                                 (gpointer) defval);
+            g_object_set_data (G_OBJECT (menu_item),
+                               "button-id",
+                               GINT_TO_POINTER(id));
+            g_object_set_data (G_OBJECT (menu_item),
+                               "mod-id",
+                               GINT_TO_POINTER(j));
+            g_object_set_data (G_OBJECT (menu_item),
+                               "num",
+                               GINT_TO_POINTER(k));
+            g_object_set_data (G_OBJECT (menu_item),
+                               "prefs-prechanged",
+                               (gpointer) defval);
             g_signal_connect(G_OBJECT(menu_item), "activate",
                              G_CALLBACK(cb_mouse_button),
                              dest);
 
-            gtk_object_set_data (GTK_OBJECT (menu_item),
-                                 "pressed",
-                                 (gpointer) radio0);
-            gtk_object_set_data (GTK_OBJECT (menu_item),
-                                 "released",
-                                 (gpointer) radio1);
+            g_object_set_data (G_OBJECT (menu_item),
+                               "pressed",
+                               (gpointer) radio0);
+            g_object_set_data (G_OBJECT (menu_item),
+                               "released",
+                               (gpointer) radio1);
             gtk_menu_append (GTK_MENU(menu), menu_item);
             gtk_widget_show (menu_item);
          }

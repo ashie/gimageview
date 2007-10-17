@@ -330,7 +330,7 @@ cb_default_disp_mode (GtkWidget *widget)
    const gchar *tmpstr;
    gint disp_mode;
 
-   disp_mode = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget), "num"));
+   disp_mode = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (widget), "num"));
    tmpstr = gimv_thumb_view_num_to_label (disp_mode);
    if (tmpstr)
       config_changed->thumbwin_disp_mode = (gchar *) tmpstr;
@@ -343,7 +343,7 @@ static void
 cb_zoom_menu (GtkWidget *menu)
 {
    config_changed->preview_zoom =
-      GPOINTER_TO_INT (gtk_object_get_data(GTK_OBJECT(menu), "num"));
+      GPOINTER_TO_INT (g_object_get_data(G_OBJECT(menu), "num"));
    set_sensitive_preview();
 }
 
@@ -1108,18 +1108,18 @@ prefs_ui_preview_apply (GimvPrefsWinAction action)
 
       if (tw->iv) {
          if (dest->preview_zoom == 0) {
-            gtk_object_set (GTK_OBJECT (tw->iv),
-                            "x_scale", dest->preview_scale,
-                            "y_scale", dest->preview_scale,
-                            NULL);
+            g_object_set (G_OBJECT (tw->iv),
+                          "x_scale", dest->preview_scale,
+                          "y_scale", dest->preview_scale,
+                          NULL);
          }
-         gtk_object_set (GTK_OBJECT (tw->iv),
-                         "default_zoom",       dest->preview_zoom,
-                         "default_rotation",   dest->preview_rotation,
-                         "keep_aspect",        dest->preview_keep_aspect,
-                         "keep_buffer",        dest->preview_buffer,
-                         "show_scrollbar",     dest->preview_scrollbar,
-                         NULL);
+         g_object_set (G_OBJECT (tw->iv),
+                       "default_zoom",       dest->preview_zoom,
+                       "default_rotation",   dest->preview_rotation,
+                       "keep_aspect",        dest->preview_keep_aspect,
+                       "keep_buffer",        dest->preview_buffer,
+                       "show_scrollbar",     dest->preview_scrollbar,
+                       NULL);
       }
    }
 

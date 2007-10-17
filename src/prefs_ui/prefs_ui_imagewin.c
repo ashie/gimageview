@@ -114,7 +114,7 @@ static void
 cb_zoom_menu (GtkWidget *menu)
 {
    config_changed->imgview_default_zoom =
-      GPOINTER_TO_INT (gtk_object_get_data(GTK_OBJECT(menu), "num"));
+      GPOINTER_TO_INT (g_object_get_data(G_OBJECT(menu), "num"));
 
    gtk_widget_set_sensitive (prefs_win.image_scale_spin,
                              config_changed->imgview_default_zoom == 0 ||
@@ -519,15 +519,15 @@ prefs_ui_imagewin_image_apply (GimvPrefsWinAction action)
 
       if (iw->iv) {
          if (!dest->imgview_default_zoom) {
-            gtk_object_set (GTK_OBJECT (iw->iv),
-                            "x_scale", dest->imgview_scale,
-                            "y_scale", dest->imgview_scale,
-                            NULL);
+            g_object_set (G_OBJECT (iw->iv),
+                          "x_scale", dest->imgview_scale,
+                          "y_scale", dest->imgview_scale,
+                          NULL);
          }
-         gtk_object_set (GTK_OBJECT (iw->iv),
-                         "default_zoom",     dest->imgview_default_zoom,
-                         "default_rotation", dest->imgview_default_rotation,
-                         NULL);
+         g_object_set (G_OBJECT (iw->iv),
+                       "default_zoom",     dest->imgview_default_zoom,
+                       "default_rotation", dest->imgview_default_rotation,
+                       NULL);
       }
    }
 

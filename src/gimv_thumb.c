@@ -94,7 +94,7 @@ gimv_thumb_init (GimvThumb *thumb)
    /* will be removed! */
    thumb->selected   = FALSE;
 
-   gtk_object_ref (GTK_OBJECT (thumb));
+   g_object_ref (G_OBJECT (thumb));
    gtk_object_sink (GTK_OBJECT (thumb));
 }
 

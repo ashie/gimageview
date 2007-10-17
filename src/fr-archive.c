@@ -65,9 +65,9 @@ fr_archive_destroy (GtkObject *object)
    archive = FR_ARCHIVE (object);
 
    if (archive->command != NULL) 
-      gtk_object_unref (GTK_OBJECT (archive->command));
+      g_object_unref (G_OBJECT (archive->command));
 
-   gtk_object_unref (GTK_OBJECT (archive->process));
+   g_object_unref (G_OBJECT (archive->process));
 
    g_print (_("archive \"%s\" has been finalized.\n"), archive->filename);
 
@@ -121,7 +121,7 @@ fr_archive_init (FRArchive *archive)
    archive->command = NULL;
    archive->process = fr_process_new ();
 
-   gtk_object_ref (GTK_OBJECT (archive));
+   g_object_ref (G_OBJECT (archive));
    gtk_object_sink (GTK_OBJECT (archive));
 }
 
@@ -141,7 +141,7 @@ fr_archive_ref (FRArchive *archive)
    g_return_val_if_fail (archive != NULL, NULL);
    g_return_val_if_fail (FR_IS_ARCHIVE (archive), NULL);
 
-   gtk_object_ref (GTK_OBJECT (archive));
+   g_object_ref (G_OBJECT (archive));
 
    return archive;
 }
@@ -153,7 +153,7 @@ fr_archive_unref (FRArchive *archive)
    g_return_if_fail (archive != NULL);
    g_return_if_fail (FR_IS_ARCHIVE (archive));
 
-   gtk_object_unref (GTK_OBJECT (archive));
+   g_object_unref (G_OBJECT (archive));
 }
 
 
@@ -253,7 +253,7 @@ fr_archive_new_file (FRArchive *archive, char *filename)
    if (! create_command_from_filename (archive, filename))
       return;
    if (tmp_command != NULL) 
-      gtk_object_unref (GTK_OBJECT (tmp_command));
+      g_object_unref (G_OBJECT (tmp_command));
 
    g_signal_connect (G_OBJECT (archive->command), "start",
                      G_CALLBACK (action_started),
@@ -290,7 +290,7 @@ fr_archive_load (FRArchive *archive,
    if (!create_command_from_filename (archive, filename))
       return FALSE;
    if (tmp_command != NULL) 
-      gtk_object_unref (GTK_OBJECT (tmp_command));
+      g_object_unref (G_OBJECT (tmp_command));
 
    g_signal_connect (G_OBJECT (archive->command), "start",
                      G_CALLBACK (action_started),

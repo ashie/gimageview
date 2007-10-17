@@ -349,13 +349,13 @@ gimv_scrolled_set_scroll_adjustments (GtkWidget *widget,
             G_OBJECT (scrolled->h_adjustment),
             G_SIGNAL_MATCH_DATA,
             0, 0, NULL, NULL, scrolled);
-         gtk_object_unref (GTK_OBJECT(scrolled->h_adjustment));
+         g_object_unref (G_OBJECT(scrolled->h_adjustment));
       }
 	    
       scrolled->h_adjustment = hadjustment;
 
       if (hadjustment) {
-         gtk_object_ref (GTK_OBJECT(hadjustment));
+         g_object_ref (G_OBJECT(hadjustment));
          g_signal_connect (G_OBJECT(hadjustment),
                            "value_changed", 
                            G_CALLBACK (hadjustment_value_changed),
@@ -370,13 +370,13 @@ gimv_scrolled_set_scroll_adjustments (GtkWidget *widget,
             G_OBJECT (scrolled->v_adjustment),
             G_SIGNAL_MATCH_DATA,
             0, 0, NULL, NULL, scrolled);
-         gtk_object_unref (GTK_OBJECT(scrolled->v_adjustment));
+         g_object_unref (G_OBJECT(scrolled->v_adjustment));
       }
 	    
       scrolled->v_adjustment = vadjustment;
 
       if (vadjustment) {
-         gtk_object_ref (GTK_OBJECT(vadjustment));
+         g_object_ref (G_OBJECT(vadjustment));
          g_signal_connect (G_OBJECT(vadjustment),
                            "value_changed", 
                            G_CALLBACK (vadjustment_value_changed),

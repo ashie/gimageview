@@ -341,9 +341,9 @@ gimv_nav_win_new (GdkPixmap *pixmap, GdkBitmap *mask,
 
    g_return_val_if_fail (pixmap, NULL);
 
-   navwin = GIMV_NAV_WIN (gtk_object_new (GIMV_TYPE_NAV_WIN,
-                                          "type", GTK_WINDOW_POPUP,
-                                          NULL));
+   navwin = GIMV_NAV_WIN (g_object_new (GIMV_TYPE_NAV_WIN,
+                                        "type", GTK_WINDOW_POPUP,
+                                        NULL));
 
    navwin->pixmap = gdk_pixmap_ref (pixmap);
    if (mask) navwin->mask = gdk_bitmap_ref (mask);

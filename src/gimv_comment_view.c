@@ -297,7 +297,7 @@ static void
 cb_combo_select (GtkWidget *label, GimvCommentView *cv)
 {
    GtkWidget *clist;
-   gchar *key = gtk_object_get_data (GTK_OBJECT (label), "key");
+   gchar *key = g_object_get_data (G_OBJECT (label), "key");
    GtkTreeView *treeview;
    GtkTreeModel *model;
    GtkTreeIter iter;
@@ -624,9 +624,9 @@ gimv_comment_view_set_combo_list (GimvCommentView *cv)
 
       label = gtk_list_item_new_with_label (_(data_entry->display_name));
 
-      gtk_object_set_data_full (GTK_OBJECT (label), "key",
-                                g_strdup (data_entry->key),
-                                (GtkDestroyNotify) g_free);
+      g_object_set_data_full (G_OBJECT (label), "key",
+                              g_strdup (data_entry->key),
+                              (GtkDestroyNotify) g_free);
       gtk_container_add (GTK_CONTAINER (GTK_COMBO (cv->key_combo)->list),
                          label);
       gtk_widget_show (label);
@@ -659,7 +659,7 @@ gimv_comment_view_data_enter (GimvCommentView *cv)
    g_return_if_fail (cv);
    if (!cv->selected_item) return;
 
-   key = gtk_object_get_data (GTK_OBJECT (cv->selected_item), "key");
+   key = g_object_get_data (G_OBJECT (cv->selected_item), "key");
    g_return_if_fail (key);
 
    dname = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (cv->key_combo)->entry));

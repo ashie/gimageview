@@ -168,7 +168,7 @@ cb_get_data_from_menuitem (GtkWidget *widget, gint *data)
    gint size_idx;
    gchar buf[8];
 
-   size_idx = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget), "num"));
+   size_idx = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (widget), "num"));
    g_snprintf (buf, 8, "%d", size_idx);
    gimv_plugin_prefs_save_value (this->name,
                                  GIMV_PLUGIN_THUMB_CACHE,
@@ -333,7 +333,7 @@ prefs_save (gpointer data)
       g_snprintf (buf, BUF_SIZE, "%d x %d",
                   gqview_thumb_size[i].width, gqview_thumb_size[i].height);
       menu_item = gtk_menu_item_new_with_label (buf);
-      gtk_object_set_data (GTK_OBJECT (menu_item), "num", GINT_TO_POINTER(i));
+      g_object_set_data (G_OBJECT (menu_item), "num", GINT_TO_POINTER(i));
       g_signal_connect(G_OBJECT(menu_item), "activate",
                        G_CALLBACK(cb_get_data_from_menuitem),
                        NULL);

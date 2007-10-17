@@ -709,10 +709,10 @@ create_imageview_menus (GimvImageWin *iw)
    iw->iv->imageview_popup = iw->view_menu;
 
    /* initialize menubar check items */
-   gtk_object_get (GTK_OBJECT (iw->iv),
-                   "show_scrollbar", &show_scrollbar,
-                   "keep_buffer",    &keep_buffer,
-                   NULL);
+   g_object_get (G_OBJECT (iw->iv),
+                 "show_scrollbar", &show_scrollbar,
+                 "keep_buffer",    &keep_buffer,
+                 NULL);
 
    menu_check_item_set_active (iw->menubar, "/File/Memory Buffer", keep_buffer);
 
@@ -854,10 +854,10 @@ create_toolbar (GimvImageWin *iw, GtkWidget *container)
                                     G_CALLBACK (cb_toolbar_zoom_fit),
                                     iw);
 
-   gtk_object_get (GTK_OBJECT (iw->iv),
-                   "x_scale", &x_scale,
-                   "y_scale", &y_scale,
-                   NULL);
+   g_object_get (G_OBJECT (iw->iv),
+                 "x_scale", &x_scale,
+                 "y_scale", &y_scale,
+                 NULL);
 
    /* x scale spinner */
    adj = (GtkAdjustment *) gtk_adjustment_new (x_scale,
@@ -1015,10 +1015,10 @@ gimv_image_win_set_win_size (GimvImageWin *iw)
    if (iw->priv->flags & GimvImageWinMaximizeFlag) return;
    if (iw->priv->flags & GimvImageWinFullScreenFlag) return;
 
-   gtk_object_get (GTK_OBJECT (iw->iv),
-                   "x_scale", &x_scale,
-                   "y_scale", &y_scale,
-                   NULL);
+   g_object_get (G_OBJECT (iw->iv),
+                 "x_scale", &x_scale,
+                 "y_scale", &y_scale,
+                 NULL);
    if (x_scale < 0.001 || y_scale < 0.001) return;
 
    rotate = gimv_image_view_get_orientation (iw->iv);
@@ -1051,9 +1051,9 @@ gimv_image_win_set_win_size (GimvImageWin *iw)
    if (GTK_WIDGET_VISIBLE (iw->iv->player_container))
       y_size += iw->iv->player_container->allocation.height;
 
-   gtk_object_get (GTK_OBJECT (iw->iv),
-                   "show_scrollbar", &show_scrollbar,
-                   NULL);
+   g_object_get (G_OBJECT (iw->iv),
+                 "show_scrollbar", &show_scrollbar,
+                 NULL);
    if (show_scrollbar) {
       x_size += iw->iv->vscrollbar->allocation.width;
       y_size += iw->iv->hscrollbar->allocation.height;
@@ -1099,9 +1099,9 @@ gimv_image_win_set_window_title (GimvImageWin *iw)
                                   conf.charset_auto_detect_fn,
                                   conf.charset_filename_mode);
 
-   gtk_object_get (GTK_OBJECT (iw->iv),
-                   "keep_buffer", &keep_buffer,
-                   NULL);
+   g_object_get (G_OBJECT (iw->iv),
+                 "keep_buffer", &keep_buffer,
+                 NULL);
 
    if (tmpstr1 && tmpstr2 && *tmpstr1 && *tmpstr2) {
       if (keep_buffer)
@@ -1150,9 +1150,9 @@ gimv_image_win_set_statusbar_info (GimvImageWin *iw)
                                  conf.charset_auto_detect_fn,
                                  conf.charset_filename_mode);
 
-   gtk_object_get (GTK_OBJECT (iw->iv),
-                   "keep_buffer", &keep_buffer,
-                   NULL);
+   g_object_get (G_OBJECT (iw->iv),
+                 "keep_buffer", &keep_buffer,
+                 NULL);
 
    if (tmpstr && *tmpstr) {
       if (keep_buffer)
@@ -1217,9 +1217,9 @@ cb_toggle_buffer (GimvImageWin *iw, guint action, GtkWidget *widget)
       gimv_image_view_free_image_buf (iw->iv);
    }
 
-   gtk_object_set (GTK_OBJECT (iw->iv),
-                   "keep_buffer", keep_buffer,
-                   NULL);
+   g_object_set (G_OBJECT (iw->iv),
+                 "keep_buffer", keep_buffer,
+                 NULL);
 
    gimv_image_win_set_window_title (iw);
    gimv_image_win_set_statusbar_info (iw);
@@ -1247,9 +1247,9 @@ cb_ignore_alpha (GimvImageWin *iw, guint action, GtkWidget *widget)
 {
    g_return_if_fail (GIMV_IS_IMAGE_WIN(iw));
 
-   gtk_object_set (GTK_OBJECT (iw->iv),
-                   "ignore_alpha", GTK_CHECK_MENU_ITEM (widget)->active,
-                   NULL);
+   g_object_set (G_OBJECT (iw->iv),
+                 "ignore_alpha", GTK_CHECK_MENU_ITEM (widget)->active,
+                 NULL);
    gimv_image_view_show_image (iw->iv);
 }
 
@@ -1563,9 +1563,9 @@ cb_toolbar_keep_aspect (GtkWidget *widget, GimvImageWin *iw)
 
    g_return_if_fail (iw);
 
-   gtk_object_get (GTK_OBJECT (iw->iv),
-                   "keep_aspect", &keep_aspect,
-                   NULL);
+   g_object_get (G_OBJECT (iw->iv),
+                 "keep_aspect", &keep_aspect,
+                 NULL);
 
    if (!keep_aspect)
       return;
@@ -1614,7 +1614,7 @@ cb_rotate_menu (GtkWidget *widget, GimvImageWin *iw)
 {
    gint angle;
    g_return_if_fail (GTK_IS_MENU_ITEM (widget));
-   angle = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget), "num"));
+   angle = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (widget), "num"));
    switch (angle)
    {
    case 0:
@@ -1903,11 +1903,11 @@ cb_rendered (GimvImageView *iv, GimvImageWin *iw)
    if (!(iw->priv->flags & GimvImageWinMaximizeFlag) && conf.imgwin_fit_to_image)
       gimv_image_win_set_win_size (iw);
 
-   gtk_object_get (GTK_OBJECT (iw->iv),
-                   "x_scale",     &x_scale,
-                   "y_scale",     &y_scale,
-                   "orientation", &rotate,
-                   NULL);
+   g_object_get (G_OBJECT (iw->iv),
+                 "x_scale",     &x_scale,
+                 "y_scale",     &y_scale,
+                 "orientation", &rotate,
+                 NULL);
 
    switch (rotate) {
    case GIMV_IMAGE_VIEW_ROTATE_0:
@@ -2297,10 +2297,10 @@ gimv_image_win_real_show_fullscreen (GimvImageWin *iw)
       /* save current color */
       style = gtk_widget_get_style (iw->iv->draw_area);
       *color = style->bg[GTK_STATE_NORMAL];
-      gtk_object_set_data_full (GTK_OBJECT (iw->fullscreen),
-                                "GimvImageWin::FullScreen::OrigColor",
-                                color,
-                                (GtkDestroyNotify) g_free);
+      g_object_set_data_full (G_OBJECT (iw->fullscreen),
+                              "GimvImageWin::FullScreen::OrigColor",
+                              color,
+                              (GtkDestroyNotify) g_free);
 
       /* set bg color */
       gimv_image_view_set_bg_color (iw->iv,
@@ -2350,8 +2350,8 @@ gimv_image_win_real_hide_fullscreen (GimvImageWin *iw)
    g_return_if_fail (iw);
 
    /* restore draw widget */
-   color = gtk_object_get_data (GTK_OBJECT (iw->fullscreen),
-                                "GimvImageWin::FullScreen::OrigColor");
+   color = g_object_get_data (G_OBJECT (iw->fullscreen),
+                              "GimvImageWin::FullScreen::OrigColor");
    if (color)
       gimv_image_view_set_bg_color (iw->iv, color->red, color->green, color->blue);
 
@@ -2442,9 +2442,9 @@ gimv_image_win_change_image (GimvImageWin *iw, GimvImageInfo *info)
     * the user if both options are set together.
     */
 
-   gtk_object_get (GTK_OBJECT (iw->iv),
-                   "default_zoom", &default_zoom,
-                   NULL);
+   g_object_get (G_OBJECT (iw->iv),
+                 "default_zoom", &default_zoom,
+                 NULL);
    if ((default_zoom > 1) && conf.imgwin_fit_to_image
        && !(iw->priv->flags & GimvImageWinMaximizeFlag))
    {
@@ -2484,10 +2484,10 @@ gimv_image_win_save_state (GimvImageWin *iw)
    conf.imgwin_show_player     = iw->priv->flags & GimvImageWinShowPlayerFlag;
    conf.imgwin_show_statusbar  = iw->priv->flags & GimvImageWinShowStatusBarFlag;
    conf.imgview_player_visible = iw->priv->player_visible;
-   gtk_object_get (GTK_OBJECT (iw->iv),
-                   "show_scrollbar",   &conf.imgview_scrollbar,
-                   "continuance_play", &conf.imgview_movie_continuance,
-                   NULL);
+   g_object_get (G_OBJECT (iw->iv),
+                 "show_scrollbar",   &conf.imgview_scrollbar,
+                 "continuance_play", &conf.imgview_movie_continuance,
+                 NULL);
 }
 
 

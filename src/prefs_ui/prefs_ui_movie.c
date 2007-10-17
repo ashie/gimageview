@@ -40,7 +40,7 @@ cb_movie_view_mode (GtkWidget *widget, gpointer data)
 {
    gint idx;
 
-   idx = GPOINTER_TO_INT (gtk_object_get_data (GTK_OBJECT (widget), "num"));
+   idx = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (widget), "num"));
    g_return_if_fail (idx >=0 && idx < movie_view_modes_len);
 
    if (config_changed->movie_default_view_mode != config_prechanged->movie_default_view_mode)

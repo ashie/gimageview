@@ -927,7 +927,7 @@ cb_keep_aspect (GimvImageView *iv, guint action, GtkWidget *widget)
 {
    iv->priv->keep_aspect = GTK_CHECK_MENU_ITEM(widget)->active;
 
-   g_signal_emit (GTK_OBJECT(iv),
+   g_signal_emit (G_OBJECT(iv),
                   gimv_image_view_signals[TOGGLE_ASPECT_SIGNAL], 0,
                   iv->priv->keep_aspect);
 }
@@ -1059,7 +1059,7 @@ cb_change_view_mode (GtkWidget *widget, GimvImageView *iv)
 {
    const gchar *label;
 
-   label = gtk_object_get_data (GTK_OBJECT (widget), "GimvImageView::ViewMode");
+   label = g_object_get_data (G_OBJECT (widget), "GimvImageView::ViewMode");
    gimv_image_view_change_view_mode (iv, label);
 }
 
@@ -1168,7 +1168,7 @@ cb_image_map (GtkWidget *widget, GimvImageView *iv)
                                          G_CALLBACK (cb_image_map), iv);
    gimv_image_view_show_image (iv);
    gimv_image_view_playable_play (iv);
-   g_signal_emit (GTK_OBJECT(iv),
+   g_signal_emit (G_OBJECT(iv),
                   gimv_image_view_signals[IMAGE_CHANGED_SIGNAL], 0);
 }
 
@@ -1302,7 +1302,7 @@ cb_image_button_press (GtkWidget *widget, GdkEventButton *event,
 
    gtk_widget_grab_focus (widget);
 
-   g_signal_emit (GTK_OBJECT (iv),
+   g_signal_emit (G_OBJECT (iv),
                   gimv_image_view_signals[IMAGE_PRESSED_SIGNAL], 0,
                   event, &retval);
 
@@ -1350,12 +1350,12 @@ cb_image_button_release  (GtkWidget *widget, GdkEventButton *event,
       return FALSE;
    */
 
-   g_signal_emit (GTK_OBJECT (iv),
+   g_signal_emit (G_OBJECT (iv),
                   gimv_image_view_signals[IMAGE_RELEASED_SIGNAL], 0,
                   event, &retval);
 
    if(iv->priv->pressed && !iv->priv->dragging)
-      g_signal_emit (GTK_OBJECT (iv),
+      g_signal_emit (G_OBJECT (iv),
                      gimv_image_view_signals[IMAGE_CLICKED_SIGNAL], 0,
                      event, &retval);
 
@@ -2304,9 +2304,9 @@ gimv_image_view_create_view_modes_menu (GtkWidget *window,
       if (!vftable) continue;
 
       menu_item = gtk_menu_item_new_with_label (_(vftable->label));
-      gtk_object_set_data (GTK_OBJECT (menu_item),
-                           "GimvImageView::ViewMode",
-                           (gpointer) vftable->label);
+      g_object_set_data (G_OBJECT (menu_item),
+                         "GimvImageView::ViewMode",
+                         (gpointer) vftable->label);
       g_signal_connect (G_OBJECT (menu_item), "activate",
                         G_CALLBACK(cb_change_view_mode), iv);
       gtk_menu_append (GTK_MENU (menu), menu_item);
@@ -2918,7 +2918,7 @@ gimv_image_view_load_image_buf_start (GimvImageView *iv)
    filename = gimv_image_info_get_path (iv->info);
    if (!filename || !*filename) return;
 
-   g_signal_emit (GTK_OBJECT(iv),
+   g_signal_emit (G_OBJECT(iv),
                   gimv_image_view_signals[LOAD_START_SIGNAL], 0,
                   iv->info);
 
@@ -3275,7 +3275,7 @@ cb_gimv_image_view_rotate_load_end (GimvImageView *iv, GimvImageInfo *info,
 
 func_end:
    if (iv->priv->load_end_signal_id)
-      g_signal_handler_disconnect (GTK_OBJECT (iv), iv->priv->load_end_signal_id);
+      g_signal_handler_disconnect (G_OBJECT (iv), iv->priv->load_end_signal_id);
    iv->priv->load_end_signal_id = 0;
 
    g_signal_emit (G_OBJECT(iv), gimv_image_view_signals[RENDERED_SIGNAL], 0);
@@ -3288,7 +3288,7 @@ gimv_image_view_rotate_image (GimvImageView *iv, GimvImageViewOrientation angle)
    RotateData *data;
 
    if (iv->priv->load_end_signal_id)
-      g_signal_handler_disconnect (GTK_OBJECT (iv), iv->priv->load_end_signal_id);
+      g_signal_handler_disconnect (G_OBJECT (iv), iv->priv->load_end_signal_id);
 
    data = g_new0 (RotateData, 1);
    data->angle = angle;
