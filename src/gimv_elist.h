@@ -115,10 +115,8 @@ struct GimvEList_Tag {
    GimvEListColumnFuncTable **column_func_tables;
    GimvEListGetRowDataFn      get_rowdata_fn;
 
-#if (GTK_MAJOR_VERSION >= 2)
    GHashTable *rowdata_table;
    GHashTable *rowdata_destroy_fn_table;
-#endif /* (GTK_MAJOR_VERSION >= 2) */
 };
 
 
