@@ -41,6 +41,7 @@ gimv_SOURCES = \
 	gimv_image_loader.c gimv_image_loader.h \
 	gimv_image_saver.c gimv_image_saver.h \
 	gimv_image_view.c gimv_image_view.h \
+	gimv_image_view_draw.c \
 	gimv_image_win.c gimv_image_win.h \
 	gimv_io.c gimv_io.h \
 	gimv_io_file.c gimv_io_file.h \
@@ -55,6 +56,7 @@ gimv_SOURCES = \
 	gimv_thumb.c gimv_thumb.h \
 	gimv_thumb_cache.c gimv_thumb_cache.h \
 	gimv_thumb_view.c gimv_thumb_view.h \
+	gimv_thumb_view_album.c \
 	gimv_thumb_win.c gimv_thumb_win.h \
 	gtk_prop.c gtk_prop.h \
 	gtkutils.c gtkutils.h \
@@ -68,9 +70,7 @@ gimv_SOURCES = \
 	compare_filesize.c \
 	compare_md5.c \
 	compare_similar.c \
-	image_view_draw.c \
-	japanese.c japanese.h \
-	thumbnail_view_album.c
+	japanese.c japanese.h
 
 EXTRA_gimv_SOURCES = \
 	gimv.ico
