@@ -800,7 +800,7 @@ gimv_image_view_init (GimvImageView *iv)
 GtkWidget*
 gimv_image_view_new (GimvImageInfo *info)
 {
-   GimvImageView *iv = gtk_type_new (gimv_image_view_get_type ());
+   GimvImageView *iv = g_object_new (GIMV_TYPE_IMAGE_VIEW, NULL);
 
    if (info) {
       iv->info = gimv_image_info_ref (info);

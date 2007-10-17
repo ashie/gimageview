@@ -36,7 +36,7 @@
 #include "lha-ext.h"
 
 
-G_DEFINE_TYPE (FRCommandLha, fr_command_lha, FR_COMMAND_TYPE)
+G_DEFINE_TYPE (FRCommandLha, fr_command_lha, FR_TYPE_COMMAND)
 
 
 /* plugin implement definition */
@@ -62,7 +62,7 @@ GimvPluginInfo gimv_plugin_info =
 };
 
 
-static void fr_command_lha_destroy     (GtkObject *object);
+static void fr_command_lha_dispose (GObject *object);
 
 
 /* -- list -- */
@@ -306,12 +306,12 @@ static void
 fr_command_lha_class_init (FRCommandLhaClass *class)
 {
    FRCommandClass *afc;
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
 
-   object_class = (GtkObjectClass*) class;
+   gobject_class = (GObjectClass*) class;
    afc = (FRCommandClass*) class;
 
-   object_class->destroy = fr_command_lha_destroy;
+   gobject_class->dispose = fr_command_lha_dispose;
 
    afc->list         = fr_command_lha_list;
    afc->add          = fr_command_lha_add;
@@ -334,14 +334,14 @@ fr_command_lha_init (FRCommandLha *lha_comm)
 
 
 static void 
-fr_command_lha_destroy (GtkObject *object)
+fr_command_lha_dispose (GObject *object)
 {
    g_return_if_fail (object != NULL);
-   g_return_if_fail (IS_FR_COMMAND_LHA (object));
+   g_return_if_fail (FR_IS_COMMAND_LHA (object));
 
    /* Chain up */
-   if (GTK_OBJECT_CLASS (fr_command_lha_parent_class)->destroy)
-      GTK_OBJECT_CLASS (fr_command_lha_parent_class)->destroy (object);
+   if (G_OBJECT_CLASS (fr_command_lha_parent_class)->dispose)
+      G_OBJECT_CLASS (fr_command_lha_parent_class)->dispose (object);
 }
 
 
@@ -352,7 +352,7 @@ fr_command_lha_new (FRProcess  *process,
 {
    FRCommand *comm;
 
-   comm = FR_COMMAND (gtk_type_new (fr_command_lha_get_type ()));
+   comm = FR_COMMAND (g_object_new (FR_TYPE_COMMAND_LHA, NULL));
    fr_command_construct (comm, process, filename);
    fr_process_set_proc_line_func (FR_COMMAND (comm)->process, 
                                   process_line,

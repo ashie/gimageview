@@ -27,16 +27,17 @@
 #include "gimageview.h"
 
 #define GIMV_TYPE_COMMENT            (gimv_comment_get_type ())
-#define GIMV_COMMENT(obj)            (GTK_CHECK_CAST ((obj), GIMV_TYPE_COMMENT, GimvComment))
-#define GIMV_COMMENT_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), TYPE_COMMENT, GimvCommentClass))
-#define GIMV_IS_COMMENT(obj)         (GTK_CHECK_TYPE ((obj), GIMV_TYPE_COMMENT))
-#define GIMV_IS_COMMENT_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_COMMENT))
+#define GIMV_COMMENT(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_COMMENT, GimvComment))
+#define GIMV_COMMENT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_COMMENT, GimvCommentClass))
+#define GIMV_IS_COMMENT(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_COMMENT))
+#define GIMV_IS_COMMENT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_COMMENT))
+#define GIMV_COMMENT_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_COMMENT, GimvCommentClass))
 
 typedef struct GimvCommentClass_Tag GimvCommentClass;
 
 struct GimvComment_Tag
 {
-   GtkObject      parent;
+   GObject      parent;
 
    gchar         *filename;
    GimvImageInfo *info;        /* 1:1 relation */
@@ -46,7 +47,7 @@ struct GimvComment_Tag
 };
 
 struct GimvCommentClass_Tag {
-   GtkObjectClass parent_class;
+   GObjectClass parent_class;
 
    /* -- Signals -- */
    void (*file_saved)   (GimvComment   *comment,
@@ -55,9 +56,7 @@ struct GimvCommentClass_Tag {
                          GimvImageInfo *info); 
 };
 
-
 typedef gchar *(*GimvCommentDataGetDefValFn) (GimvImageInfo *info, gpointer data);
-
 
 typedef struct GimvCommentDataEntry_Tag
 {
@@ -71,8 +70,7 @@ typedef struct GimvCommentDataEntry_Tag
    GimvCommentDataGetDefValFn def_val_fn;
 } GimvCommentDataEntry;
 
-
-GtkType      gimv_comment_get_type                 (void);
+GType        gimv_comment_get_type                 (void);
 
 GimvComment *gimv_comment_get_from_image_info      (GimvImageInfo *info);
 

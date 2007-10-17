@@ -35,7 +35,7 @@
 #define GIMV_IMAGE_LOADER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_IMAGE_LOADER, GimvImageLoaderClass))
 #define GIMV_IS_IMAGE_LOADER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_IMAGE_LOADER))
 #define GIMV_IS_IMAGE_LOADER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_IMAGE_LOADER))
-#define GIMV_IMAGE_LOADER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_IMAGE_LOADER, GimvImageLoaderyClass))
+#define GIMV_IMAGE_LOADER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_IMAGE_LOADER, GimvImageLoaderClass))
 
 typedef struct GimvImageLoader_Tag      GimvImageLoader;
 typedef struct GimvImageLoaderPriv_Tag  GimvImageLoaderPriv;
@@ -97,7 +97,7 @@ typedef struct GimvImageLoaderPlugin_Tag
 /*
  *  used by client
  */
-GtkType      gimv_image_loader_get_type          (void);
+GType        gimv_image_loader_get_type          (void);
 GimvImageLoader
             *gimv_image_loader_new               (void);
 GimvImageLoader

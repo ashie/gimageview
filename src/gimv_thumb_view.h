@@ -33,21 +33,18 @@
 #include "gfileutil.h"
 #include "gimv_thumb_cache.h"
 
-
 #define GIMV_TYPE_THUMB_VIEW            (gimv_thumb_view_get_type ())
-#define GIMV_THUMB_VIEW(obj)            (GTK_CHECK_CAST (obj, gimv_thumb_view_get_type (), GimvThumbView))
-#define GIMV_THUMB_VIEW_CLASS(klass)    (GTK_CHECK_CLASS_CAST (klass, gimv_thumb_view_get_type, GimvThumbViewClass))
-#define GIMV_IS_THUMB_VIEW(obj)         (GTK_CHECK_TYPE (obj, gimv_thumb_view_get_type ()))
-#define GIMV_IS_THUMB_VIEW_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_THUMB_VIEW))
-
+#define GIMV_THUMB_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_THUMB_VIEW, GimvThumbView))
+#define GIMV_THUMB_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_THUMB_VIEW, GimvThumbViewClass))
+#define GIMV_IS_THUMB_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_THUMB_VIEW))
+#define GIMV_IS_THUMB_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_THUMB_VIEW))
+#define GIMV_THUMB_VIEW_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_THUMB_VIEW, GimvThumbViewClass))
 
 #define GIMV_THUMB_VIEW_DEFAULT_SUMMARY_MODE "Album"
-
 
 typedef struct GimvThumbViewPriv_Tag   GimvThumbViewPriv;
 typedef struct GimvThumbViewClass_Tag  GimvThumbViewClass;
 typedef struct GimvThumbViewPlugin_Tag GimvThumbViewPlugin;
-
 
 typedef enum
 {
@@ -58,14 +55,12 @@ typedef enum
    GIMV_THUMB_VIEW_MODE_ARCHIVE
 } GimvThumbViewMode;
 
-
 typedef enum
 {
    GIMV_THUMB_VIEW_STATUS_NORMAL,
    GIMV_THUMB_VIEW_STATUS_LOADING,
    GIMV_THUMB_VIEW_STATUS_CHECK_DUPLICATE
 } GimvThumbViewStatus;
-
 
 typedef enum
 {
@@ -76,10 +71,9 @@ typedef enum
    GIMV_THUMB_VIEW_OPEN_IMAGE_EXTERNAL
 } GimvThumbViewOpenImageType;
 
-
 struct GimvThumbView_Tag
 {
-   GtkObject            parent;
+   GObject              parent;
 
    GList               *thumblist;
 
@@ -112,15 +106,12 @@ struct GimvThumbView_Tag
    GimvThumbViewPriv   *priv;
 };
 
-
 struct GimvThumbViewClass_Tag
 {
-   GtkObjectClass parent_class;
+   GObjectClass parent_class;
 };
 
-
 #define GIMV_THUMBNAIL_VIEW_IF_VERSION 8
-
 
 struct GimvThumbViewPlugin_Tag
 {
@@ -154,7 +145,6 @@ struct GimvThumbViewPlugin_Tag
    gboolean   (*is_in_view)             (GimvThumbView *tv,
                                          GimvThumb     *thumb);
 };
-
 
 gint           gimv_thumb_view_label_to_num       (const gchar      *label);
 const gchar   *gimv_thumb_view_num_to_label       (gint              num);

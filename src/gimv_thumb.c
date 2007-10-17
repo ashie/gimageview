@@ -38,7 +38,7 @@
 #include "gimv_thumb_view.h"
 
 
-static void gimv_thumb_destroy    (GtkObject *obj);
+static void gimv_thumb_dispose (GObject *obj);
 
 
 static GHashTable *loader_table = NULL;
@@ -64,17 +64,17 @@ static gchar *config_cache_read_string = NULL;
 static GList *cache_read_list = NULL;
 
 
-G_DEFINE_TYPE (GimvThumb, gimv_thumb, GTK_TYPE_OBJECT)
+G_DEFINE_TYPE (GimvThumb, gimv_thumb, G_TYPE_OBJECT)
 
 
 static void
 gimv_thumb_class_init (GimvThumbClass *klass)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
 
-   object_class = (GtkObjectClass *) klass;
+   gobject_class = (GObjectClass *) klass;
 
-   object_class->destroy  = gimv_thumb_destroy;
+   gobject_class->dispose = gimv_thumb_dispose;
 }
 
 
@@ -93,14 +93,11 @@ gimv_thumb_init (GimvThumb *thumb)
 
    /* will be removed! */
    thumb->selected   = FALSE;
-
-   g_object_ref (G_OBJECT (thumb));
-   gtk_object_sink (GTK_OBJECT (thumb));
 }
 
 
 static void
-gimv_thumb_destroy (GtkObject *object)
+gimv_thumb_dispose (GObject *object)
 {
    GimvThumb *thumb;
 
@@ -131,8 +128,8 @@ gimv_thumb_destroy (GtkObject *object)
       thumb->info = NULL;
    }
 
-   if (GTK_OBJECT_CLASS (gimv_thumb_parent_class)->destroy)
-      (*GTK_OBJECT_CLASS (gimv_thumb_parent_class)->destroy) (object);
+   if (G_OBJECT_CLASS (gimv_thumb_parent_class)->dispose)
+      G_OBJECT_CLASS (gimv_thumb_parent_class)->dispose (object);
 }
 
 
@@ -367,7 +364,7 @@ GimvThumb *
 gimv_thumb_new (GimvImageInfo *info)
 {
    GimvThumb *thumb
-      = GIMV_THUMB (gtk_type_new (gimv_thumb_get_type ()));
+      = GIMV_THUMB (g_object_new (GIMV_TYPE_THUMB, NULL));
 
    thumb->info = gimv_image_info_ref (info);
 

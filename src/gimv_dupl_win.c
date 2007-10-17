@@ -558,7 +558,7 @@ gimv_dupl_win_new (gint thumbnail_size)
 {
    GimvDuplWin *sw;
 
-   sw = GIMV_DUPL_WIN (gtk_type_new (gimv_dupl_win_get_type ()));
+   sw = GIMV_DUPL_WIN (g_object_new (GIMV_TYPE_DUPL_WIN, NULL));
 
    /* FIXME */
    sw->priv->thumbnail_size = thumbnail_size;

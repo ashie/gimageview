@@ -25,21 +25,19 @@
 #ifndef FR_COMMAND_TAR_H
 #define FR_COMMAND_TAR_H
 
-
-#include <gtk/gtk.h>
+#include <glib-object.h>
 #include "fr-command.h"
 #include "fr-process.h"
 
-
-#define FR_COMMAND_TAR_TYPE        fr_command_tar_get_type ()
-#define FR_COMMAND_TAR(o)          GTK_CHECK_CAST (o, FR_COMMAND_TAR_TYPE, FRCommandTar)
-#define FR_COMMAND_TAR_CLASS(k)    GTK_CHECK_CLASS_CAST (k, FR_COMMAND_TAR_TYPE, FRCommandTarClass)
-#define IS_FR_COMMAND_TAR(o)       GTK_CHECK_TYPE (o, FR_COMMAND_TAR_TYPE)
-
+#define FR_TYPE_COMMAND_TAR            (fr_command_tar_get_type ())
+#define FR_COMMAND_TAR(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), FR_TYPE_COMMAND_TAR, FRCommandTar))
+#define FR_COMMAND_TAR_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), FR_TYPE_COMMAND_TAR, FRCommandTarClass))
+#define FR_IS_COMMAND_TAR(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FR_TYPE_COMMAND_TAR))
+#define FR_IS_COMMAND_TAR_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), FR_TYPE_COMMAND_TAR))
+#define FR_COMMAND_TAR_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), FR_TYPE_COMMAND_TAR, FRCommandTarClass))
 
 typedef struct _FRCommandTar       FRCommandTar;
 typedef struct _FRCommandTarClass  FRCommandTarClass;
-
 
 typedef enum {
    FR_COMPRESS_PROGRAM_NONE,
@@ -50,26 +48,22 @@ typedef enum {
    FR_COMPRESS_PROGRAM_LZO,
 } FRCompressProgram;
 
-
 struct _FRCommandTar
 {
    FRCommand  __parent;
    FRCompressProgram compress_prog;
 };
 
-
 struct _FRCommandTarClass
 {
    FRCommandClass __parent_class;
 };
 
-
-GtkType      fr_command_tar_get_type        (void);
+GType        fr_command_tar_get_type        (void);
 
 FRCommand*   fr_command_tar_new             (FRProcess *process,
                                              const char *filename,
                                              FRArchive  *archive,
                                              FRCompressProgram prog);
-
 
 #endif /* FR_COMMAND_TAR_H */

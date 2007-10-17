@@ -33,23 +33,21 @@
 #include "gimv_image.h"
 #include "gimv_image_info.h"
 
-
 #define GIMV_TYPE_IMAGE_SAVER            (gimv_image_saver_get_type ())
-#define GIMV_IMAGE_SAVER(obj)            (GTK_CHECK_CAST (obj, gimv_image_saver_get_type (), GimvImageSaver))
-#define GIMV_IMAGE_SAVER_CLASS(klass)    (GTK_CHECK_CLASS_CAST (klass, gimv_image_saver_get_type, GimvImageSaverClass))
-#define GIMV_IS_IMAGE_SAVER(obj)         (GTK_CHECK_TYPE (obj, gimv_image_saver_get_type ()))
-#define GIMV_IS_IMAGE_SAVER_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_IMAGE_SAVER))
-
+#define GIMV_IMAGE_SAVER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_IMAGE_SAVER, GimvImageSaver))
+#define GIMV_IMAGE_SAVER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_IMAGE_SAVER, GimvImageSaverClass))
+#define GIMV_IS_IMAGE_SAVER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_IMAGE_SAVER))
+#define GIMV_IS_IMAGE_SAVER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_IMAGE_SAVER))
+#define GIMV_IMAGE_SAVER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_IMAGE_SAVER, GimvImageSaverClass))
 
 typedef struct GimvImageSaver_Tag      GimvImageSaver;
 typedef struct GimvImageSaverPriv_Tag  GimvImageSaverPriv;
 typedef struct GimvImageSaverClass_Tag GimvImageSaverClass;
 typedef struct GimvImageSaverText_Tag  GimvImageSaverText;
 
-
 struct GimvImageSaver_Tag
 {
-   GtkObject parent;
+   GObject parent;
 
    GimvImageInfo       *info;
    GimvImage           *image;
@@ -66,16 +64,14 @@ struct GimvImageSaver_Tag
    GimvImageSaverPriv  *priv;
 };
 
-
 struct GimvImageSaverClass_Tag
 {
-   GtkObjectClass parent;
+   GObjectClass parent;
 
    void (*save_start)        (GimvImageSaver *saver);
    void (*progress_update)   (GimvImageSaver *saver);
    void (*save_end)          (GimvImageSaver *saver);
 };
-
 
 struct GimvImageSaverText_Tag
 {
@@ -83,9 +79,7 @@ struct GimvImageSaverText_Tag
    gchar *text;
 };
 
-
 #define GIMV_IMAGE_SAVER_IF_VERSION 2
-
 
 typedef struct GimvImageSaverPlugin_Tag
 {
@@ -102,8 +96,7 @@ typedef struct GimvImageSaverPlugin_Tag
                                       const gchar    *format);
 } GimvImageSaverPlugin;
 
-
-GtkType         gimv_image_saver_get_type            (void);
+GType           gimv_image_saver_get_type            (void);
 GimvImageSaver *gimv_image_saver_new                 (void);
 GimvImageSaver *gimv_image_saver_new_with_attr       (GimvImage      *image,
                                                       const gchar    *path,

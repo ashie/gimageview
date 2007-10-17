@@ -36,7 +36,7 @@
 #include "zip-ext.h"
 
 
-G_DEFINE_TYPE (FRCommandZip, fr_command_zip, FR_COMMAND_TYPE)
+G_DEFINE_TYPE (FRCommandZip, fr_command_zip, FR_TYPE_COMMAND)
 
 
 /* plugin implement definition */
@@ -65,7 +65,7 @@ GimvPluginInfo gimv_plugin_info =
 };
 
 
-static void fr_command_zip_destroy     (GtkObject *object);
+static void fr_command_zip_dispose (GObject *object);
 
 
 /* -- list -- */
@@ -367,12 +367,12 @@ static void
 fr_command_zip_class_init (FRCommandZipClass *class)
 {
    FRCommandClass *afc;
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
 
-   object_class = (GtkObjectClass*) class;
+   gobject_class = (GObjectClass*) class;
    afc = (FRCommandClass*) class;
 
-   object_class->destroy = fr_command_zip_destroy;
+   gobject_class->dispose = fr_command_zip_dispose;
 
    afc->list         = fr_command_zip_list;
    afc->add          = fr_command_zip_add;
@@ -396,14 +396,14 @@ fr_command_zip_init (FRCommandZip *zip_comm)
 
 
 static void 
-fr_command_zip_destroy (GtkObject *object)
+fr_command_zip_dispose (GObject *object)
 {
    g_return_if_fail (object != NULL);
-   g_return_if_fail (IS_FR_COMMAND_ZIP (object));
+   g_return_if_fail (FR_IS_COMMAND_ZIP (object));
 
    /* Chain up */
-   if (GTK_OBJECT_CLASS (fr_command_zip_parent_class)->destroy)
-      GTK_OBJECT_CLASS (fr_command_zip_parent_class)->destroy (object);
+   if (G_OBJECT_CLASS (fr_command_zip_parent_class)->dispose)
+      G_OBJECT_CLASS (fr_command_zip_parent_class)->dispose (object);
 }
 
 
@@ -414,7 +414,7 @@ fr_command_zip_new (FRProcess *process,
 {
    FRCommand *comm;
 
-   comm = FR_COMMAND (gtk_type_new (fr_command_zip_get_type ()));
+   comm = FR_COMMAND (g_object_new (FR_TYPE_COMMAND_ZIP, NULL));
    fr_command_construct (comm, process, filename);
    fr_process_set_proc_line_func (FR_COMMAND (comm)->process, 
                                   process_line,

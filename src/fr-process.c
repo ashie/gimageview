@@ -48,11 +48,11 @@ enum {
 static guint fr_process_signals[LAST_SIGNAL] = { 0 };
 
 
-G_DEFINE_TYPE (FRProcess, fr_process, GTK_TYPE_OBJECT)
+G_DEFINE_TYPE (FRProcess, fr_process, G_TYPE_OBJECT)
 
 
 static void
-fr_process_destroy (GtkObject *object)
+fr_process_dispose (GObject *object)
 {
    FRProcess *fr_proc;
 
@@ -73,21 +73,21 @@ fr_process_destroy (GtkObject *object)
    }
 
    /* Chain up */
-   if (GTK_OBJECT_CLASS (fr_process_parent_class)->destroy)
-      (* GTK_OBJECT_CLASS (fr_process_parent_class)->destroy) (object);
+   if (G_OBJECT_CLASS (fr_process_parent_class)->dispose)
+      G_OBJECT_CLASS (fr_process_parent_class)->dispose (object);
 }
 
 
 static void
 fr_process_class_init (FRProcessClass *class)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
 
-   object_class = (GtkObjectClass *) class;
+   gobject_class = (GObjectClass *) class;
 
    fr_process_signals[START] =
       g_signal_new ("start",
-                    G_TYPE_FROM_CLASS (object_class),
+                    G_TYPE_FROM_CLASS (gobject_class),
                     G_SIGNAL_RUN_LAST,
                     G_STRUCT_OFFSET (FRProcessClass, start),
                     NULL, NULL,
@@ -95,7 +95,7 @@ fr_process_class_init (FRProcessClass *class)
                     G_TYPE_NONE, 0);
    fr_process_signals[DONE] =
       g_signal_new ("done",
-                    G_TYPE_FROM_CLASS (object_class),
+                    G_TYPE_FROM_CLASS (gobject_class),
                     G_SIGNAL_RUN_LAST,
                     G_STRUCT_OFFSET (FRProcessClass, done),
                     NULL, NULL,
@@ -103,7 +103,7 @@ fr_process_class_init (FRProcessClass *class)
                     G_TYPE_NONE, 1,
                     G_TYPE_INT);
 
-   object_class->destroy = fr_process_destroy;
+   gobject_class->dispose = fr_process_dispose;
    class->done = NULL;
 }
 
@@ -128,9 +128,6 @@ fr_process_init (FRProcess *fr_proc)
    fr_proc->running = FALSE;
 
    fr_proc->use_standard_locale = TRUE;
-
-   g_object_ref (G_OBJECT (fr_proc));
-   gtk_object_sink (GTK_OBJECT (fr_proc));
 }
 
 
@@ -138,7 +135,7 @@ FRProcess *
 fr_process_new (void)
 {
    FRProcess *fr_proc;
-   fr_proc = FR_PROCESS (gtk_type_new (fr_process_get_type ()));
+   fr_proc = FR_PROCESS (g_object_new (FR_TYPE_PROCESS, NULL));
    return fr_proc;
 }
 

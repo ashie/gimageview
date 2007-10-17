@@ -572,7 +572,7 @@ gimv_xine_unrealize (GtkWidget *widget)
 GtkWidget *
 gimv_xine_new (const gchar *video_driver_id, const gchar *audio_driver_id)
 {
-   GtkWidget *this = GTK_WIDGET (g_object_new (gimv_xine_get_type (), NULL));
+   GtkWidget *this = GTK_WIDGET (g_object_new (GIMV_TYPE_XINE, NULL));
    GimvXinePrivate *priv;
 
    g_return_val_if_fail (GIMV_IS_XINE (this), NULL);

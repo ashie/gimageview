@@ -40,23 +40,23 @@
 typedef GdkPixbuf GimvRawImage;
 
 
-G_DEFINE_TYPE (GimvImage, gimv_image, GTK_TYPE_OBJECT)
+G_DEFINE_TYPE (GimvImage, gimv_image, G_TYPE_OBJECT)
 
 
-static void gimv_image_destroy       (GtkObject      *object);
-static void gimv_image_backend_init  (void);
+static void gimv_image_dispose      (GObject *object);
+static void gimv_image_backend_init (void);
 
 
 static void
 gimv_image_class_init (GimvImageClass *klass)
 {
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
 
    gimv_image_backend_init ();
 
-   object_class = (GtkObjectClass *) klass;
+   gobject_class = (GObjectClass *) klass;
 
-   object_class->destroy  = gimv_image_destroy;
+   gobject_class->dispose = gimv_image_dispose;
 }
 
 
@@ -69,14 +69,11 @@ gimv_image_init (GimvImage *image)
    /* image->ref_count       = 1; */
    image->comments        = NULL;
    image->additional_data = NULL;
-
-   g_object_ref (G_OBJECT (image));
-   gtk_object_sink (GTK_OBJECT (image));
 }
 
 
 static void
-gimv_image_destroy (GtkObject *object)
+gimv_image_dispose (GObject *object)
 {
    GimvImage *image = GIMV_IMAGE (object);
    GimvRawImage *rawimage;
@@ -91,15 +88,15 @@ gimv_image_destroy (GtkObject *object)
 
    gimv_image_free_comments (image);
 
-   if (GTK_OBJECT_CLASS (gimv_image_parent_class)->destroy)
-      (*GTK_OBJECT_CLASS (gimv_image_parent_class)->destroy) (object);
+   if (G_OBJECT_CLASS (gimv_image_parent_class)->dispose)
+      G_OBJECT_CLASS (gimv_image_parent_class)->dispose (object);
 }
 
 
 GimvImage *
 gimv_image_new (void)
 {
-   GimvImage *image = GIMV_IMAGE (gtk_type_new (GIMV_TYPE_IMAGE));
+   GimvImage *image = GIMV_IMAGE (g_object_new (GIMV_TYPE_IMAGE, NULL));
    return image;
 }
 

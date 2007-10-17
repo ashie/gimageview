@@ -26,38 +26,34 @@
 #define FR_COMMAND_LHA_H
 
 
-#include <gtk/gtk.h>
+#include <glib-object.h>
 #include "fr-command.h"
 #include "fr-process.h"
 
-
-#define FR_COMMAND_LHA_TYPE        fr_command_lha_get_type ()
-#define FR_COMMAND_LHA(o)          GTK_CHECK_CAST (o, FR_COMMAND_LHA_TYPE, FRCommandLha)
-#define FR_COMMAND_LHA_CLASS(k)    GTK_CHECK_CLASS_CAST (k, FR_COMMAND_LHA_TYPE, FRCommandLhaClass)
-#define IS_FR_COMMAND_LHA(o)       GTK_CHECK_TYPE (o, FR_COMMAND_LHA_TYPE)
-
+#define FR_TYPE_COMMAND_LHA            (fr_command_lha_get_type ())
+#define FR_COMMAND_LHA(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), FR_TYPE_COMMAND_LHA, FRCommandLha))
+#define FR_COMMAND_LHA_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), FR_TYPE_COMMAND_LHA, FRCommandLhaClass))
+#define FR_IS_COMMAND_LHA(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FR_TYPE_COMMAND_LHA))
+#define FR_IS_COMMAND_LHA_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), FR_TYPE_COMMAND_LHA))
+#define FR_COMMAND_LHA_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), FR_TYPE_COMMAND_LHA, FRCommandLhaClass))
 
 typedef struct _FRCommandLha       FRCommandLha;
 typedef struct _FRCommandLhaClass  FRCommandLhaClass;
-
 
 struct _FRCommandLha
 {
 	FRCommand  __parent;
 };
 
-
 struct _FRCommandLhaClass
 {
 	FRCommandClass __parent_class;
 };
 
-
-GtkType      fr_command_lha_get_type        (void);
+GType        fr_command_lha_get_type        (void);
 
 FRCommand*   fr_command_lha_new             (FRProcess  *process,
                                              const char *filename,
                                              FRArchive  *archive);
-
 
 #endif /* FR_COMMAND_LHA_H */

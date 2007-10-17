@@ -39,10 +39,10 @@
 #include "tar-ext.h"
 
 
-G_DEFINE_TYPE (FRCommandTar, fr_command_tar, FR_COMMAND_TYPE)
+G_DEFINE_TYPE (FRCommandTar, fr_command_tar, FR_TYPE_COMMAND)
 
 
-static void fr_command_tar_destroy     (GtkObject *object);
+static void       fr_command_tar_dispose      (GObject    *object);
 
 
 static FRCommand *fr_command_tar_none_new     (FRProcess  *process,
@@ -710,12 +710,12 @@ static void
 fr_command_tar_class_init (FRCommandTarClass *class)
 {
    FRCommandClass *afc;
-   GtkObjectClass *object_class;
+   GObjectClass *gobject_class;
 
-   object_class = (GtkObjectClass*) class;
+   gobject_class = (GObjectClass*) class;
    afc = (FRCommandClass*) class;
 
-   object_class->destroy = fr_command_tar_destroy;
+   gobject_class->dispose = fr_command_tar_dispose;
 
    afc->list         = fr_command_tar_list;
    afc->add          = fr_command_tar_add;
@@ -739,14 +739,14 @@ fr_command_tar_init (FRCommandTar *tar_comm)
 
 
 static void 
-fr_command_tar_destroy (GtkObject *object)
+fr_command_tar_dispose (GObject *object)
 {
    g_return_if_fail (object != NULL);
-   g_return_if_fail (IS_FR_COMMAND_TAR (object));
+   g_return_if_fail (FR_IS_COMMAND_TAR (object));
 
    /* Chain up */
-   if (GTK_OBJECT_CLASS (fr_command_tar_parent_class)->destroy)
-      GTK_OBJECT_CLASS (fr_command_tar_parent_class)->destroy (object);
+   if (G_OBJECT_CLASS (fr_command_tar_parent_class)->dispose)
+      G_OBJECT_CLASS (fr_command_tar_parent_class)->dispose (object);
 }
 
 
@@ -758,7 +758,7 @@ fr_command_tar_new (FRProcess *process,
 {
    FRCommand *comm;
 
-   comm = FR_COMMAND (gtk_type_new (fr_command_tar_get_type ()));
+   comm = FR_COMMAND (g_object_new (FR_TYPE_COMMAND_TAR, NULL));
    fr_command_construct (comm, process, filename);
    fr_process_set_proc_line_func (FR_COMMAND (comm)->process, 
                                   process_line,
