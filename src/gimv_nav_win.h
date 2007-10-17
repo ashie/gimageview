@@ -42,38 +42,11 @@
 #define GIMV_NAV_WIN_SIZE 128 /* Max size of the window. */
 
 typedef struct GimvNavWin_Tag      GimvNavWin;
-typedef struct GimvNavWinPriv_Tag  GimvNavWinPriv;
 typedef struct GimvNavWinClass_Tag GimvNavWinClass;
 
 struct GimvNavWin_Tag
 {
    GtkWindow parent;
-
-   GtkWidget *out_frame;
-   GtkWidget *in_frame;
-   GtkWidget *preview;
-
-   GdkPixmap *pixmap;
-   GdkBitmap *mask;
-
-   GdkGC *gc;
-
-   gint x_root, y_root;
-
-   gint image_width, image_height;
-
-   gint view_width, view_height;
-   gint view_pos_x, view_pos_y;
-
-   gint popup_x, popup_y;
-   gint popup_width, popup_height;
-
-   gint sqr_x, sqr_y;
-   gint sqr_width, sqr_height;
-
-   gint fix_x_pos, fix_y_pos;
-
-   gdouble factor;
 }; 
 
 struct GimvNavWinClass_Tag

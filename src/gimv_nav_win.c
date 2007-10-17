@@ -30,22 +30,49 @@
 #include <math.h>
 
 #include "gimageview.h"
-
 #include "gimv_nav_win.h"
 
+G_DEFINE_TYPE (GimvNavWin, gimv_nav_win, GTK_TYPE_WINDOW)
 
+#define GIMV_NAV_WIN_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), GIMV_TYPE_NAV_WIN, GimvNavWinPrivate))
 #define PEN_WIDTH         3       /* Square border width. */ 
 #define BORDER_WIDTH      4       /* Window border width. */
-
 
 enum {
    MOVE_SIGNAL,
    LAST_SIGNAL
 };
 
+typedef struct GimvNavWinPrivate_Tag
+{
+   GtkWidget *out_frame;
+   GtkWidget *in_frame;
+   GtkWidget *preview;
+
+   GdkPixmap *pixmap;
+   GdkBitmap *mask;
+
+   GdkGC *gc;
+
+   gint x_root, y_root;
+
+   gint image_width, image_height;
+
+   gint view_width, view_height;
+   gint view_pos_x, view_pos_y;
+
+   gint popup_x, popup_y;
+   gint popup_width, popup_height;
+
+   gint sqr_x, sqr_y;
+   gint sqr_width, sqr_height;
+
+   gint fix_x_pos, fix_y_pos;
+
+   gdouble factor;
+} GimvNavWinPrivate;
 
 static gint gimv_nav_win_signals[LAST_SIGNAL] = {0};
-
 
 /* object class */
 static void     gimv_nav_win_dispose        (GObject         *object);
@@ -77,9 +104,6 @@ static void      navwin_grab_pointer        (GimvNavWin      *navwin);
 static void      navwin_set_win_pos_size    (GimvNavWin *navwin);
 
 
-G_DEFINE_TYPE (GimvNavWin, gimv_nav_win, GTK_TYPE_WINDOW)
-
-
 static void
 gimv_nav_win_class_init (GimvNavWinClass *klass)
 {
@@ -106,31 +130,35 @@ gimv_nav_win_class_init (GimvNavWinClass *klass)
                       NULL, NULL,
                       gtk_marshal_NONE__INT_INT,
                       G_TYPE_NONE, 2, G_TYPE_INT, G_TYPE_INT);
+
+   g_type_class_add_private (gobject_class, sizeof (GimvNavWinPrivate));
 }
 
 
 static void
 gimv_nav_win_init (GimvNavWin *navwin)
 {
-   navwin->fix_x_pos = navwin->fix_x_pos = 1;
+   GimvNavWinPrivate *priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
 
-   navwin->gc           = NULL;
-   navwin->pixmap       = NULL;
-   navwin->mask         = NULL;
+   priv->fix_x_pos = priv->fix_x_pos = 1;
 
-   navwin->out_frame = gtk_frame_new (NULL);
-   gtk_frame_set_shadow_type (GTK_FRAME (navwin->out_frame), GTK_SHADOW_OUT);
-   gtk_container_add (GTK_CONTAINER (navwin), navwin->out_frame);
-   gtk_widget_show (navwin->out_frame);
+   priv->gc           = NULL;
+   priv->pixmap       = NULL;
+   priv->mask         = NULL;
 
-   navwin->in_frame = gtk_frame_new (NULL);
-   gtk_frame_set_shadow_type (GTK_FRAME (navwin->in_frame), GTK_SHADOW_IN);
-   gtk_container_add (GTK_CONTAINER (navwin->out_frame), navwin->in_frame);
-   gtk_widget_show (navwin->in_frame);
+   priv->out_frame = gtk_frame_new (NULL);
+   gtk_frame_set_shadow_type (GTK_FRAME (priv->out_frame), GTK_SHADOW_OUT);
+   gtk_container_add (GTK_CONTAINER (navwin), priv->out_frame);
+   gtk_widget_show (priv->out_frame);
 
-   navwin->preview = gtk_drawing_area_new ();
-   gtk_container_add (GTK_CONTAINER (navwin->in_frame), navwin->preview);
-   gtk_widget_show (navwin->preview);
+   priv->in_frame = gtk_frame_new (NULL);
+   gtk_frame_set_shadow_type (GTK_FRAME (priv->in_frame), GTK_SHADOW_IN);
+   gtk_container_add (GTK_CONTAINER (priv->out_frame), priv->in_frame);
+   gtk_widget_show (priv->in_frame);
+
+   priv->preview = gtk_drawing_area_new ();
+   gtk_container_add (GTK_CONTAINER (priv->in_frame), priv->preview);
+   gtk_widget_show (priv->preview);
 }
 
 
@@ -138,10 +166,11 @@ static void
 gimv_nav_win_dispose (GObject *object)
 {
    GimvNavWin *navwin = GIMV_NAV_WIN (object);
+   GimvNavWinPrivate *priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
 
-   if (navwin->pixmap)
-      gdk_pixmap_unref (navwin->pixmap);
-   navwin->pixmap = NULL;
+   if (priv->pixmap)
+      gdk_pixmap_unref (priv->pixmap);
+   priv->pixmap = NULL;
 
    if (G_OBJECT_CLASS (gimv_nav_win_parent_class)->dispose)
       G_OBJECT_CLASS (gimv_nav_win_parent_class)->dispose (object);
@@ -151,19 +180,16 @@ gimv_nav_win_dispose (GObject *object)
 static void
 gimv_nav_win_realize (GtkWidget *widget)
 {
-   GimvNavWin *navwin;
-
-   g_return_if_fail (GIMV_IS_NAV_WIN (widget));
-
-   navwin = GIMV_NAV_WIN (widget);
+   GimvNavWin *navwin = GIMV_NAV_WIN (widget);
+   GimvNavWinPrivate *priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
 
    if (GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->realize)
       GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->realize (widget);
 
-   if (!navwin->gc) {
-      navwin->gc = gdk_gc_new (widget->window);
-      gdk_gc_set_function (navwin->gc, GDK_INVERT);
-      gdk_gc_set_line_attributes (navwin->gc, 
+   if (!priv->gc) {
+      priv->gc = gdk_gc_new (widget->window);
+      gdk_gc_set_function (priv->gc, GDK_INVERT);
+      gdk_gc_set_line_attributes (priv->gc, 
                                   PEN_WIDTH, 
                                   GDK_LINE_SOLID, 
                                   GDK_CAP_BUTT, 
@@ -175,15 +201,12 @@ gimv_nav_win_realize (GtkWidget *widget)
 static void
 gimv_nav_win_unrealize (GtkWidget *widget)
 {
-   GimvNavWin *navwin;
+   GimvNavWin *navwin = GIMV_NAV_WIN (widget);
+   GimvNavWinPrivate *priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
 
-   g_return_if_fail (GIMV_IS_NAV_WIN (widget));
-
-   navwin = GIMV_NAV_WIN (widget);
-
-   if (navwin->gc)
-      gdk_gc_destroy (navwin->gc);
-   navwin->gc = NULL;
+   if (priv->gc)
+      gdk_gc_destroy (priv->gc);
+   priv->gc = NULL;
 
    if (GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->unrealize)
       GTK_WIDGET_CLASS (gimv_nav_win_parent_class)->unrealize (widget);
@@ -194,11 +217,7 @@ static gboolean
 gimv_nav_win_expose (GtkWidget *widget,
                      GdkEventExpose *event)
 {
-   GimvNavWin *navwin;
-
-   g_return_val_if_fail (GIMV_IS_NAV_WIN (widget), FALSE);
-
-   navwin = GIMV_NAV_WIN (widget);
+   GimvNavWin *navwin = GIMV_NAV_WIN (widget);
 
    navwin_draw (navwin);
 
@@ -216,18 +235,15 @@ static gboolean
 gimv_nav_win_key_press (GtkWidget *widget, 
                         GdkEventKey *event)
 {
-   GimvNavWin *navwin;
+   GimvNavWin *navwin = GIMV_NAV_WIN (widget);
+   GimvNavWinPrivate *priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
    gboolean move = FALSE;
    gint mx, my;
    guint keyval;
    GdkModifierType modval;
 
-   g_return_val_if_fail (GIMV_IS_NAV_WIN (widget), FALSE);
-
-   navwin = GIMV_NAV_WIN (widget);
-
-   mx = navwin->view_pos_x;
-   my = navwin->view_pos_y;
+   mx = priv->view_pos_x;
+   my = priv->view_pos_y;
 
    keyval = event->keyval;
    modval = event->state;
@@ -247,15 +263,15 @@ gimv_nav_win_key_press (GtkWidget *widget,
    }
 
    if (move) {
-      if (navwin->fix_x_pos < 0) mx = navwin->fix_x_pos;
-      if (navwin->fix_y_pos < 0) my = navwin->fix_y_pos;
-      navwin->view_pos_x = mx;
-      navwin->view_pos_y = my;
+      if (priv->fix_x_pos < 0) mx = priv->fix_x_pos;
+      if (priv->fix_y_pos < 0) my = priv->fix_y_pos;
+      priv->view_pos_x = mx;
+      priv->view_pos_y = my;
       g_signal_emit (G_OBJECT (navwin),
                      gimv_nav_win_signals[MOVE_SIGNAL], 0,
                      mx, my);
-      mx *= navwin->factor;
-      my *= navwin->factor;
+      mx *= priv->factor;
+      my *= priv->factor;
       navwin_draw_sqr (navwin, TRUE, mx, my);
    }
 
@@ -270,11 +286,7 @@ static gboolean
 gimv_nav_win_button_release  (GtkWidget *widget,
                               GdkEventButton *event)
 {
-   GimvNavWin *navwin;
-
-   g_return_val_if_fail (GIMV_IS_NAV_WIN (widget), FALSE);
-
-   navwin = GIMV_NAV_WIN (widget);
+   GimvNavWin *navwin = GIMV_NAV_WIN (widget);
 
    switch (event->button) {
    case 1:
@@ -299,14 +311,11 @@ static gboolean
 gimv_nav_win_motion_notify (GtkWidget *widget,
                             GdkEventMotion *event)
 {
-   GimvNavWin *navwin;
+   GimvNavWin *navwin = GIMV_NAV_WIN (widget);
+   GimvNavWinPrivate *priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
    GdkModifierType mask;
    gint mx, my;
    gdouble x, y;
-
-   g_return_val_if_fail (GIMV_IS_NAV_WIN (widget), FALSE);
-
-   navwin = GIMV_NAV_WIN (widget);
 
    gdk_window_get_pointer (widget->window, &mx, &my, &mask);
    get_sqr_origin_as_double (navwin, mx, my, &x, &y);
@@ -315,10 +324,10 @@ gimv_nav_win_motion_notify (GtkWidget *widget,
    my = (gint) y;
    navwin_draw_sqr (navwin, TRUE, mx, my);
 
-   mx = (gint) (x / navwin->factor);
-   my = (gint) (y / navwin->factor);
-   if (navwin->fix_x_pos < 0) mx = navwin->fix_x_pos;
-   if (navwin->fix_y_pos < 0) my = navwin->fix_y_pos;
+   mx = (gint) (x / priv->factor);
+   my = (gint) (y / priv->factor);
+   if (priv->fix_x_pos < 0) mx = priv->fix_x_pos;
+   if (priv->fix_y_pos < 0) my = priv->fix_y_pos;
 
    g_signal_emit (G_OBJECT (navwin),
                   gimv_nav_win_signals[MOVE_SIGNAL], 0,
@@ -338,26 +347,28 @@ gimv_nav_win_new (GdkPixmap *pixmap, GdkBitmap *mask,
                   gint fpos_x, gint fpos_y)
 {
    GimvNavWin *navwin;
+   GimvNavWinPrivate *priv;
 
    g_return_val_if_fail (pixmap, NULL);
 
    navwin = GIMV_NAV_WIN (g_object_new (GIMV_TYPE_NAV_WIN,
                                         "type", GTK_WINDOW_POPUP,
                                         NULL));
+   priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
 
-   navwin->pixmap = gdk_pixmap_ref (pixmap);
-   if (mask) navwin->mask = gdk_bitmap_ref (mask);
+   priv->pixmap = gdk_pixmap_ref (pixmap);
+   if (mask) priv->mask = gdk_bitmap_ref (mask);
 
-   navwin->x_root = 0;
-   navwin->y_root = 0;
+   priv->x_root = 0;
+   priv->y_root = 0;
 
-   navwin->image_width  = image_width;
-   navwin->image_height = image_height;
+   priv->image_width  = image_width;
+   priv->image_height = image_height;
 
-   navwin->view_width   = view_width;
-   navwin->view_height  = view_height;
-   navwin->view_pos_x   = fpos_x;
-   navwin->view_pos_y   = fpos_y;
+   priv->view_width   = view_width;
+   priv->view_height  = view_height;
+   priv->view_pos_x   = fpos_x;
+   priv->view_pos_y   = fpos_y;
 
    navwin_update_view (navwin);
 
@@ -368,10 +379,14 @@ gimv_nav_win_new (GdkPixmap *pixmap, GdkBitmap *mask,
 void
 gimv_nav_win_show (GimvNavWin *navwin, gint x_root, gint y_root)
 {
+   GimvNavWinPrivate *priv;
+
    g_return_if_fail (GIMV_IS_NAV_WIN (navwin));
 
-   navwin->x_root = x_root;
-   navwin->y_root = y_root;
+   priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
+
+   priv->x_root = x_root;
+   priv->y_root = y_root;
 
    navwin_update_view (navwin);
    navwin_set_win_pos_size (navwin);
@@ -398,19 +413,23 @@ gimv_nav_win_set_pixmap (GimvNavWin *navwin,
                          GdkPixmap *pixmap, GdkBitmap *mask,
                          gint image_width, gint image_height)
 {
+   GimvNavWinPrivate *priv;
+
    g_return_if_fail (GIMV_IS_NAV_WIN (navwin));
    g_return_if_fail (pixmap);
 
-   if (navwin->pixmap)
-      gdk_pixmap_unref (navwin->pixmap);
-   navwin->pixmap = NULL;
-   navwin->mask   = NULL;
+   priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
 
-   navwin->pixmap = gdk_pixmap_ref (pixmap);
-   if (mask) navwin->mask = gdk_bitmap_ref (mask);
+   if (priv->pixmap)
+      gdk_pixmap_unref (priv->pixmap);
+   priv->pixmap = NULL;
+   priv->mask   = NULL;
 
-   navwin->image_width  = image_width;
-   navwin->image_height = image_height;
+   priv->pixmap = gdk_pixmap_ref (pixmap);
+   if (mask) priv->mask = gdk_bitmap_ref (mask);
+
+   priv->image_width  = image_width;
+   priv->image_height = image_height;
 
    if (GTK_WIDGET_MAPPED (navwin)) {
       navwin_update_view (navwin);
@@ -424,10 +443,14 @@ void
 gimv_nav_win_set_orig_image_size (GimvNavWin *navwin,
                                   gint width, gint height)
 {
+   GimvNavWinPrivate *priv;
+
    g_return_if_fail (GIMV_IS_NAV_WIN (navwin));
 
-   navwin->image_width  = width;
-   navwin->image_height = height;
+   priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
+
+   priv->image_width  = width;
+   priv->image_height = height;
 
    if (GTK_WIDGET_MAPPED (navwin)) {
       navwin_update_view (navwin);
@@ -440,10 +463,14 @@ void
 gimv_nav_win_set_view_size (GimvNavWin *navwin,
                             gint width, gint height)
 {
+   GimvNavWinPrivate *priv;
+
    g_return_if_fail (GIMV_IS_NAV_WIN (navwin));
 
-   navwin->view_width  = width;
-   navwin->view_height = height;
+   priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
+
+   priv->view_width  = width;
+   priv->view_height = height;
 
    if (GTK_WIDGET_MAPPED (navwin)) {
       navwin_update_view (navwin);
@@ -456,10 +483,14 @@ void
 gimv_nav_win_set_view_position (GimvNavWin *navwin,
                                 gint x, gint y)
 {
+   GimvNavWinPrivate *priv;
+
    g_return_if_fail (GIMV_IS_NAV_WIN (navwin));
 
-   navwin->view_pos_x = x;
-   navwin->view_pos_y = y;
+   priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
+
+   priv->view_pos_x = x;
+   priv->view_pos_y = y;
 
    if (GTK_WIDGET_MAPPED (navwin)) {
       navwin_update_view (navwin);
@@ -480,33 +511,35 @@ navwin_draw_sqr (GimvNavWin *navwin,
                  gint x,
                  gint y)
 {
-   if ((navwin->sqr_x == x) && (navwin->sqr_y == y) && undraw)
+   GimvNavWinPrivate *priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
+
+   if ((priv->sqr_x == x) && (priv->sqr_y == y) && undraw)
       return;
 
-   if ((navwin->sqr_x == 0) 
-       && (navwin->sqr_y == 0)
-       && (navwin->sqr_width == navwin->popup_width) 
-       && (navwin->sqr_height == navwin->popup_height))
+   if ((priv->sqr_x == 0) 
+       && (priv->sqr_y == 0)
+       && (priv->sqr_width == priv->popup_width) 
+       && (priv->sqr_height == priv->popup_height))
       return;
 
    if (undraw) {
-      gdk_draw_rectangle (navwin->preview->window, 
-                          navwin->gc, FALSE, 
-                          navwin->sqr_x + 1, 
-                          navwin->sqr_y + 1,
-                          navwin->sqr_width - PEN_WIDTH,
-                          navwin->sqr_height - PEN_WIDTH);
+      gdk_draw_rectangle (priv->preview->window, 
+                          priv->gc, FALSE, 
+                          priv->sqr_x + 1, 
+                          priv->sqr_y + 1,
+                          priv->sqr_width - PEN_WIDTH,
+                          priv->sqr_height - PEN_WIDTH);
    }
 	
-   gdk_draw_rectangle (navwin->preview->window, 
-                       navwin->gc, FALSE, 
+   gdk_draw_rectangle (priv->preview->window, 
+                       priv->gc, FALSE, 
                        x + 1, 
                        y + 1, 
-                       navwin->sqr_width - PEN_WIDTH,
-                       navwin->sqr_height - PEN_WIDTH);
+                       priv->sqr_width - PEN_WIDTH,
+                       priv->sqr_height - PEN_WIDTH);
 
-   navwin->sqr_x = x;
-   navwin->sqr_y = y;
+   priv->sqr_x = x;
+   priv->sqr_y = y;
 }
 
 
@@ -517,101 +550,105 @@ get_sqr_origin_as_double (GimvNavWin *navwin,
                           gdouble *x,
                           gdouble *y)
 {
+   GimvNavWinPrivate *priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
+
    *x = MIN (mx - BORDER_WIDTH, GIMV_NAV_WIN_SIZE);
    *y = MIN (my - BORDER_WIDTH, GIMV_NAV_WIN_SIZE);
 
-   if (*x - navwin->sqr_width / 2.0 < 0.0) 
-      *x = navwin->sqr_width / 2.0;
+   if (*x - priv->sqr_width / 2.0 < 0.0) 
+      *x = priv->sqr_width / 2.0;
 	
-   if (*y - navwin->sqr_height / 2.0 < 0.0)
-      *y = navwin->sqr_height / 2.0;
+   if (*y - priv->sqr_height / 2.0 < 0.0)
+      *y = priv->sqr_height / 2.0;
 
-   if (*x + navwin->sqr_width / 2.0 > navwin->popup_width - 0)
-      *x = navwin->popup_width - 0 - navwin->sqr_width / 2.0;
+   if (*x + priv->sqr_width / 2.0 > priv->popup_width - 0)
+      *x = priv->popup_width - 0 - priv->sqr_width / 2.0;
 
-   if (*y + navwin->sqr_height / 2.0 > navwin->popup_height - 0)
-      *y = navwin->popup_height - 0 - navwin->sqr_height / 2.0;
+   if (*y + priv->sqr_height / 2.0 > priv->popup_height - 0)
+      *y = priv->popup_height - 0 - priv->sqr_height / 2.0;
 
-   *x = *x - navwin->sqr_width / 2.0;
-   *y = *y - navwin->sqr_height / 2.0;
+   *x = *x - priv->sqr_width / 2.0;
+   *y = *y - priv->sqr_height / 2.0;
 }
 
 
 static void
 navwin_update_view (GimvNavWin *navwin)
 {
+   GimvNavWinPrivate *priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
    gint popup_x, popup_y;
    gint popup_width, popup_height;
    gint w, h, x_pos, y_pos;
    gdouble factor;
 
-   w = navwin->image_width;
-   h = navwin->image_height;
+   w = priv->image_width;
+   h = priv->image_height;
 
    factor = MIN ((gdouble) (GIMV_NAV_WIN_SIZE) / w, 
                  (gdouble) (GIMV_NAV_WIN_SIZE) / h);
-   navwin->factor = factor;
+   priv->factor = factor;
 
    /* Popup window size. */
    popup_width  = MAX ((gint) floor (factor * w + 0.5), 1);
    popup_height = MAX ((gint) floor (factor * h + 0.5), 1);
 
-   gtk_drawing_area_size (GTK_DRAWING_AREA (navwin->preview),
+   gtk_drawing_area_size (GTK_DRAWING_AREA (priv->preview),
                           popup_width,
                           popup_height);
 
    /* The square. */
-   x_pos = navwin->view_pos_x;
-   y_pos = navwin->view_pos_y;
+   x_pos = priv->view_pos_x;
+   y_pos = priv->view_pos_y;
 
-   navwin->sqr_width = navwin->view_width * factor;
-   navwin->sqr_width = MAX (navwin->sqr_width, BORDER_WIDTH);
-   navwin->sqr_width = MIN (navwin->sqr_width, popup_width);
+   priv->sqr_width = priv->view_width * factor;
+   priv->sqr_width = MAX (priv->sqr_width, BORDER_WIDTH);
+   priv->sqr_width = MIN (priv->sqr_width, popup_width);
 
-   navwin->sqr_height = navwin->view_height * factor;
-   navwin->sqr_height = MAX (navwin->sqr_height, BORDER_WIDTH); 
-   navwin->sqr_height = MIN (navwin->sqr_height, popup_height); 
+   priv->sqr_height = priv->view_height * factor;
+   priv->sqr_height = MAX (priv->sqr_height, BORDER_WIDTH); 
+   priv->sqr_height = MIN (priv->sqr_height, popup_height); 
 
-   navwin->sqr_x = x_pos * factor;
-   if (navwin->sqr_x < 0) navwin->sqr_x = 0;
-   navwin->sqr_y = y_pos * factor;
-   if (navwin->sqr_y < 0) navwin->sqr_y = 0;
+   priv->sqr_x = x_pos * factor;
+   if (priv->sqr_x < 0) priv->sqr_x = 0;
+   priv->sqr_y = y_pos * factor;
+   if (priv->sqr_y < 0) priv->sqr_y = 0;
 
    /* fix x (or y) if image is smaller than frame */
-   if (navwin->view_width  > navwin->image_width) 
-      navwin->fix_x_pos = x_pos;
+   if (priv->view_width  > priv->image_width) 
+      priv->fix_x_pos = x_pos;
    else
-      navwin->fix_x_pos = 1;
-   if (navwin->view_height > navwin->image_height)
-      navwin->fix_y_pos = y_pos;
+      priv->fix_x_pos = 1;
+   if (priv->view_height > priv->image_height)
+      priv->fix_y_pos = y_pos;
    else
-      navwin->fix_y_pos = 1;
+      priv->fix_y_pos = 1;
 
    /* Popup window position. */
-   popup_x = MIN (navwin->x_root - navwin->sqr_x 
+   popup_x = MIN (priv->x_root - priv->sqr_x 
                   - BORDER_WIDTH 
-                  - navwin->sqr_width / 2,
+                  - priv->sqr_width / 2,
                   gdk_screen_width () - popup_width - BORDER_WIDTH * 2);
-   popup_y = MIN (navwin->y_root - navwin->sqr_y 
+   popup_y = MIN (priv->y_root - priv->sqr_y 
                   - BORDER_WIDTH
-                  - navwin->sqr_height / 2,
+                  - priv->sqr_height / 2,
                   gdk_screen_height () - popup_height - BORDER_WIDTH * 2);
 
-   navwin->popup_x      = popup_x;
-   navwin->popup_y      = popup_y;
-   navwin->popup_width  = popup_width;
-   navwin->popup_height = popup_height;
+   priv->popup_x      = popup_x;
+   priv->popup_y      = popup_y;
+   priv->popup_width  = popup_width;
+   priv->popup_height = popup_height;
 
-   navwin->view_pos_x   = x_pos;
-   navwin->view_pos_y   = y_pos;
+   priv->view_pos_x   = x_pos;
+   priv->view_pos_y   = y_pos;
 
-   gtk_widget_draw (navwin->preview, NULL);
+   gtk_widget_draw (priv->preview, NULL);
 }
 
 
 static void
 navwin_grab_pointer (GimvNavWin *navwin)
 {
+   GimvNavWinPrivate *priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
    GdkCursor *cursor;
 
    gtk_grab_add (GTK_WIDGET (navwin));
@@ -623,7 +660,7 @@ navwin_grab_pointer (GimvNavWin *navwin)
                      GDK_POINTER_MOTION_HINT_MASK |
                      GDK_BUTTON_MOTION_MASK |
                      GDK_EXTENSION_EVENTS_ALL,
-                     navwin->preview->window, 
+                     priv->preview->window, 
                      cursor, 0);
 
    gdk_cursor_destroy (cursor); 
@@ -637,28 +674,28 @@ navwin_grab_pointer (GimvNavWin *navwin)
 static void
 navwin_draw (GimvNavWin *navwin)
 {
-   g_return_if_fail (GIMV_IS_NAV_WIN (navwin));
+   GimvNavWinPrivate *priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
 
-   gdk_draw_pixmap (navwin->preview->window,
-                    navwin->preview->style->white_gc,
-                    navwin->pixmap,
+   gdk_draw_pixmap (priv->preview->window,
+                    priv->preview->style->white_gc,
+                    priv->pixmap,
                     0, 0, 0, 0, -1, -1);
 
    navwin_draw_sqr (navwin, FALSE, 
-                    navwin->sqr_x, 
-                    navwin->sqr_y);
+                    priv->sqr_x, 
+                    priv->sqr_y);
 }
 
 
 static void
 navwin_set_win_pos_size (GimvNavWin *navwin)
 {
-   g_return_if_fail (GIMV_IS_NAV_WIN (navwin));
+   GimvNavWinPrivate *priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
 
    gtk_window_move   (GTK_WINDOW (navwin),
-                      navwin->popup_x,
-                      navwin->popup_y);
+                      priv->popup_x,
+                      priv->popup_y);
    gtk_window_resize (GTK_WINDOW (navwin),
-                      navwin->popup_width  + BORDER_WIDTH * 2, 
-                      navwin->popup_height + BORDER_WIDTH * 2);
+                      priv->popup_width  + BORDER_WIDTH * 2, 
+                      priv->popup_height + BORDER_WIDTH * 2);
 }
