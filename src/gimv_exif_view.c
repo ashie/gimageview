@@ -50,7 +50,7 @@ typedef enum {
  *
  ******************************************************************************/
 static void
-cb_exif_view_destroy (GtkWidget *widget, ExifView *ev)
+cb_exif_view_destroy (GtkWidget *widget, GimvExifView *ev)
 {
    g_return_if_fail (ev);
 
@@ -67,7 +67,7 @@ cb_exif_view_destroy (GtkWidget *widget, ExifView *ev)
 
 
 static void
-cb_exif_window_close (GtkWidget *button, ExifView *ev)
+cb_exif_window_close (GtkWidget *button, GimvExifView *ev)
 {
    g_return_if_fail (ev);
 
@@ -81,8 +81,8 @@ cb_exif_window_close (GtkWidget *button, ExifView *ev)
  *
  ******************************************************************************/
 static void
-exif_view_content_list_set_data (GtkWidget *clist,
-                                 ExifContent *content)
+gimv_exif_view_content_list_set_data (GtkWidget *clist,
+                                      ExifContent *content)
 {
    const gchar *text[2];
    guint i;
@@ -119,16 +119,16 @@ exif_view_content_list_set_data (GtkWidget *clist,
  *   Public Functions.
  *
  ******************************************************************************/
-ExifView *
-exif_view_create_window (const gchar *filename, GtkWindow *parent)
+GimvExifView *
+gimv_exif_view_create_window (const gchar *filename, GtkWindow *parent)
 {
-   ExifView *ev;
+   GimvExifView *ev;
    GtkWidget *button;
    gchar buf[BUF_SIZE];
 
    g_return_val_if_fail (filename && *filename, NULL);
 
-   ev = exif_view_create (filename, parent);
+   ev = gimv_exif_view_create (filename, parent);
    if (!ev) return NULL;
 
    ev->window = gtk_dialog_new ();
@@ -163,7 +163,7 @@ exif_view_create_window (const gchar *filename, GtkWindow *parent)
 
 
 static GtkWidget *
-exif_view_get_thumbnail (ExifData *edata)
+gimv_exif_view_get_thumbnail (ExifData *edata)
 {
    GtkWidget *image;
    GimvImageLoader *loader;
@@ -210,12 +210,12 @@ exif_view_get_thumbnail (ExifData *edata)
 }
 
 
-ExifView *
-exif_view_create (const gchar *filename, GtkWindow *parent)
+GimvExifView *
+gimv_exif_view_create (const gchar *filename, GtkWindow *parent)
 {
    JPEGData *jdata;
    ExifData *edata;
-   ExifView *ev = NULL;
+   GimvExifView *ev = NULL;
    ExifContent *contents[EXIF_IFD_COUNT];
    GtkWidget *notebook, *label;
    GtkWidget *vbox, *pixmap;
@@ -241,7 +241,7 @@ exif_view_create (const gchar *filename, GtkWindow *parent)
       goto ERROR;
    }
 
-   ev = g_new0 (ExifView, 1);
+   ev = g_new0 (GimvExifView, 1);
    ev->exif_data = edata;
    ev->jpeg_data = jdata;
 
@@ -311,7 +311,7 @@ exif_view_create (const gchar *filename, GtkWindow *parent)
       gtk_container_add (GTK_CONTAINER (scrolledwin), clist);
       gtk_widget_show (clist);
 
-      exif_view_content_list_set_data (clist, contents[i]);
+      gimv_exif_view_content_list_set_data (clist, contents[i]);
    }
 
    /* Thumbnail page */
@@ -321,7 +321,7 @@ exif_view_create (const gchar *filename, GtkWindow *parent)
                              vbox, label);
    gtk_widget_show (vbox);
 
-   pixmap = exif_view_get_thumbnail (edata);
+   pixmap = gimv_exif_view_get_thumbnail (edata);
 
    if (pixmap)
       gtk_box_pack_start (GTK_BOX (vbox), pixmap, TRUE, TRUE, 0);
