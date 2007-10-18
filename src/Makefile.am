@@ -62,7 +62,6 @@ gimv_SOURCES = \
 	help.c help.h \
 	md5.c md5.h \
 	menu.c menu.h \
-	pixbuf_utils.c pixbuf_utils.h \
 	prefs.c prefs.h \
 	utils.c utils.h \
 \
