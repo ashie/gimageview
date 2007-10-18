@@ -19,7 +19,6 @@ gimv_SOURCES = \
 	auto_completion.c auto_completion.h \
 	charset.c charset.h \
 	cursors.c cursors.h \
-	dither.c dither.h \
 	dnd.c dnd.h \
 	fileload.c fileload.h \
 	fileutil.c fileutil.h \

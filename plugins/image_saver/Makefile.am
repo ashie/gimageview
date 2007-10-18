@@ -23,5 +23,5 @@ libgimv_pnm_saver_la_SOURCES = pnm_saver.c
 libgimv_pnm_saver_la_LIBADD = $(GTK_LIBS)
 
 libgimv_xvpics_saver_la_LDFLAGS = -module -avoid-version $(no_undefined) $(GIMV_LIBS)
-libgimv_xvpics_saver_la_SOURCES = xvpics_saver.c
+libgimv_xvpics_saver_la_SOURCES = dither.c dither.h xvpics_saver.c
 libgimv_xvpics_saver_la_LIBADD = $(GTK_LIBS)

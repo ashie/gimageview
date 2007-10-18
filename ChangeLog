@@ -1,5 +1,10 @@
 2007-10-17 Takuro Ashie <ashie@homa.ne.jp>
 
+	* plugins/image_saver/dither.[ch]: Moved from src/
+	* src/Makefile.am, plugins/image_saver/Makefile.am: Follow the change.
+
+2007-10-17 Takuro Ashie <ashie@homa.ne.jp>
+
 	* src/gimv_image_view_draw.c: Rename from image_view_draw.c
 	* src/gimv_thumb_view_album.c: Rename from thumbnail_view_album.c
 	* src/Makefile.am: Follow tha change.
