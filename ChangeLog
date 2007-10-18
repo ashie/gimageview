@@ -1,5 +1,15 @@
 2007-10-18 Takuro Ashie <ashie@homa.ne.jp>
 
+	* src/pixbuf_utils.[ch]: Removed.
+	* src/gimv_image.c: Move codes in pixbuf_utils.c to this file.
+
+2007-10-18 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_exif_view.[ch]: ExifView -> GimvExifView
+	* src/gimv_image_win.c, src/gimv_thumb_view.c: Follow the change.
+
+2007-10-18 Takuro Ashie <ashie@homa.ne.jp>
+
 	* src/gimv_text_win.[ch]: TextViewer -> GimvTextWin
 	* src/help.c: Follow the change.
 
