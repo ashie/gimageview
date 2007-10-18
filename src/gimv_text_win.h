@@ -27,7 +27,7 @@
 
 #include <gtk/gtk.h>
 
-typedef struct TextViewer_Tag
+typedef struct GimvTextWin_Tag
 {
    GtkWidget *window;
    GtkWidget *textbox;
@@ -35,11 +35,11 @@ typedef struct TextViewer_Tag
    GtkWidget *statusbar;
 
    gchar *filename;
-} TextViewer;
+} GimvTextWin;
 
 
-gboolean    text_viewer_load_file (TextViewer *text_viewer,
-                                   gchar      *filename);
-TextViewer *text_viewer_create    (gchar      *filename);
+gboolean     gimv_text_win_load_file (GimvTextWin *text_viewer,
+                                      gchar       *filename);
+GimvTextWin *gimv_text_win_create    (gchar       *filename);
 
 #endif /* __GIMV_TEXT_WIN_H__ */

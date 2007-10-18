@@ -29,19 +29,19 @@
 #include "gimv_text_win.h"
 
 static void
-cb_text_viewer_destroy (GtkWidget *widget, TextViewer *text_viewer)
+cb_text_win_destroy (GtkWidget *widget, GimvTextWin *text_win)
 {
-   g_return_if_fail (text_viewer);
+   g_return_if_fail (text_win);
 
-   if (text_viewer->filename)
-      g_free (text_viewer->filename);
+   if (text_win->filename)
+      g_free (text_win->filename);
 
-   g_free (text_viewer);
+   g_free (text_win);
 }
 
 
 gboolean
-text_viewer_load_file (TextViewer *text_viewer, gchar *filename)
+gimv_text_win_load_file (GimvTextWin *text_win, gchar *filename)
 {
    FILE *textfile;
    gchar *tmpstr;
@@ -49,13 +49,13 @@ text_viewer_load_file (TextViewer *text_viewer, gchar *filename)
    GtkTextBuffer *buffer;
    gchar *text;
 
-   g_return_val_if_fail (text_viewer && filename, FALSE);
+   g_return_val_if_fail (text_win && filename, FALSE);
 
-   if (text_viewer->filename) {
-      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_viewer->textbox));
+   if (text_win->filename) {
+      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_win->textbox));
       gtk_text_buffer_set_text (buffer, "\0", -1);
-      g_free (text_viewer->filename);
-      text_viewer->filename = NULL;
+      g_free (text_win->filename);
+      text_win->filename = NULL;
    }
 
    textfile = fopen (filename, "r");
@@ -64,7 +64,7 @@ text_viewer_load_file (TextViewer *text_viewer, gchar *filename)
       return FALSE;
    }
 
-   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_viewer->textbox));
+   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_win->textbox));
 
    text = g_strdup ("");
    while (fgets (buf, sizeof(buf), textfile)) {
@@ -81,33 +81,33 @@ text_viewer_load_file (TextViewer *text_viewer, gchar *filename)
    fclose (textfile);
 
    tmpstr = g_strconcat (_("File Name: "), filename, NULL);
-   gtk_statusbar_push(GTK_STATUSBAR (text_viewer->statusbar), 1, tmpstr);
+   gtk_statusbar_push(GTK_STATUSBAR (text_win->statusbar), 1, tmpstr);
    g_free (tmpstr);
 
-   text_viewer->filename = g_strdup (filename);
+   text_win->filename = g_strdup (filename);
 
    return TRUE;
 }
 
 
-TextViewer *
-text_viewer_create (gchar *filename)
+GimvTextWin *
+gimv_text_win_create (gchar *filename)
 {
-   TextViewer *text_viewer;
+   GimvTextWin *text_win;
    GtkWidget *window, *vbox;
    GtkWidget *scrolledwin, *text;
    GtkWidget *statusbar;
 
-   text_viewer = g_new0 (TextViewer, 1);
-   text_viewer->filename = NULL;
+   text_win = g_new0 (GimvTextWin, 1);
+   text_win->filename = NULL;
 
    /* window */
-   text_viewer->window = window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+   text_win->window = window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
    gtk_window_set_title (GTK_WINDOW (window), GIMV_PROG_NAME" -Text Viewer-");
    gtk_window_set_default_size (GTK_WINDOW(window), 600, 500);
    gtk_widget_show (window);
    g_signal_connect (G_OBJECT (window), "destroy",
-                     G_CALLBACK (cb_text_viewer_destroy), text_viewer);
+                     G_CALLBACK (cb_text_win_destroy), text_win);
 
    /* main vbox */
    vbox = gtk_vbox_new (FALSE, 0);
@@ -122,12 +122,12 @@ text_viewer_create (gchar *filename)
    gtk_widget_show (scrolledwin);
 
    text = gtk_text_view_new ();
-   text_viewer->textbox = text;
+   text_win->textbox = text;
    gtk_container_add (GTK_CONTAINER (scrolledwin), text);
    gtk_widget_show (text);
 
    /* statusbar */
-   text_viewer->statusbar = statusbar = gtk_statusbar_new ();
+   text_win->statusbar = statusbar = gtk_statusbar_new ();
    gtk_container_border_width (GTK_CONTAINER (statusbar), 1);
    gtk_box_pack_start (GTK_BOX (vbox), statusbar, FALSE, TRUE, 0);
    gtk_statusbar_push(GTK_STATUSBAR (statusbar), 1, "New Window");
@@ -135,7 +135,7 @@ text_viewer_create (gchar *filename)
 
    /* set text from file */
    if (filename)
-      text_viewer_load_file (text_viewer, filename);
+      gimv_text_win_load_file (text_win, filename);
 
-   return text_viewer;
+   return text_win;
 }
