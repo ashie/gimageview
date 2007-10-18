@@ -2500,7 +2500,7 @@ gimv_thumb_view_delete_files (GimvThumbView *tv)
    if (retval) {
       gimv_thumb_view_refresh_list (tv);
       if (tw->show_dirview)
-         dirview_refresh_list (tw->dv);
+         gimv_dir_view_refresh_list (tw->dv);
    }
 
    g_list_free (filelist);
@@ -3728,7 +3728,7 @@ gimv_thumb_view_reload (GimvThumbView *tv, FilesLoader *files, GimvThumbViewMode
 
    /* set window status */
    if (tv->mode == GIMV_THUMB_VIEW_MODE_DIR && tv->priv->dirname)
-      dirview_set_opened_mark (tv->tw->dv, tv->priv->dirname);
+      gimv_dir_view_set_opened_mark (tv->tw->dv, tv->priv->dirname);
 
    current_page = gtk_notebook_get_current_page (GTK_NOTEBOOK (tv->tw->notebook));
    this_page = gtk_notebook_page_num (GTK_NOTEBOOK (tv->tw->notebook),
@@ -3738,7 +3738,7 @@ gimv_thumb_view_reload (GimvThumbView *tv, FilesLoader *files, GimvThumbViewMode
       tv->tw->status = GIMV_THUMB_WIN_STATUS_LOADING;
       gimv_thumb_win_set_sensitive (tv->tw, GIMV_THUMB_WIN_STATUS_LOADING);
       if (tv->mode == GIMV_THUMB_VIEW_MODE_DIR && tv->priv->dirname)
-         dirview_change_dir (tv->tw->dv, tv->priv->dirname);
+         gimv_dir_view_change_dir (tv->tw->dv, tv->priv->dirname);
 
    } else {
       tv->tw->status = GIMV_THUMB_WIN_STATUS_LOADING_BG;
@@ -3791,7 +3791,7 @@ gimv_thumb_view_dispose (GObject *object)
    if (tv->priv) {
       if (tv->tw && tv->tw->dv &&
           tv->mode == GIMV_THUMB_VIEW_MODE_DIR && tv->priv->dirname) {
-         dirview_unset_opened_mark (tv->tw->dv, tv->priv->dirname);
+         gimv_dir_view_unset_opened_mark (tv->tw->dv, tv->priv->dirname);
       }
 
       g_free (tv->priv->dirname);

@@ -35,7 +35,7 @@
 #include "menu.h"
 #include "prefs.h"
 
-struct DirViewPrivate_Tag {
+struct GimvDirViewPrivate_Tag {
    /* for DnD */
    gint         hilit_dir;
 
@@ -63,7 +63,7 @@ typedef enum {
    MouseActPopupMenu,
    MouseActChangeTop,
    MouseActLoadThumbRecursiveInOneTab
-} DirViewMouseAction;
+} GimvDirViewMouseAction;
 
 
 typedef enum {
@@ -79,19 +79,19 @@ typedef enum {
 
 /* callback functions */
 static void       cb_dirview_destroyed           (GtkWidget      *widget,
-                                                  DirView        *dv);
+                                                  GimvDirView    *dv);
 static gboolean   cb_button_press                (GtkWidget      *widget,
                                                   GdkEventButton *event,
-                                                  DirView        *dv);
+                                                  GimvDirView    *dv);
 static gboolean   cb_button_release              (GtkWidget      *widget,
                                                   GdkEventButton *event,
-                                                  DirView        *dv);
+                                                  GimvDirView    *dv);
 static gboolean   cb_scroll                      (GtkWidget      *widget,
                                                   GdkEventScroll *se,
-                                                  DirView        *dv);
+                                                  GimvDirView    *dv);
 static gboolean   cb_key_press                   (GtkWidget      *widget,
                                                   GdkEventKey    *event,
-                                                  DirView        *dv);
+                                                  GimvDirView    *dv);
 static void       cb_tree_expand                 (GtkTreeView    *treeview,
                                                   GtkTreeIter    *parent_iter,
                                                   GtkTreePath    *treepath,
@@ -99,37 +99,37 @@ static void       cb_tree_expand                 (GtkTreeView    *treeview,
 
 
 /* callback functions for popup menu */
-static void       cb_open_thumbnail              (DirView        *dv,
+static void       cb_open_thumbnail              (GimvDirView    *dv,
                                                   ScanSubDirType  scan_subdir,
                                                   GtkWidget      *menuitem);
-static void       cb_go_to_here                  (DirView        *dv,
+static void       cb_go_to_here                  (GimvDirView    *dv,
                                                   guint           action,
                                                   GtkWidget      *menuitem);
-static void       cb_refresh_dir_tree            (DirView        *dv,
+static void       cb_refresh_dir_tree            (GimvDirView    *dv,
                                                   guint           action,
                                                   GtkWidget      *menuitem);
-static void       cb_file_property               (DirView        *tv,
+static void       cb_file_property               (GimvDirView    *tv,
                                                   guint           action,
                                                   GtkWidget      *menuitem);
-static void       cb_mkdir                       (DirView        *dv,
+static void       cb_mkdir                       (GimvDirView    *dv,
                                                   guint           action,
                                                   GtkWidget      *menuitem);
-static void       cb_rename_dir                  (DirView        *dv,
+static void       cb_rename_dir                  (GimvDirView    *dv,
                                                   guint           action,
                                                   GtkWidget      *menuitem);
-static void       cb_delete_dir                  (DirView        *dv,
+static void       cb_delete_dir                  (GimvDirView    *dv,
                                                   guint           action,
                                                   GtkWidget      *menuitem);
 
 /* Callback functions for toolbar buttons */
 static void       cb_home_button                 (GtkWidget      *widget,
-                                                  DirView        *dv);
+                                                  GimvDirView    *dv);
 static void       cb_up_button                   (GtkWidget      *widget,
-                                                  DirView        *dv);
+                                                  GimvDirView    *dv);
 static void       cb_refresh_button              (GtkWidget      *widget,
-                                                  DirView        *dv);
+                                                  GimvDirView    *dv);
 static void       cb_dotfile_button              (GtkWidget      *widget,
-                                                  DirView        *dv);
+                                                  GimvDirView    *dv);
 
 /* Callback functions for DnD */
 static void       cb_drag_data_get               (GtkWidget        *dirtree,
@@ -176,9 +176,9 @@ static void       cb_com_swap_drag_data_received (GtkWidget        *widget,
 /* other private functions */
 static void       get_icon_pixbufs               (void);
 static void       set_columns_type               (GtkTreeView    *tree_view);
-static void       dirview_create_treeview        (DirView        *dv,
+static void       dirview_create_treeview        (GimvDirView    *dv,
                                                   const gchar    *root);
-static GtkWidget *dirview_create_toolbar         (DirView        *dv);
+static GtkWidget *dirview_create_toolbar         (GimvDirView    *dv);
 static void       insert_dummy_row               (GtkTreeStore   *store,
                                                   GtkTreeIter    *parent_iter);
 static void       insert_row                     (GtkTreeStore   *store,
@@ -186,21 +186,21 @@ static void       insert_row                     (GtkTreeStore   *store,
                                                   GtkTreeIter    *parent_iter,
                                                   const gchar    *label,
                                                   const gchar    *fullpath);
-static gboolean   get_iter_from_path             (DirView        *dv,
+static gboolean   get_iter_from_path             (GimvDirView    *dv,
                                                   const gchar    *str,
                                                   GtkTreeIter    *iter);
 static void       adjust_tree                    (GtkTreeView    *treeview,
                                                   GtkTreeIter    *iter);
-static void       adjust_tree_idle               (DirView        *dv,
+static void       adjust_tree_idle               (GimvDirView    *dv,
                                                   GtkTreeIter    *iter);
 static void       get_expanded_dirs              (GtkTreeView    *treeview,
                                                   GtkTreePath    *treepath,
                                                   gpointer        data);
-static void       refresh_dir_tree               (DirView        *dv,
+static void       refresh_dir_tree               (GimvDirView    *dv,
                                                   GtkTreeIter    *parent_iter);
-static void       dirview_popup_menu             (DirView        *dv,
+static void       dirview_popup_menu             (GimvDirView    *dv,
                                                   GdkEventButton *event);
-static gboolean   dirview_button_action          (DirView        *dv,
+static gboolean   dirview_button_action          (GimvDirView    *dv,
                                                   GdkEventButton *event,
                                                   gint            num);
 
@@ -239,7 +239,7 @@ static GdkPixbuf *lock_folder = NULL;
  *
  ******************************************************************************/
 static void
-cb_dirview_destroyed (GtkWidget *widget, DirView *dv)
+cb_dirview_destroyed (GtkWidget *widget, GimvDirView *dv)
 {
    g_return_if_fail (dv);
 
@@ -262,7 +262,7 @@ cb_dirview_destroyed (GtkWidget *widget, DirView *dv)
 
 
 static gboolean
-cb_button_press (GtkWidget *widget, GdkEventButton *event, DirView *dv)
+cb_button_press (GtkWidget *widget, GdkEventButton *event, GimvDirView *dv)
 {
    gint num;
 
@@ -281,7 +281,7 @@ cb_button_press (GtkWidget *widget, GdkEventButton *event, DirView *dv)
 
 
 static gboolean
-cb_button_release (GtkWidget *widget, GdkEventButton *event, DirView *dv)
+cb_button_release (GtkWidget *widget, GdkEventButton *event, GimvDirView *dv)
 {
    gint num;
 
@@ -304,7 +304,7 @@ cb_button_release (GtkWidget *widget, GdkEventButton *event, DirView *dv)
 
 
 static gboolean
-cb_scroll (GtkWidget *widget, GdkEventScroll *se, DirView *dv)
+cb_scroll (GtkWidget *widget, GdkEventScroll *se, GimvDirView *dv)
 {
    GdkEventButton be;
    gboolean retval = FALSE;
@@ -355,7 +355,7 @@ cb_scroll (GtkWidget *widget, GdkEventScroll *se, DirView *dv)
 
 
 static gboolean
-cb_key_press (GtkWidget *widget, GdkEventKey *event, DirView *dv)
+cb_key_press (GtkWidget *widget, GdkEventKey *event, GimvDirView *dv)
 {
    guint keyval, popup_key;
    GdkModifierType modval, popup_mod;
@@ -400,7 +400,7 @@ cb_key_press (GtkWidget *widget, GdkEventKey *event, DirView *dv)
       case GDK_ISO_Enter:
       {
          if (!strcmp (label, ".") || !strcmp (label, "..")) {
-            dirview_change_root (dv, path);
+            gimv_dir_view_chroot (dv, path);
          } else {
             open_dir_images (path, dv->tw, NULL,
                              LOAD_CACHE, conf.scan_dir_recursive);
@@ -417,7 +417,7 @@ cb_key_press (GtkWidget *widget, GdkEventKey *event, DirView *dv)
          break;
       case GDK_Right:
          if (modval & GDK_CONTROL_MASK) {
-            dirview_change_root (dv, path);
+            gimv_dir_view_chroot (dv, path);
          } else {
             gtk_tree_view_expand_row (GTK_TREE_VIEW (widget), treepath, FALSE);
          }
@@ -425,7 +425,7 @@ cb_key_press (GtkWidget *widget, GdkEventKey *event, DirView *dv)
          break;
       case GDK_Left:
          if (modval & GDK_CONTROL_MASK) {
-            dirview_change_root_to_parent (dv);
+            gimv_dir_view_chroot_to_parent (dv);
          } else {
             gtk_tree_view_collapse_row (GTK_TREE_VIEW (widget), treepath);
          }
@@ -433,13 +433,13 @@ cb_key_press (GtkWidget *widget, GdkEventKey *event, DirView *dv)
          break;
       case GDK_Up:
          if (modval & GDK_CONTROL_MASK) {
-            dirview_change_root_to_parent (dv);
+            gimv_dir_view_chroot_to_parent (dv);
             retval = TRUE;
          }
          break;
       case GDK_Down:
          if (modval & GDK_CONTROL_MASK) {
-            dirview_change_root (dv, path);
+            gimv_dir_view_chroot (dv, path);
             retval = TRUE;
          }
          break;
@@ -460,7 +460,7 @@ cb_tree_expand (GtkTreeView *treeview,
                 GtkTreePath *treepath,
                 gpointer data)
 {
-   DirView *dv = data;
+   GimvDirView *dv = data;
    GtkTreeStore *store;
    GtkTreeIter child_iter, iter;
    gchar *parent_dir;
@@ -530,11 +530,11 @@ cb_tree_expand (GtkTreeView *treeview,
  *
  ******************************************************************************/
 static void
-cb_open_thumbnail (DirView *dv, ScanSubDirType scan_subdir, GtkWidget *menuitem)
+cb_open_thumbnail (GimvDirView *dv, ScanSubDirType scan_subdir, GtkWidget *menuitem)
 {
    gchar *path;
 
-   path = dirview_get_selected_path (dv);
+   path = gimv_dir_view_get_selected_path (dv);
    if (!path) return;
 
    open_dir_images (path, dv->tw, NULL, LOAD_CACHE, scan_subdir);
@@ -544,21 +544,21 @@ cb_open_thumbnail (DirView *dv, ScanSubDirType scan_subdir, GtkWidget *menuitem)
 
 
 static void
-cb_go_to_here (DirView *dv, guint action, GtkWidget *menuitem)
+cb_go_to_here (GimvDirView *dv, guint action, GtkWidget *menuitem)
 {
    gchar *path;
 
-   path = dirview_get_selected_path (dv);
+   path = gimv_dir_view_get_selected_path (dv);
    if (!path) return;
 
-   dirview_change_root (dv, path);
+   gimv_dir_view_chroot (dv, path);
 
    g_free (path);
 }
 
 
 static void
-cb_refresh_dir_tree (DirView *dv, guint action, GtkWidget *menuitem)
+cb_refresh_dir_tree (GimvDirView *dv, guint action, GtkWidget *menuitem)
 {
    GtkTreeModel *model;
    GtkTreeSelection *selection;
@@ -575,14 +575,14 @@ cb_refresh_dir_tree (DirView *dv, guint action, GtkWidget *menuitem)
 
 
 static void
-cb_file_property (DirView *dv, guint action, GtkWidget *menuitem)
+cb_file_property (GimvDirView *dv, guint action, GtkWidget *menuitem)
 {
    GimvImageInfo *info;
    gchar *path, *tmpstr;
 
    g_return_if_fail (dv);
 
-   tmpstr = dirview_get_selected_path (dv);
+   tmpstr = gimv_dir_view_get_selected_path (dv);
    if (!tmpstr) return;
 
    path = remove_slash (tmpstr);
@@ -602,7 +602,7 @@ cb_file_property (DirView *dv, guint action, GtkWidget *menuitem)
 
 
 static void
-cb_mkdir (DirView *dv, guint action, GtkWidget *menuitem)
+cb_mkdir (GimvDirView *dv, guint action, GtkWidget *menuitem)
 {
    gchar *parent_path;
    gboolean success;
@@ -610,7 +610,7 @@ cb_mkdir (DirView *dv, guint action, GtkWidget *menuitem)
 
    g_return_if_fail (dv);
 
-   parent_path = dirview_get_selected_path (dv);
+   parent_path = gimv_dir_view_get_selected_path (dv);
    if (!parent_path) return;
 
    success = make_dir_dialog (
@@ -629,14 +629,14 @@ cb_mkdir (DirView *dv, guint action, GtkWidget *menuitem)
 
 
 static void
-cb_rename_dir (DirView *dv, guint action, GtkWidget *menuitem)
+cb_rename_dir (GimvDirView *dv, guint action, GtkWidget *menuitem)
 {
    gboolean success;
    gchar *path;
 
    g_return_if_fail (dv);
 
-   path = dirview_get_selected_path (dv);
+   path = gimv_dir_view_get_selected_path (dv);
    if (!path) return;
 
    success = rename_dir_dialog
@@ -661,14 +661,14 @@ cb_rename_dir (DirView *dv, guint action, GtkWidget *menuitem)
 
 
 static void
-cb_delete_dir (DirView *dv, guint action, GtkWidget *menuitem)
+cb_delete_dir (GimvDirView *dv, guint action, GtkWidget *menuitem)
 {
    gchar *path, *parent_dir;
    GtkTreeIter iter;
 
    g_return_if_fail (dv);
 
-   path = dirview_get_selected_path (dv);
+   path = gimv_dir_view_get_selected_path (dv);
    if (!path) return;
 
    if (path [strlen (path) - 1] == '/')
@@ -696,23 +696,23 @@ cb_delete_dir (DirView *dv, guint action, GtkWidget *menuitem)
  *
  ******************************************************************************/
 static void
-cb_home_button (GtkWidget *widget, DirView *dv)
+cb_home_button (GtkWidget *widget, GimvDirView *dv)
 {
    g_return_if_fail (dv);
 
-   dirview_go_home (dv);
+   gimv_dir_view_go_home (dv);
 }
 
 
 static void
-cb_up_button (GtkWidget *widget, DirView *dv)
+cb_up_button (GtkWidget *widget, GimvDirView *dv)
 {
-   dirview_change_root_to_parent (dv);
+   gimv_dir_view_chroot_to_parent (dv);
 }
 
 
 static void
-cb_refresh_button (GtkWidget *widget, DirView *dv)
+cb_refresh_button (GtkWidget *widget, GimvDirView *dv)
 {
    GtkTreeModel *model;
    GtkTreeIter iter;
@@ -729,7 +729,7 @@ cb_refresh_button (GtkWidget *widget, DirView *dv)
 
 
 static void
-cb_dotfile_button (GtkWidget *widget, DirView *dv)
+cb_dotfile_button (GtkWidget *widget, GimvDirView *dv)
 {
    GtkTreeModel *model;
    GtkTreeIter iter;
@@ -760,12 +760,12 @@ cb_drag_data_get (GtkWidget *dirtree,
                   guint time,
                   gpointer data)
 {
-   DirView *dv = data;
+   GimvDirView *dv = data;
    gchar *path, *urilist;
 
    g_return_if_fail (dv);
 
-   path = dirview_get_selected_path(dv);
+   path = gimv_dir_view_get_selected_path(dv);
    if (!path) return;
    if (!*path) {
       g_free (path);
@@ -795,7 +795,7 @@ cb_drag_motion (GtkWidget *widget,
 	GtkTreePath *dest_path = NULL;
 	GtkTreeViewDropPosition pos;
 	gboolean success, retval = FALSE;
-   /* DirView *dv = data; */
+   /* GimvDirView *dv = data; */
 
    g_return_val_if_fail(GTK_IS_TREE_VIEW(widget), FALSE);
 	g_return_val_if_fail(data, FALSE);
@@ -841,7 +841,7 @@ cb_drag_data_received (GtkWidget *dirtree,
                        guint32 time,
                        gpointer data)
 {
-   DirView *dv = data;
+   GimvDirView *dv = data;
    GtkTreePath *treepath;
    GtkTreeModel *model;
    GtkTreeIter iter;
@@ -896,7 +896,7 @@ cb_drag_data_received (GtkWidget *dirtree,
 static void
 cb_drag_end (GtkWidget *dirtree, GdkDragContext *context, gpointer data)
 {
-   DirView *dv = data;
+   GimvDirView *dv = data;
    GtkTreeModel *model;
    GtkTreeIter iter;
 
@@ -1089,7 +1089,7 @@ set_columns_type (GtkTreeView *tree_view)
 
 
 static void
-dirview_create_treeview (DirView *dv, const gchar *root)
+dirview_create_treeview (GimvDirView *dv, const gchar *root)
 {
    GtkTreeStore *store;
    GtkTreeIter root_iter;
@@ -1160,7 +1160,7 @@ dirview_create_treeview (DirView *dv, const gchar *root)
 
 
 static GtkWidget *
-dirview_create_toolbar (DirView *dv)
+dirview_create_toolbar (GimvDirView *dv)
 {
    GtkWidget *toolbar;
    GtkWidget *button;
@@ -1362,7 +1362,7 @@ adjust_tree (GtkTreeView *treeview, GtkTreeIter *iter)
 
 
 static gboolean
-get_iter_from_path (DirView *dv, const gchar *str, GtkTreeIter *iter)
+get_iter_from_path (GimvDirView *dv, const gchar *str, GtkTreeIter *iter)
 {
    GtkTreeModel *model;
    GtkTreeIter parent_iter, child_iter;
@@ -1456,7 +1456,7 @@ get_iter_from_path (DirView *dv, const gchar *str, GtkTreeIter *iter)
 
 
 struct AdjustTreeIdle {
-   DirView     *dv;
+   GimvDirView     *dv;
    GtkTreeView *treeview;
    gboolean     has_iter;
    GtkTreeIter  iter;
@@ -1479,7 +1479,7 @@ idle_adjust_tree (gpointer data)
 
 
 static void
-adjust_tree_idle (DirView *dv, GtkTreeIter *iter)
+adjust_tree_idle (GimvDirView *dv, GtkTreeIter *iter)
 {
    GtkTreeView *treeview = GTK_TREE_VIEW (dv->dirtree);
    struct AdjustTreeIdle *idle;
@@ -1529,7 +1529,7 @@ get_expanded_dirs (GtkTreeView *treeview, GtkTreePath *treepath, gpointer data)
 
 
 static void
-refresh_dir_tree (DirView *dv, GtkTreeIter *parent_iter)
+refresh_dir_tree (GimvDirView *dv, GtkTreeIter *parent_iter)
 {
    GtkTreeView *treeview;
    GtkTreeStore *store;
@@ -1541,7 +1541,7 @@ refresh_dir_tree (DirView *dv, GtkTreeIter *parent_iter)
 
    g_return_if_fail (dv);
 
-   selected_path = dirview_get_selected_path (dv);
+   selected_path = gimv_dir_view_get_selected_path (dv);
    if (!selected_path) selected_path = g_strdup (dv->root_dir);
 
    /* get expanded directory list */
@@ -1551,7 +1551,7 @@ refresh_dir_tree (DirView *dv, GtkTreeIter *parent_iter)
 
    /* replace root node */
    root_dir = g_strdup (dv->root_dir);
-#if 1 /* almost same with dirview_change_root () */
+#if 1 /* almost same with gimv_dir_view_chroot () */
    g_free (dv->root_dir);
    dv->root_dir = add_slash (root_dir);
 
@@ -1569,7 +1569,7 @@ refresh_dir_tree (DirView *dv, GtkTreeIter *parent_iter)
 
    /* restore expanded directory */
    for (node = expand_list; node; node = g_list_next (node)) {
-      dirview_expand_dir (dv, node->data, FALSE);
+      gimv_dir_view_expand_dir (dv, node->data, FALSE);
    }
 
    g_list_foreach (expand_list, (GFunc) g_free, NULL);
@@ -1585,7 +1585,7 @@ refresh_dir_tree (DirView *dv, GtkTreeIter *parent_iter)
 
 
 static void
-dirview_popup_menu (DirView *dv, GdkEventButton *event)
+dirview_popup_menu (GimvDirView *dv, GdkEventButton *event)
 {
    GtkTreeModel *model;
    GtkTreePath *treepath;
@@ -1635,7 +1635,7 @@ dirview_popup_menu (DirView *dv, GdkEventButton *event)
    n_menu_items = sizeof(dirview_popup_items)
       / sizeof(dirview_popup_items[0]) -  1;
    dirview_popup = menu_create_items(NULL, dirview_popup_items,
-                                     n_menu_items, "<DirViewPop>", dv);
+                                     n_menu_items, "<GimvDirViewPop>", dv);
 
 
    /* set sensitive */
@@ -1681,7 +1681,7 @@ dirview_popup_menu (DirView *dv, GdkEventButton *event)
 
 typedef struct ButtonActionData_Tag
 {
-   DirView *dv;
+   GimvDirView *dv;
    gchar   *path, *label;
    gint     action_num;
 } ButtonActionData;
@@ -1700,7 +1700,7 @@ static gboolean
 idle_dirview_button_action (gpointer data)
 {
    ButtonActionData *bdata = data;
-   DirView *dv = bdata->dv;
+   GimvDirView *dv = bdata->dv;
    gchar *path = bdata->path, *label = bdata->label;
 
    dv->priv->button_action_id = 0;
@@ -1708,27 +1708,27 @@ idle_dirview_button_action (gpointer data)
    switch (abs (bdata->action_num)) {
    case MouseActLoadThumb:
       if (!strcmp (label, ".") || !strcmp (label, "..")) {
-         dirview_change_root (dv, path);
+         gimv_dir_view_chroot (dv, path);
       } else {
          open_dir_images (path, dv->tw, NULL, LOAD_CACHE, SCAN_SUB_DIR_NONE);
       }
       break;
    case MouseActLoadThumbRecursive:
       if (!strcmp (label, ".") || !strcmp (label, "..")) {
-         dirview_change_root (dv, path);
+         gimv_dir_view_chroot (dv, path);
       } else {
          open_dir_images (path, dv->tw, NULL, LOAD_CACHE, SCAN_SUB_DIR);
       }
       break;
    case MouseActLoadThumbRecursiveInOneTab:
       if (!strcmp (label, ".") || !strcmp (label, "..")) {
-         dirview_change_root (dv, path);
+         gimv_dir_view_chroot (dv, path);
       } else {
          open_dir_images (path, dv->tw, NULL, LOAD_CACHE, SCAN_SUB_DIR_ONE_TAB);
       }
       break;
    case MouseActChangeTop:
-      dirview_change_root (dv, path);
+      gimv_dir_view_chroot (dv, path);
       break;
    default:
       break;
@@ -1741,7 +1741,7 @@ idle_dirview_button_action (gpointer data)
 
 
 static gboolean
-dirview_button_action (DirView *dv, GdkEventButton *event, gint num)
+dirview_button_action (GimvDirView *dv, GdkEventButton *event, gint num)
 {
    gchar *path = NULL, *label;
    GtkTreeSelection *selection;
@@ -1812,7 +1812,7 @@ dirview_button_action (DirView *dv, GdkEventButton *event, gint num)
  *
  ******************************************************************************/
 void
-dirview_change_root (DirView *dv, const gchar *root_dir)
+gimv_dir_view_chroot (GimvDirView *dv, const gchar *root_dir)
 {
    GtkTreeView *treeview;
    GtkTreeStore *store;
@@ -1849,7 +1849,7 @@ dirview_change_root (DirView *dv, const gchar *root_dir)
 
 
 void
-dirview_change_root_to_parent (DirView *dv)
+gimv_dir_view_chroot_to_parent (GimvDirView *dv)
 {
    gchar *end;
    gchar *root;
@@ -1862,13 +1862,13 @@ dirview_change_root_to_parent (DirView *dv)
    end = strrchr (root, '/');
    if (end) *(end + 1) = '\0';
 
-   dirview_change_dir (dv, root);
+   gimv_dir_view_change_dir (dv, root);
    g_free (root);
 }
 
 
 void
-dirview_change_dir (DirView *dv, const gchar *str)
+gimv_dir_view_change_dir (GimvDirView *dv, const gchar *str)
 {
    GtkTreeModel *model;
    GtkTreeIter iter;
@@ -1895,7 +1895,7 @@ dirview_change_dir (DirView *dv, const gchar *str)
       model = gtk_tree_view_get_model (GTK_TREE_VIEW (dv->dirtree));
       adjust_tree_idle (dv, &iter);
    } else {
-      dirview_change_root (dv, str);
+      gimv_dir_view_chroot (dv, str);
    }
 
    g_free (destpath);
@@ -1903,17 +1903,17 @@ dirview_change_dir (DirView *dv, const gchar *str)
 
 
 void
-dirview_go_home (DirView *dv)
+gimv_dir_view_go_home (GimvDirView *dv)
 {
    const gchar *home = g_getenv ("HOME");
 
-   dirview_change_root (dv, home);
-   dirview_change_dir (dv, home);
+   gimv_dir_view_chroot (dv, home);
+   gimv_dir_view_change_dir (dv, home);
 }
 
 
 void
-dirview_refresh_list (DirView *dv)
+gimv_dir_view_refresh_list (GimvDirView *dv)
 {
    GtkTreeModel *model;
    GtkTreeIter iter;
@@ -1928,7 +1928,7 @@ dirview_refresh_list (DirView *dv)
 
 
 gchar *
-dirview_get_selected_path (DirView *dv)
+gimv_dir_view_get_selected_path (GimvDirView *dv)
 {
    gboolean success;
    GtkTreeSelection *selection;
@@ -1954,7 +1954,7 @@ dirview_get_selected_path (DirView *dv)
 
 
 void
-dirview_expand_dir (DirView *dv, const gchar *dir, gboolean open_all)
+gimv_dir_view_expand_dir (GimvDirView *dv, const gchar *dir, gboolean open_all)
 {
    GtkTreeIter iter;
    GtkTreeModel *model;
@@ -1974,7 +1974,7 @@ dirview_expand_dir (DirView *dv, const gchar *dir, gboolean open_all)
 
 
 gboolean
-dirview_set_opened_mark (DirView *dv, const gchar *path)
+gimv_dir_view_set_opened_mark (GimvDirView *dv, const gchar *path)
 {
    /* note implemented yet */
    return TRUE;
@@ -1982,7 +1982,7 @@ dirview_set_opened_mark (DirView *dv, const gchar *path)
 
 
 gboolean
-dirview_unset_opened_mark (DirView *dv, const gchar *path)
+gimv_dir_view_unset_opened_mark (GimvDirView *dv, const gchar *path)
 {
    /* note implemented yet */
    return TRUE;
@@ -1990,7 +1990,7 @@ dirview_unset_opened_mark (DirView *dv, const gchar *path)
 
 
 void
-dirview_show_toolbar (DirView *dv)
+gimv_dir_view_show_toolbar (GimvDirView *dv)
 {
    g_return_if_fail (dv);
 
@@ -2000,7 +2000,7 @@ dirview_show_toolbar (DirView *dv)
 
 
 void
-dirview_hide_toolbar (DirView *dv)
+gimv_dir_view_hide_toolbar (GimvDirView *dv)
 {
    g_return_if_fail (dv);
 
@@ -2009,17 +2009,17 @@ dirview_hide_toolbar (DirView *dv)
 }
 
 
-DirView *
-dirview_create (const gchar *root_dir,
-                GtkWidget *parent_win,
-                GimvThumbWin *tw)
+GimvDirView *
+gimv_dir_view_create (const gchar *root_dir,
+                      GtkWidget *parent_win,
+                      GimvThumbWin *tw)
 {
-   DirView *dv;
+   GimvDirView *dv;
    GtkWidget *eventbox;
    const gchar *home = g_getenv ("HOME");
 
-   dv       = g_new0 (DirView, 1);
-   dv->priv = g_new0 (DirViewPrivate,1);
+   dv       = g_new0 (GimvDirView, 1);
+   dv->priv = g_new0 (GimvDirViewPrivate,1);
 
    if (root_dir)
       dv->root_dir = add_slash (root_dir);
@@ -2040,7 +2040,7 @@ dirview_create (const gchar *root_dir,
 
    /* main vbox */
    dv->container = gtk_vbox_new (FALSE, 0);
-   gtk_widget_set_name (dv->container, "DirView");
+   gtk_widget_set_name (dv->container, "GimvDirView");
    gtk_widget_show (dv->container);
 
    dnd_dest_set (dv->container, dnd_types_component, dnd_types_component_num);

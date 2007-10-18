@@ -112,7 +112,7 @@ struct GimvThumbWin_Tag
    GtkWidget *pane2;
 
    /* dir view module */
-   DirView   *dv;
+   GimvDirView   *dv;
 
    /* image view module */
    GimvImageView *iv;

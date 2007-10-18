@@ -26,18 +26,17 @@
 
 #include "gimageview.h"
 
-typedef struct DirViewPrivate_Tag DirViewPrivate;
+typedef struct GimvDirViewPrivate_Tag GimvDirViewPrivate;
 
 typedef enum
 {
-   DIRVIEW_TREE,
-   DIRVIEW_LIST,
-   DIRVIEW_TREE_WITH_FILE,
-   DIRVIEW_LIST_WITH_FILE
-} DirViewMode;
+   GIMV_DIR_VIEWTREE,
+   GIMV_DIR_VIEWLIST,
+   GIMV_DIR_VIEWTREE_WITH_FILE,
+   GIMV_DIR_VIEWLIST_WITH_FILE
+} GimvDirViewMode;
 
-
-struct DirView_Tag
+struct GimvDirView_Tag
 {
    GtkWidget      *container;
    GtkWidget      *toolbar;
@@ -49,34 +48,34 @@ struct DirView_Tag
    GimvThumbWin   *tw;
 
    gchar          *root_dir;
-   DirViewMode     mode;
+   GimvDirViewMode mode;
    gboolean        show_toolbar;
    gboolean        show_dotfile;
 
-   DirViewPrivate *priv;
+   GimvDirViewPrivate *priv;
 };
 
 
-void       dirview_change_root           (DirView     *dv,
-                                          const gchar *root_dir);
-void       dirview_change_root_to_parent (DirView     *dv);
-void       dirview_change_dir            (DirView     *dv,
-                                          const gchar *str);
-void       dirview_go_home               (DirView     *dv);
-void       dirview_refresh_list          (DirView     *dv);
-gchar     *dirview_get_selected_path     (DirView     *dv);
-void       dirview_expand_dir            (DirView     *dv,
-                                          const gchar *dir,
-                                          gboolean     open_all);
-gboolean   dirview_set_opened_mark       (DirView     *dv,
-                                          const gchar *path);
-gboolean   dirview_unset_opened_mark     (DirView     *dv,
-                                          const gchar *path);
-void       dirview_show_toolbar          (DirView     *dv);
-void       dirview_hide_toolbar          (DirView     *dv);
+void       gimv_dir_view_chroot            (GimvDirView  *dv,
+                                            const gchar  *root_dir);
+void       gimv_dir_view_chroot_to_parent  (GimvDirView  *dv);
+void       gimv_dir_view_change_dir        (GimvDirView  *dv,
+                                            const gchar  *str);
+void       gimv_dir_view_go_home           (GimvDirView  *dv);
+void       gimv_dir_view_refresh_list      (GimvDirView  *dv);
+gchar     *gimv_dir_view_get_selected_path (GimvDirView  *dv);
+void       gimv_dir_view_expand_dir        (GimvDirView  *dv,
+                                            const gchar  *dir,
+                                            gboolean      open_all);
+gboolean   gimv_dir_view_set_opened_mark   (GimvDirView  *dv,
+                                            const gchar  *path);
+gboolean   gimv_dir_view_unset_opened_mark (GimvDirView  *dv,
+                                            const gchar  *path);
+void       gimv_dir_view_show_toolbar      (GimvDirView  *dv);
+void       gimv_dir_view_hide_toolbar      (GimvDirView  *dv);
 
-DirView   *dirview_create                (const gchar *root_dir,
-                                          GtkWidget   *parent_win,
-                                          GimvThumbWin *tw);
+GimvDirView *gimv_dir_view_create          (const gchar  *root_dir,
+                                            GtkWidget    *parent_win,
+                                            GimvThumbWin *tw);
 
 #endif /* __GIMV_DIR_VIEW_H__ */
