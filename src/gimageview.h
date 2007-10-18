@@ -54,7 +54,7 @@ typedef struct GimvImageWin_Tag    GimvImageWin;
 typedef struct GimvThumb_Tag       GimvThumb;
 typedef struct GimvThumbView_Tag   GimvThumbView;
 typedef struct GimvThumbWin_Tag    GimvThumbWin;
-typedef struct DirView_Tag         DirView;
+typedef struct GimvDirView_Tag     GimvDirView;
 typedef struct GimvComment_Tag     GimvComment;
 typedef struct GimvCommentView_Tag GimvCommentView;
 typedef struct GimvSlideShow_Tag   GimvSlideShow;

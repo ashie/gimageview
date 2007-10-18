@@ -405,7 +405,7 @@ main (gint argc, gchar *argv[])
       gchar *dirname = NULL;
 
       if (list) dirname = list->data;
-      if (dirname) dirview_change_root (tw->dv, dirname);
+      if (dirname) gimv_dir_view_chroot (tw->dv, dirname);
    }
 
    /* exec slide show if specified by argument */

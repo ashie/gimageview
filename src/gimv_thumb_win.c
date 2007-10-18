@@ -1759,7 +1759,7 @@ thumbnail_window_contents_new (GimvThumbWin *tw)
 
    /* create each widget */
    dirname = g_get_current_dir ();
-   tw->dv = dirview_create (dirname, GTK_WIDGET (tw), tw);
+   tw->dv = gimv_dir_view_create (dirname, GTK_WIDGET (tw), tw);
    tw->dirview = tw->dv->container;
    thumbview = thumbnail_view_new (tw);
    tw->preview = image_preview_new (tw);
@@ -2555,9 +2555,9 @@ cb_toggle_show (GimvThumbWin *tw, ShowItem sitem, GtkWidget *widget)
    case DIR_TOOLBAR:
       if (!tw->dv) return;
       if (GTK_CHECK_MENU_ITEM(widget)->active) {
-         dirview_show_toolbar (tw->dv);
+         gimv_dir_view_show_toolbar (tw->dv);
       } else {
-         dirview_hide_toolbar (tw->dv);
+         gimv_dir_view_hide_toolbar (tw->dv);
       }
       return;
    case PREVIEW_TAB:
@@ -2745,12 +2745,12 @@ cb_location_entry_key_press (GtkWidget *widget,
             gtk_entry_set_text (GTK_ENTRY (widget), text);
             if (text[strlen(text) - 1] != '/')
                gtk_entry_append_text (GTK_ENTRY (widget), "/");
-            dirview_change_dir (tw->dv, text);
+            gimv_dir_view_change_dir (tw->dv, text);
          } else {
             gtk_entry_set_text (GTK_ENTRY (widget), text);
             dirname = g_dirname (text);
             if (tw->show_dirview)
-               dirview_change_dir (tw->dv, dirname);
+               gimv_dir_view_change_dir (tw->dv, dirname);
             g_free (dirname);
             auto_compl_show_alternatives (widget);
          }
@@ -2992,10 +2992,10 @@ cb_thumb_notebook_switch_page (GtkNotebook *notebook, GtkNotebookPage *page,
 
          path = gimv_thumb_view_get_path (tv);
          if (path && isdir (path)) {
-            dirview_change_dir (tw->dv, path);
+            gimv_dir_view_change_dir (tw->dv, path);
          } else if (path && isfile (path)) {
             gchar *dirname = g_dirname (path);
-            dirview_change_dir (tw->dv, dirname);
+            gimv_dir_view_change_dir (tw->dv, dirname);
             g_free(dirname);
          }
       }
@@ -3852,10 +3852,10 @@ gimv_thumb_win_detach_tab (GimvThumbWin *tw_dest, GimvThumbWin *tw_src,
    if (tv && tw_dest->show_dirview && path)
    {
       if (isdir(path)) {
-         dirview_change_dir (tw_dest->dv, path);
+         gimv_dir_view_change_dir (tw_dest->dv, path);
       } else if (isfile(path)) {
          gchar *dirname = g_dirname (path);
-         dirview_change_dir (tw_dest->dv, dirname);
+         gimv_dir_view_change_dir (tw_dest->dv, dirname);
          g_free(dirname);
       }
    }
@@ -4215,10 +4215,10 @@ gimv_thumb_win_change_layout (GimvThumbWin *tw, gint layout)
       /* adjust dirview */
       if (tw->show_dirview && path) {
          if (path && isdir (path)) {
-            dirview_change_dir (tw->dv, path);
+            gimv_dir_view_change_dir (tw->dv, path);
          } else if (path && isfile (path)) {
             gchar *dirname = g_dirname (path);
-            dirview_change_dir (tw->dv, dirname);
+            gimv_dir_view_change_dir (tw->dv, dirname);
             g_free (dirname);
          }
       }
