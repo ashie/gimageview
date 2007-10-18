@@ -168,7 +168,7 @@ cb_open_text (GtkWidget *menuitem, gchar *filename)
       cmd = g_strconcat (conf.text_viewer, " ", filename, " &", NULL);
       system (cmd);
    } else {
-      text_viewer_create (filename);
+      gimv_text_win_create (filename);
    }
 
    g_free (cmd);
