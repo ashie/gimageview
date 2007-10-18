@@ -1415,8 +1415,8 @@ cb_exif (GimvImageWin *iw, guint action, GtkWidget *menuitem)
    g_return_if_fail (GIMV_IS_IMAGE_WIN(iw));
 
    if (iw->iv->info)
-      exif_view_create_window (gimv_image_info_get_path (iw->iv->info),
-                               GTK_WINDOW (iw));
+      gimv_exif_view_create_window (gimv_image_info_get_path (iw->iv->info),
+                                    GTK_WINDOW (iw));
 }
 #endif /* ENABLE_EXIF */
 

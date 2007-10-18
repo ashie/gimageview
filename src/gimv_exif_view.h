@@ -31,19 +31,19 @@
 #include <libexif/exif-data.h>
 #include <libexif/jpeg-data.h>   /* FIXME!! */
 
-typedef struct ExifView_Tag
+typedef struct GimvExifView_Tag
 {
    GtkWidget *window;     /* if open in stand alone window, use this */
    GtkWidget *container;  /* exif view */
    ExifData  *exif_data;
    JPEGData  *jpeg_data;
-} ExifView;
+} GimvExifView;
 
 
-ExifView *exif_view_create_window (const gchar *filename,
-                                   GtkWindow   *parent);
-ExifView *exif_view_create        (const gchar *filename,
-                                   GtkWindow   *parent);
+GimvExifView *gimv_exif_view_create_window (const gchar *filename,
+                                            GtkWindow   *parent);
+GimvExifView *gimv_exif_view_create        (const gchar *filename,
+                                            GtkWindow   *parent);
 
 #endif /* ENABLE_EXIF */
 

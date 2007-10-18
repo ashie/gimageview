@@ -681,8 +681,8 @@ cb_exif (GimvThumbView *tv, guint action, GtkWidget *menuitem)
    thumb = thumblist->data;
    if (!thumb) return;
 
-   exif_view_create_window (gimv_image_info_get_path (thumb->info),
-                            GTK_WINDOW (tv->tw));
+   gimv_exif_view_create_window (gimv_image_info_get_path (thumb->info),
+                                 GTK_WINDOW (tv->tw));
 }
 #endif /* ENABLE_EXIF */
 
