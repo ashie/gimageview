@@ -411,7 +411,7 @@ gimv_image_win_init (GimvImageWin *iw)
    iw->priv->slideshow_interval   = conf.slideshow_interval * 1000;
    iw->priv->slideshow_timer_id   = 0;
    if (conf.slideshow_repeat)
-      iw->priv->flags |= GimvImageWinSlideShowRepeatFlag;
+      iw->priv->flags |= GimvImageWinSlideshowRepeatFlag;
 
    /* set bg color */
    if (conf.imgwin_set_bg) {
@@ -601,7 +601,7 @@ gimv_image_win_dispose (GObject *object)
    GimvImageWin *iw = GIMV_IMAGE_WIN (object);
 
    if (iw->priv) {
-      if (iw->priv->flags & GimvImageWinSlideShowPlayingFlag)
+      if (iw->priv->flags & GimvImageWinSlideshowPlayingFlag)
          gimv_image_win_slideshow_stop (iw);
 
       if (g_list_length (ImageWinList) == 1 && conf.imgwin_save_win_state)
@@ -1734,7 +1734,7 @@ cb_seekbar_pressed (GtkWidget *widget,
 {
    g_return_val_if_fail (iw, FALSE);
 
-   iw->priv->flags |= GimvImageWinSlideShowSeekBarDraggingFlag;
+   iw->priv->flags |= GimvImageWinSlideshowSeekBarDraggingFlag;
 
    return FALSE;
 }
@@ -1755,7 +1755,7 @@ cb_seekbar_released (GtkWidget *widget,
 
    gimv_image_view_nth (iw->iv, pos);
 
-   iw->priv->flags &= ~GimvImageWinSlideShowSeekBarDraggingFlag;
+   iw->priv->flags &= ~GimvImageWinSlideshowSeekBarDraggingFlag;
 
    return FALSE;
 }
@@ -1772,7 +1772,7 @@ cb_image_changed (GimvImageView *iv, GimvImageWin *iw)
 {
    g_return_if_fail (iw);
 
-   if (!(iw->priv->flags & GimvImageWinSlideShowSeekBarDraggingFlag)) {
+   if (!(iw->priv->flags & GimvImageWinSlideshowSeekBarDraggingFlag)) {
       gint pos;
       GtkAdjustment *adj;
 
@@ -2542,8 +2542,8 @@ timeout_slideshow (GimvImageWin *iw)
 
    if ((current
         && !g_list_next (current)
-        && !(iw->priv->flags & GimvImageWinSlideShowRepeatFlag))
-       || !(iw->priv->flags & GimvImageWinSlideShowPlayingFlag))
+        && !(iw->priv->flags & GimvImageWinSlideshowRepeatFlag))
+       || !(iw->priv->flags & GimvImageWinSlideshowPlayingFlag))
    {
       gimv_image_win_slideshow_stop (iw);
       return FALSE;
@@ -2569,7 +2569,7 @@ gimv_image_win_slideshow_play (GimvImageWin *iw)
    g_return_if_fail (iw);
 
    if (iw->priv->slideshow_interval > 0) {
-      iw->priv->flags |= GimvImageWinSlideShowPlayingFlag;
+      iw->priv->flags |= GimvImageWinSlideshowPlayingFlag;
       iw->priv->slideshow_timer_id
          = gtk_timeout_add (iw->priv->slideshow_interval,
                             (GtkFunction) timeout_slideshow, iw);
@@ -2585,9 +2585,9 @@ gimv_image_win_slideshow_stop (GimvImageWin *iw)
 {
    g_return_if_fail (iw);
 
-   if (!(iw->priv->flags & GimvImageWinSlideShowPlayingFlag)) return;
+   if (!(iw->priv->flags & GimvImageWinSlideshowPlayingFlag)) return;
 
-   iw->priv->flags &= ~GimvImageWinSlideShowPlayingFlag;
+   iw->priv->flags &= ~GimvImageWinSlideshowPlayingFlag;
 
    if (iw->priv->slideshow_timer_id)
       gtk_timeout_remove (iw->priv->slideshow_timer_id);
@@ -2604,7 +2604,7 @@ gimv_image_win_slideshow_set_interval (GimvImageWin *iw, guint interval)
    g_return_if_fail (iw);
 
    iw->priv->slideshow_interval = interval;
-   if (iw->priv->flags & GimvImageWinSlideShowPlayingFlag) {
+   if (iw->priv->flags & GimvImageWinSlideshowPlayingFlag) {
       gimv_image_win_slideshow_stop (iw);
       gimv_image_win_slideshow_play (iw);
    }
@@ -2617,9 +2617,9 @@ gimv_image_win_slideshow_set_repeat (GimvImageWin *iw, gboolean repeat)
    g_return_if_fail (iw);
 
    if (repeat)
-      iw->priv->flags |= GimvImageWinSlideShowRepeatFlag;
+      iw->priv->flags |= GimvImageWinSlideshowRepeatFlag;
    else
-      iw->priv->flags &= ~GimvImageWinSlideShowRepeatFlag;
+      iw->priv->flags &= ~GimvImageWinSlideshowRepeatFlag;
 }
 
 

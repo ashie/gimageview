@@ -50,7 +50,7 @@ static void     remove_list           (GimvImageView *iv,
 gint
 idle_slideshow_delete (gpointer data)
 {
-   GimvSlideShow *slideshow = data;
+   GimvSlideshow *slideshow = data;
 
    gimv_slideshow_delete (slideshow);
 
@@ -60,7 +60,7 @@ idle_slideshow_delete (gpointer data)
 
 typedef struct ChangeImageData_Tag
 {
-   GimvSlideShow *slideshow;
+   GimvSlideshow *slideshow;
    GimvImageWin  *iw;
    GimvImageInfo *info;
 } ChangeImageData;
@@ -85,7 +85,7 @@ next_image (GimvImageView *iv,
 {
    GimvImageWin *iw = data;
    GList *next, *node;
-   GimvSlideShow *slideshow = list_owner;
+   GimvSlideshow *slideshow = list_owner;
 
    g_return_val_if_fail (iv, NULL);
    g_return_val_if_fail (current, NULL);
@@ -126,7 +126,7 @@ prev_image (GimvImageView *iv,
 {
    GimvImageWin *iw = data;
    GList *prev, *node;
-   GimvSlideShow *slideshow = list_owner;
+   GimvSlideshow *slideshow = list_owner;
 
    g_return_val_if_fail (iv, NULL);
    g_return_val_if_fail (current, NULL);
@@ -168,7 +168,7 @@ nth_image (GimvImageView *iv,
 {
    GimvImageWin *iw = data;
    GList *node;
-   GimvSlideShow *slideshow = list_owner;
+   GimvSlideshow *slideshow = list_owner;
    ChangeImageData *change_data;
 
    g_return_val_if_fail (iv, NULL);
@@ -194,7 +194,7 @@ nth_image (GimvImageView *iv,
 static void
 remove_list (GimvImageView *iv, gpointer list_owner, gpointer data)
 {
-   GimvSlideShow *slideshow = list_owner;
+   GimvSlideshow *slideshow = list_owner;
 
    g_return_if_fail (iv);
    g_return_if_fail (slideshow);
@@ -205,13 +205,13 @@ remove_list (GimvImageView *iv, gpointer list_owner, gpointer data)
 
 
 static void
-cb_show_fullscreen (GimvImageWin *iw, GimvSlideShow *slideshow)
+cb_show_fullscreen (GimvImageWin *iw, GimvSlideshow *slideshow)
 {
 }
 
 
 static void
-cb_hide_fullscreen (GimvImageWin *iw, GimvSlideShow *slideshow)
+cb_hide_fullscreen (GimvImageWin *iw, GimvSlideshow *slideshow)
 {
    gtk_widget_destroy (GTK_WIDGET (iw));
 }
@@ -223,12 +223,12 @@ cb_hide_fullscreen (GimvImageWin *iw, GimvSlideShow *slideshow)
  *  Public functions
  *
  ******************************************************************************/
-GimvSlideShow *
+GimvSlideshow *
 gimv_slideshow_new (void)
 {
-   GimvSlideShow *slideshow;
+   GimvSlideshow *slideshow;
 
-   slideshow = g_new0 (GimvSlideShow, 1);
+   slideshow = g_new0 (GimvSlideshow, 1);
 
    slideshow->iw               = NULL;
    slideshow->filelist         = NULL;
@@ -239,7 +239,7 @@ gimv_slideshow_new (void)
 
 
 void
-gimv_slideshow_delete (GimvSlideShow *slideshow)
+gimv_slideshow_delete (GimvSlideshow *slideshow)
 {
    GimvImageWin *iw;
    GimvImageView *iv;
@@ -256,10 +256,10 @@ gimv_slideshow_delete (GimvSlideShow *slideshow)
 }
 
 
-GimvSlideShow *
+GimvSlideshow *
 gimv_slideshow_new_with_filelist (GList *filelist, GList *start)
 {
-   GimvSlideShow *slideshow;
+   GimvSlideshow *slideshow;
 
    g_return_val_if_fail (filelist, NULL);
 
@@ -272,7 +272,7 @@ gimv_slideshow_new_with_filelist (GList *filelist, GList *start)
 
 
 GimvImageWin *
-gimv_slideshow_open_window (GimvSlideShow *slideshow)
+gimv_slideshow_open_window (GimvSlideshow *slideshow)
 {
    GimvImageWin *iw;
    GimvImageView *iv;
@@ -311,10 +311,10 @@ gimv_slideshow_open_window (GimvSlideShow *slideshow)
    gimv_image_win_show_player    (iw, conf.slideshow_player);
    gimv_image_win_show_statusbar (iw, conf.slideshow_statusbar);
    switch (conf.slideshow_screen_mode) {
-   case GimvSlideShowWinModeFullScreen:
+   case GimvSlideshowWinModeFullScreen:
       gimv_image_win_set_fullscreen (iw, TRUE);
       break;
-   case GimvSlideShowWinModeMaximize:
+   case GimvSlideshowWinModeMaximize:
       gimv_image_win_set_maximize (iw, TRUE);
       break;
    default:
@@ -365,10 +365,10 @@ gimv_slideshow_open_window (GimvSlideShow *slideshow)
  *  gimv_slideshow_play:
  *     @ Execute slide show;
  *
- *  slideshow : Poiter to GimvSlideShow struct.
+ *  slideshow : Poiter to GimvSlideshow struct.
  */
 void
-gimv_slideshow_play (GimvSlideShow *slideshow)
+gimv_slideshow_play (GimvSlideshow *slideshow)
 {
    GimvImageWin *iw = NULL;
 
@@ -386,7 +386,7 @@ gimv_slideshow_play (GimvSlideShow *slideshow)
 
 
 void
-gimv_slideshow_stop (GimvSlideShow *slideshow)
+gimv_slideshow_stop (GimvSlideshow *slideshow)
 {
    GimvImageWin *iw;
 
@@ -400,7 +400,7 @@ gimv_slideshow_stop (GimvSlideShow *slideshow)
 
 
 void
-gimv_slideshow_set_interval (GimvSlideShow *slideshow, guint interval)
+gimv_slideshow_set_interval (GimvSlideshow *slideshow, guint interval)
 {
    GimvImageWin *iw;
 
