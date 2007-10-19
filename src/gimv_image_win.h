@@ -48,9 +48,9 @@ typedef enum {
    GimvImageWinMovieFlag                    = 1 << 7,
    GimvImageWinMaximizeFlag                 = 1 << 8,
    GimvImageWinFullScreenFlag               = 1 << 9,
-   GimvImageWinSlideShowRepeatFlag          = 1 << 10,
-   GimvImageWinSlideShowPlayingFlag         = 1 << 11,
-   GimvImageWinSlideShowSeekBarDraggingFlag = 1 << 12,
+   GimvImageWinSlideshowRepeatFlag          = 1 << 10,
+   GimvImageWinSlideshowPlayingFlag         = 1 << 11,
+   GimvImageWinSlideshowSeekBarDraggingFlag = 1 << 12,
    GimvImageWinNotSaveStateFlag             = 1 << 13
 } GimvImageWinFlags;
 

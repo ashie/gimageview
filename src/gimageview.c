@@ -244,7 +244,7 @@ idle_open_image_startup (gpointer data)
 static gint
 idle_slideshow_startup (gpointer data)
 {
-   GimvSlideShow *slideshow = (GimvSlideShow *) data;
+   GimvSlideshow *slideshow = (GimvSlideshow *) data;
 
    /* reset config */
    prefs_load_config ();
@@ -258,7 +258,7 @@ idle_slideshow_startup (gpointer data)
 static void
 startup_slideshow (FilesLoader *files)
 {
-   GimvSlideShow *slideshow;
+   GimvSlideshow *slideshow;
    GList *list, *filelist;
 
    /* get file list from directories */

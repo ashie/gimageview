@@ -28,13 +28,13 @@
 
 
 typedef enum {
-   GimvSlideShowWinModeFullScreen,
-   GimvSlideShowWinModeMaximize,
-   GimvSlideShowWinModeNormal
-} GimvSlideShowWinMode;
+   GimvSlideshowWinModeFullScreen,
+   GimvSlideshowWinModeMaximize,
+   GimvSlideshowWinModeNormal
+} GimvSlideshowWinMode;
 
 
-struct GimvSlideShow_Tag
+struct GimvSlideshow_Tag
 {
    GimvImageWin *iw;
    GList        *filelist;
@@ -43,14 +43,14 @@ struct GimvSlideShow_Tag
 };
 
 
-GimvSlideShow *gimv_slideshow_new               (void);
-GimvSlideShow *gimv_slideshow_new_with_filelist (GList     *filelist,
+GimvSlideshow *gimv_slideshow_new               (void);
+GimvSlideshow *gimv_slideshow_new_with_filelist (GList     *filelist,
                                                  GList     *start);
-void           gimv_slideshow_delete            (GimvSlideShow *slideshow);
-GimvImageWin  *gimv_slideshow_open_window       (GimvSlideShow *slideshow);
-void           gimv_slideshow_play              (GimvSlideShow *slideshow);
-void           gimv_slideshow_stop              (GimvSlideShow *slideshow);
-void           gimv_slideshow_set_interval      (GimvSlideShow *slideshow,
+void           gimv_slideshow_delete            (GimvSlideshow *slideshow);
+GimvImageWin  *gimv_slideshow_open_window       (GimvSlideshow *slideshow);
+void           gimv_slideshow_play              (GimvSlideshow *slideshow);
+void           gimv_slideshow_stop              (GimvSlideshow *slideshow);
+void           gimv_slideshow_set_interval      (GimvSlideshow *slideshow,
                                                  guint          interval); /* [msec] */
 
 #endif /* __GIMV_SLIDESHOW_H__ */

@@ -132,20 +132,20 @@ typedef enum {
    SLIDESHOW_START_FROM_FIRST,
    SLIDESHOW_START_FROM_SELECTED,
    SLIDESHOW_RANDOM_ORDER,
-} SlideShowOrder;
+} SlideshowOrder;
 
 
 typedef enum {
    SLIDESHOW_IMAGES_AND_MOVIES,
    SLIDESHOW_IMAGES_ONLY,
    SLIDESHOW_MOVIES_ONLY
-} SlideShowFileType;
+} SlideshowFileType;
 
 
 struct GimvThumbWinPriv_Tag {
-   SlideShowOrder    slideshow_order;
+   SlideshowOrder    slideshow_order;
    gboolean          slideshow_selected_only;
-   SlideShowFileType slideshow_file_type;
+   SlideshowFileType slideshow_file_type;
 };
 
 
@@ -221,13 +221,13 @@ static void cb_slideshow            (GimvThumbWin  *tw,
                                      guint          action,
                                      GtkWidget     *widget);
 static void cb_slideshow_order      (GimvThumbWin  *tw,
-                                     SlideShowOrder action,
+                                     SlideshowOrder action,
                                      GtkWidget     *widget);
 static void cb_slideshow_selected   (GimvThumbWin  *tw,
                                      guint          action,
                                      GtkWidget     *widget);
 static void cb_slideshow_file_type  (GimvThumbWin  *tw,
-                                     SlideShowFileType action,
+                                     SlideshowFileType action,
                                      GtkWidget     *widget);
 static void cb_switch_page          (GimvThumbWin  *tw,
                                      SwitchPage     action,
@@ -2386,7 +2386,7 @@ cb_slideshow (GimvThumbWin *tw, guint action, GtkWidget *widget)
 {
    GimvThumbView *tv;
    GimvThumb *thumb;
-   GimvSlideShow *slideshow;
+   GimvSlideshow *slideshow;
    GList *filelist = NULL, *list, *selection, *node, *start = NULL;
 
    tv = gimv_thumb_win_find_thumbtable (tw, GIMV_THUMB_WIN_CURRENT_PAGE);
@@ -2445,7 +2445,7 @@ cb_slideshow (GimvThumbWin *tw, guint action, GtkWidget *widget)
 
 
 static void
-cb_slideshow_order (GimvThumbWin  *tw, SlideShowOrder action, GtkWidget *widget)
+cb_slideshow_order (GimvThumbWin  *tw, SlideshowOrder action, GtkWidget *widget)
 {
    if (tw && tw->priv)
       tw->priv->slideshow_order = action;
@@ -2462,7 +2462,7 @@ cb_slideshow_selected (GimvThumbWin *tw, guint action, GtkWidget *widget)
 
 
 static void
-cb_slideshow_file_type (GimvThumbWin *tw, SlideShowFileType action,
+cb_slideshow_file_type (GimvThumbWin *tw, SlideshowFileType action,
                         GtkWidget *widget)
 {
    if (tw && tw->priv)
