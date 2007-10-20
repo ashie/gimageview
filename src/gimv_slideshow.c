@@ -27,6 +27,19 @@
 #include "prefs.h"
 #include "gimv_slideshow.h"
 
+G_DEFINE_TYPE (GimvSlideshow, gimv_slideshow, G_TYPE_OBJECT)
+
+#define GIMV_SLIDESHOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), GIMV_TYPE_SLIDESHOW, GimvSlideshowPrivate))
+
+typedef struct GimvSlideshowPrivate_Tag
+{
+   GimvImageWin *iw;
+   GList        *filelist;
+   GList        *current;
+   guint         interval;
+   gboolean      repeat;
+} GimvSlideshowPrivate;
+
 typedef struct ChangeImageData_Tag
 {
    GimvSlideshow *slideshow;
@@ -34,26 +47,26 @@ typedef struct ChangeImageData_Tag
    GimvImageInfo *info;
 } ChangeImageData;
 
-static void     gimv_slideshow_delete (GimvSlideshow *slideshow);
-static gint     idle_slideshow_delete (gpointer       data);
-static GList   *next_image            (GimvImageView *iv,
-                                       gpointer       list_owner,
-                                       GList         *current,
-                                       gpointer       data);
-static GList   *prev_image            (GimvImageView *iv,
-                                       gpointer       list_owner,
-                                       GList         *current,
-                                       gpointer       data);
-static void     remove_list           (GimvImageView *iv,
-                                       gpointer       list_owner,
-                                       gpointer       data);
+static void     gimv_slideshow_dispose (GObject       *object);
+static gint     idle_slideshow_unref   (gpointer       data);
+static GList   *next_image             (GimvImageView *iv,
+                                        gpointer       list_owner,
+                                        GList         *current,
+                                        gpointer       data);
+static GList   *prev_image             (GimvImageView *iv,
+                                        gpointer       list_owner,
+                                        GList         *current,
+                                        gpointer       data);
+static void     remove_list            (GimvImageView *iv,
+                                        gpointer       list_owner,
+                                        gpointer       data);
 
 static gint
-idle_slideshow_delete (gpointer data)
+idle_slideshow_unref (gpointer data)
 {
    GimvSlideshow *slideshow = data;
 
-   gimv_slideshow_delete (slideshow);
+   g_object_unref (G_OBJECT (slideshow));
 
    return 0;
 }
@@ -77,15 +90,16 @@ next_image (GimvImageView *iv,
    GimvImageWin *iw = data;
    GList *next, *node;
    GimvSlideshow *slideshow = list_owner;
+   GimvSlideshowPrivate *priv = GIMV_SLIDESHOW_GET_PRIVATE (slideshow);
 
    g_return_val_if_fail (iv, NULL);
    g_return_val_if_fail (current, NULL);
 
-   node = g_list_find (slideshow->filelist, current->data);
+   node = g_list_find (priv->filelist, current->data);
    g_return_val_if_fail (node, NULL);
 
    next = g_list_next (current);
-   if (!next && slideshow->repeat)
+   if (!next && priv->repeat)
       next = g_list_first (current);
    else if (!next)
       next = current;
@@ -102,7 +116,7 @@ next_image (GimvImageView *iv,
                          NULL,
                          change_data,
                          (GtkDestroyNotify) g_free);
-      slideshow->current = next;
+      priv->current = next;
    }
 
    return next;
@@ -117,15 +131,16 @@ prev_image (GimvImageView *iv,
    GimvImageWin *iw = data;
    GList *prev, *node;
    GimvSlideshow *slideshow = list_owner;
+   GimvSlideshowPrivate *priv = GIMV_SLIDESHOW_GET_PRIVATE (slideshow);
 
    g_return_val_if_fail (iv, NULL);
    g_return_val_if_fail (current, NULL);
 
-   node = g_list_find (slideshow->filelist, current->data);
+   node = g_list_find (priv->filelist, current->data);
    g_return_val_if_fail (node, NULL);
 
    prev = g_list_previous (current);
-   if (!prev && slideshow->repeat)
+   if (!prev && priv->repeat)
       prev = g_list_last (current);
    else if (!prev)
       prev = current;
@@ -142,7 +157,7 @@ prev_image (GimvImageView *iv,
                          NULL,
                          change_data,
                          (GtkDestroyNotify) g_free);
-      slideshow->current = prev;
+      priv->current = prev;
    }
 
    return prev;
@@ -158,11 +173,12 @@ nth_image (GimvImageView *iv,
    GimvImageWin *iw = data;
    GList *node;
    GimvSlideshow *slideshow = list_owner;
+   GimvSlideshowPrivate *priv = GIMV_SLIDESHOW_GET_PRIVATE (slideshow);
    ChangeImageData *change_data;
 
    g_return_val_if_fail (iv, NULL);
 
-   node = g_list_nth (slideshow->filelist, nth);
+   node = g_list_nth (priv->filelist, nth);
    g_return_val_if_fail (node, NULL);
 
    change_data = g_new0 (ChangeImageData, 1);
@@ -174,7 +190,7 @@ nth_image (GimvImageView *iv,
                       NULL,
                       change_data,
                       (GtkDestroyNotify) g_free);
-   slideshow->current = node;
+   priv->current = node;
 
    return node;
 }
@@ -184,11 +200,7 @@ remove_list (GimvImageView *iv, gpointer list_owner, gpointer data)
 {
    GimvSlideshow *slideshow = list_owner;
 
-   g_return_if_fail (iv);
-   g_return_if_fail (slideshow);
-
-   /* free slide show data safely */
-   gtk_idle_add (idle_slideshow_delete, slideshow);
+   gtk_idle_add (idle_slideshow_unref, slideshow);
 }
 
 static void
@@ -202,79 +214,87 @@ cb_hide_fullscreen (GimvImageWin *iw, GimvSlideshow *slideshow)
    gtk_widget_destroy (GTK_WIDGET (iw));
 }
 
-
-/******************************************************************************
- *
- *  Public functions
- *
- ******************************************************************************/
-GimvSlideshow *
-gimv_slideshow_new (void)
+static void
+gimv_slideshow_class_init (GimvSlideshowClass *klass)
 {
-   GimvSlideshow *slideshow;
+   GObjectClass *gobject_class;
 
-   slideshow = g_new0 (GimvSlideshow, 1);
+   gobject_class = (GObjectClass *) klass;
 
-   slideshow->iw               = NULL;
-   slideshow->filelist         = NULL;
-   slideshow->repeat           = conf.slideshow_repeat;
+   gobject_class->dispose = gimv_slideshow_dispose;
 
-   return slideshow;
+   g_type_class_add_private (gobject_class, sizeof (GimvSlideshowPrivate));
 }
 
 static void
-gimv_slideshow_delete (GimvSlideshow *slideshow)
+gimv_slideshow_init (GimvSlideshow *slideshow)
 {
-   GimvImageWin *iw;
-   GimvImageView *iv;
+   GimvSlideshowPrivate *priv = GIMV_SLIDESHOW_GET_PRIVATE (slideshow);
+   priv->iw       = NULL;
+   priv->filelist = NULL;
+   priv->interval = conf.slideshow_interval * 1000;
+   priv->repeat   = conf.slideshow_repeat;
+}
 
-   g_return_if_fail (slideshow);
-
-   iw = slideshow->iw;
-   iv = iw->iv;
-
-   g_list_foreach (slideshow->filelist, (GFunc) gimv_image_info_unref, NULL);
-   g_list_free (g_list_first (slideshow->filelist));
-
-   g_free (slideshow);
+GimvSlideshow *
+gimv_slideshow_new (void)
+{
+   return GIMV_SLIDESHOW (g_object_new (GIMV_TYPE_SLIDESHOW, NULL));
 }
 
 GimvSlideshow *
 gimv_slideshow_new_with_filelist (GList *filelist, GList *start)
 {
    GimvSlideshow *slideshow;
+   GimvSlideshowPrivate *priv;
 
    g_return_val_if_fail (filelist, NULL);
 
-   slideshow           = gimv_slideshow_new ();
-   slideshow->filelist = g_list_first (filelist);
-   slideshow->current  = start ? start : filelist;
+   slideshow = gimv_slideshow_new ();
+   priv = GIMV_SLIDESHOW_GET_PRIVATE (slideshow);
+   priv->filelist = g_list_first (filelist);
+   priv->current  = start ? start : filelist;
 
    return slideshow;
+}
+
+static void
+gimv_slideshow_dispose (GObject *object)
+{
+   GimvSlideshow *slideshow = GIMV_SLIDESHOW (object);
+   GimvSlideshowPrivate *priv = GIMV_SLIDESHOW_GET_PRIVATE (slideshow);
+   GimvImageWin *iw;
+   GimvImageView *iv;
+
+   iw = priv->iw;
+   iv = iw->iv;
+
+   g_list_foreach (priv->filelist, (GFunc) gimv_image_info_unref, NULL);
+   g_list_free (g_list_first (priv->filelist));
 }
 
 static GimvImageWin *
 gimv_slideshow_open_window (GimvSlideshow *slideshow)
 {
+   GimvSlideshowPrivate *priv = GIMV_SLIDESHOW_GET_PRIVATE (slideshow);
    GimvImageWin *iw;
    GimvImageView *iv;
    GList *current;
 
-   g_return_val_if_fail (slideshow, NULL);
-   g_return_val_if_fail (slideshow->filelist, NULL);
+   g_return_val_if_fail (priv->filelist, NULL);
 
-   if (slideshow->iw)
-      return slideshow->iw;
+   if (priv->iw)
+      return priv->iw;
 
    /* current = g_list_first (slideshow->filelist); */
-   current = slideshow->current ? slideshow->current
-                                : slideshow->filelist;
-   g_return_val_if_fail (slideshow, NULL);
+   current = priv->current ? priv->current
+                           : priv->filelist;
+   g_return_val_if_fail (current, NULL);
 
-   slideshow->iw = GIMV_IMAGE_WIN (gimv_image_win_new (NULL));
-   g_return_val_if_fail (slideshow->iw, NULL);
+   priv->iw = GIMV_IMAGE_WIN (gimv_image_win_new (NULL));
+   g_return_val_if_fail (priv->iw, NULL);
 
-   iw = slideshow->iw;
+   iw = priv->iw;
    iv = iw->iv;
 
    /* override some parameters */
@@ -312,7 +332,7 @@ gimv_slideshow_open_window (GimvSlideshow *slideshow)
                              | GimvImageWinNotSaveStateFlag);
 
    gimv_image_win_slideshow_set_repeat (iw, conf.slideshow_repeat);
-   gimv_image_win_slideshow_set_interval (iw, conf.slideshow_interval * 1000);
+   gimv_image_win_slideshow_set_interval (iw, priv->interval);
 
    /* set bg color */
    if (conf.slideshow_set_bg) {
@@ -323,7 +343,7 @@ gimv_slideshow_open_window (GimvSlideshow *slideshow)
    }
 
    gimv_image_view_set_list (iv,
-                             slideshow->filelist,
+                             priv->filelist,
                              current,
                              (gpointer) slideshow,
                              next_image,
@@ -337,7 +357,7 @@ gimv_slideshow_open_window (GimvSlideshow *slideshow)
    g_signal_connect_after (G_OBJECT (iw), "hide_fullscreen",
                            G_CALLBACK (cb_hide_fullscreen), slideshow);
 
-   gtk_widget_show (GTK_WIDGET (slideshow->iw));
+   gtk_widget_show (GTK_WIDGET (priv->iw));
 
    return iw;
 }
@@ -345,14 +365,17 @@ gimv_slideshow_open_window (GimvSlideshow *slideshow)
 void
 gimv_slideshow_play (GimvSlideshow *slideshow)
 {
+   GimvSlideshowPrivate *priv;
    GimvImageWin *iw = NULL;
 
-   g_return_if_fail (slideshow);
+   g_return_if_fail (GIMV_IS_SLIDESHOW (slideshow));
 
-   if (!slideshow->iw)
+   priv = GIMV_SLIDESHOW_GET_PRIVATE (slideshow);
+
+   if (!priv->iw)
       iw = gimv_slideshow_open_window (slideshow);
    else
-      iw = slideshow->iw;
+      iw = priv->iw;
 
    g_return_if_fail (iw);
 
@@ -362,11 +385,14 @@ gimv_slideshow_play (GimvSlideshow *slideshow)
 void
 gimv_slideshow_stop (GimvSlideshow *slideshow)
 {
+   GimvSlideshowPrivate *priv;
    GimvImageWin *iw;
 
-   g_return_if_fail (slideshow);
+   g_return_if_fail (GIMV_IS_SLIDESHOW (slideshow));
 
-   iw = slideshow->iw;
+   priv = GIMV_SLIDESHOW_GET_PRIVATE (slideshow);
+
+   iw = priv->iw;
    g_return_if_fail (iw);
 
    gimv_image_win_slideshow_stop (iw);
@@ -375,12 +401,16 @@ gimv_slideshow_stop (GimvSlideshow *slideshow)
 void
 gimv_slideshow_set_interval (GimvSlideshow *slideshow, guint interval)
 {
+   GimvSlideshowPrivate *priv;
    GimvImageWin *iw;
 
-   g_return_if_fail (slideshow);
+   g_return_if_fail (GIMV_IS_SLIDESHOW (slideshow));
 
-   iw = slideshow->iw;
-   g_return_if_fail (iw);
+   priv = GIMV_SLIDESHOW_GET_PRIVATE (slideshow);
 
-   gimv_image_win_slideshow_set_interval (slideshow->iw, interval);
+   priv->interval = interval;
+
+   iw = priv->iw;
+   if (iw)
+      gimv_image_win_slideshow_set_interval (priv->iw, interval);
 }

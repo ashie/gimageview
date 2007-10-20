@@ -1,4 +1,20 @@
-2007-10-20 Takuro Ashie <ashie@homa.ne.jp>
+2007-10-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_slideshow.[ch]: GObjectize.
+	* src/gimageview.c: Move GimvSlideshow declaration to gimv_slideshow.h
+
+2007-10-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimageview.c, src/gimv_slideshow.[ch]:
+	Declare givm_slideshow_open_window() and gimv_slideshow_delete() as
+	private.
+
+2007-10-21 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gimv_comment.[ch], src/gimv_comment_view.c:
+	Remove gimv_comment_ref() and gimv_comment_unref().
+
+2007-10-21 Takuro Ashie <ashie@homa.ne.jp>
 
 	* plugins/image_loader/pixbuf_anim.c, plugins/image_loader/mng.c,
 	  plugins/image_loader/pixbuf_loader.c,
