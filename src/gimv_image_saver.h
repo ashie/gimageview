@@ -102,9 +102,6 @@ GimvImageSaver *gimv_image_saver_new_with_attr       (GimvImage      *image,
                                                       const gchar    *path,
                                                       const gchar    *format);
 
-GimvImageSaver *gimv_image_saver_ref                 (GimvImageSaver *saver);
-void            gimv_image_saver_unref               (GimvImageSaver *saver);
-
 void            gimv_image_saver_reset               (GimvImageSaver *saver);
 
 void            gimv_image_saver_set_image           (GimvImageSaver *saver,
