@@ -842,7 +842,7 @@ gimv_image_view_dispose (GObject *object)
    iv->loader = NULL;
 
    if (iv->image)
-      gimv_image_unref (iv->image);
+      g_object_unref (G_OBJECT (iv->image));
    iv->image = NULL;
 
    if (iv->bg_color)
@@ -1918,7 +1918,7 @@ gimv_image_view_change_image_info (GimvImageView *iv, GimvImageInfo *info)
    iv->priv->mask = NULL;
 
    if (iv->image)
-      gimv_image_unref (iv->image);
+      g_object_unref (G_OBJECT (iv->image));
    iv->image = NULL;
 
    /* free old image info */
@@ -2713,7 +2713,7 @@ gimv_image_view_open_navwin (GimvImageView *iv, gint x_root, gint y_root)
    gdk_pixmap_unref (pixmap);
 
 ERROR:
-   gimv_image_unref (image);
+   g_object_unref (G_OBJECT (image));
 }
 
 
@@ -2764,7 +2764,7 @@ gimv_image_view_free_image_buf (GimvImageView *iv)
       return;
    }
 
-   gimv_image_unref (iv->image);
+   g_object_unref (G_OBJECT (iv->image));
    iv->image = NULL;
 }
 static gint
@@ -2802,7 +2802,7 @@ cb_loader_load_end (GimvImageLoader *loader, GimvImageView *iv)
 
    image = gimv_image_loader_get_image (loader);
    if (!image) goto ERROR;
-   gimv_image_ref (image);
+   g_object_ref (G_OBJECT (image));
    gimv_image_loader_unref_image (loader);
 
    /* FIXME */
@@ -2819,17 +2819,17 @@ cb_loader_load_end (GimvImageLoader *loader, GimvImageView *iv)
                                        bg_r, bg_g, bg_b,
                                        iv->priv->ignore_alpha);
       if (rgb_image) {
-         gimv_image_unref (image);
+         g_object_unref (G_OBJECT (image));
          image = rgb_image;
       }
    }
 
    if (!g_list_find (GimvImageViewList, iv)) {
-      gimv_image_unref (image);
+      g_object_unref (G_OBJECT (image));
       goto ERROR;
    } else {
       if (iv->image)
-         gimv_image_unref (iv->image);
+         g_object_unref (G_OBJECT (iv->image));
       iv->image = image;
    }
 

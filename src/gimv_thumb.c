@@ -275,7 +275,7 @@ create_thumbnail (GimvThumb *thumb, gint thumbsize,
          gimv_image_loader_load (loader);
          image = gimv_image_loader_get_image (loader);
          if (image)
-            gimv_image_ref (image);
+            g_object_ref (G_OBJECT (image));
          g_object_unref (G_OBJECT (loader));
 
          g_hash_table_remove (loader_table, thumb);
@@ -293,7 +293,7 @@ create_thumbnail (GimvThumb *thumb, gint thumbsize,
       if (imcache) {
          has_cache = TRUE;
          imdisp = imcache;
-         gimv_image_unref (image);
+         g_object_unref (G_OBJECT (image));
          image = NULL;
       } else {
          imdisp = image;
@@ -314,7 +314,7 @@ create_thumbnail (GimvThumb *thumb, gint thumbsize,
                        NULL,
                        NULL);
 
-      gimv_image_unref  (imdisp);
+      g_object_unref  (G_OBJECT (imdisp));
       imdisp = NULL;
    }
 

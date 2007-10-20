@@ -350,7 +350,7 @@ pixbuf_load (GimvImageLoader *loader, gpointer data)
       image = gimv_image_new ();
       image->image = gdk_pixbuf_loader_get_pixbuf (pixbuf_loader);
       if (!image->image) {
-         gimv_image_unref (image);
+         g_object_unref (G_OBJECT (image));
          image = NULL;
       } else {
          gdk_pixbuf_ref (image->image);
@@ -401,7 +401,7 @@ pixbuf_load_file (GimvImageLoader *loader, gpointer data)
    }
 
    if (image && !image->image) {
-      gimv_image_unref (image);
+      g_object_unref (G_OBJECT (image));
       image = NULL;
    }
 

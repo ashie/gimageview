@@ -151,7 +151,7 @@ gimv_anim_new_from_gdk_pixbuf_animation (GdkPixbufAnimation *pixbuf_anim)
       gimv_anim_gdk_pixbuf_set_iterator (anim);
       iter = gimv_anim_gdk_pixbuf_get_iterator (anim);
       if (!iter) {
-         gimv_image_unref (image);
+         g_object_unref (G_OBJECT (image));
          return NULL;
       }
       image->image = gdk_pixbuf_animation_iter_get_pixbuf (iter);
@@ -160,7 +160,7 @@ gimv_anim_new_from_gdk_pixbuf_animation (GdkPixbufAnimation *pixbuf_anim)
    if (image->image) {
       gdk_pixbuf_ref (image->image);
    } else {
-      gimv_image_unref (image);
+      g_object_unref (G_OBJECT (image));
       return NULL;
    }
 

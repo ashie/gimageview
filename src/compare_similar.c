@@ -212,7 +212,7 @@ image_sim_new_from_thumb (GimvThumb *thumb)
    if (!image) return NULL;
    data = image_sim_new_from_image (image);
 
-   gimv_image_unref (image);
+   g_object_unref (G_OBJECT (image));
 
    return data;
 }

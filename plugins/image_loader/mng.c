@@ -295,7 +295,7 @@ mng_load (GimvImageLoader *loader, gpointer data)
 
    mng_anim = mng_anim_new (filename, image);
    if (!mng_anim) {
-      gimv_image_unref (image);
+      g_object_unref (G_OBJECT (image));
       return NULL;
    }
 
@@ -306,7 +306,7 @@ mng_load (GimvImageLoader *loader, gpointer data)
    mng_readdisplay (mng_anim->MNG_handle);
 
    if (!anim->anim || !image->image) {
-      gimv_image_unref (image);
+      g_object_unref (G_OBJECT (image));
       return NULL;
    }
 

@@ -128,7 +128,7 @@ gimv_image_load_file (const gchar *filename, gboolean animation)
    gimv_image_loader_load (loader);
    image = gimv_image_loader_get_image (loader);
    if (image)
-      gimv_image_ref (image);
+      g_object_ref (G_OBJECT (image));
    g_object_unref (G_OBJECT (loader));
 
    return image;
@@ -179,7 +179,7 @@ gimv_image_create_from_data (guchar *data, gint width, gint height, gboolean alp
    }
 
    if (!image->image) {
-      gimv_image_unref (image);
+      g_object_unref (G_OBJECT (image));
       image = NULL;
    }
 
@@ -203,7 +203,7 @@ gimv_image_create_from_drawable (GdkDrawable *drawable, gint x, gint y,
    }
 
    if (!image->image) {
-      gimv_image_unref (image);
+      g_object_unref (G_OBJECT (image));
       image = NULL;
    }
 
@@ -560,7 +560,7 @@ gimv_image_scale_get_pixmap (GimvImage *image,
       GimvImage *dest_image;
       dest_image = gimv_image_scale (image, width, height);
       gimv_image_get_pixmap_and_mask (dest_image, pixmap_return, mask_return);
-      gimv_image_unref (dest_image);
+      g_object_unref (G_OBJECT (dest_image));
    }
 }
 
@@ -682,21 +682,6 @@ gimv_image_get_comment (GimvImage *image, const gchar *key)
    if (!image->comments) return NULL;
 
    return g_hash_table_lookup (image->comments, key);
-}
-
-
-GimvImage  *
-gimv_image_ref (GimvImage *image)
-{
-   g_object_ref (G_OBJECT (image));
-   return image;
-}
-
-
-void
-gimv_image_unref (GimvImage *image)
-{
-   g_object_unref (G_OBJECT (image));
 }
 
 
