@@ -26,13 +26,11 @@
 
 #include "gimageview.h"
 
-
 typedef enum {
    GimvSlideshowWinModeFullScreen,
    GimvSlideshowWinModeMaximize,
    GimvSlideshowWinModeNormal
 } GimvSlideshowWinMode;
-
 
 struct GimvSlideshow_Tag
 {
@@ -42,12 +40,9 @@ struct GimvSlideshow_Tag
    gboolean      repeat;
 };
 
-
 GimvSlideshow *gimv_slideshow_new               (void);
 GimvSlideshow *gimv_slideshow_new_with_filelist (GList     *filelist,
                                                  GList     *start);
-void           gimv_slideshow_delete            (GimvSlideshow *slideshow);
-GimvImageWin  *gimv_slideshow_open_window       (GimvSlideshow *slideshow);
 void           gimv_slideshow_play              (GimvSlideshow *slideshow);
 void           gimv_slideshow_stop              (GimvSlideshow *slideshow);
 void           gimv_slideshow_set_interval      (GimvSlideshow *slideshow,

@@ -27,27 +27,28 @@
 #include "prefs.h"
 #include "gimv_slideshow.h"
 
+typedef struct ChangeImageData_Tag
+{
+   GimvSlideshow *slideshow;
+   GimvImageWin  *iw;
+   GimvImageInfo *info;
+} ChangeImageData;
 
-gint            idle_slideshow_delete (gpointer   data);
+static void     gimv_slideshow_delete (GimvSlideshow *slideshow);
+static gint     idle_slideshow_delete (gpointer       data);
 static GList   *next_image            (GimvImageView *iv,
-                                       gpointer   list_owner,
-                                       GList     *current,
-                                       gpointer   data);
+                                       gpointer       list_owner,
+                                       GList         *current,
+                                       gpointer       data);
 static GList   *prev_image            (GimvImageView *iv,
-                                       gpointer   list_owner,
-                                       GList     *current,
-                                       gpointer   data);
+                                       gpointer       list_owner,
+                                       GList         *current,
+                                       gpointer       data);
 static void     remove_list           (GimvImageView *iv,
-                                       gpointer   list_owner,
-                                       gpointer   data);
+                                       gpointer       list_owner,
+                                       gpointer       data);
 
-
-/******************************************************************************
- *
- *  Other private functions
- *
- ******************************************************************************/
-gint
+static gint
 idle_slideshow_delete (gpointer data)
 {
    GimvSlideshow *slideshow = data;
@@ -56,15 +57,6 @@ idle_slideshow_delete (gpointer data)
 
    return 0;
 }
-
-
-typedef struct ChangeImageData_Tag
-{
-   GimvSlideshow *slideshow;
-   GimvImageWin  *iw;
-   GimvImageInfo *info;
-} ChangeImageData;
-
 
 static gboolean
 change_image_idle (gpointer user_data)
@@ -75,7 +67,6 @@ change_image_idle (gpointer user_data)
 
    return FALSE;
 }
-
 
 static GList *
 next_image (GimvImageView *iv,
@@ -117,7 +108,6 @@ next_image (GimvImageView *iv,
    return next;
 }
 
-
 static GList *
 prev_image (GimvImageView *iv,
             gpointer list_owner,
@@ -158,7 +148,6 @@ prev_image (GimvImageView *iv,
    return prev;
 }
 
-
 static GList *
 nth_image (GimvImageView *iv,
            gpointer list_owner,
@@ -190,7 +179,6 @@ nth_image (GimvImageView *iv,
    return node;
 }
 
-
 static void
 remove_list (GimvImageView *iv, gpointer list_owner, gpointer data)
 {
@@ -203,19 +191,16 @@ remove_list (GimvImageView *iv, gpointer list_owner, gpointer data)
    gtk_idle_add (idle_slideshow_delete, slideshow);
 }
 
-
 static void
 cb_show_fullscreen (GimvImageWin *iw, GimvSlideshow *slideshow)
 {
 }
-
 
 static void
 cb_hide_fullscreen (GimvImageWin *iw, GimvSlideshow *slideshow)
 {
    gtk_widget_destroy (GTK_WIDGET (iw));
 }
-
 
 
 /******************************************************************************
@@ -237,8 +222,7 @@ gimv_slideshow_new (void)
    return slideshow;
 }
 
-
-void
+static void
 gimv_slideshow_delete (GimvSlideshow *slideshow)
 {
    GimvImageWin *iw;
@@ -255,7 +239,6 @@ gimv_slideshow_delete (GimvSlideshow *slideshow)
    g_free (slideshow);
 }
 
-
 GimvSlideshow *
 gimv_slideshow_new_with_filelist (GList *filelist, GList *start)
 {
@@ -270,8 +253,7 @@ gimv_slideshow_new_with_filelist (GList *filelist, GList *start)
    return slideshow;
 }
 
-
-GimvImageWin *
+static GimvImageWin *
 gimv_slideshow_open_window (GimvSlideshow *slideshow)
 {
    GimvImageWin *iw;
@@ -360,13 +342,6 @@ gimv_slideshow_open_window (GimvSlideshow *slideshow)
    return iw;
 }
 
-
-/*
- *  gimv_slideshow_play:
- *     @ Execute slide show;
- *
- *  slideshow : Poiter to GimvSlideshow struct.
- */
 void
 gimv_slideshow_play (GimvSlideshow *slideshow)
 {
@@ -384,7 +359,6 @@ gimv_slideshow_play (GimvSlideshow *slideshow)
    gimv_image_win_slideshow_play (iw);
 }
 
-
 void
 gimv_slideshow_stop (GimvSlideshow *slideshow)
 {
@@ -397,7 +371,6 @@ gimv_slideshow_stop (GimvSlideshow *slideshow)
 
    gimv_image_win_slideshow_stop (iw);
 }
-
 
 void
 gimv_slideshow_set_interval (GimvSlideshow *slideshow, guint interval)

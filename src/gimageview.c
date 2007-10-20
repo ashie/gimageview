@@ -300,7 +300,6 @@ startup_slideshow (FilesLoader *files)
 
    /* init slideshow */
    slideshow = gimv_slideshow_new_with_filelist (filelist, filelist);
-   gimv_slideshow_open_window (slideshow);
    gimv_slideshow_set_interval (slideshow, args_val.slideshow_interval * 1000);
    /* files->filelist = NULL; */
 
