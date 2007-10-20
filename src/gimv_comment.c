@@ -178,28 +178,6 @@ gimv_comment_dispose (GObject *object)
 }
 
 
-GimvComment *
-gimv_comment_ref (GimvComment *comment)
-{
-   g_return_val_if_fail (comment, NULL);
-   g_return_val_if_fail (GIMV_IS_COMMENT (comment), NULL);
-
-   g_object_ref (G_OBJECT (comment));
-
-   return comment;
-}
-
-
-void
-gimv_comment_unref (GimvComment *comment)
-{
-   g_return_if_fail (comment);
-   g_return_if_fail (GIMV_IS_COMMENT (comment));
-
-   g_object_unref (G_OBJECT (comment));
-}
-
-
 /******************************************************************************
  *
  *   private functions.
@@ -835,8 +813,10 @@ gimv_comment_get_from_image_info (GimvImageInfo *info)
    g_return_val_if_fail (info, NULL);
 
    comment = gimv_image_info_get_comment (info);
-   if (comment)
-      return gimv_comment_ref (comment);
+   if (comment) {
+      g_object_ref (G_OBECT (comment));
+      return comment;
+   }
 
    comment = gimv_comment_new ();
    comment->info = gimv_image_info_ref (info);
