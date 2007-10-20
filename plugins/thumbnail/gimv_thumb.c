@@ -275,7 +275,7 @@ save_thumb (const gchar *filename, const gchar *cache_type,
          set_save_comment (saver, info);
       }
       gimv_image_saver_save (saver);
-      gimv_image_saver_unref (saver);
+      g_object_unref (G_OBJECT (saver));
    }
 
    g_free (thumb_file);

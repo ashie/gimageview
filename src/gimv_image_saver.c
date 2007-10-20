@@ -198,26 +198,6 @@ gimv_image_saver_new_with_attr (GimvImage *image,
 }
 
 
-GimvImageSaver *
-gimv_image_saver_ref (GimvImageSaver *saver)
-{
-   g_return_val_if_fail (GIMV_IS_IMAGE_SAVER (saver), NULL);
-
-   g_object_ref (G_OBJECT (saver));
-
-   return saver;
-}
-
-
-void
-gimv_image_saver_unref (GimvImageSaver *saver)
-{
-   g_return_if_fail (GIMV_IS_IMAGE_SAVER (saver));
-
-   g_object_unref (G_OBJECT (saver));
-}
-
-
 void
 gimv_image_saver_reset (GimvImageSaver *saver)
 {

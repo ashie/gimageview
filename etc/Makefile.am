@@ -1,6 +1,6 @@
 # -*- Mode: Makefile; tab-width: 8; indent-tabs-mode: t; -*-
 
-desktopdir = $(DESTDIR)$(datadir)/gnome/apps/Graphics
+desktopdir = $(DESTDIR)$(datadir)/applications
 desktop_in_files = gimageview.desktop.in
 #desktop_DATA = gimageview.desktop
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop) 

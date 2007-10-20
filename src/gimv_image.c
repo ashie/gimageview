@@ -146,7 +146,7 @@ gimv_image_save_file  (GimvImage   *image,
    saver = gimv_image_saver_new_with_attr (image, filename, format);
    /* gimv_image_saver_set_param (data, use_specific_data) */
    retval = gimv_image_saver_save (saver);
-   gimv_image_saver_unref (saver);
+   g_object_unref (G_OBJECT (saver));
 
    return retval;
 }

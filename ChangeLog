@@ -1,3 +1,11 @@
+2007-10-20 Takuro Ashie <ashie@homa.ne.jp>
+
+	* etc/Makefile.am: Change install path of desktop file.
+	* src/gimageview.desktop: Add Categories and MIMEType field.
+	* plugins/thumbnail/gimv_thumb.c, plugins/thumbnail/xvpics.c,
+	  src/gimv_image.c, src/gimv_image_saver.c, src/gimv_image_saver.h:
+	Remove gimv_image_saver_ref() and gimv_image_saver_unref().
+
 2007-10-19 Takuro Ashie <ashie@homa.ne.jp>
 
 	* src/gimv_slideshow.[ch], src/gimv_image_win.[ch], src/gimageview.[ch],
