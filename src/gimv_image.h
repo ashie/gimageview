@@ -132,8 +132,6 @@ gint         gimv_image_rowstride            (GimvImage    *image);
 guchar      *gimv_image_get_pixels           (GimvImage    *image);
 const gchar *gimv_image_get_comment          (GimvImage    *image,
                                               const gchar  *key);
-GimvImage   *gimv_image_ref                  (GimvImage    *image);
-void         gimv_image_unref                (GimvImage    *image);
 
 /* protected */
 GimvImage   *gimv_image_new                  (void);

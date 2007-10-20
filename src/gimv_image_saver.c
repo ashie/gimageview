@@ -210,7 +210,7 @@ gimv_image_saver_reset (GimvImageSaver *saver)
    }
 
    if (saver->image) {
-      gimv_image_unref (saver->image);
+      g_object_unref (G_OBJECT (saver->image));
       saver->image = NULL;
    }
 
@@ -258,7 +258,8 @@ gimv_image_saver_set_image (GimvImageSaver *saver, GimvImage *image)
    g_return_if_fail (GIMV_IS_IMAGE_SAVER (saver));
    g_return_if_fail (!gimv_image_saver_is_saving (saver));
 
-   saver->image = gimv_image_ref (image);
+   g_object_ref (G_OBJECT (image));
+   saver->image = image;
 }
 
 

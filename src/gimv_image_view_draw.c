@@ -143,7 +143,7 @@ cb_load_end_create_thumbnail (GimvImageView *iv, GimvImageInfo *info,
       gimv_image_view_free_image_buf (iv);
 
    if (imcache) {
-      gimv_image_unref (imcache);
+      g_object_unref (G_OBJECT (imcache));
       g_signal_emit_by_name (G_OBJECT (iv),
                              "thumbnail_created",
                              iv->info);

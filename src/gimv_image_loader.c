@@ -257,7 +257,7 @@ gimv_image_loader_dispose (GObject *object)
       loader->priv->gio = NULL;
 
       if (loader->priv->image)
-         gimv_image_unref (loader->priv->image);
+         g_object_unref (G_OBJECT (loader->priv->image));
       loader->priv->image = NULL;
 
       if (loader->priv->temp_file)
@@ -289,7 +289,7 @@ gimv_image_loader_set_image_info (GimvImageLoader *loader, GimvImageInfo *info)
    }
 
    if (loader->priv->image)
-      gimv_image_unref (loader->priv->image);
+      g_object_unref (G_OBJECT (loader->priv->image));
    loader->priv->image = NULL;
 
    g_timer_reset (loader->timer);
@@ -443,7 +443,7 @@ gimv_image_loader_unref_image (GimvImageLoader *loader)
    g_return_if_fail (loader->priv);
 
    if (loader->priv->image)
-      gimv_image_unref (loader->priv->image);
+      g_object_unref (G_OBJECT (loader->priv->image));
    loader->priv->image = NULL;
 }
 
@@ -603,7 +603,7 @@ gimv_image_loader_load (GimvImageLoader *loader)
 
    /* free old image */
    if (loader->priv->image)
-      gimv_image_unref (loader->priv->image);
+      g_object_unref (G_OBJECT (loader->priv->image));
    loader->priv->image = NULL;
 
    /* try all loader */

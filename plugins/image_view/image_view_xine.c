@@ -582,10 +582,10 @@ imageview_xine_create_thumbnail (GimvImageView *iv, const gchar *cache_write_typ
                                     iv->info);
 
    g_free (filename);
-   gimv_image_unref (image);
+   g_object_unref (G_OBJECT (image));
 
    if (imcache) {
-      gimv_image_unref (imcache);
+      g_object_unref (G_OBJECT (imcache));
       g_signal_emit_by_name (G_OBJECT (iv),
                              "thumbnail_created",
                              iv->info);
