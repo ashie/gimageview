@@ -814,7 +814,7 @@ gimv_comment_get_from_image_info (GimvImageInfo *info)
 
    comment = gimv_image_info_get_comment (info);
    if (comment) {
-      g_object_ref (G_OBECT (comment));
+      g_object_ref (G_OBJECT (comment));
       return comment;
    }
 
