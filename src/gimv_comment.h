@@ -74,9 +74,6 @@ GType        gimv_comment_get_type                 (void);
 
 GimvComment *gimv_comment_get_from_image_info      (GimvImageInfo *info);
 
-GimvComment *gimv_comment_ref                      (GimvComment *comment);
-void         gimv_comment_unref                    (GimvComment *comment);
-
 void         gimv_comment_update_data_entry_list   (void);
 GList       *gimv_comment_get_data_entry_list      (void);
 

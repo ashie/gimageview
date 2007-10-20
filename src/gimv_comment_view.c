@@ -155,7 +155,7 @@ cb_del_button_pressed (GtkButton *button, GimvCommentView *cv)
    g_return_if_fail (cv->comment);
 
    gimv_comment_delete_file (cv->comment);
-   gimv_comment_unref (cv->comment);
+   g_object_unref (G_OBJECT (cv->comment));
    cv->comment = NULL;
    gimv_comment_view_clear (cv);
 }
@@ -170,7 +170,7 @@ cb_destroyed (GtkWidget *widget, GimvCommentView *cv)
                                          G_CALLBACK (cb_switch_page), cv);
 
    if (cv->comment) {
-      gimv_comment_unref (cv->comment);
+      g_object_unref (G_OBJECT (cv->comment));
       cv->comment = NULL;
    }
 
@@ -788,7 +788,7 @@ gimv_comment_view_change_file (GimvCommentView *cv, GimvImageInfo *info)
    gimv_comment_view_clear (cv);
 
    if (cv->comment) {
-      gimv_comment_unref (cv->comment);
+      g_object_unref (G_OBJECT (cv->comment));
       cv->comment = NULL;
    }
 
