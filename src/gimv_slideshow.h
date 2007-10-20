@@ -26,6 +26,16 @@
 
 #include "gimageview.h"
 
+#define GIMV_TYPE_SLIDESHOW            (gimv_slideshow_get_type ())
+#define GIMV_SLIDESHOW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_SLIDESHOW, GimvSlideshow))
+#define GIMV_SLIDESHOW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_SLIDESHOW, GimvSlideshowClass))
+#define GIMV_IS_SLIDESHOW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_SLIDESHOW))
+#define GIMV_IS_SLIDESHOW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_SLIDESHOW))
+#define GIMV_SLIDESHOW_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_SLIDESHOW, GimvSlideshowClass))
+
+typedef struct GimvSlideshow_Tag      GimvSlideshow;
+typedef struct GimvSlideshowClass_Tag GimvSlideshowClass;
+
 typedef enum {
    GimvSlideshowWinModeFullScreen,
    GimvSlideshowWinModeMaximize,
@@ -34,11 +44,15 @@ typedef enum {
 
 struct GimvSlideshow_Tag
 {
-   GimvImageWin *iw;
-   GList        *filelist;
-   GList        *current;
-   gboolean      repeat;
+   GObject       parent;
 };
+
+struct GimvSlideshowClass_Tag
+{
+   GObjectClass parent_class;
+};
+
+GType          gimv_slideshow_get_type          (void);
 
 GimvSlideshow *gimv_slideshow_new               (void);
 GimvSlideshow *gimv_slideshow_new_with_filelist (GList     *filelist,

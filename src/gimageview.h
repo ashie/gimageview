@@ -57,7 +57,6 @@ typedef struct GimvThumbWin_Tag    GimvThumbWin;
 typedef struct GimvDirView_Tag     GimvDirView;
 typedef struct GimvComment_Tag     GimvComment;
 typedef struct GimvCommentView_Tag GimvCommentView;
-typedef struct GimvSlideshow_Tag   GimvSlideshow;
 
 /* will be replaced to GimvVFS */
 typedef struct _FRArchive       FRArchive;
