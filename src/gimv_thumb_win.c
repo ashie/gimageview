@@ -1759,7 +1759,7 @@ thumbnail_window_contents_new (GimvThumbWin *tw)
 
    /* create each widget */
    dirname = g_get_current_dir ();
-   tw->dv = gimv_dir_view_create (dirname, GTK_WIDGET (tw), tw);
+   tw->dv = gimv_dir_view_create (dirname, tw);
    tw->dirview = tw->dv->container;
    thumbview = thumbnail_view_new (tw);
    tw->preview = image_preview_new (tw);
