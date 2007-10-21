@@ -1759,8 +1759,7 @@ thumbnail_window_contents_new (GimvThumbWin *tw)
 
    /* create each widget */
    dirname = g_get_current_dir ();
-   tw->dv = gimv_dir_view_create (dirname, tw);
-   tw->dirview = tw->dv->container;
+   tw->dv = GIMV_DIR_VIEW (gimv_dir_view_new (dirname, tw));
    thumbview = thumbnail_view_new (tw);
    tw->preview = image_preview_new (tw);
    g_free (dirname);
@@ -1768,7 +1767,7 @@ thumbnail_window_contents_new (GimvThumbWin *tw)
    for (i = 0; i < 3; i++) {
       switch (compose.widget_type[i]) {
       case GIMV_COM_DIR_VIEW:
-         widget[i] = tw->dirview;
+         widget[i] = GTK_WIDGET (tw->dv);
          break;
       case GIMV_COM_THUMB_VIEW:
          widget[i] = thumbview;
@@ -4150,7 +4149,6 @@ gimv_thumb_win_change_layout (GimvThumbWin *tw, gint layout)
    }
    if (tw->dv) {
       tw->dv = NULL;
-      tw->dirview = NULL;
    }
    new_main_contents = thumbnail_window_contents_new (tw);
 
