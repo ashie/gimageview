@@ -27,19 +27,29 @@
 
 #include <gtk/gtk.h>
 
-typedef struct GimvTextWin_Tag
+#define GIMV_TYPE_TEXT_WIN            (gimv_text_win_get_type ())
+#define GIMV_TEXT_WIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_TEXT_WIN, GimvTextWin))
+#define GIMV_TEXT_WIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_TEXT_WIN, GimvTextWinClass))
+#define GIMV_IS_TEXT_WIN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_TEXT_WIN))
+#define GIMV_IS_TEXT_WIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_TEXT_WIN))
+#define GIMV_TEXT_WIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_TEXT_WIN, GimvTextWinClass))
+
+typedef struct GimvTextWin_Tag      GimvTextWin;
+typedef struct GimvTextWinClass_Tag GimvTextWinClass;
+
+struct GimvTextWin_Tag
 {
-   GtkWidget *window;
-   GtkWidget *textbox;
-   GtkWidget *menubar;
-   GtkWidget *statusbar;
+   GtkWindow parent;
+};
 
-   gchar *filename;
-} GimvTextWin;
+struct GimvTextWinClass_Tag
+{
+   GtkWindowClass parent_class;
+};
 
-
-gboolean     gimv_text_win_load_file (GimvTextWin *text_viewer,
-                                      gchar       *filename);
-GimvTextWin *gimv_text_win_create    (gchar       *filename);
+GType      gimv_text_win_get_type  (void);
+GtkWidget *gimv_text_win_new       (void);
+gboolean   gimv_text_win_load_file (GimvTextWin *text_viewer,
+                                    gchar       *filename);
 
 #endif /* __GIMV_TEXT_WIN_H__ */

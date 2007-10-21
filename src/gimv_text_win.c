@@ -28,34 +28,111 @@
 #include "prefs.h"
 #include "gimv_text_win.h"
 
-static void
-cb_text_win_destroy (GtkWidget *widget, GimvTextWin *text_win)
+G_DEFINE_TYPE (GimvTextWin, gimv_text_win, GTK_TYPE_WINDOW)
+
+#define GIMV_TEXT_WIN_GET_PRIVATE(obj) \
+   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), GIMV_TYPE_TEXT_WIN, GimvTextWinPrivate))
+
+typedef struct GimvTextWinPrivate_Tag
 {
-   g_return_if_fail (text_win);
+   GtkWidget *textbox;
+   GtkWidget *menubar;
+   GtkWidget *statusbar;
+   gchar     *filename;
+} GimvTextWinPrivate;
 
-   if (text_win->filename)
-      g_free (text_win->filename);
+static void gimv_text_win_dispose (GObject *object);
 
-   g_free (text_win);
+static void
+gimv_text_win_class_init (GimvTextWinClass *klass)
+{
+   GObjectClass *gobject_class;
+
+   gobject_class = (GObjectClass *) klass;
+   gobject_class->dispose = gimv_text_win_dispose;
+
+   g_type_class_add_private (gobject_class, sizeof (GimvTextWinPrivate));
 }
 
+static void
+gimv_text_win_init (GimvTextWin *text_win)
+{
+   GimvTextWinPrivate *priv = GIMV_TEXT_WIN_GET_PRIVATE (text_win);
+   GtkWidget *vbox;
+   GtkWidget *scrolledwin, *text;
+   GtkWidget *statusbar;
+
+   priv->filename = NULL;
+
+   /* window */
+   gtk_window_set_title (GTK_WINDOW (text_win), GIMV_PROG_NAME" -Text Viewer-");
+   gtk_window_set_default_size (GTK_WINDOW (text_win), 600, 500);
+
+   /* main vbox */
+   vbox = gtk_vbox_new (FALSE, 0);
+   gtk_container_add (GTK_CONTAINER (text_win), vbox);
+   gtk_widget_show (vbox);
+
+   /* text box */
+   scrolledwin = gtk_scrolled_window_new (NULL, NULL);
+   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(scrolledwin),
+                                   GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
+   gtk_box_pack_start (GTK_BOX (vbox), scrolledwin, TRUE, TRUE, 0);
+   gtk_widget_show (scrolledwin);
+
+   text = gtk_text_view_new ();
+   priv->textbox = text;
+   gtk_container_add (GTK_CONTAINER (scrolledwin), text);
+   gtk_widget_show (text);
+
+   /* statusbar */
+   priv->statusbar = statusbar = gtk_statusbar_new ();
+   gtk_container_border_width (GTK_CONTAINER (statusbar), 1);
+   gtk_box_pack_start (GTK_BOX (vbox), statusbar, FALSE, TRUE, 0);
+   gtk_statusbar_push(GTK_STATUSBAR (statusbar), 1, "New Window");
+   gtk_widget_show (statusbar);
+}
+
+GtkWidget *
+gimv_text_win_new (void)
+{
+   return GTK_WIDGET (g_object_new (GIMV_TYPE_TEXT_WIN, NULL));
+}
+
+static void
+gimv_text_win_dispose (GObject *object)
+{
+   GimvTextWin *text_win = GIMV_TEXT_WIN (object);
+   GimvTextWinPrivate *priv = GIMV_TEXT_WIN_GET_PRIVATE (text_win);
+
+   if (priv->filename) {
+      g_free (priv->filename);
+      priv->filename = NULL;
+   }
+
+   if (G_OBJECT_CLASS (gimv_text_win_parent_class)->dispose)
+      G_OBJECT_CLASS (gimv_text_win_parent_class)->dispose (object);
+}
 
 gboolean
 gimv_text_win_load_file (GimvTextWin *text_win, gchar *filename)
 {
+   GimvTextWinPrivate *priv;
    FILE *textfile;
    gchar *tmpstr;
    gchar buf[BUF_SIZE];
    GtkTextBuffer *buffer;
    gchar *text;
 
-   g_return_val_if_fail (text_win && filename, FALSE);
+   g_return_val_if_fail (GIMV_IS_TEXT_WIN (text_win) && filename, FALSE);
 
-   if (text_win->filename) {
-      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_win->textbox));
+   priv = GIMV_TEXT_WIN_GET_PRIVATE (text_win);
+
+   if (priv->filename) {
+      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->textbox));
       gtk_text_buffer_set_text (buffer, "\0", -1);
-      g_free (text_win->filename);
-      text_win->filename = NULL;
+      g_free (priv->filename);
+      priv->filename = NULL;
    }
 
    textfile = fopen (filename, "r");
@@ -64,7 +141,7 @@ gimv_text_win_load_file (GimvTextWin *text_win, gchar *filename)
       return FALSE;
    }
 
-   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text_win->textbox));
+   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->textbox));
 
    text = g_strdup ("");
    while (fgets (buf, sizeof(buf), textfile)) {
@@ -81,61 +158,10 @@ gimv_text_win_load_file (GimvTextWin *text_win, gchar *filename)
    fclose (textfile);
 
    tmpstr = g_strconcat (_("File Name: "), filename, NULL);
-   gtk_statusbar_push(GTK_STATUSBAR (text_win->statusbar), 1, tmpstr);
+   gtk_statusbar_push(GTK_STATUSBAR (priv->statusbar), 1, tmpstr);
    g_free (tmpstr);
 
-   text_win->filename = g_strdup (filename);
+   priv->filename = g_strdup (filename);
 
    return TRUE;
-}
-
-
-GimvTextWin *
-gimv_text_win_create (gchar *filename)
-{
-   GimvTextWin *text_win;
-   GtkWidget *window, *vbox;
-   GtkWidget *scrolledwin, *text;
-   GtkWidget *statusbar;
-
-   text_win = g_new0 (GimvTextWin, 1);
-   text_win->filename = NULL;
-
-   /* window */
-   text_win->window = window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-   gtk_window_set_title (GTK_WINDOW (window), GIMV_PROG_NAME" -Text Viewer-");
-   gtk_window_set_default_size (GTK_WINDOW(window), 600, 500);
-   gtk_widget_show (window);
-   g_signal_connect (G_OBJECT (window), "destroy",
-                     G_CALLBACK (cb_text_win_destroy), text_win);
-
-   /* main vbox */
-   vbox = gtk_vbox_new (FALSE, 0);
-   gtk_container_add (GTK_CONTAINER (window), vbox);
-   gtk_widget_show (vbox);
-
-   /* text box */
-   scrolledwin = gtk_scrolled_window_new (NULL, NULL);
-   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(scrolledwin),
-                                   GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
-   gtk_box_pack_start (GTK_BOX (vbox), scrolledwin, TRUE, TRUE, 0);
-   gtk_widget_show (scrolledwin);
-
-   text = gtk_text_view_new ();
-   text_win->textbox = text;
-   gtk_container_add (GTK_CONTAINER (scrolledwin), text);
-   gtk_widget_show (text);
-
-   /* statusbar */
-   text_win->statusbar = statusbar = gtk_statusbar_new ();
-   gtk_container_border_width (GTK_CONTAINER (statusbar), 1);
-   gtk_box_pack_start (GTK_BOX (vbox), statusbar, FALSE, TRUE, 0);
-   gtk_statusbar_push(GTK_STATUSBAR (statusbar), 1, "New Window");
-   gtk_widget_show (statusbar);
-
-   /* set text from file */
-   if (filename)
-      gimv_text_win_load_file (text_win, filename);
-
-   return text_win;
 }
