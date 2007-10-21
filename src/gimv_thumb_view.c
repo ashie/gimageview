@@ -1448,7 +1448,7 @@ gimv_thumb_view_extract_archive_file (GimvThumb *thumb)
    tv->status = GIMV_THUMB_VIEW_STATUS_LOADING;
    files->archive = gimv_image_info_get_archive (thumb->info);
    if (files->archive)
-      fr_archive_ref (files->archive);
+      g_object_ref (G_OBJECT (files->archive));
 
    /* set progress bar */
    gtk_progress_set_activity_mode (GTK_PROGRESS (tw->progressbar), TRUE);
@@ -3656,7 +3656,7 @@ gimv_thumb_view_reload (GimvThumbView *tv, FilesLoader *files, GimvThumbViewMode
    g_free (tv->priv->dirname);
    tv->priv->dirname = NULL;
    if (tv->priv->archive)
-      fr_archive_unref (tv->priv->archive);
+      g_object_unref (G_OBJECT (tv->priv->archive));
    tv->priv->archive = NULL;
 
    /* set mode specific data */
@@ -3669,7 +3669,7 @@ gimv_thumb_view_reload (GimvThumbView *tv, FilesLoader *files, GimvThumbViewMode
          tv->priv->dirname = g_strdup (files->dirname);
 
    } else if (mode == GIMV_THUMB_VIEW_MODE_ARCHIVE) {
-      fr_archive_ref (FR_ARCHIVE (files->archive));
+      g_object_ref (G_OBJECT (files->archive));
       tv->priv->archive = files->archive;
 
    } else if (mode == GIMV_THUMB_VIEW_MODE_COLLECTION) {
@@ -3799,7 +3799,7 @@ gimv_thumb_view_dispose (GObject *object)
 
       /* remove archive */
       if (tv->mode == GIMV_THUMB_VIEW_MODE_ARCHIVE && tv->priv->archive) {
-         fr_archive_unref (FR_ARCHIVE (tv->priv->archive));
+         g_object_unref (G_OBJECT (tv->priv->archive));
          tv->priv->archive = NULL;
       }
 

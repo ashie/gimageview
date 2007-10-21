@@ -251,7 +251,7 @@ gimv_image_info_ref (GimvImageInfo *info)
    if (info->flags & GIMV_IMAGE_INFO_ARCHIVE_MEMBER_FLAG) {
       FRArchive *archive = g_hash_table_lookup (archive_table, info);
       if (archive)
-         fr_archive_ref (archive);
+         g_object_ref (G_OBJECT (archive));
    }
 
    return info;
@@ -275,7 +275,7 @@ gimv_image_info_unref (GimvImageInfo *info)
    }
 
    if (archive)
-      fr_archive_unref (FR_ARCHIVE (archive));
+      g_object_unref (G_OBJECT (archive));
 }
 
 
