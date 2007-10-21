@@ -81,8 +81,6 @@ FRArchive *  fr_archive_new                   (void);
 void         fr_archive_free                  (FRArchive *archive);
 void         fr_archive_new_file              (FRArchive *archive,
                                                char *filename);
-FRArchive   *fr_archive_ref                   (FRArchive *archive);
-void         fr_archive_unref                 (FRArchive *archive);
 gboolean     fr_archive_load                  (FRArchive *archive,
                                                const char *filename);
 void         fr_archive_reload                (FRArchive *archive);

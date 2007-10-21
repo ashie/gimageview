@@ -132,28 +132,6 @@ fr_archive_new (void)
 }
 
 
-FRArchive *
-fr_archive_ref (FRArchive *archive)
-{
-   g_return_val_if_fail (archive != NULL, NULL);
-   g_return_val_if_fail (FR_IS_ARCHIVE (archive), NULL);
-
-   g_object_ref (G_OBJECT (archive));
-
-   return archive;
-}
-
-
-void
-fr_archive_unref (FRArchive *archive)
-{
-   g_return_if_fail (archive != NULL);
-   g_return_if_fail (FR_IS_ARCHIVE (archive));
-
-   g_object_unref (G_OBJECT (archive));
-}
-
-
 ExtArchiverPlugin *found_archiver = NULL;
 
 static void
