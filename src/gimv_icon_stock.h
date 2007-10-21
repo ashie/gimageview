@@ -25,16 +25,9 @@
 #define __GIMV_ICON_STOCK_H__
 
 #include <gtk/gtk.h>
-
-#ifdef HAVE_CONFIG_H
-#  include "config.h"
-#endif
-
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-
 #define DEFAULT_ICONSET "default"
-
 
 typedef struct GimvIconStockEntry_Tag
 {
@@ -42,13 +35,18 @@ typedef struct GimvIconStockEntry_Tag
    char   **xpm_data;
 } GimvIconStockEntry;
 
-
 typedef struct GimvIcon_Tag {
    GdkPixmap *pixmap;
    GdkBitmap *mask;
    GdkPixbuf *pixbuf;
 } GimvIcon;
 
+typedef enum {
+   CURSOR_HAND_OPEN,
+   CURSOR_HAND_CLOSED,
+   CURSOR_VOID,
+   CURSOR_NUM_CURSORS
+} CursorType;
 
 gboolean   gimv_icon_stock_init               (const gchar *iconset);
 GimvIcon  *gimv_icon_stock_get_icon           (const gchar *icon_name);
@@ -61,5 +59,8 @@ void       gimv_icon_stock_set_window_icon    (GdkWindow   *window,
 
 GdkPixbuf *gimv_icon_stock_get_pixbuf         (const gchar *icon_name);
 void       gimv_icon_stock_free_pixbuf        (const gchar *icon_name);
+
+GdkCursor *gimv_icon_stock_get_cursor         (GdkWindow   *window,
+                                               CursorType   type);
 
 #endif /* __GIMV_ICON_STOCK_H__ */

@@ -98,6 +98,13 @@
 #include "pixmaps/dotfile.xpm"
 #endif /* EXCLUDE_ICONS */
 
+/* cursors */
+#include "pixmaps/hand-open-data.xbm"
+#include "pixmaps/hand-open-mask.xbm"
+#include "pixmaps/hand-closed-data.xbm"
+#include "pixmaps/hand-closed-mask.xbm"
+#include "pixmaps/void-data.xbm"
+#include "pixmaps/void-mask.xbm"
 
 #ifndef EXCLUDE_ICONS
 static GimvIconStockEntry default_icons [] = {
@@ -166,12 +173,33 @@ static gint default_icons_num
 = sizeof (default_icons) / sizeof (default_icons[0]);
 #endif /* EXCLUDE_ICONS */
 
+static struct {
+	char *data;
+	char *mask;
+	int data_width;
+	int data_height;
+	int mask_width;
+	int mask_height;
+	int hot_x, hot_y;
+} cursors[] = {
+	{ hand_open_data_bits, hand_open_mask_bits,
+	  hand_open_data_width, hand_open_data_height,
+	  hand_open_mask_width, hand_open_mask_height,
+	  hand_open_data_width / 2, hand_open_data_height / 2 },
+	{ hand_closed_data_bits, hand_closed_mask_bits,
+	  hand_closed_data_width, hand_closed_data_height,
+	  hand_closed_mask_width, hand_closed_mask_height,
+	  hand_closed_data_width / 2, hand_closed_data_height / 2 },
+	{ void_data_bits, void_mask_bits,
+	  void_data_width, void_data_height,
+	  void_mask_width, void_mask_height,	  void_data_width / 2, void_data_height / 2 },
+	{ NULL, NULL, 0, 0, 0, 0 }
+};
 
 static gchar       *icondir         = NULL,
                    *default_icondir = NULL;
 static GdkColormap *sys_colormap    = NULL;
 static GHashTable  *icons           = NULL;
-
 
 gboolean
 gimv_icon_stock_init (const gchar *iconset)
@@ -200,7 +228,6 @@ gimv_icon_stock_init (const gchar *iconset)
 
    return TRUE;
 }
-
 
 GimvIcon *
 gimv_icon_stock_get_icon (const gchar *icon_name)
@@ -263,7 +290,6 @@ gimv_icon_stock_get_icon (const gchar *icon_name)
    return icon;
 }
 
-
 GtkWidget *
 gimv_icon_stock_get_widget (const gchar *icon_name)
 {
@@ -279,7 +305,6 @@ gimv_icon_stock_get_widget (const gchar *icon_name)
 
    return widget;
 }
-
 
 void
 gimv_icon_stock_change_widget_icon (GtkWidget *widget, const gchar *icon_name)
@@ -297,7 +322,6 @@ gimv_icon_stock_change_widget_icon (GtkWidget *widget, const gchar *icon_name)
    gtk_image_set_from_pixmap (GTK_IMAGE (widget), icon->pixmap, icon->mask);
 }
 
-
 void
 gimv_icon_stock_set_window_icon (GdkWindow *window, gchar *name)
 {
@@ -308,7 +332,6 @@ gimv_icon_stock_set_window_icon (GdkWindow *window, gchar *name)
       gdk_window_set_icon (window, NULL,
                            icon->pixmap, icon->mask);
 }
-
 
 void
 gimv_icon_stock_free_icon (const gchar *icon_name)
@@ -326,7 +349,6 @@ gimv_icon_stock_free_icon (const gchar *icon_name)
       g_object_unref (icon->pixbuf);
    g_free (icon);
 }
-
 
 GdkPixbuf *
 gimv_icon_stock_get_pixbuf  (const gchar *icon_name)
@@ -371,7 +393,6 @@ gimv_icon_stock_get_pixbuf  (const gchar *icon_name)
    return icon->pixbuf;
 }
 
-
 void
 gimv_icon_stock_free_pixbuf (const gchar *icon_name)
 {
@@ -384,4 +405,42 @@ gimv_icon_stock_free_pixbuf (const gchar *icon_name)
 
    g_object_unref (icon->pixbuf);
    icon->pixbuf = NULL;
+}
+
+GdkCursor *
+gimv_icon_stock_get_cursor (GdkWindow *window, CursorType type)
+{
+	GdkBitmap *data;
+	GdkBitmap *mask;
+	GdkColor black, white;
+	GdkCursor *cursor;
+
+	g_return_val_if_fail (window != NULL, NULL);
+	g_return_val_if_fail (type >= 0 && type < CURSOR_NUM_CURSORS, NULL);
+
+	g_assert (cursors[type].data_width == cursors[type].mask_width);
+	g_assert (cursors[type].data_height == cursors[type].mask_height);
+
+	data = gdk_bitmap_create_from_data (window,
+                                       cursors[type].data,
+                                       cursors[type].data_width,
+                                       cursors[type].data_height);
+	mask = gdk_bitmap_create_from_data (window,
+                                       cursors[type].mask,
+                                       cursors[type].mask_width,
+                                       cursors[type].mask_height);
+
+	g_assert (data != NULL && mask != NULL);
+
+	gdk_color_black (gdk_window_get_colormap (window), &black);
+	gdk_color_white (gdk_window_get_colormap (window), &white);
+
+	cursor = gdk_cursor_new_from_pixmap (data, mask, &white, &black,
+                                        cursors[type].hot_x, cursors[type].hot_y);
+	g_assert (cursor != NULL);
+
+	gdk_bitmap_unref (data);
+	gdk_bitmap_unref (mask);
+
+	return cursor;
 }

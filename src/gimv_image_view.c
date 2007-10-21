@@ -27,7 +27,6 @@
 
 #include "gimageview.h"
 
-#include "cursors.h"
 #include "dnd.h"
 #include "fileutil.h"
 #include "gimv_image.h"
@@ -1316,7 +1315,7 @@ cb_image_button_press (GtkWidget *widget, GdkEventButton *event,
       if (!iv->priv->pixmap)
          return FALSE;
 
-      cursor = cursor_get (widget->window, CURSOR_HAND_CLOSED);
+      cursor = gimv_icon_stock_get_cursor (widget->window, CURSOR_HAND_CLOSED);
       retval = gdk_pointer_grab (widget->window, FALSE,
                                  (GDK_POINTER_MOTION_MASK
                                   | GDK_POINTER_MOTION_HINT_MASK

@@ -17,7 +17,6 @@ gimv_SOURCES = \
 	argparse.c argparse.h \
 	auto_completion.c auto_completion.h \
 	charset.c charset.h \
-	cursors.c cursors.h \
 	dnd.c dnd.h \
 	fileload.c fileload.h \
 	fileutil.c fileutil.h \
