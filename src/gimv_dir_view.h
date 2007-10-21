@@ -26,7 +26,14 @@
 
 #include "gimageview.h"
 
-typedef struct GimvDirViewPrivate_Tag GimvDirViewPrivate;
+#define GIMV_TYPE_DIR_VIEW            (gimv_dir_view_get_type ())
+#define GIMV_DIR_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_DIR_VIEW, GimvDirView))
+#define GIMV_DIR_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_DIR_VIEW, GimvDirViewClass))
+#define GIMV_IS_DIR_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_DIR_VIEW))
+#define GIMV_IS_DIR_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_DIR_VIEW))
+#define GIMV_DIR_VIEW_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_DIR_VIEW, GimvDirViewClass))
+
+typedef struct GimvDirViewClass_Tag   GimvDirViewClass;
 
 typedef enum
 {
@@ -38,7 +45,8 @@ typedef enum
 
 struct GimvDirView_Tag
 {
-   GtkWidget      *container;
+   GtkVBox parent;
+
    GtkWidget      *toolbar;
    GtkWidget      *toolbar_eventbox;
    GtkWidget      *scroll_win;
@@ -51,11 +59,16 @@ struct GimvDirView_Tag
    GimvDirViewMode mode;
    gboolean        show_toolbar;
    gboolean        show_dotfile;
-
-   GimvDirViewPrivate *priv;
 };
 
+struct GimvDirViewClass_Tag
+{
+   GtkVBoxClass parent_class;
+};
 
+GType      gimv_dir_view_get_type          (void);
+GtkWidget *gimv_dir_view_new               (const gchar  *root_dir,
+                                            GimvThumbWin *tw);
 void       gimv_dir_view_chroot            (GimvDirView  *dv,
                                             const gchar  *root_dir);
 void       gimv_dir_view_chroot_to_parent  (GimvDirView  *dv);
@@ -73,8 +86,5 @@ gboolean   gimv_dir_view_unset_opened_mark (GimvDirView  *dv,
                                             const gchar  *path);
 void       gimv_dir_view_show_toolbar      (GimvDirView  *dv);
 void       gimv_dir_view_hide_toolbar      (GimvDirView  *dv);
-
-GimvDirView *gimv_dir_view_create          (const gchar  *root_dir,
-                                            GimvThumbWin *tw);
 
 #endif /* __GIMV_DIR_VIEW_H__ */

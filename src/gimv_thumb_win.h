@@ -105,7 +105,6 @@ struct GimvThumbWin_Tag
 
    /* middle of window (main contents) */
    GtkWidget *main_contents;
-   GtkWidget *dirview;
    GtkWidget *notebook;
    GtkWidget *preview;
    GtkWidget *pane1;

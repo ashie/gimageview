@@ -35,7 +35,12 @@
 #include "menu.h"
 #include "prefs.h"
 
-struct GimvDirViewPrivate_Tag {
+G_DEFINE_TYPE (GimvDirView, gimv_dir_view, GTK_TYPE_VBOX)
+
+#define GIMV_DIR_VIEW_GET_PRIVATE(obj) \
+   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), GIMV_TYPE_DIR_VIEW, GimvDirViewPrivate))
+
+typedef struct GimvDirViewPrivate_Tag {
    /* for DnD */
    gint         hilit_dir;
 
@@ -54,7 +59,7 @@ struct GimvDirViewPrivate_Tag {
 
    GtkTreePath *drag_tree_row;
    guint        adjust_tree_id;
-};
+} GimvDirViewPrivate;
 
 typedef enum {
    MouseActNone,
@@ -64,7 +69,6 @@ typedef enum {
    MouseActChangeTop,
    MouseActLoadThumbRecursiveInOneTab
 } GimvDirViewMouseAction;
-
 
 typedef enum {
    COLUMN_TERMINATOR = -1,
@@ -76,10 +80,7 @@ typedef enum {
    N_COLUMN
 } TreeStoreColumn;
 
-
 /* callback functions */
-static void       cb_dirview_destroyed           (GtkWidget      *widget,
-                                                  GimvDirView    *dv);
 static gboolean   cb_button_press                (GtkWidget      *widget,
                                                   GdkEventButton *event,
                                                   GimvDirView    *dv);
@@ -96,7 +97,6 @@ static void       cb_tree_expand                 (GtkTreeView    *treeview,
                                                   GtkTreeIter    *parent_iter,
                                                   GtkTreePath    *treepath,
                                                   gpointer        data);
-
 
 /* callback functions for popup menu */
 static void       cb_open_thumbnail              (GimvDirView    *dv,
@@ -204,7 +204,6 @@ static gboolean   dirview_button_action          (GimvDirView    *dv,
                                                   GdkEventButton *event,
                                                   gint            num);
 
-
 static GtkItemFactoryEntry dirview_popup_items [] =
 {
    {N_("/_Load Thumbnail"),                        NULL, cb_open_thumbnail, SCAN_SUB_DIR_NONE,     NULL},
@@ -222,7 +221,6 @@ static GtkItemFactoryEntry dirview_popup_items [] =
    {NULL, NULL, NULL, 0, NULL},
 };
 
-
 static GdkPixbuf *folder      = NULL;
 static GdkPixbuf *ofolder     = NULL;
 static GdkPixbuf *lfolder     = NULL;
@@ -239,39 +237,38 @@ static GdkPixbuf *lock_folder = NULL;
  *
  ******************************************************************************/
 static void
-cb_dirview_destroyed (GtkWidget *widget, GimvDirView *dv)
+gimv_dir_view_dispose (GObject *object)
 {
-   g_return_if_fail (dv);
+   GimvDirView *dv = GIMV_DIR_VIEW (object);
+   GimvDirViewPrivate *priv = GIMV_DIR_VIEW_GET_PRIVATE (dv);
 
-   if (dv->priv->button_action_id)
-      gtk_idle_remove (dv->priv->button_action_id);
-   dv->priv->button_action_id = 0;
+   if (dv->root_dir)
+      g_free (dv->root_dir);
+   dv->root_dir = NULL;
 
-   if (dv->priv->swap_com_id)
-      gtk_idle_remove (dv->priv->swap_com_id);
-   dv->priv->swap_com_id = 0;
+   if (priv->button_action_id)
+      gtk_idle_remove (priv->button_action_id);
+   priv->button_action_id = 0;
 
-   if (dv->priv->adjust_tree_id)
-      gtk_idle_remove (dv->priv->adjust_tree_id);
-   dv->priv->adjust_tree_id = 0;
+   if (priv->swap_com_id)
+      gtk_idle_remove (priv->swap_com_id);
+   priv->swap_com_id = 0;
 
-   g_free (dv->root_dir);
-   g_free (dv->priv);
-   g_free (dv);
+   if (priv->adjust_tree_id)
+      gtk_idle_remove (priv->adjust_tree_id);
+   priv->adjust_tree_id = 0;
 }
 
 
 static gboolean
 cb_button_press (GtkWidget *widget, GdkEventButton *event, GimvDirView *dv)
 {
+   GimvDirViewPrivate *priv = GIMV_DIR_VIEW_GET_PRIVATE (dv);
    gint num;
-
-   g_return_val_if_fail (dv, FALSE);
-   g_return_val_if_fail (event, FALSE);
 
    num = prefs_mouse_get_num_from_event (event, conf.dirview_mouse_button);
    if (event->type == GDK_2BUTTON_PRESS) {
-      dv->priv->button_2pressed_queue = num;
+      priv->button_2pressed_queue = num;
    } else if (num > 0) {
       return dirview_button_action (dv, event, num);
    }
@@ -283,16 +280,14 @@ cb_button_press (GtkWidget *widget, GdkEventButton *event, GimvDirView *dv)
 static gboolean
 cb_button_release (GtkWidget *widget, GdkEventButton *event, GimvDirView *dv)
 {
+   GimvDirViewPrivate *priv = GIMV_DIR_VIEW_GET_PRIVATE (dv);
    gint num;
 
-   g_return_val_if_fail (dv, FALSE);
-   g_return_val_if_fail (event, FALSE);
-
-   if (dv->priv->button_2pressed_queue) {
-      num = dv->priv->button_2pressed_queue;
+   if (priv->button_2pressed_queue) {
+      num = priv->button_2pressed_queue;
       if (num > 0)
          num = 0 - num;
-      dv->priv->button_2pressed_queue = 0;
+      priv->button_2pressed_queue = 0;
    } else {
       num = prefs_mouse_get_num_from_event (event, conf.dirview_mouse_button);
    }
@@ -615,7 +610,7 @@ cb_mkdir (GimvDirView *dv, guint action, GtkWidget *menuitem)
 
    success = make_dir_dialog (
       parent_path,
-      GTK_WINDOW(gtk_widget_get_toplevel(dv->container)));
+      GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (dv))));
 
    if (success) {
       if (get_iter_from_path (dv, parent_path, &iter))
@@ -640,7 +635,7 @@ cb_rename_dir (GimvDirView *dv, guint action, GtkWidget *menuitem)
    if (!path) return;
 
    success = rename_dir_dialog
-      (path, GTK_WINDOW(gtk_widget_get_toplevel(dv->container)));
+      (path, GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (dv))));
 
    if (success) {
       gchar *tmp_path, *parent_dir;
@@ -674,7 +669,7 @@ cb_delete_dir (GimvDirView *dv, guint action, GtkWidget *menuitem)
    if (path [strlen (path) - 1] == '/')
       path [strlen (path) - 1] = '\0';
 
-   delete_dir (path, GTK_WINDOW(gtk_widget_get_toplevel(dv->container)));
+   delete_dir (path, GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (dv))));
    g_free (path);
 
    parent_dir = g_dirname (path);
@@ -882,7 +877,7 @@ cb_drag_data_received (GtkWidget *dirtree,
                      dir_internal);
          gtkutil_message_dialog (
             _("Error!!"), error_message,
-            GTK_WINDOW(gtk_widget_get_toplevel(dv->container)));
+            GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (dv))));
 
          g_free (dir_internal);
       }
@@ -969,7 +964,7 @@ cb_com_swap_drag_data_received (GtkWidget *widget,
                                 guint time,
                                 gpointer data)
 {
-   GimvThumbWin *tw = data;
+   GimvThumbWin *tw = GIMV_DIR_VIEW (widget)->tw;
    GtkWidget *src_widget;
    gpointer p;
    gint src, dest;
@@ -1467,8 +1462,9 @@ static gint
 idle_adjust_tree (gpointer data)
 {
    struct AdjustTreeIdle *idle = data;
+   GimvDirViewPrivate *priv = GIMV_DIR_VIEW_GET_PRIVATE (idle->dv);
 
-   idle->dv->priv->adjust_tree_id = 0;
+   priv->adjust_tree_id = 0;
    if (idle->has_iter)
       adjust_tree (idle->treeview, &idle->iter);
    else
@@ -1481,6 +1477,7 @@ idle_adjust_tree (gpointer data)
 static void
 adjust_tree_idle (GimvDirView *dv, GtkTreeIter *iter)
 {
+   GimvDirViewPrivate *priv = GIMV_DIR_VIEW_GET_PRIVATE (dv);
    GtkTreeView *treeview = GTK_TREE_VIEW (dv->dirtree);
    struct AdjustTreeIdle *idle;
 
@@ -1497,7 +1494,7 @@ adjust_tree_idle (GimvDirView *dv, GtkTreeIter *iter)
       idle->has_iter = FALSE;
    }
 
-   dv->priv->adjust_tree_id = 
+   priv->adjust_tree_id = 
       gtk_idle_add_full (G_PRIORITY_DEFAULT,
                          idle_adjust_tree, NULL, idle,
                          (GtkDestroyNotify) g_free);
@@ -1701,9 +1698,10 @@ idle_dirview_button_action (gpointer data)
 {
    ButtonActionData *bdata = data;
    GimvDirView *dv = bdata->dv;
+   GimvDirViewPrivate *priv = GIMV_DIR_VIEW_GET_PRIVATE (dv);
    gchar *path = bdata->path, *label = bdata->label;
 
-   dv->priv->button_action_id = 0;
+   priv->button_action_id = 0;
 
    switch (abs (bdata->action_num)) {
    case MouseActLoadThumb:
@@ -1743,6 +1741,7 @@ idle_dirview_button_action (gpointer data)
 static gboolean
 dirview_button_action (GimvDirView *dv, GdkEventButton *event, gint num)
 {
+   GimvDirViewPrivate *priv = GIMV_DIR_VIEW_GET_PRIVATE (dv);
    gchar *path = NULL, *label;
    GtkTreeSelection *selection;
    GtkTreeModel *model;
@@ -1781,7 +1780,7 @@ dirview_button_action (GimvDirView *dv, GdkEventButton *event, gint num)
       data->label      = label;
       data->action_num = num;
 
-      dv->priv->button_action_id
+      priv->button_action_id
          = gtk_idle_add (idle_dirview_button_action, data);
 
       gtk_tree_path_free (treepath);
@@ -2009,53 +2008,55 @@ gimv_dir_view_hide_toolbar (GimvDirView *dv)
 }
 
 
-GimvDirView *
-gimv_dir_view_create (const gchar *root_dir,
-                      GimvThumbWin *tw)
+static void
+gimv_dir_view_class_init (GimvDirViewClass *klass)
 {
-   GimvDirView *dv;
+   GObjectClass *gobject_class;
+
+   gobject_class = (GObjectClass *) klass;
+
+   gobject_class->dispose = gimv_dir_view_dispose;
+
+   g_type_class_add_private (gobject_class, sizeof (GimvDirViewPrivate));
+}
+
+
+static void
+gimv_dir_view_init (GimvDirView *dv)
+{
+   GimvDirViewPrivate *priv = GIMV_DIR_VIEW_GET_PRIVATE (dv);
    GtkWidget *eventbox;
    const gchar *home = g_getenv ("HOME");
 
-   dv       = g_new0 (GimvDirView, 1);
-   dv->priv = g_new0 (GimvDirViewPrivate,1);
+   dv->root_dir     = add_slash (home);
+   dv->dirtree      = NULL;
+   dv->popup_menu   = NULL;
+   dv->tw           = NULL;
+   dv->show_toolbar = conf.dirview_show_toolbar;
+   dv->show_dotfile = conf.dirview_show_dotfile;
 
-   if (root_dir)
-      dv->root_dir = add_slash (root_dir);
-   else
-      dv->root_dir = add_slash (home);
-
-   dv->dirtree           = NULL;
-   dv->popup_menu        = NULL;
-   dv->tw                = tw;
-   dv->show_toolbar      = conf.dirview_show_toolbar;
-   dv->show_dotfile      = conf.dirview_show_dotfile;
-   dv->priv->hilit_dir         = -1;
-   dv->priv->scroll_timer_id   = 0;
-   dv->priv->drag_tree_row     = NULL;
-   dv->priv->button_action_id  = 0;
-   dv->priv->swap_com_id       = 0;
-   dv->priv->adjust_tree_id    = 0;
+   priv->hilit_dir         = -1;
+   priv->scroll_timer_id   = 0;
+   priv->drag_tree_row     = NULL;
+   priv->button_action_id  = 0;
+   priv->swap_com_id       = 0;
+   priv->adjust_tree_id    = 0;
 
    /* main vbox */
-   dv->container = gtk_vbox_new (FALSE, 0);
-   gtk_widget_set_name (dv->container, "GimvDirView");
-   gtk_widget_show (dv->container);
+   gtk_widget_set_name (GTK_WIDGET (dv), "GimvDirView");
+   gtk_widget_show (GTK_WIDGET (dv));
 
-   dnd_dest_set (dv->container, dnd_types_component, dnd_types_component_num);
-   g_object_set_data (G_OBJECT (dv->container),
+   dnd_dest_set (GTK_WIDGET (dv), dnd_types_component, dnd_types_component_num);
+   g_object_set_data (G_OBJECT (dv),
                       "gimv-component",
                       GINT_TO_POINTER (GIMV_COM_DIR_VIEW));
-   g_signal_connect (G_OBJECT (dv->container), "destroy",
-                     G_CALLBACK (cb_dirview_destroyed), dv);
-
-   g_signal_connect (G_OBJECT (dv->container), "drag_data_received",
-                     G_CALLBACK (cb_com_swap_drag_data_received), dv->tw);
+   g_signal_connect (G_OBJECT (dv), "drag_data_received",
+                     G_CALLBACK (cb_com_swap_drag_data_received), NULL);
 
    /* toolbar */
    eventbox = dv->toolbar_eventbox = gtk_event_box_new ();
    gtk_container_set_border_width (GTK_CONTAINER (eventbox), 1);
-   gtk_box_pack_start (GTK_BOX (dv->container), eventbox, FALSE, FALSE, 0);
+   gtk_box_pack_start (GTK_BOX (dv), eventbox, FALSE, FALSE, 0);
    gtk_widget_show (eventbox);
 
    dv->toolbar = dirview_create_toolbar (dv);
@@ -2069,9 +2070,9 @@ gimv_dir_view_create (const gchar *root_dir,
                       "gimv-component",
                       GINT_TO_POINTER (GIMV_COM_DIR_VIEW));
    g_signal_connect (G_OBJECT (eventbox), "drag_begin",
-                     G_CALLBACK (cb_toolbar_drag_begin), tw);
+                     G_CALLBACK (cb_toolbar_drag_begin), dv);
    g_signal_connect (G_OBJECT (eventbox), "drag_data_get",
-                     G_CALLBACK (cb_toolbar_drag_data_get), tw);
+                     G_CALLBACK (cb_toolbar_drag_data_get), dv);
 
    /* scrolled window */
    dv->scroll_win = gtk_scrolled_window_new (NULL, NULL);
@@ -2080,11 +2081,20 @@ gimv_dir_view_create (const gchar *root_dir,
                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
    gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(dv->scroll_win),
                                        GTK_SHADOW_IN);
-   gtk_box_pack_start(GTK_BOX(dv->container), dv->scroll_win, TRUE, TRUE, 0);
+   gtk_box_pack_start(GTK_BOX(dv), dv->scroll_win, TRUE, TRUE, 0);
    gtk_widget_show (dv->scroll_win);
 
    /* ctree */
    dirview_create_treeview (dv, dv->root_dir);
+}
 
-   return dv;
+
+GtkWidget *
+gimv_dir_view_new (const gchar *root_dir, GimvThumbWin *tw)
+{
+   GimvDirView *dv = GIMV_DIR_VIEW (g_object_new (GIMV_TYPE_DIR_VIEW, NULL));
+   dv->tw = tw;
+   if (root_dir)
+      gimv_dir_view_chroot(dv, root_dir);
+   return GTK_WIDGET (dv);
 }
