@@ -3,7 +3,7 @@
 SUBDIRS = cursors pixmaps prefs_ui
 DIST_SUBDIRS = cursors pixmaps prefs_ui
 
-CLEANFILES = *~ .deps/* .*.swp .*.swo gimv.exp gimv.def gimv.res gimv.rc
+CLEANFILES = *~ .*.swp .*.swo gimv.exp gimv.def gimv.res gimv.rc
 bin_PROGRAMS = gimv
 
 gimv_SOURCES = \

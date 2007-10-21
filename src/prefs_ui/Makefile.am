@@ -1,6 +1,6 @@
 # -*- Mode: Makefile; tab-width: 8; indent-tabs-mode: t; -*-
 
-CLEANFILES = *~ .deps/* .*.swp .*.swo
+CLEANFILES = *~ .*.swp .*.swo
 
 noinst_LTLIBRARIES = libgimv_prefs_ui.la
 
