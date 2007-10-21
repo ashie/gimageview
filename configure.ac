@@ -593,7 +593,6 @@ plugins/io_stream/Makefile
 plugins/thumbnail/Makefile
 plugins/thumbnail_view/Makefile
 src/Makefile
-src/cursors/Makefile
 src/pixmaps/Makefile
 src/prefs_ui/Makefile
 gimageview.spec

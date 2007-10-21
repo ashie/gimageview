@@ -27,7 +27,6 @@
 #include "gimageview.h"
 
 #include "charset.h"
-#include "cursors.h"
 #include "gtkutils.h"
 #include "gimv_comment_view.h"
 #include "gimv_icon_stock.h"
@@ -2079,8 +2078,8 @@ show_cursor (GimvImageWin *iw)
    g_return_if_fail (iw->iv->draw_area);
    g_return_if_fail (GTK_WIDGET_MAPPED (iw->iv->draw_area));
 
-   cursor = cursor_get (iw->iv->draw_area->window,
-                        CURSOR_HAND_OPEN);
+   cursor = gimv_icon_stock_get_cursor (iw->iv->draw_area->window,
+                                        CURSOR_HAND_OPEN);
    gdk_window_set_cursor (iw->iv->draw_area->window, 
                           cursor);
    gdk_cursor_destroy (cursor);
@@ -2097,8 +2096,8 @@ hide_cursor (GimvImageWin *iw)
    g_return_if_fail (iw->iv->draw_area);
    g_return_if_fail (GTK_WIDGET_MAPPED (iw->iv->draw_area));
 
-   cursor = cursor_get (iw->iv->draw_area->window,
-                        CURSOR_VOID);
+   cursor = gimv_icon_stock_get_cursor (iw->iv->draw_area->window,
+                                        CURSOR_VOID);
    gdk_window_set_cursor (iw->iv->draw_area->window, 
                           cursor);
    gdk_cursor_destroy (cursor);
@@ -2317,7 +2316,7 @@ gimv_image_win_real_show_fullscreen (GimvImageWin *iw)
 
    gdk_window_fullscreen (iw->fullscreen->window);
    if (need_resize) {
-      gtk_window_move (iw->fullscreen, area.x, area.y);
+      gtk_window_move (GTK_WINDOW (iw->fullscreen), area.x, area.y);
       gtk_window_resize (GTK_WINDOW (iw->fullscreen),
                          area.width, area.height);
    }

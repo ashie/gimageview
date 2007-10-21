@@ -25,8 +25,8 @@
 #  include "config.h"
 #endif /* HAVE_CONFIG_H */
 
-#include "cursors.h"
 #include "gimv_anim.h"
+#include "gimv_icon_stock.h"
 #include "gimv_image_view.h"
 #include "gimv_thumb_cache.h"
 #include "prefs.h"
@@ -163,7 +163,8 @@ cb_draw_area_map (GtkWidget *widget, GimvImageView *iv)
 
    /* set cursor */
    if (!iv->cursor)
-      iv->cursor = cursor_get (iv->draw_area->window, CURSOR_HAND_OPEN);
+      iv->cursor = gimv_icon_stock_get_cursor (iv->draw_area->window,
+                                               CURSOR_HAND_OPEN);
    gdk_window_set_cursor (iv->draw_area->window, iv->cursor);
 }
 
