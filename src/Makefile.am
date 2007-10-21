@@ -1,7 +1,6 @@
 # -*- Mode: Makefile; tab-width: 8; indent-tabs-mode: t; -*-
 
-SUBDIRS = cursors pixmaps prefs_ui
-DIST_SUBDIRS = cursors pixmaps prefs_ui
+SUBDIRS = pixmaps prefs_ui
 
 CLEANFILES = *~ .*.swp .*.swo gimv.exp gimv.def gimv.res gimv.rc
 bin_PROGRAMS = gimv
