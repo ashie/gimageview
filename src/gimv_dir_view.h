@@ -75,7 +75,6 @@ void       gimv_dir_view_show_toolbar      (GimvDirView  *dv);
 void       gimv_dir_view_hide_toolbar      (GimvDirView  *dv);
 
 GimvDirView *gimv_dir_view_create          (const gchar  *root_dir,
-                                            GtkWidget    *parent_win,
                                             GimvThumbWin *tw);
 
 #endif /* __GIMV_DIR_VIEW_H__ */
