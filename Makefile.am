@@ -2,7 +2,7 @@
 
 SUBDIRS = doc etc m4 po lib src plugins
 
-CLEANFILES = *~ .deps/* .*.swp .*.swo
+CLEANFILES = *~ .*.swp .*.swo
 
 endocdir = $(DESTDIR)$(gimv_docdir)/text/C
 endoc_DATA = \

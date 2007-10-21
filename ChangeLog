@@ -1,5 +1,13 @@
 2007-10-21 Takuro Ashie <ashie@homa.ne.jp>
 
+	* plugins/image_saver/Makefile.am, plugins/io_stream/Makefile.am,
+	  plugins/thumbnail/Makefile.am, plugins/image_loader/Makefile.am,
+	  plugins/image_view/Makefile.am, plugins/thumbnail_view/Makefile.am,
+	  src/Makefile.am, src/prefs_ui/Makefile.am, Makefile.am:
+	Remove .deps/* from CLEANFILES.
+
+2007-10-21 Takuro Ashie <ashie@homa.ne.jp>
+
 	* src/gimv_slideshow.[ch]: GObjectize.
 	* src/gimageview.c: Move GimvSlideshow declaration to gimv_slideshow.h
 

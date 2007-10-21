@@ -1,11 +1,11 @@
 # -*- Mode: Makefile; tab-width: 8; indent-tabs-mode: t; -*-
 
+CLEANFILES = *~ .*.swp .*.swo
+
 if PLATFORM_WIN32
 no_undefined = -no-undefined
 GIMV_LIBS = -L$(top_builddir)/src -Wl,-lgimv
 endif
-
-CLEANFILES = *~ .deps/* .*.swp .*.swo
 
 image_loader_plugin_LTLIBRARIES = \
 	libgimv_bmp_loader.la \
