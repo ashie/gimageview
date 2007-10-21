@@ -28,17 +28,13 @@
 
 #include <gdk/gdk.h>
 
-
-
 typedef enum {
-	CURSOR_HAND_OPEN,
-	CURSOR_HAND_CLOSED,
+   CURSOR_HAND_OPEN,
+   CURSOR_HAND_CLOSED,
    CURSOR_VOID,
-	CURSOR_NUM_CURSORS
+   CURSOR_NUM_CURSORS
 } CursorType;
 
 GdkCursor *cursor_get (GdkWindow *window, CursorType type);
-
-
 
 #endif

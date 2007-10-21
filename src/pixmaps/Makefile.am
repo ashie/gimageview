@@ -54,4 +54,11 @@ default_icon_DATA =		\
 	stop2.xpm		\
 	eject.xpm
 
-EXTRA_DIST = $(default_icon_DATA)
+EXTRA_DIST =			\
+	$(default_icon_DATA)	\
+	hand-closed-data.xbm	\
+	hand-closed-mask.xbm	\
+	hand-open-data.xbm	\
+	hand-open-mask.xbm	\
+	void-data.xbm		\
+	void-mask.xbm

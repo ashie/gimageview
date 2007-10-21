@@ -32,12 +32,12 @@
  * cursors.h.
  */
 
-#include "cursors/hand-open-data.xbm"
-#include "cursors/hand-open-mask.xbm"
-#include "cursors/hand-closed-data.xbm"
-#include "cursors/hand-closed-mask.xbm"
-#include "cursors/void-data.xbm"
-#include "cursors/void-mask.xbm"
+#include "pixmaps/hand-open-data.xbm"
+#include "pixmaps/hand-open-mask.xbm"
+#include "pixmaps/hand-closed-data.xbm"
+#include "pixmaps/hand-closed-mask.xbm"
+#include "pixmaps/void-data.xbm"
+#include "pixmaps/void-mask.xbm"
 
 static struct {
 	char *data;
@@ -62,17 +62,6 @@ static struct {
 	{ NULL, NULL, 0, 0, 0, 0 }
 };
 
-
-
-/**
- * cursor_get:
- * @window: Window whose screen and colormap determine the cursor's.
- * @type: A cursor type.
- * 
- * Creates a cursor.
- * 
- * Return value: The newly-created cursor.
- **/
 GdkCursor *
 cursor_get (GdkWindow *window, CursorType type)
 {
