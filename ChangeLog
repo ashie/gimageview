@@ -1,5 +1,10 @@
 2007-10-23 Takuro Ashie <ashie@homa.ne.jp>
 
+	* intltool-*.in: Removed from svn.
+	* autogen.sh: Add intltoolize.
+
+2007-10-23 Takuro Ashie <ashie@homa.ne.jp>
+
 	* src/prefs_ui/prefs_ui_movie.c: Fix compile error.
 	* src/utils_md5.[ch]: Renamed from md5.[ch]
 	* src/Makefile.am, src/compare_md5.c: Follow the change.
