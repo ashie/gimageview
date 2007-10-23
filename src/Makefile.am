@@ -55,7 +55,6 @@ gimv_SOURCES = \
 	gimv_thumb_win.c gimv_thumb_win.h \
 	gtk_prop.c gtk_prop.h \
 	help.c help.h \
-	md5.c md5.h \
 	prefs.c prefs.h \
 	utils.c utils.h \
 	utils_auto_comp.c utils_auto_comp.h \
@@ -65,6 +64,7 @@ gimv_SOURCES = \
 	utils_file_gtk.c utils_file_gtk.h \
 	utils_gtk.c utils_gtk.h \
 	utils_japanese.c utils_japanese.h \
+	utils_md5.c utils_md5.h \
 	utils_menu.c utils_menu.h
 
 EXTRA_gimv_SOURCES = \

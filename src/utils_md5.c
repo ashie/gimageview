@@ -37,7 +37,7 @@
 # endif
 #endif
 
-#include "md5.h"
+#include "utils_md5.h"
 
 #ifdef WORDS_BIGENDIAN
 # define SWAP(n)							\
