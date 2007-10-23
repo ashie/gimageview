@@ -44,12 +44,6 @@
 
 #include <gtk/gtk.h>
 
-#if (GTK_MAJOR_VERSION == 1) && (GTK_MAJOR_VERION <= 2)
-#  ifndef GDK_WINDOWING_X11
-#     define GDK_WINDOWING_X11
-#  endif
-#endif
-
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
 #endif /* GDK_WINDOWING_X11 */
