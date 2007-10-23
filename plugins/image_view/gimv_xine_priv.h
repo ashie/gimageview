@@ -45,12 +45,6 @@
 #include <gtk/gtk.h>
 #include "gimv_xine.h"
 
-#if (GTK_MAJOR_VERSION == 1) && (GTK_MAJOR_VERION <= 2)
-#  ifndef GDK_WINDOWING_X11
-#     define GDK_WINDOWING_X11
-#  endif
-#endif
-
 #if defined (GDK_WINDOWING_X11)
 #  include <X11/Xlib.h>
 #  include <X11/keysym.h>
