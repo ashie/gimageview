@@ -29,9 +29,9 @@
 #include <string.h>
 #include <bzlib.h>
 
-#include "fileutil.h"
 #include "gimv_io_mem.h"
 #include "gimv_plugin.h"
+#include "utils_file.h"
 
 
 #ifndef BUF_SIZE

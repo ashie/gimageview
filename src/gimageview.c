@@ -30,10 +30,7 @@
 #include "gimageview.h"
 
 #include "argparse.h"
-#include "charset.h"
 #include "fileload.h"
-#include "fileutil.h"
-#include "gfileutil.h"
 #include "gimv_dir_view.h"
 #include "gimv_image.h"
 #include "gimv_icon_stock.h"
@@ -43,6 +40,9 @@
 #include "gimv_thumb_cache.h"
 #include "gimv_thumb_win.h"
 #include "prefs.h"
+#include "utils_char_code.h"
+#include "utils_file.h"
+#include "utils_file_gtk.h"
 
 #include "fr-archive.h"
 

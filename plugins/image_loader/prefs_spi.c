@@ -25,11 +25,11 @@
 
 #include "gimageview.h"
 
-#include "charset.h"
-#include "gtkutils.h"
 #include "gimv_plugin.h"
 #include "gimv_prefs_ui_utils.h"
 #include "gimv_prefs_win.h"
+#include "utils_char_code.h"
+#include "utils_gtk.h"
 #include "prefs_spi.h"
 #include "spi.h"
 

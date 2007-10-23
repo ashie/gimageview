@@ -31,9 +31,9 @@
 #include "gimv_exif_view.h"
 #include "gimv_image.h"
 #include "gimv_io_mem.h"
-#include "gtkutils.h"
 #include "gimv_icon_stock.h"
 #include "gimv_image_loader.h"
+#include "utils_gtk.h"
 
 
 typedef enum {

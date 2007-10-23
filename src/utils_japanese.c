@@ -25,8 +25,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "charset.h"
-#include "japanese.h"
+#include "utils_char_code.h"
+#include "utils_japanese.h"
 
 /* force convert hankaku SJIS character to zenkaku */
 #undef NO_HANKAKU_SJIS

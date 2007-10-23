@@ -25,15 +25,15 @@
 
 #include "gimageview.h"
 
-#include "utils_dnd.h"
-#include "fileutil.h"
-#include "gfileutil.h"
-#include "gtkutils.h"
 #include "gimv_thumb.h"
 #include "gimv_thumb_view.h"
 #include "gimv_thumb_win.h"
-#include "menu.h"
 #include "prefs.h"
+#include "utils_dnd.h"
+#include "utils_file.h"
+#include "utils_file_gtk.h"
+#include "utils_gtk.h"
+#include "utils_menu.h"
 
 
 GtkTargetEntry dnd_types_all[] = {

@@ -24,10 +24,10 @@
 
 #include <string.h>
 #include <gtk/gtk.h>
-#include "fileutil.h"
 #include "fr-process.h"
 #include "fr-command.h"
 #include "gimv_image_info.h"
+#include "utils_file.h"
 
 
 static void fr_command_dispose (GObject *object);

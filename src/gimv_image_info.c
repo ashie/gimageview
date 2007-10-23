@@ -28,9 +28,7 @@
 
 #include "gimageview.h"
 
-#include "fileutil.h"
 #include "fr-archive.h"
-#include "gfileutil.h"
 #include "gimv_comment.h"
 #include "gimv_anim.h"
 #include "gimv_image.h"
@@ -39,6 +37,8 @@
 #include "gimv_thumb.h"
 #include "gimv_thumb_cache.h"
 #include "prefs.h"
+#include "utils_file.h"
+#include "utils_file_gtk.h"
 
 
 static GHashTable *gimv_image_info_table = NULL;

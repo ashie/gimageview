@@ -24,7 +24,7 @@
 #include "gimv_image_loader.h"
 
 #include "gimv_anim.h"
-#include "fileutil.h"
+#include "utils_file.h"
 
 
 typedef enum {

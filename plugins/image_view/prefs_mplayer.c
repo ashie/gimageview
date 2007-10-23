@@ -28,9 +28,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "gtkutils.h"
 #include "gimv_mplayer.h"
 #include "gimv_prefs_ui_utils.h"
+#include "utils_gtk.h"
 
 #define CONF_VO_DRIVER_KEY        "vo_driver"
 #ifdef GDK_WINDOWING_FB

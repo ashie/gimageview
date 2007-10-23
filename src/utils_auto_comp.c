@@ -41,11 +41,11 @@
 #include <gtk/gtkwindow.h>
 #include <gtk/gtkscrolledwindow.h>
 
-#include "utils_auto_comp.h"
-#include "charset.h"
-#include "fileutil.h"
-#include "gfileutil.h"
 #include "prefs.h"
+#include "utils_auto_comp.h"
+#include "utils_char_code.h"
+#include "utils_file.h"
+#include "utils_file_gtk.h"
 
 #define MAX_VISIBLE_ROWS 8
 #define CLIST_ROW_PAD    5

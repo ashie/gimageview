@@ -27,10 +27,10 @@
 #include <stdio.h>
 #include <glib.h>
 #include "gimv_image_info.h"
-#include "fileutil.h"
 #include "fr-archive.h"
 #include "fr-command.h"
 #include "fr-process.h"
+#include "utils_file.h"
 
 
 #define MAX_CHUNK_LEN 16000 /* FIXME : what is the max length of a command 

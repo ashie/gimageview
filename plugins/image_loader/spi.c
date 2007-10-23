@@ -28,9 +28,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "fileutil.h"
-#include "gfileutil.h"
 #include "prefs_spi.h"
+#include "utils_file.h"
+#include "utils_file_gtk.h"
 
 #ifdef G_PLATFORM_WIN32
 static

@@ -34,7 +34,7 @@
 #include "gimv_thumb.h"
 #include "gimv_thumb_cache.h"
 #include "gimv_xine.h"
-#include "gtkutils.h"
+#include "utils_gtk.h"
 #include "prefs_xine.h"
 
 /* callback functions */

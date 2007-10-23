@@ -28,8 +28,8 @@
 #include <string.h>
 #include <gtk/gtk.h>
 
-#include "fileutil.h"
 #include "gimv_icon_stock.h"
+#include "utils_file.h"
 
 #ifndef EXCLUDE_ICONS
 /* common icons */

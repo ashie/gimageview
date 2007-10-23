@@ -27,12 +27,12 @@
 
 #include "gimv_prefs_ui_utils.h"
 
-#include "charset.h"
 #include "gimv_dlist.h"
 #include "gimv_elist.h"
-#include "gtkutils.h"
-#include "prefs.h"
 #include "gimv_prefs_win.h"
+#include "prefs.h"
+#include "utils_char_code.h"
+#include "utils_gtk.h"
 
 /*******************************************************************************
  *

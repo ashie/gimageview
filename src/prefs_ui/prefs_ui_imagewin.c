@@ -26,13 +26,13 @@
 #include "gimageview.h"
 
 #include "gimv_image.h"
-#include "gtkutils.h"
-#include "menu.h"
-#include "prefs.h"
 #include "gimv_prefs_ui_utils.h"
 #include "gimv_prefs_win.h"
-#include "prefs_ui_imagewin.h"
 #include "gimv_image_win.h"
+#include "prefs.h"
+#include "prefs_ui_imagewin.h"
+#include "utils_gtk.h"
+#include "utils_menu.h"
 
 
 typedef struct PrefsWin_Tag {

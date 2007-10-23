@@ -28,7 +28,7 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
-#include "menu.h"
+#include "utils_menu.h"
 
 
 static void   cb_get_data_from_menuitem (GtkWidget    *widget,

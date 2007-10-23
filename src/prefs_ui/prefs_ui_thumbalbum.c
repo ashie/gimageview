@@ -24,7 +24,7 @@
 #include <glib/gi18n.h>
 
 #include "gimv_prefs_ui_utils.h"
-#include "gtkutils.h"
+#include "utils_gtk.h"
 #include "prefs.h"
 #include "prefs_ui/prefs_ui_thumbalbum.h"
 

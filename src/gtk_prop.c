@@ -55,7 +55,7 @@
 
 /* FIXME? */
 #include "prefs.h"
-#include "charset.h"
+#include "utils_char_code.h"
 /* END FIXME? */
 
 

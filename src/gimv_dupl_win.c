@@ -23,13 +23,13 @@
 
 #include "gimv_dupl_win.h"
 
-#include "charset.h"
-#include "fileutil.h"
 #include "gimv_cell_pixmap.h"
 #include "gimv_icon_stock.h"
 #include "gimv_image_info.h"
 #include "gimv_thumb.h"
 #include "prefs.h"
+#include "utils_char_code.h"
+#include "utils_file.h"
 
 struct GimvDuplWinPriv_Tag
 {

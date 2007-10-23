@@ -28,11 +28,11 @@
 
 #include "gimageview.h"
 
-#include "fileutil.h"
 #include "fr-archive.h"
 #include "fr-command.h"
 #include "gimv_image_info.h"
 #include "gimv_plugin.h"
+#include "utils_file.h"
 #include "lha-ext.h"
 
 

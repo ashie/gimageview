@@ -30,7 +30,7 @@
 #include "gimageview.h"
 
 #include "fileload.h"
-#include "gfileutil.h"
+#include "utils_file_gtk.h"
 #include "gimv_thumb_cache.h"
 
 #define GIMV_TYPE_THUMB_VIEW            (gimv_thumb_view_get_type ())

@@ -15,13 +15,13 @@ gimv_SOURCES = \
 	gimv_zlist.c gimv_zlist.h \
 \
 	argparse.c argparse.h \
-	charset.c charset.h \
+	compare_filesize.c \
+	compare_md5.c \
+	compare_similar.c \
 	fileload.c fileload.h \
-	fileutil.c fileutil.h \
 	fr-archive.c fr-archive.h \
 	fr-command.c fr-command.h \
 	fr-process.c fr-process.h \
-	gfileutil.c gfileutil.h \
 	gimageview.c gimageview.h \
 	gimv_anim.c gimv_anim.h \
 	gimv_comment.c gimv_comment.h \
@@ -54,19 +54,18 @@ gimv_SOURCES = \
 	gimv_thumb_view_album.c \
 	gimv_thumb_win.c gimv_thumb_win.h \
 	gtk_prop.c gtk_prop.h \
-	gtkutils.c gtkutils.h \
 	help.c help.h \
 	md5.c md5.h \
-	menu.c menu.h \
 	prefs.c prefs.h \
 	utils.c utils.h \
 	utils_auto_comp.c utils_auto_comp.h \
+	utils_char_code.c utils_char_code.h \
 	utils_dnd.c utils_dnd.h \
-\
-	compare_filesize.c \
-	compare_md5.c \
-	compare_similar.c \
-	japanese.c japanese.h
+	utils_file.c utils_file.h \
+	utils_file_gtk.c utils_file_gtk.h \
+	utils_gtk.c utils_gtk.h \
+	utils_japanese.c utils_japanese.h \
+	utils_menu.c utils_menu.h
 
 EXTRA_gimv_SOURCES = \
 	gimv.ico

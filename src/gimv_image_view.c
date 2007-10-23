@@ -27,8 +27,6 @@
 
 #include "gimageview.h"
 
-#include "utils_dnd.h"
-#include "fileutil.h"
 #include "gimv_image.h"
 #include "gimv_anim.h"
 #include "gimv_icon_stock.h"
@@ -36,9 +34,11 @@
 #include "gimv_image_view.h"
 #include "gimv_image_win.h"
 #include "gimv_nav_win.h"
-#include "gtkutils.h"
-#include "menu.h"
 #include "prefs.h"
+#include "utils_dnd.h"
+#include "utils_file.h"
+#include "utils_gtk.h"
+#include "utils_menu.h"
 
 #ifdef ENABLE_EXIF
 

@@ -26,10 +26,7 @@
 #include <time.h>
 #include <string.h>
 
-#include "charset.h"
-#include "utils_dnd.h"
 #include "detailview_prefs.h"
-#include "fileutil.h"
 #include "gimv_cell_pixmap.h"
 #include "gimv_image.h"
 #include "gimv_image_info.h"
@@ -37,6 +34,9 @@
 #include "gimv_thumb.h"
 #include "gimv_thumb_view.h"
 #include "gimv_thumb_win.h"
+#include "utils_char_code.h"
+#include "utils_dnd.h"
+#include "utils_file.h"
 
 
 enum {
