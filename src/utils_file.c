@@ -33,7 +33,7 @@
 #include <grp.h>
 #include <glib.h>
 
-#include "fileutil.h"
+#include "utils_file.h"
 
 #ifndef FALSE
 #  define FALSE   (0)

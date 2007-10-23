@@ -25,18 +25,18 @@
 
 #include "gimageview.h"
 
-#include "charset.h"
 #include "gimv_elist.h"
 #include "fileload.h"
 /* #include "gimv_image.h" */
 #include "gimv_mime_types.h"
-#include "gtkutils.h"
-#include "menu.h"
 #include "prefs.h"
 #include "prefs_ui_common.h"
 #include "gimv_prefs_ui_utils.h"
 #include "gimv_prefs_win.h"
 #include "utils.h"
+#include "utils_char_code.h"
+#include "utils_gtk.h"
+#include "utils_menu.h"
 
 
 typedef struct PrefsWin_Tag {

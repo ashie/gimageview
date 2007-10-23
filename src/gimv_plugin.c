@@ -27,10 +27,10 @@
 
 #include "gimageview.h"
 
-#include "fileutil.h"
-#include "gfileutil.h"
 #include "gimv_plugin.h"
 #include "prefs.h"
+#include "utils_file.h"
+#include "utils_file_gtk.h"
 
 #define PLUGIN_RC_DIR "pluginrc"
 

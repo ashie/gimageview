@@ -33,12 +33,12 @@
 #include <string.h>
 #include <time.h>
 
-#include "charset.h"
-#include "fileutil.h"
 #include "gimv_image_info.h"
 #include "gimv_mime_types.h"
-#include "gtkutils.h"
 #include "prefs.h"
+#include "utils_char_code.h"
+#include "utils_file.h"
+#include "utils_gtk.h"
 
 #define GIMV_COMMENT_DIRECTORY ".gimv/comment"
 

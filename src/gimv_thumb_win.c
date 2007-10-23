@@ -28,11 +28,6 @@
 
 #include "gimageview.h"
 
-#include "utils_auto_comp.h"
-#include "charset.h"
-#include "utils_dnd.h"
-#include "fileutil.h"
-#include "gfileutil.h"
 #include "gimv_comment_view.h"
 #include "gimv_dir_view.h"
 #include "gimv_dupl_finder.h"
@@ -44,8 +39,13 @@
 #include "gimv_thumb_view.h"
 #include "gimv_thumb_win.h"
 #include "help.h"
-#include "menu.h"
 #include "prefs.h"
+#include "utils_auto_comp.h"
+#include "utils_char_code.h"
+#include "utils_dnd.h"
+#include "utils_file.h"
+#include "utils_file_gtk.h"
+#include "utils_menu.h"
 
 
 typedef enum {

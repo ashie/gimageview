@@ -25,15 +25,15 @@
 
 #include <string.h>
 
-#include "charset.h"
-#include "utils_dnd.h"
-#include "fileutil.h"
-#include "gfileutil.h"
 #include "gtk_prop.h"
 #include "gimv_icon_stock.h"
 #include "gimv_thumb_win.h"
-#include "menu.h"
 #include "prefs.h"
+#include "utils_char_code.h"
+#include "utils_dnd.h"
+#include "utils_file.h"
+#include "utils_file_gtk.h"
+#include "utils_menu.h"
 
 G_DEFINE_TYPE (GimvDirView, gimv_dir_view, GTK_TYPE_VBOX)
 

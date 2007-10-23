@@ -31,9 +31,9 @@
 #include "gimv_image.h"
 #include "gimv_image_info.h"
 #include "gimv_thumb_cache.h"
-#include "gtkutils.h"
-#include "fileutil.h"
 #include "prefs.h"
+#include "utils_gtk.h"
+#include "utils_file.h"
 
 
 GHashTable *thumbnail_loaders = NULL;

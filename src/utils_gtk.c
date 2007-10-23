@@ -33,12 +33,12 @@
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>
 
-#include "utils_auto_comp.h"
-#include "charset.h"
-#include "fileutil.h"
-#include "gtkutils.h"
 #include "gimv_icon_stock.h"
 #include "prefs.h"
+#include "utils_auto_comp.h"
+#include "utils_char_code.h"
+#include "utils_file.h"
+#include "utils_gtk.h"
 
 #ifndef BUF_SIZE
 #define BUF_SIZE 4096

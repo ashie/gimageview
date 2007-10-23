@@ -26,11 +26,11 @@
 #include <gtk/gtk.h>
 #include <gmodule.h>
 
-#include "fileutil.h"
-#include "gfileutil.h"
 #include "gimv_image_saver.h"
 #include "gimv_plugin.h"
 #include "gimv_thumb_cache.h"
+#include "utils_file.h"
+#include "utils_file_gtk.h"
 
 
 #ifndef BUF_SIZE

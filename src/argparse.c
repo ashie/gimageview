@@ -28,8 +28,8 @@
 #include "gimageview.h"
 
 #include "argparse.h"
-#include "charset.h"
 #include "prefs.h"
+#include "utils_char_code.h"
 
 ArgsVal args_val;
 

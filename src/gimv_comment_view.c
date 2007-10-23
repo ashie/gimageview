@@ -27,13 +27,13 @@
 
 #include "gimageview.h"
 
-#include "charset.h"
-#include "utils_dnd.h"
 #include "gimv_comment.h"
 #include "gimv_icon_stock.h"
 #include "gimv_image_info.h"
 #include "gimv_image_view.h"
 #include "prefs.h"
+#include "utils_char_code.h"
+#include "utils_dnd.h"
 
 
 typedef enum {

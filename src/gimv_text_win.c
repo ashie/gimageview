@@ -24,9 +24,9 @@
 #include <stdio.h>
 
 #include "gimageview.h"
-#include "charset.h"
-#include "prefs.h"
 #include "gimv_text_win.h"
+#include "prefs.h"
+#include "utils_char_code.h"
 
 G_DEFINE_TYPE (GimvTextWin, gimv_text_win, GTK_TYPE_WINDOW)
 

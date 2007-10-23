@@ -26,8 +26,8 @@
 
 #include "gimv_io.h"
 #include "gimv_gzip_io.h"
-#include "fileutil.h"
 #include "gimv_plugin.h"
+#include "utils_file.h"
 
 
 static GimvIOStatus   gimv_gzip_io_read  (GimvIO      *gio, 

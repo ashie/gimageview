@@ -31,16 +31,16 @@
 #include <unistd.h>
 #include <utime.h>
 
-#include "charset.h"
-#include "fileutil.h"
 #include "fr-archive.h"
-#include "gfileutil.h"
 #include "gimv_comment.h"
 #include "gimv_image.h"
 #include "gimv_thumb.h"
 #include "gimv_thumb_cache.h"
-#include "gtkutils.h"
 #include "prefs.h"
+#include "utils_char_code.h"
+#include "utils_file.h"
+#include "utils_file_gtk.h"
+#include "utils_gtk.h"
 
 #ifndef BUF_SIZE
 #define BUF_SIZE 4096

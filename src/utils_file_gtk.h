@@ -26,7 +26,7 @@
 
 #include <gtk/gtk.h>
 
-#include "gtkutils.h"
+#include "utils_gtk.h"
 
 
 typedef enum

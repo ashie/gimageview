@@ -30,10 +30,10 @@
 #include "gimv_prefs_win.h"
 #include "gimv_thumb_view.h"
 #include "gimv_thumb_win.h"
-#include "gtkutils.h"
-#include "menu.h"
 #include "prefs.h"
 #include "prefs_ui_thumbwin.h"
+#include "utils_gtk.h"
+#include "utils_menu.h"
 
 
 typedef struct PrefsWin_Tag {

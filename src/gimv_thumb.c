@@ -25,17 +25,17 @@
 
 #include "gimageview.h"
 #include "fileload.h"
-#include "fileutil.h"
 #include "fr-archive.h"
-#include "gfileutil.h"
 #include "gimv_icon_stock.h"
 #include "gimv_image.h"
 #include "gimv_image_info.h"
 #include "gimv_image_loader.h"
-#include "prefs.h"
 #include "gimv_thumb.h"
 #include "gimv_thumb_cache.h"
 #include "gimv_thumb_view.h"
+#include "prefs.h"
+#include "utils_file.h"
+#include "utils_file_gtk.h"
 
 
 static void gimv_thumb_dispose (GObject *obj);

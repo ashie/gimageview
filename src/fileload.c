@@ -31,20 +31,20 @@
 
 #include "gimageview.h"
 
-#include "charset.h"
 #include "fr-command.h"
 #include "fr-archive.h"
 #include "gimv_image.h"
-#include "gfileutil.h"
-#include "gtkutils.h"
 #include "prefs.h"
 #include "fileload.h"
-#include "fileutil.h"
 #include "gimv_icon_stock.h"
 #include "gimv_image_info.h"
 #include "gimv_image_win.h"
 #include "gimv_thumb_view.h"
 #include "gimv_thumb_win.h"
+#include "utils_char_code.h"
+#include "utils_file.h"
+#include "utils_file_gtk.h"
+#include "utils_gtk.h"
 
 
 /* for filebrowser call back functions */

@@ -26,9 +26,9 @@
 #ifdef ENABLE_XINE
 
 #include <stdlib.h>
-#include "gtkutils.h"
 #include "gimv_prefs_ui_utils.h"
 #include "gimv_xine.h"
+#include "utils_gtk.h"
 
 #define CONF_THUMBNAIL_ENABLE_KEY "thumbnail_enable"
 #define CONF_THUMBNAIL_ENABLE     "FALSE"

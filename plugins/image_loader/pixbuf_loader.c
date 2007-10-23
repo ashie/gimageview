@@ -24,8 +24,8 @@
 #include <gdk-pixbuf/gdk-pixbuf-loader.h>
 
 #include "pixbuf_anim.h"
-#include "fileutil.h"
 #include "gimv_plugin.h"
+#include "utils_file.h"
 
 
 static GimvImageLoaderPlugin gimv_pixbuf_loader[] =

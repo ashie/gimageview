@@ -25,13 +25,13 @@
 
 #include "gimageview.h"
 
-#include "utils_dnd.h"
 #include "gimv_thumb.h"
 #include "gimv_thumb_view.h"
 #include "gimv_thumb_win.h"
 #include "gimv_zalbum.h"
-#include "gtkutils.h"
 #include "prefs.h"
+#include "utils_dnd.h"
+#include "utils_gtk.h"
 
 
 #define THUMBALBUM_LABEL  "Album"
@@ -694,7 +694,7 @@ thumbalbum_create (GimvThumbView *tv, const gchar *dest_mode)
 
 
 
-#include "fileutil.h"
+#include "utils_file.h"
 #define DEFAULT_DATA_ORDER "Name,Size,Time"
 static gboolean show_data_title = FALSE;
 static const gchar *data_order = DEFAULT_DATA_ORDER;

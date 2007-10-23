@@ -31,9 +31,9 @@
 #include "gimv_image_loader.h"
 #include "gimv_mime_types.h"
 #include "prefs.h"
-#include "fileutil.h"
 #include "gimv_io.h"
 #include "gimv_image_saver.h"
+#include "utils_file.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 typedef GdkPixbuf GimvRawImage;

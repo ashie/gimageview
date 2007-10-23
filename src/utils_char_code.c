@@ -23,8 +23,8 @@
 
 #include <string.h>
 #include <glib/gi18n.h>
-#include "charset.h"
-#include "japanese.h"
+#include "utils_char_code.h"
+#include "utils_japanese.h"
 
 CharsetDetectLocaleFn charset_locale_fn_table[] = {
    japanese_locale_charset,

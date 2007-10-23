@@ -28,15 +28,15 @@
 #include <sys/utsname.h>
 #include <gdk-pixbuf/gdk-pixbuf-features.h>
 
-#include "charset.h"
-#include "fileutil.h"
-#include "gfileutil.h"
-#include "help.h"
 #include "gimv_icon_stock.h"
-#include "menu.h"
 #include "gimv_plugin.h"
-#include "prefs.h"
 #include "gimv_text_win.h"
+#include "prefs.h"
+#include "help.h"
+#include "utils_char_code.h"
+#include "utils_file.h"
+#include "utils_file_gtk.h"
+#include "utils_menu.h"
 
 #define DOC_HTML_DIR "html"
 #define DOC_TEXT_DIR "text"

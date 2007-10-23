@@ -1,5 +1,16 @@
 2007-10-22 Takuro Ashie <ashie@homa.ne.jp>
 
+	* src/utils_auto_comp.[ch]: Renamed from auto_completion.[ch]
+	* src/utils_char_code.[ch]: Renamed from charset.[ch]
+	* src/utils_file.[ch]: Renamed from fileutil.[ch]
+	* src/utils_file_gtk.[ch]: Renamed from gfileutils.[ch]
+	* src/utils_gtk.[ch]: Renamed from gtkutils.[ch]
+	* src/utils_japanese.[ch]: Renamed from japanese.[ch]
+	* src/utils_menu.[ch]: Renamed from menu.[ch]
+	* src/Makefile.am, *.[ch]: Follow the change.
+
+2007-10-22 Takuro Ashie <ashie@homa.ne.jp>
+
 	* src/uitls_auto_comp.[ch]: Renamed from src/auto_completion.[ch]
 	* src/dnd.[ch]: Renamed from src/utils_dnd.[ch]
 	* plugins/thumbnail_view/detailview.c, src/gimv_comment_view.c,
