@@ -73,7 +73,7 @@ typedef struct
    GtkWidget *top;
    GtkWidget *user;
    GtkWidget *group;
-   fprop *prop;
+   GimvFileProp *prop;
    int result;
    int type;
 } dlg;
@@ -167,8 +167,8 @@ on_key_press (GtkWidget * w, GdkEventKey * event, void *data)
 /*
  * create a modal dialog for properties and handle it
  */
-gint
-dlg_prop (const gchar *path, fprop * prop, gint flags)
+static gint
+dlg_prop (const gchar *path, GimvFileProp * prop, gint flags)
 {
    GtkWidget *ok = NULL, *cancel = NULL, *label, *skip, *all, *notebook, *table;
    GtkWidget *owner[4], *perm[15], *info[12];
@@ -528,9 +528,9 @@ dlg_prop (const gchar *path, fprop * prop, gint flags)
 
 
 gboolean
-dlg_prop_from_image_info (GimvImageInfo *info, gint flags)
+gimv_file_prop_win_run (GimvImageInfo *info, gint flags)
 {
-   fprop prop;
+   GimvFileProp prop;
    gint rc = DLG_RC_CANCEL;
    const gchar *path;
    gboolean retval = FALSE;

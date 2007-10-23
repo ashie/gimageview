@@ -26,12 +26,8 @@
  * $Id$
  */
 
-#ifndef __GTK_PROP_H__
-#define __GTK_PROP_H__
-
-#ifdef HAVE_CONFIG_H
-#  include "config.h"
-#endif
+#ifndef __GIMV_FILE_PROP_WIN_H__
+#define __GIMV_FILE_PROP_WIN_H__
 
 #include <sys/types.h>
 #include <gtk/gtk.h>
@@ -85,12 +81,9 @@ typedef struct
    time_t mtime;
    time_t atime;
    off_t size;
-} fprop;
+} GimvFileProp;
 
-gint     dlg_prop                 (const gchar   *path,
-                                   fprop         *prop, 
-                                   gint           flags);
-gboolean dlg_prop_from_image_info (GimvImageInfo *info,
-                                   gint           flags);
+gboolean gimv_file_prop_win_run (GimvImageInfo *info,
+                                 gint           flags);
 
-#endif /* __GTK_PROP_H__ */
+#endif /* __GIMV_FILE_PROP_WIN_H__ */
