@@ -1,5 +1,22 @@
 2007-10-23 Takuro Ashie <ashie@homa.ne.jp>
 
+	* src/gimv_file_prop_win.[ch]: Rename from gtk_prop.[ch]
+	* src/Makefile.am, src/gimv_dir_view.c, src/gimv_thumb_view.c:
+	Follow the change.
+
+2007-10-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* src/gtk_prop.[ch]: Rename a functions.
+	* src/gimv_dir_view.c, src/gimv_thumb_view.c: Follow the change.
+
+2007-10-23 Takuro Ashie <ashie@homa.ne.jp>
+
+	* plugins/image_view/gimv_mplayer.c,
+	  plugins/image_view/gimv_xine_priv.h:
+	Remove needless codes.
+
+2007-10-23 Takuro Ashie <ashie@homa.ne.jp>
+
 	* intltool-*.in, po/Makefile.in.in: Removed from svn.
 	* autogen.sh: Add intltoolize.
 

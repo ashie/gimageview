@@ -41,7 +41,7 @@
 #include "gimv_thumb_cache.h"
 #include "gimv_thumb_view.h"
 #include "gimv_thumb_win.h"
-#include "gtk_prop.h"
+#include "gimv_file_prop_win.h"
 #include "prefs.h"
 #include "utils_char_code.h"
 #include "utils_dnd.h"

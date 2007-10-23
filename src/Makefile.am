@@ -53,7 +53,7 @@ gimv_SOURCES = \
 	gimv_thumb_view.c gimv_thumb_view.h \
 	gimv_thumb_view_album.c \
 	gimv_thumb_win.c gimv_thumb_win.h \
-	gtk_prop.c gtk_prop.h \
+	gimv_file_prop_win.c gimv_file_prop_win.h \
 	help.c help.h \
 	prefs.c prefs.h \
 	utils.c utils.h \
