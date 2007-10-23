@@ -15,9 +15,7 @@ gimv_SOURCES = \
 	gimv_zlist.c gimv_zlist.h \
 \
 	argparse.c argparse.h \
-	auto_completion.c auto_completion.h \
 	charset.c charset.h \
-	dnd.c dnd.h \
 	fileload.c fileload.h \
 	fileutil.c fileutil.h \
 	fr-archive.c fr-archive.h \
@@ -62,6 +60,8 @@ gimv_SOURCES = \
 	menu.c menu.h \
 	prefs.c prefs.h \
 	utils.c utils.h \
+	utils_auto_comp.c utils_auto_comp.h \
+	utils_dnd.c utils_dnd.h \
 \
 	compare_filesize.c \
 	compare_md5.c \

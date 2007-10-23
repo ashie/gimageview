@@ -25,7 +25,7 @@
 
 #include "gimageview.h"
 
-#include "dnd.h"
+#include "utils_dnd.h"
 #include "fileutil.h"
 #include "gfileutil.h"
 #include "gtkutils.h"

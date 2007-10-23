@@ -30,7 +30,7 @@
 #include "gimageview.h"
 
 #include "charset.h"
-#include "dnd.h"
+#include "utils_dnd.h"
 #include "fileload.h"
 #include "fileutil.h"
 #include "gfileutil.h"

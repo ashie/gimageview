@@ -28,7 +28,7 @@
 #include "gimageview.h"
 
 #include "charset.h"
-#include "dnd.h"
+#include "utils_dnd.h"
 #include "gimv_comment.h"
 #include "gimv_icon_stock.h"
 #include "gimv_image_info.h"

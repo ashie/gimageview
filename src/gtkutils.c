@@ -33,7 +33,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>
 
-#include "auto_completion.h"
+#include "utils_auto_comp.h"
 #include "charset.h"
 #include "fileutil.h"
 #include "gtkutils.h"

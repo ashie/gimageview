@@ -26,7 +26,7 @@
 #include <string.h>
 
 #include "charset.h"
-#include "dnd.h"
+#include "utils_dnd.h"
 #include "fileutil.h"
 #include "gfileutil.h"
 #include "gtk_prop.h"
