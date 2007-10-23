@@ -27,8 +27,7 @@
 #include <string.h>
 
 #include "charset.h"
-#include "dnd.h"
-//#include "detailview_priv.h"
+#include "utils_dnd.h"
 #include "detailview_prefs.h"
 #include "fileutil.h"
 #include "gimv_cell_pixmap.h"

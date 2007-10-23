@@ -41,7 +41,7 @@
 #include <gtk/gtkwindow.h>
 #include <gtk/gtkscrolledwindow.h>
 
-#include "auto_completion.h"
+#include "utils_auto_comp.h"
 #include "charset.h"
 #include "fileutil.h"
 #include "gfileutil.h"

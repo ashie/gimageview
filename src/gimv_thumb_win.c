@@ -28,9 +28,9 @@
 
 #include "gimageview.h"
 
-#include "auto_completion.h"
+#include "utils_auto_comp.h"
 #include "charset.h"
-#include "dnd.h"
+#include "utils_dnd.h"
 #include "fileutil.h"
 #include "gfileutil.h"
 #include "gimv_comment_view.h"

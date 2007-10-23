@@ -27,7 +27,7 @@
 
 #include "gimageview.h"
 
-#include "dnd.h"
+#include "utils_dnd.h"
 #include "fileutil.h"
 #include "gimv_image.h"
 #include "gimv_anim.h"
