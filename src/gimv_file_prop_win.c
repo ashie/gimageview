@@ -47,7 +47,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>
-#include "gtk_prop.h"
+#include "gimv_file_prop_win.h"
 
 #ifdef DMALLOC
 #  include "dmalloc.h"
