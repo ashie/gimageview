@@ -589,7 +589,7 @@ cb_file_property (GimvDirView *dv, guint action, GtkWidget *menuitem)
       return;
    }
 
-   dlg_prop_from_image_info (info, 0);
+   gimv_file_prop_win_run (info, 0);
 
    gimv_image_info_unref (info);
    g_free (path);

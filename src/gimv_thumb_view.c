@@ -659,7 +659,7 @@ cb_file_property (GimvThumbView *tv, guint action, GtkWidget *menuitem)
       flags |= GTK_PROP_EDITABLE | GTK_PROP_NOT_DETECT_TYPE;
    }
 
-   if (dlg_prop_from_image_info (info, flags))
+   if (gimv_file_prop_win_run (info, flags))
       gimv_thumb_view_refresh_list (tv);
 
    gimv_image_info_unref (info);
