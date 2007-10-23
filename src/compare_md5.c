@@ -37,7 +37,7 @@
 #include "gimv_dupl_finder.h"
 #include "gimv_image_info.h"
 #include "gimv_thumb.h"
-#include "md5.h"
+#include "utils_md5.h"
 
 
 /* Most systems do not distinguish between external and internal

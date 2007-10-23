@@ -25,8 +25,8 @@
 
 #include <string.h>
 #include "gimv_image_view.h"
-#include "menu.h"
 #include "prefs.h"
+#include "utils_menu.h"
 
 extern Config   *config_changed;
 extern Config   *config_prechanged;
