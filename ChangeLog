@@ -1,3 +1,7 @@
+2007-10-28 Takuro Ashie <ashie@homa.ne.jp>
+
+	* configure.ac: Use AC_CONFIG_FILES.
+
 2007-10-23 Takuro Ashie <ashie@homa.ne.jp>
 
 	* src/gimv_file_prop_win.[ch]: Rename from gtk_prop.[ch]

@@ -574,7 +574,7 @@ AC_SUBST(THUMBNAIL_VIEW_PLUGIN_DIR)
 AC_SUBST(THUMBNAIL_PLUGIN_DIR)
 
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
 Makefile
 doc/Makefile
 doc/ja/Makefile
@@ -597,6 +597,8 @@ src/pixmaps/Makefile
 src/prefs_ui/Makefile
 gimageview.spec
 ])
+
+AC_OUTPUT
 
 
 dnl
