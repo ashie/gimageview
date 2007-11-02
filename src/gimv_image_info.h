@@ -30,6 +30,14 @@
 #include "gimageview.h"
 #include "gimv_io.h"
 
+#define GIMV_TYPE_IMAGE_INFO            (gimv_image_info_get_type ())
+#define GIMV_IMAGE_INFO(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GIMV_TYPE_IMAGE_INFO, GimvImageInfo))
+#define GIMV_IMAGE_INFO_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GIMV_TYPE_IMAGE_INFO, GimvImageInfoClass))
+#define GIMV_IS_IMAGE_INFO(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GIMV_TYPE_IMAGE_INFO))
+#define GIMV_IS_IMAGE_INFO_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GIMV_TYPE_IMAGE_INFO))
+#define GIMV_IMAGE_INFO_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GIMV_TYPE_IMAGE_INFO, GimvImageInfoClass))
+
+typedef struct GimvImageInfoClass_Tag GimvImageInfoClass;
 
 typedef enum
 {
@@ -44,9 +52,10 @@ typedef enum
    GIMV_IMAGE_INFO_MRL_FLAG                  = 1 << 9    /* used by xine */
 } GimvImageInfoFlags;
 
-
 struct GimvImageInfo_Tag
 {
+   GObject         parent;
+
    gchar          *filename;   /* If the file is a member of a archive,
                                   this value sholud be set as relative path. */
    const gchar    *format;
@@ -63,10 +72,15 @@ struct GimvImageInfo_Tag
    guint           ref_count;
 };
 
+struct GimvImageInfoClass_Tag
+{
+   GObjectClass parent_class;
+};
 
 #define GIMV_IMAGE_INFO_IS_SYNCED(info) \
    (info ? (info->flags & GIMV_IMAGE_INFO_SYNCED_FLAG) : FALSE)
 
+GType           gimv_image_info_get_type             (void);
 
 /*
  *  Get GimvImageInfo object for specified file. If file is not exist,
@@ -135,7 +149,6 @@ GimvIO         *gimv_image_info_get_gio              (GimvImageInfo *info);
 void            gimv_image_info_finalize             (GimvImageInfo *info);
 GimvImageInfo  *gimv_image_info_ref                  (GimvImageInfo *info);
 void            gimv_image_info_unref                (GimvImageInfo *info);
-
 
 /*
  *  used by fr-command only

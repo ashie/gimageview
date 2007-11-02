@@ -129,7 +129,6 @@ gimv_image_loader_plugin_regist (const gchar *plugin_name,
  ****************************************************************************/
 G_DEFINE_TYPE (GimvImageLoader, gimv_image_loader, G_TYPE_OBJECT)
 
-
 static void
 gimv_image_loader_class_init (GimvImageLoaderClass *klass)
 {

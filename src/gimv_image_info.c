@@ -40,6 +40,7 @@
 #include "utils_file.h"
 #include "utils_file_gtk.h"
 
+G_DEFINE_TYPE (GimvImageInfo, gimv_image_info, G_TYPE_OBJECT);
 
 static GHashTable *gimv_image_info_table = NULL;
 static GHashTable *comment_table    = NULL;
@@ -52,6 +53,22 @@ static GHashTable *link_table       = NULL;
  *   Private Functions.
  *
  ******************************************************************************/
+static void
+gimv_image_info_class_init (GimvImageInfoClass *klass)
+{
+   GObjectClass *object_class;
+
+   object_class = (GObjectClass *) klass;
+
+   /*object_class->dispose  = gimv_image_info_dispose;*/
+}
+
+
+static void
+gimv_image_info_init (GimvImageInfo *info)
+{
+}
+
 static GimvImageInfo *
 gimv_image_info_new (const gchar *filename)
 {
