@@ -418,14 +418,19 @@ static void
 cb_tree_cursor_changed (GtkTreeView *treeview, gpointer data)
 {
    GtkTreeSelection *selection;
-   GtkTreeModel *model;
+   GtkTreeModel *model = NULL;
    GtkTreeIter iter;
-   GimvPrefsWinPagePrivate *priv;
+   GimvPrefsWinPagePrivate *priv = NULL;
 
-   g_return_if_fail (treeview);
+   g_return_if_fail (GTK_IS_TREE_VIEW(treeview));
 
    selection = gtk_tree_view_get_selection (treeview);
-   gtk_tree_selection_get_selected (selection, &model, &iter);
+   g_return_if_fail(GTK_IS_TREE_SELECTION(selection));
+
+   if (!gtk_tree_selection_get_selected (selection, &model, &iter))
+      return;
+   g_return_if_fail(GTK_IS_TREE_MODEL(model));
+
    gtk_tree_model_get (model, &iter,
                        COLUMN_PRIV_DATA, &priv,
                        COLUMN_TERMINATOR);
