@@ -4,6 +4,7 @@
 	  - Fix a bug that the cancel button on the file selection dialog is
 	    removed when an user press it.
 	  - Remove needless code.
+	* m4/Makefile.m4: Remove needless files.
 
 2008-01-07 Takuro Ashie <ashie@homa.ne.jp>
 
