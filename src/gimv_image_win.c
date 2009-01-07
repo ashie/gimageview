@@ -929,7 +929,8 @@ create_toolbar (GimvImageWin *iw, GtkWidget *container)
                                     iw);
 
    /* fullscreen button */
-   iconw = gimv_icon_stock_get_widget ("fullscreen");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_FULLSCREEN,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    /* button = gtk_toggle_button_new (); */
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Full"),
@@ -956,7 +957,8 @@ create_player_toolbar (GimvImageWin *iw, GtkWidget *container)
    toolbar = gtkutil_create_toolbar ();
 
    /* previous button */
-   iconw = gimv_icon_stock_get_widget ("prev_t");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_MEDIA_PREVIOUS,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
                                      _("First"),
                                      _("First"), _("First"),
@@ -965,7 +967,8 @@ create_player_toolbar (GimvImageWin *iw, GtkWidget *container)
    iw->player.prev = button;
 
    /* Reverse button */
-   iconw = gimv_icon_stock_get_widget ("rw");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_MEDIA_REWIND,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
                                      _("Prev"),
                                      _("Previous"), _("Previous"),
@@ -974,7 +977,8 @@ create_player_toolbar (GimvImageWin *iw, GtkWidget *container)
    iw->player.rw = button;
 
    /* play button */
-   iconw = gimv_icon_stock_get_widget ("play");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_MEDIA_PLAY,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
                                      _("Play"),
                                      _("Play Slide Show"), _("Play Slide Show"),
@@ -983,7 +987,8 @@ create_player_toolbar (GimvImageWin *iw, GtkWidget *container)
    iw->player.play = button;
 
    /* stop button */
-   iconw = gimv_icon_stock_get_widget ("stop2");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_MEDIA_STOP,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
                                      _("Stop"),
                                      _("Stop Slide Show"), _("Stop Slide Show"),
@@ -992,7 +997,8 @@ create_player_toolbar (GimvImageWin *iw, GtkWidget *container)
    iw->player.stop = button;
 
    /* Forward button */
-   iconw = gimv_icon_stock_get_widget ("ff");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_MEDIA_FORWARD,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
                                      _("Next"),
                                      _("Next"), _("Next"),
@@ -1001,7 +1007,8 @@ create_player_toolbar (GimvImageWin *iw, GtkWidget *container)
    iw->player.fw = button;
 
    /* Next button */
-   iconw = gimv_icon_stock_get_widget ("next_t");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_MEDIA_NEXT,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
                                      _("Last"),
                                      _("Last"), _("Last"),
