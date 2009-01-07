@@ -949,13 +949,13 @@ cb_filebrowser_close (GtkWidget *widget, gpointer parent)
 }
 
 
-/*
- *  create_filebrowser:
- *     @ File open dialog (extend Gtk+'s original file open dialog widget)
- *
- *  parent : Pointer to parent window.
- *  Return : Pointer to new filebrowser.
- */
+static void
+cb_cancel_button_clicked(GtkWidget *widget, gpointer data)
+{
+   gtk_widget_destroy(GTK_WIDGET(data));
+}
+
+
 GtkWidget *
 create_filebrowser (gpointer parent)
 {
@@ -989,7 +989,7 @@ create_filebrowser (gpointer parent)
       G_CALLBACK(cb_filebrowser_ok_sel),
       filesel);
    g_signal_connect(G_OBJECT(GTK_FILE_SELECTION(filebrowser)->cancel_button),
-                    "clicked", G_CALLBACK(gtk_widget_destroy),
+                    "clicked", G_CALLBACK(cb_cancel_button_clicked),
                     filebrowser);
 
    bbox = gtk_hbutton_box_new();
