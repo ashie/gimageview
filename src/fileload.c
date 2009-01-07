@@ -1013,22 +1013,6 @@ create_filebrowser (gpointer parent)
                     filesel);
    gtk_widget_show_all(bbox);
 
-#if 0
-   /*
-    * 2004-06-17 Takuro Ashie <ashie@homa.ne.jp>
-    * This code causes clash on latest Gtk+2.
-    */
-   /*
-    * Change the Cancel buttons caption to Close.
-    */
-   label = gtk_label_new(_("Close"));
-   gtk_misc_set_alignment(GTK_MISC(label), 0.5, 0.5);
-   gtk_container_remove(GTK_CONTAINER(GTK_FILE_SELECTION(filebrowser)->cancel_button),
-                        gtk_container_children(GTK_CONTAINER(GTK_FILE_SELECTION(filebrowser)->cancel_button))->data);
-   gtk_container_add(GTK_CONTAINER(GTK_FILE_SELECTION(filebrowser)->cancel_button), label);
-   gtk_widget_show(label);
-#endif
-
    gtk_widget_show(filebrowser);
 
    gimv_icon_stock_set_window_icon (filebrowser->window, "nfolder");
