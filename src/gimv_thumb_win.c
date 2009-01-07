@@ -1504,7 +1504,8 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
    toolbar = gtkutil_create_toolbar ();
 
    /* file open button */
-   iconw = gimv_icon_stock_get_widget ("nfolder");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_OPEN,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Open"),
                                     _("File Open"),
@@ -1515,7 +1516,8 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
    tw->button.fileopen = button;
 
    /* preference button */
-   iconw = gimv_icon_stock_get_widget ("prefs");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_PREFERENCES,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Prefs"),
                                     _("Preference"),
@@ -1528,7 +1530,8 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
    gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
 
    /* previous button */
-   iconw = gimv_icon_stock_get_widget ("leftarrow");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_GO_BACK,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Prev"),
                                     _("Go to previous page"), 
@@ -1539,7 +1542,8 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
    tw->button.prev = button;
 
    /* next button */
-   iconw = gimv_icon_stock_get_widget ("rightarrow");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_GO_FORWARD,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Next"),
                                     _("Go to next page"), 
@@ -1552,7 +1556,8 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
    gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
 
    /* refresh button */
-   iconw = gimv_icon_stock_get_widget ("refresh");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_REFRESH,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Reload"),
                                     _("Reload Cache"), 
@@ -1563,7 +1568,8 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
    tw->button.refresh = button;
 
    /* skip button */
-   iconw = gimv_icon_stock_get_widget ("skip");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_GOTO_LAST,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Skip"),
                                     _("Skip creating current thumbnail table"), 
@@ -1575,7 +1581,8 @@ create_toolbar (GimvThumbWin *tw, GtkWidget *container)
    tw->button.skip = button;
 
    /* stop button */
-   iconw = gimv_icon_stock_get_widget ("stop");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_STOP,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Stop"),
                                     _("Stop creating thumbnails"), 
