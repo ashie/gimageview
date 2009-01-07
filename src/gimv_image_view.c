@@ -2150,7 +2150,8 @@ gimv_image_view_create_player_toolbar (GimvImageView *iv)
    iv->player_toolbar = toolbar;
 
    /* Reverse button */
-   iconw = gimv_icon_stock_get_widget ("rw");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_MEDIA_REWIND,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
                                      _("RW"),
                                      _("Reverse"), _("Reverse"),
@@ -2160,7 +2161,8 @@ gimv_image_view_create_player_toolbar (GimvImageView *iv)
    iv->player.rw = button;
 
    /* play button */
-   iconw = gimv_icon_stock_get_widget ("play");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_MEDIA_PLAY,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
                                      _("Play"),
                                      _("Play"), _("Play"),
@@ -2171,7 +2173,8 @@ gimv_image_view_create_player_toolbar (GimvImageView *iv)
    iv->player.play_icon = iconw;
 
    /* stop button */
-   iconw = gimv_icon_stock_get_widget ("stop2");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_MEDIA_STOP,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
                                      _("Stop"),
                                      _("Stop"), _("Stop"),
@@ -2181,7 +2184,8 @@ gimv_image_view_create_player_toolbar (GimvImageView *iv)
    iv->player.stop = button;
 
    /* Forward button */
-   iconw = gimv_icon_stock_get_widget ("ff");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_MEDIA_FORWARD,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
                                      _("FF"),
                                      _("Forward"), _("Forward"),
@@ -3982,7 +3986,9 @@ gimv_image_view_playable_set_status (GimvImageView *iv,
    }
 
    if (status == GimvImageViewPlayableDisable) {
-      gimv_icon_stock_change_widget_icon  (iv->player.play_icon, "play");
+      gtk_image_set_from_stock(GTK_IMAGE(iv->player.play_icon),
+                               GTK_STOCK_MEDIA_PLAY,
+                               GTK_ICON_SIZE_SMALL_TOOLBAR);
       gtk_widget_set_sensitive (iv->player.play,    FALSE);
       gtk_widget_set_sensitive (iv->player.stop,    FALSE);
       gtk_widget_set_sensitive (iv->player.fw,      FALSE);
@@ -4063,9 +4069,13 @@ gimv_image_view_playable_set_status (GimvImageView *iv,
    }
 
    if (status == GimvImageViewPlayablePlay && playable->pause_fn) {
-      gimv_icon_stock_change_widget_icon (iv->player.play_icon, "pause");
+      gtk_image_set_from_stock(GTK_IMAGE(iv->player.play_icon),
+                               GTK_STOCK_MEDIA_PAUSE,
+                               GTK_ICON_SIZE_SMALL_TOOLBAR);
    } else {
-      gimv_icon_stock_change_widget_icon (iv->player.play_icon, "play");
+      gtk_image_set_from_stock(GTK_IMAGE(iv->player.play_icon),
+                               GTK_STOCK_MEDIA_PLAY,
+                               GTK_ICON_SIZE_SMALL_TOOLBAR);
    }
 }
 
