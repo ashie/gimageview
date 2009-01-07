@@ -768,7 +768,8 @@ create_toolbar (GimvImageWin *iw, GtkWidget *container)
    toolbar = gtkutil_create_toolbar ();
 
    /* file open button */
-   iconw = gimv_icon_stock_get_widget ("nfolder");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_OPEN,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Open"),
                                     _("File Open"),
@@ -778,7 +779,8 @@ create_toolbar (GimvImageWin *iw, GtkWidget *container)
                                     NULL);
 
    /* preference button */
-   iconw = gimv_icon_stock_get_widget ("prefs");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_PREFERENCES,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Prefs"),
                                     _("Preference"),
@@ -790,7 +792,8 @@ create_toolbar (GimvImageWin *iw, GtkWidget *container)
    gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
 
    /* prev button */
-   iconw = gimv_icon_stock_get_widget ("back");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_GO_BACK,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Prev"),
                                     _("Previous Image"),
@@ -802,7 +805,8 @@ create_toolbar (GimvImageWin *iw, GtkWidget *container)
    /* gtk_widget_set_sensitive (button, FALSE); */
 
    /* next button */
-   iconw = gimv_icon_stock_get_widget ("forward");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_GO_FORWARD,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Next"),
                                     _("Next Image"),
@@ -816,7 +820,8 @@ create_toolbar (GimvImageWin *iw, GtkWidget *container)
    gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
 
    /* no zoom button */
-   iconw = gimv_icon_stock_get_widget ("no_zoom");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_ZOOM_100,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("No Zoom"),
                                     _("No Zoom"),
@@ -826,7 +831,8 @@ create_toolbar (GimvImageWin *iw, GtkWidget *container)
                                     iw);
 
    /* zoom in button */
-   iconw = gimv_icon_stock_get_widget ("zoom_in");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_ZOOM_IN,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Zoom in"),
                                     _("Zoom in"),
@@ -836,7 +842,8 @@ create_toolbar (GimvImageWin *iw, GtkWidget *container)
                                     iw);
 
    /* zoom out button */
-   iconw = gimv_icon_stock_get_widget ("zoom_out");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_ZOOM_OUT,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Zoom out"),
                                     _("Zoom out"),
@@ -846,7 +853,8 @@ create_toolbar (GimvImageWin *iw, GtkWidget *container)
                                     iw);
 
    /* zoom fit button */
-   iconw = gimv_icon_stock_get_widget ("zoom_fit");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_ZOOM_FIT,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Zoom fit"),
                                     _("Zoom fit"),
@@ -887,7 +895,8 @@ create_toolbar (GimvImageWin *iw, GtkWidget *container)
    iw->button.yscale = spinner;
 
    /* zoom button */
-   iconw = gimv_icon_stock_get_widget ("zoom");
+   iconw = gtk_image_new_from_stock(GTK_STOCK_OK,
+                                    GTK_ICON_SIZE_SMALL_TOOLBAR);
    button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
                                     _("Zoom"),
                                     _("Zoom"),
