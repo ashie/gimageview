@@ -327,11 +327,14 @@ cb_tree_cursor_changed (GtkTreeView *treeview, gpointer data)
    GtkTreeModel *model;
    GtkTreeIter iter;
    gchar *text, *full_path;
+   gboolean success;
 
    g_return_if_fail (GTK_IS_TREE_VIEW (treeview));
 
    selection = gtk_tree_view_get_selection (treeview);
-   gtk_tree_selection_get_selected (selection, &model, &iter);
+   success = gtk_tree_selection_get_selected (selection, &model, &iter);
+   if (!success) return;
+
    gtk_tree_model_get (model, &iter,
                        0, &text,
                        -1);
