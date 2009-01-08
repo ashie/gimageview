@@ -2065,7 +2065,16 @@ gimv_dir_view_init (GimvDirView *dv)
    if (!dv->show_toolbar)
       gtk_widget_hide (dv->toolbar_eventbox);
 
-   dnd_src_set  (eventbox, dnd_types_component, dnd_types_component_num);
+   dnd_src_set (dv->toolbar, dnd_types_component, dnd_types_component_num);
+   g_object_set_data (G_OBJECT (dv->toolbar),
+                      "gimv-component",
+                      GINT_TO_POINTER (GIMV_COM_DIR_VIEW));
+   g_signal_connect (G_OBJECT (dv->toolbar), "drag_begin",
+                     G_CALLBACK (cb_toolbar_drag_begin), dv);
+   g_signal_connect (G_OBJECT (dv->toolbar), "drag_data_get",
+                     G_CALLBACK (cb_toolbar_drag_data_get), dv);
+
+   dnd_src_set (eventbox, dnd_types_component, dnd_types_component_num);
    g_object_set_data (G_OBJECT (eventbox),
                       "gimv-component",
                       GINT_TO_POINTER (GIMV_COM_DIR_VIEW));

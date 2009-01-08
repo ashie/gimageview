@@ -329,6 +329,8 @@ static void cb_com_drag_data_get          (GtkWidget        *widget,
                                            guint             info,
                                            guint             time,
                                            gpointer          data);
+static void cb_com_drag_end               (GtkWidget        *widget,
+                                           GdkDragContext   *context);
 static void cb_notebook_drag_data_received(GtkWidget        *widget,
                                            GdkDragContext   *context,
                                            gint x, gint y,
@@ -1850,6 +1852,8 @@ thumbnail_view_new (GimvThumbWin *tw)
                      G_CALLBACK (cb_com_drag_begin), tw);
    g_signal_connect (G_OBJECT (notebook), "drag_data_get",
                      G_CALLBACK (cb_com_drag_data_get), tw);
+   g_signal_connect (G_OBJECT (notebook), "drag_end",
+                     G_CALLBACK (cb_com_drag_end), tw);
 
    dnd_dest_set (notebook, dnd_types_all, dnd_types_all_num);
    g_object_set_data (G_OBJECT (notebook),
@@ -2072,6 +2076,8 @@ image_preview_new (GimvThumbWin *tw)
                      G_CALLBACK (cb_com_drag_begin), tw);
    g_signal_connect (G_OBJECT (cv->notebook), "drag_data_get",
                      G_CALLBACK (cb_com_drag_data_get), tw);
+   g_signal_connect (G_OBJECT (cv->notebook), "drag_end",
+                     G_CALLBACK (cb_com_drag_end), tw);
 
    dnd_dest_set (cv->main_vbox, dnd_types_component, dnd_types_component_num);
    g_object_set_data (G_OBJECT (cv->main_vbox),
@@ -3061,6 +3067,8 @@ cb_com_drag_begin (GtkWidget *widget,
    gtk_drag_set_icon_pixmap (context, colormap,
                              icon->pixmap, icon->mask,
                              0, 0);
+   /* avoid invoking notebook's callback */
+   g_signal_stop_emission_by_name(G_OBJECT(widget), "drag-begin");
 }
 
 
@@ -3079,6 +3087,17 @@ cb_com_drag_data_get (GtkWidget *widget,
                              8, "dummy", strlen("dummy"));
       break;
    }
+   /* avoid invoking notebook's callback */
+   g_signal_stop_emission_by_name(G_OBJECT(widget), "drag-data-get");
+}
+
+
+static void
+cb_com_drag_end (GtkWidget      *widget,
+                 GdkDragContext *context)
+{
+   /* avoid invoking notebook's callback */
+   g_signal_stop_emission_by_name(G_OBJECT(widget), "drag-end");
 }
 
 
