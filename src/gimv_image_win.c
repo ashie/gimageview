@@ -1029,6 +1029,8 @@ gimv_image_win_set_win_size (GimvImageWin *iw)
    GimvImageViewOrientation rotate;
 
    if (!GIMV_IS_IMAGE_WIN (iw)) return;
+   if (!GIMV_IS_IMAGE_WIN (iw->iv)) return;
+   if (!GIMV_IS_IMAGE_WIN (iw->iv->info)) return;
    if (iw->priv->flags & GimvImageWinMaximizeFlag) return;
    if (iw->priv->flags & GimvImageWinFullScreenFlag) return;
 
