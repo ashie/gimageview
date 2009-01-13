@@ -302,13 +302,6 @@ static ConfParam param_dnd [] = {
 };
 
 
-static ConfParam param_wallpaper [] = {
-   {"wallpaper_menu", D_STRING,
-    "GNOME1,background-properties-capplet;GNOME2,gnome-background-properties;KDE,kcmshell background;KDE(RedHat8),kcmshell kde-background",
-    &conf.wallpaper_menu},
-   {NULL, D_NULL, NULL, NULL}
-};
-
 static ConfParam param_progs [] = {
    {"progs[0]",    D_STRING, "Gimp,gimp-remote -n,FALSE", &conf.progs[0]},
    {"progs[1]",    D_STRING, "XPaint,xpaint,FALSE",       &conf.progs[1]},
@@ -410,7 +403,6 @@ static PrefsSection conf_sections [] = {
    {"Slide Show",       param_slideshow},
    {"Search",           param_search},
    {"Drag and Drop",    param_dnd},
-   {"Wallpaper",        param_wallpaper},
    {"External Program", param_progs},
    {"Plugin",           param_plugin},
    {NULL, NULL},

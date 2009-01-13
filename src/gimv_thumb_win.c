@@ -435,8 +435,6 @@ GtkItemFactoryEntry gimv_thumb_win_menu_items[] =
    {N_("/Too_l/_Clear all cache"),     NULL,         cb_clear_cache,    CLEAR_CACHE_ALL, NULL},
    {N_("/Too_l/---"),                  NULL,         NULL,              0,              "<Separator>"},
    {N_("/Too_l/_Find duplicates"),     NULL,         NULL,              0,              "<Branch>"},
-   {N_("/Too_l/---"),                  NULL,         NULL,              0,              "<Separator>"},
-   {N_("/Too_l/_Wallpaper setting"),   NULL,         NULL,              0,              "<Branch>"},
 
    {N_("/_Help"), NULL, NULL, 0, "<Branch>"},
    {NULL, NULL, NULL, 0, NULL},
@@ -1183,70 +1181,13 @@ cb_tab_submenu_hide (GtkWidget *widget, GimvThumbWin *tw)
 }
 
 
-#warning should be implemented as customizable launcher.
-static void
-cb_wallpaper_setting (GtkWidget *menuitem, GimvThumbWin *tw)
-{
-   const gchar *str;
-   gchar *cmd;
-
-   str = g_object_get_data (G_OBJECT (menuitem), "command");
-   if (!str) return;
-
-   cmd = g_strconcat (str, " &", NULL);
-   system (cmd);
-
-   g_free (cmd);
-}
-
-
-static GtkWidget *
-create_wallpaper_submenu (GimvThumbWin *tw)
-{
-   GtkWidget *menu;
-   GtkWidget *menu_item;
-   gint i;
-   gchar **menus, **pair;
-
-   menus = g_strsplit (conf.wallpaper_menu, ";", -1);
-   if (!menus) return NULL;
-
-   menu = gtk_menu_new();
-
-   /* count items num */
-   for (i = 0; menus[i]; i++) {
-      if (!menus[i] || !*menus[i]) continue;
-
-      pair = g_strsplit (menus[i], ",", 2);
-
-      if (pair && pair[0] && pair[1]) {
-         menu_item = gtk_menu_item_new_with_label (pair[0]);
-         g_object_set_data_full (G_OBJECT (menu_item), "command",
-                                 g_strdup (pair[1]),
-                                 (GtkDestroyNotify) g_free);
-         g_signal_connect (G_OBJECT (menu_item), "activate",
-                           G_CALLBACK (cb_wallpaper_setting), tw);
-         gtk_menu_append (GTK_MENU (menu), menu_item);
-         gtk_widget_show (menu_item);
-      }
-
-      g_strfreev (pair);
-   }
-
-   g_strfreev (menus);
-
-   return menu;
-}
-
-
 static void
 create_gimv_thumb_win_menus (GimvThumbWin *tw)
 {
    static GtkItemFactoryEntry *entries = NULL;
-   GtkWidget *item, *dupmenu;
+   GtkWidget *item, *dupmenu, *help;
    GtkItemFactory *ifactory;
    guint n_menu_items, layout;
-   GtkWidget *submenu, *help;
    const gchar **labels;
    gint i = 0;
 
@@ -1298,9 +1239,6 @@ create_gimv_thumb_win_menus (GimvThumbWin *tw)
    menu_set_submenu (tw->menubar,   "/Help", help);
    menu_set_submenu (tw->view_menu, "/Sort File List", tw->sort_menu);
    menu_set_submenu (tw->view_menu, "/Layout/Window Composition", tw->comp_menu);
-   submenu = create_wallpaper_submenu (tw);
-   if (submenu)
-      menu_set_submenu (tw->menubar, "/Tool/Wallpaper setting", submenu);
 
    ifactory = gtk_item_factory_from_widget (tw->menubar);
    tw->menuitem.file = gtk_item_factory_get_item (ifactory, "/File");
@@ -2801,7 +2739,7 @@ cb_location_entry_drag_data_received (GtkWidget *widget,
 
    switch (info) {
    case TARGET_URI_LIST:
-      list = dnd_get_file_list (seldata->data, seldata->length);
+      list = dnd_get_file_list ((const gchar*)seldata->data, seldata->length);
       gimv_thumb_win_location_entry_set_text (tw, list->data);
       g_list_foreach (list, (GFunc) g_free, NULL);
       g_list_free (list);
@@ -3084,7 +3022,7 @@ cb_com_drag_data_get (GtkWidget *widget,
    case TARGET_GIMV_TAB:
    case TARGET_GIMV_COMPONENT:
       gtk_selection_data_set(seldata, seldata->target,
-                             8, "dummy", strlen("dummy"));
+                             8, (const guchar*)"dummy", strlen("dummy"));
       break;
    }
    /* avoid invoking notebook's callback */
@@ -3136,7 +3074,7 @@ cb_notebook_drag_data_received (GtkWidget *widget,
 
    switch (info) {
    case TARGET_URI_LIST:
-      list = dnd_get_file_list (seldata->data, seldata->length);
+      list = dnd_get_file_list ((const gchar*)seldata->data, seldata->length);
       open_images_dirs (list, tw, LOAD_CACHE, FALSE);
       g_list_foreach (list, (GFunc) g_free, NULL);
       g_list_free (list);
