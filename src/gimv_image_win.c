@@ -278,7 +278,9 @@ GtkItemFactoryEntry gimv_image_win_menu_items[] =
 
    {N_("/_Edit"),                        NULL,         NULL,              0,  "<Branch>"},
    {N_("/_Edit/Edit _Comment..."),       NULL,         cb_edit_comment,   0,  NULL},
+#ifdef ENABLE_EXIF
    {N_("/_Edit/Scan E_XIF Data..."),       NULL,       cb_exif,           0,  NULL},
+#endif /* ENABLE_EXIF */
    {N_("/_Edit/Create _Thumbnail"),      "<shift>T",   cb_create_thumb,   0,  NULL},
    {N_("/_Edit/---"),                    NULL,         NULL,              0,  "<Separator>"},
    {N_("/_Edit/_Options..."),            "<control>O", cb_options,        0,  NULL},
