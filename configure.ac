@@ -82,9 +82,11 @@ AC_SUBST(GTK2_REQUIRED)
 AC_SUBST(GDK_PIXBUF2_REQUIRED)
 
 # Backends
+EXIF_REQUIRED=0.6.0
 LIBRSVG_REQUIRED=1.0.0
 LIBWMF_REQUIRED=0.2.8
 XINE_REQUIRED=1.0.0
+AC_SUBST(EXIF_REQUIRED)
 AC_SUBST(LIBRSVG_REQUIRED)
 AC_SUBST(LIBWMF_REQUIRED)
 AC_SUBST(XINE_REQUIRED)
@@ -218,6 +220,31 @@ AC_SUBST(JPEG_CFLAGS)
 AC_SUBST(JPEG_LIBS)
 
 enable_jpeg=$available_jpeg
+
+
+dnl ********************
+dnl Test for libexif
+dnl ********************
+AC_ARG_WITH(libexif, 
+            [  --with-libexif          Use libexif for showing EXIF data [default=yes]],
+            enable_exif="${withval}",
+            enable_exif=yes)
+
+if test x"$enable_exif" = xyes; then
+   PKG_CHECK_MODULES(EXIF, libexif >= $EXIF_REQUIRED, , [
+      enable_exif=no;
+      AC_MSG_WARN(Did not find libexif installed)
+   ])
+fi
+
+AM_CONDITIONAL(ENABLE_EXIF, test x"$enable_exif" = xyes)
+
+if test x"$enable_exif" = xyes; then
+   AC_DEFINE(ENABLE_EXIF, 1, [Define if you want to compile EXIF features.])
+fi
+
+AC_SUBST(EXIF_CFLAGS)
+AC_SUBST(EXIF_LIBS)
 
 
 dnl ********************
@@ -392,22 +419,6 @@ dnl *******************
 AC_PROG_INTLTOOL
 
 
-dnl ******************************
-dnl enable/disable EXIF support
-dnl ******************************
-AC_ARG_ENABLE(exif,
-   [  --enable-exif           enable EXIF support [default=yes]],
-   [enable_exif="${enableval}"], [enable_exif=yes])
-AM_CONDITIONAL(ENABLE_EXIF, test x"$enable_exif" = xyes)
-if test x"$enable_exif" = xyes; then
-   AC_DEFINE(ENABLE_EXIF, 1, [Define if you want to enable EXIF feature.])
-   EXIF_CFLAGS="-I\$(top_srcdir)/lib"
-   EXIF_LIBS="\$(top_builddir)/lib/libexif/libexif.la"
-   AC_SUBST(EXIF_CFLAGS)
-   AC_SUBST(EXIF_LIBS)
-fi
-
-
 dnl **************************************
 dnl enable/disable susie plugin support
 dnl **************************************
@@ -571,7 +582,6 @@ m4/Makefile
 po/Makefile.in
 lib/Makefile
 lib/dllloader/Makefile
-lib/libexif/Makefile
 plugins/Makefile
 plugins/archiver/Makefile
 plugins/image_loader/Makefile

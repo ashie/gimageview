@@ -23,9 +23,7 @@
 
 #include "gimageview.h"
 
-#ifdef ENABLE_EXIF
-
-#include <libexif/jpeg-data.h>
+#include "jpeg-data.h"
 #include <libexif/exif-data.h>
 
 #include "gimv_exif_view.h"
@@ -97,11 +95,14 @@ gimv_exif_view_content_list_set_data (GtkWidget *clist,
    for (i = 0; i < content->count; i++) {
       GtkTreeModel *model;
       GtkTreeIter iter;
+      gchar value[256];
 
       text[0] = exif_tag_get_name (content->entries[i]->tag);
       if (text[0] && *text[0]) text[0] = _(text[0]);
-      text[1] = exif_entry_get_value (content->entries[i]);
-      if (text[1] && *text[1]) text[1] = _(text[1]);
+      value[0] = 0;
+      exif_entry_get_value (content->entries[i],
+                            value, sizeof(value));
+      text[1] = value;
 
       model = gtk_tree_view_get_model (GTK_TREE_VIEW (clist));
 
@@ -332,5 +333,3 @@ ERROR:
    jpeg_data_unref (jdata);
    return NULL;
 }
-
-#endif /* ENABLE_EXIF */

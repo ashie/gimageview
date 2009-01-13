@@ -1,5 +1,4 @@
 # -*- Mode: Makefile; tab-width: 8; indent-tabs-mode: t; -*-
 
 SUBDIRS = \
-	dllloader \
-	libexif
+	dllloader
