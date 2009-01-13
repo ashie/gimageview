@@ -44,7 +44,7 @@
 
 #include <libexif/exif-data.h>
 #include <libexif/exif-utils.h>
-#include <libexif/jpeg-data.h>
+#include "jpeg-data.h"
 
 #endif
 

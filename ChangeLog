@@ -1,5 +1,13 @@
 2009-01-13 Takuro Ashie <ashie@homa.ne.jp>
 
+	* src/jpeg-data.[ch], src/jpeg-marker.[ch]: Moved from lib/libexif/.
+	* configure.ac, lib/Makefile.am, src/Makefile.am, src/gimv_image_view.c,
+	  src/gimv_exif_view.[ch]:
+	Remove included libexif. Use distributor's libexif instead.
+	* lib/libexif: Removed.
+
+2009-01-13 Takuro Ashie <ashie@homa.ne.jp>
+
 	* configure.ac, plugins/image_loader/Makefile.am:
 	Remove GIMV_IMAGELIB_*. They are obsolete.
 

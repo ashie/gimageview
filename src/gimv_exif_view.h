@@ -26,10 +26,8 @@
 
 #include "gimageview.h"
 
-#ifdef ENABLE_EXIF
-
 #include <libexif/exif-data.h>
-#include <libexif/jpeg-data.h>   /* FIXME!! */
+#include "jpeg-data.h"   /* FIXME!! */
 
 typedef struct GimvExifView_Tag
 {
@@ -44,7 +42,5 @@ GimvExifView *gimv_exif_view_create_window (const gchar *filename,
                                             GtkWindow   *parent);
 GimvExifView *gimv_exif_view_create        (const gchar *filename,
                                             GtkWindow   *parent);
-
-#endif /* ENABLE_EXIF */
 
 #endif /* __GIMV_EXIF_VIEW_H__ */
