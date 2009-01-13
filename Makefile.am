@@ -12,8 +12,7 @@ endoc_DATA = \
 	README \
 	INSTALL \
 	NEWS \
-	TODO \
-	HACKING
+	TODO
 
 EXTRA_DIST = \
 	intltool-merge.in \
