@@ -102,8 +102,6 @@ PKG_CHECK_MODULES(GTK,
     gdk-pixbuf-2.0 >= $GDK_PIXBUF2_REQUIRED
     gtk+-2.0       >= $GTK2_REQUIRED], ,
    [ AC_MSG_ERROR(Test for GTK+-2.0 failed. See the file 'INSTALL' for help) ])
-AC_SUBST(GTK_CFLAGS)
-AC_SUBST(GTK_LIBS)
 
 
 dnl ********************
@@ -243,9 +241,6 @@ if test x"$enable_exif" = xyes; then
    AC_DEFINE(ENABLE_EXIF, 1, [Define if you want to compile EXIF features.])
 fi
 
-AC_SUBST(EXIF_CFLAGS)
-AC_SUBST(EXIF_LIBS)
-
 
 dnl ********************
 dnl Test for libmng
@@ -317,16 +312,6 @@ if test x"$enable_librsvg" = xyes; then
 fi
 
 AM_CONDITIONAL(ENABLE_LIBRSVG, test x"$enable_librsvg" = xyes)
-
-if test x"$enable_librsvg" = xyes; then
-   AC_DEFINE(HAVE_LIBRSVG, 1, [Define if you have librsvg.])
-   AC_DEFINE(ENABLE_SVG, 1, [Define if you want to compile svg plugin.])
-fi
-
-AC_SUBST(XML_CFLAGS)
-AC_SUBST(XML_LIBS)
-AC_SUBST(LIBRSVG_CFLAGS) 
-AC_SUBST(LIBRSVG_LIBS)
 
 
 dnl ****************************

@@ -23,8 +23,6 @@
 
 #include "svg.h"
 
-#ifdef ENABLE_SVG
-
 #include <stdio.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <librsvg/rsvg.h>
@@ -126,4 +124,3 @@ svg_load_image (GimvImageLoader *loader, gpointer data)
       return NULL;
    }
 }
-#endif /* ENABLE_SVG */

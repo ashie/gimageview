@@ -53,7 +53,6 @@ INCLUDES = \
 	$(PNG_CFLAGS) \
 	$(JPEG_CFLAGS) \
 	$(MNG_CFLAGS) \
-	$(XML_CFLAGS) \
 	$(LIBRSVG_CFLAGS) \
 	$(LIBWMF_CFLAGS) \
 	$(DLLLOADER_CFLAGS) \
@@ -100,7 +99,7 @@ libgimv_spi_loader_la_SOURCES = \
 	spi.c spi.h spi-private.h \
 	spi_image_loader.c spi_image_loader.h
 
-libgimv_rsvg_loader_la_LIBADD = $(GTK_LIBS) $(XML_LIBS) $(LIBRSVG_LIBS)
+libgimv_rsvg_loader_la_LIBADD = $(GTK_LIBS) $(LIBRSVG_LIBS)
 libgimv_rsvg_loader_la_LDFLAGS = -module -avoid-version $(no_undefined) $(GIMV_LIBS)
 libgimv_rsvg_loader_la_SOURCES = svg.c svg.h
 

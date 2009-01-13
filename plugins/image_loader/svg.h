@@ -28,14 +28,10 @@
 #  include "config.h"
 #endif
 
-#ifdef ENABLE_SVG
-
 #include "gimv_image.h"
 #include "gimv_image_loader.h"
 
 GimvImage *svg_load_image (GimvImageLoader *loader,
                            gpointer         data);
-
-#endif /* ENABLE_SVG */
 
 #endif /* __SVG_H__ */
