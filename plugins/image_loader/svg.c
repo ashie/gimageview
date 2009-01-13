@@ -110,11 +110,11 @@ svg_load_image (GimvImageLoader *loader, gpointer data)
    }
 
    {
-      GError *error;
+      /*GError *error = NULL;*/
       pixbuf = rsvg_pixbuf_from_file_at_zoom (filename,
                                               w_scale,
                                               h_scale,
-                                              &error);
+                                              NULL);
    }
 
    if (pixbuf) {
