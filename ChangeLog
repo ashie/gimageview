@@ -1,5 +1,10 @@
 2009-01-13 Takuro Ashie <ashie@homa.ne.jp>
 
+	* configure.ac, plugins/image_loader/Makefile.am,
+	  plugins/image_loader/svg.[ch]: Removed needless code.
+
+2009-01-13 Takuro Ashie <ashie@homa.ne.jp>
+
 	* plugins/image_loader/svg.c: Don't use GError.
 
 2009-01-13 Takuro Ashie <ashie@homa.ne.jp>
