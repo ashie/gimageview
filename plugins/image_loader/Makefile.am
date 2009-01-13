@@ -49,7 +49,6 @@ gimv_wmf_loader_plugindir = $(DESTDIR)$(plugindir)/$(IMAGE_LOADER_PLUGIN_DIR)
 
 INCLUDES = \
 	$(GTK_CFLAGS) \
-	$(GIMV_IMAGELIB_CFLAGS) \
 	$(ZLIB_CFLAGS) \
 	$(PNG_CFLAGS) \
 	$(JPEG_CFLAGS) \

@@ -1,7 +1,6 @@
 dnl -*- Mode: Autoconf; tab-width: 8; indent-tabs-mode: nil; -*-
 dnl Process this file with autoconf to produce a configure script.
 
-dnl 
 AC_PREREQ(2.61)
 AC_INIT(gimageview, 0.3.0)
 AM_INIT_AUTOMAKE(1.6)
@@ -103,17 +102,6 @@ PKG_CHECK_MODULES(GTK,
    [ AC_MSG_ERROR(Test for GTK+-2.0 failed. See the file 'INSTALL' for help) ])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
-
-
-dnl ******************************
-dnl Check for image libraries
-dnl ******************************
-GIMV_IMAGELIB_CFLAGS=""
-GIMV_IMAGELIB_LIBS=""
-
-AC_SUBST(GIMV_IMAGELIB_CFLAGS)
-AC_SUBST(GIMV_IMAGELIB_LIBS)
-
 
 
 dnl ********************
