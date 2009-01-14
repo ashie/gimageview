@@ -37,7 +37,7 @@
 
 
 GtkTargetEntry dnd_types_all[] = {
-   {"GIMV_TAB",                   0, TARGET_GIMV_TAB},
+   {"GTK_NOTEBOOK_TAB",           0, TARGET_GIMV_TAB},
    {"GIMV_COMPONENT",             0, TARGET_GIMV_COMPONENT},
    {"GIMV_ARCHIVE_MEMBER_LIST",   0, TARGET_GIMV_ARCHIVE_MEMBER_LIST},
    {"text/uri-list",              0, TARGET_URI_LIST},

@@ -147,7 +147,6 @@ cb_album_button_press (GtkWidget *widget, GdkEventButton *event, gpointer data)
    if (row < 0) {
       gtk_drag_source_unset (widget);
       g_object_set_data (G_OBJECT (widget), "drag-unset", GINT_TO_POINTER (1));
-      gimv_thumb_win_notebook_drag_src_unset (tv->tw);   /* FIXME!! */
       return retval;
    }
 
@@ -178,7 +177,6 @@ cb_album_button_release (GtkWidget *widget, GdkEventButton *event, gpointer data
 
    row = gimv_zlist_cell_index_from_xy (GIMV_ZLIST (widget), event->x, event->y);
    if (row < 0) {
-      gimv_thumb_win_notebook_drag_src_reset (tv->tw);   /* FIXME!! */
       return FALSE;
    }
 

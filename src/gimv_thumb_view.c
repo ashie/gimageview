@@ -802,8 +802,6 @@ gimv_thumb_view_thumb_button_press_cb (GtkWidget *widget,
    tw = tv->tw;
    g_return_val_if_fail (GIMV_IS_THUMB_WIN (tw), FALSE);
 
-   gimv_thumb_win_notebook_drag_src_unset (tw);   /* FIXMEEEEEEEE!! */
-
    /* reset selection */
    if (event->type == GDK_BUTTON_PRESS
        && (event->button == 2 || event->button == 3))
@@ -858,8 +856,6 @@ gimv_thumb_view_thumb_button_release_cb (GtkWidget *widget,
 
    tw = tv->tw;
    g_return_val_if_fail (GIMV_IS_THUMB_WIN (tw), FALSE);
-
-   gimv_thumb_win_notebook_drag_src_reset (tw);   /* FIXMEEEEEEEEE!!! */
 
    if(pressed && !dragging) {
       if (tv->priv->button_2pressed_queue) {

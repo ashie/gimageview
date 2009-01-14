@@ -971,7 +971,9 @@ cb_com_swap_drag_data_received (GtkWidget *widget,
 
    switch (info) {
    case TARGET_GIMV_COMPONENT:
+   case TARGET_GIMV_TAB:
       src_widget = gtk_drag_get_source_widget (context);
+      if (!src_widget) return;
       if (gdk_window_get_toplevel (src_widget->window)
           != gdk_window_get_toplevel (widget->window))
       {
@@ -991,7 +993,6 @@ cb_com_swap_drag_data_received (GtkWidget *widget,
          swap->tw = tw;
          swap->src = src;
          swap->dest = dest;
-         /* to avoid gtk's bug, exec redraw after exit this callback function */
          gtk_idle_add_full (/* GTK_PRIORITY_REDRAW */G_PRIORITY_LOW,
                             idle_thumbwin_swap_component, NULL, swap,
                             (GtkDestroyNotify) g_free);
@@ -2046,7 +2047,8 @@ gimv_dir_view_init (GimvDirView *dv)
    gtk_widget_set_name (GTK_WIDGET (dv), "GimvDirView");
    gtk_widget_show (GTK_WIDGET (dv));
 
-   dnd_dest_set (GTK_WIDGET (dv), dnd_types_component, dnd_types_component_num);
+   dnd_dest_set (GTK_WIDGET (dv),
+                 dnd_types_tab_component, dnd_types_tab_component_num);
    g_object_set_data (G_OBJECT (dv),
                       "gimv-component",
                       GINT_TO_POINTER (GIMV_COM_DIR_VIEW));
