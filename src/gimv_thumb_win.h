@@ -279,8 +279,6 @@ void         gimv_thumb_win_swap_component            (GimvThumbWin   *tw,
 void          gimv_thumb_win_save_state               (GimvThumbWin   *tw);
 
 /* FIXMEEEEEEEEEEEEEEEEEE!! (TOT */
-void         gimv_thumb_win_notebook_drag_src_unset   (GimvThumbWin   *tw);
-void         gimv_thumb_win_notebook_drag_src_reset   (GimvThumbWin   *tw);
 void         gimv_thumb_win_remove_key_accel          (GimvThumbWin   *tw);
 void         gimv_thumb_win_reset_key_accel           (GimvThumbWin   *tw);
 /* END FIXMEEEEEEEEEEEEEEEEEE!! (TOT */
