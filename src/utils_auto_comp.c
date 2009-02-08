@@ -36,7 +36,6 @@
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtkentry.h>
 #include <gtk/gtkframe.h>
-#include <gtk/gtkclist.h>
 #include <gtk/gtkmain.h>
 #include <gtk/gtkwindow.h>
 #include <gtk/gtkscrolledwindow.h>
