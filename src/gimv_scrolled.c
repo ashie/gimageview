@@ -106,7 +106,7 @@ gimv_scrolled_class_init (GimvScrolledClass *klass)
                     G_STRUCT_OFFSET(GimvScrolledClass, set_scroll_adjustments),
                     NULL, NULL,
                     gtk_marshal_NONE__POINTER_POINTER,
-                    G_TYPE_NONE, 2, G_TYPE_POINTER, G_TYPE_POINTER);
+                    G_TYPE_NONE, 2, GTK_TYPE_ADJUSTMENT, GTK_TYPE_ADJUSTMENT);
     
    gimv_scrolled_signals[ADJUST_ADJUSTMENTS] = 
       g_signal_new ("adjust_adjustments",
