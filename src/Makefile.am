@@ -123,6 +123,7 @@ gimv_LDFLAGS = \
 	-export-dynamic
 
 gimv_LDADD = \
+	-lm \
 	$(gimv_res) \
 	$(gimv_exp) \
 	$(GTK_LIBS) \
