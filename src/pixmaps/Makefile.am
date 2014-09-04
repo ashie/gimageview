@@ -40,7 +40,6 @@ default_icon_DATA =		\
 	small_up.xpm		\
 	up.xpm			\
 	stop.xpm		\
-	up.xpm			\
 	zoom.xpm		\
 	zoom_fit.xpm		\
 	zoom_in.xpm		\
