@@ -5,6 +5,7 @@ AC_PREREQ(2.61)
 AC_INIT(gimageview, 0.3.0)
 AM_INIT_AUTOMAKE(1.6)
 AM_CONFIG_HEADER(config.h)
+AM_SILENT_RULES([yes])
 
 
 dnl ******************************
