@@ -155,7 +155,7 @@ gimv_anim_update_frame (GimvAnim *anim,
          bytes = 4;
 
       if (image->image)
-         gdk_pixbuf_unref (image->image);
+         g_object_unref (image->image);
 
       image->image = gdk_pixbuf_new_from_data (frame, GDK_COLORSPACE_RGB, FALSE, 8,
                                                width, height, bytes * width,
