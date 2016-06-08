@@ -174,7 +174,7 @@ filter_check_duplicate (const gchar *ext, gint row, gboolean dialog)
       text = gimv_elist_get_cell_text (editlist, i, 0);
       if (!text) continue;
 
-      if (text && *text && !g_strcasecmp (ext, text)) {
+      if (text && *text && !g_ascii_strcasecmp (ext, text)) {
          if (dialog) {
             g_snprintf (message, BUF_SIZE, _("\"%s\" is already defined."), ext);
             gtkutil_message_dialog (_("Error!!"), message,
@@ -275,7 +275,7 @@ filter_set_value (void)
 
       text[1] = *sections[1] ? sections[1] : "UNKNOWN";
 
-      if (*sections[2] && !g_strcasecmp (sections[2], "ENABLE")) {
+      if (*sections[2] && !g_ascii_strcasecmp (sections[2], "ENABLE")) {
          text[2] = _("Enable");
          rowdata->enable = TRUE;
       } else {

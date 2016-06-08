@@ -114,7 +114,7 @@ gimv_thumb_cache_load (const gchar *filename,
 
    if (!thumbnail_loaders) return NULL;
 
-   if (!g_strcasecmp (type, "none")) return FALSE;
+   if (!g_ascii_strcasecmp (type, "none")) return FALSE;
 
    loader = g_hash_table_lookup (thumbnail_loaders, type);
    if (!loader) return NULL;
@@ -139,7 +139,7 @@ gimv_thumb_cache_save (const gchar *filename,
 
    if (!thumbnail_loaders) return FALSE;
 
-   if (!g_strcasecmp (type, "none")) return FALSE;
+   if (!g_ascii_strcasecmp (type, "none")) return FALSE;
 
    loader = g_hash_table_lookup (thumbnail_loaders, type);
    if (!loader) return FALSE;
@@ -160,7 +160,7 @@ gimv_thumb_cache_get_path (const gchar *filename, const gchar *type)
 
    if (!thumbnail_loaders) return NULL;
 
-   if (!g_strcasecmp (type, "none")) return NULL;
+   if (!g_ascii_strcasecmp (type, "none")) return NULL;
 
    loader = g_hash_table_lookup (thumbnail_loaders, type);
    if (!loader) return NULL;
@@ -195,7 +195,7 @@ gimv_thumb_cache_get_size (gint width, gint height, const gchar *type,
 
    if (!thumbnail_loaders) return FALSE;
 
-   if (!g_strcasecmp (type, "none")) return FALSE;
+   if (!g_ascii_strcasecmp (type, "none")) return FALSE;
 
    loader = g_hash_table_lookup (thumbnail_loaders, type);
    if (!loader) return FALSE;
@@ -215,7 +215,7 @@ gimv_thumb_cache_has_load_prefs (const gchar *type)
 
    if (!thumbnail_loaders) return FALSE;
 
-   if (!g_strcasecmp (type, "none")) return FALSE;
+   if (!g_ascii_strcasecmp (type, "none")) return FALSE;
 
    loader = g_hash_table_lookup (thumbnail_loaders, type);
    if (!loader) return FALSE;
@@ -236,7 +236,7 @@ gimv_thumb_cache_has_save_prefs (const gchar *type)
 
    if (!thumbnail_loaders) return FALSE;
 
-   if (!g_strcasecmp (type, "none")) return FALSE;
+   if (!g_ascii_strcasecmp (type, "none")) return FALSE;
 
    loader = g_hash_table_lookup (thumbnail_loaders, type);
    if (!loader) return FALSE;
@@ -257,7 +257,7 @@ gimv_thumb_cache_get_load_prefs (const gchar *type, gpointer data)
 
    if (!thumbnail_loaders) return NULL;
 
-   if (!g_strcasecmp (type, "none")) return NULL;
+   if (!g_ascii_strcasecmp (type, "none")) return NULL;
 
    loader = g_hash_table_lookup (thumbnail_loaders, type);
    if (!loader) return NULL;
@@ -273,7 +273,7 @@ gimv_thumb_cache_get_save_prefs (const gchar *type, gpointer data)
 {
    GimvThumbCacheLoader *loader;
 
-   if (!g_strcasecmp (type, "none")) return NULL;
+   if (!g_ascii_strcasecmp (type, "none")) return NULL;
 
    if (!thumbnail_loaders) return NULL;
 

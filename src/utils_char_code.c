@@ -37,12 +37,12 @@ is_default_codeset (const gchar *charset)
    if (!charset && !*charset)
       return TRUE;
 
-   if (!g_strcasecmp ("default", charset)
-       || !g_strcasecmp ("none", charset)
-       || !g_strcasecmp ("auto", charset)
-       || !g_strcasecmp ("auto detect", charset)
-       || !g_strcasecmp ("auto-detect", charset)
-       || !g_strcasecmp ("auto_detect", charset))
+   if (!g_ascii_strcasecmp ("default", charset)
+       || !g_ascii_strcasecmp ("none", charset)
+       || !g_ascii_strcasecmp ("auto", charset)
+       || !g_ascii_strcasecmp ("auto detect", charset)
+       || !g_ascii_strcasecmp ("auto-detect", charset)
+       || !g_ascii_strcasecmp ("auto_detect", charset))
    {
       return TRUE;
    }

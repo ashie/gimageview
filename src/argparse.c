@@ -76,7 +76,7 @@ parse_opt (int key, char *arg)
 {
    int value_bool;
 
-   if (arg && (!g_strcasecmp (arg, "ON") || !g_strcasecmp (arg, "enable")))
+   if (arg && (!g_ascii_strcasecmp (arg, "ON") || !g_ascii_strcasecmp (arg, "enable")))
       value_bool = TRUE;
    else
       value_bool = FALSE;

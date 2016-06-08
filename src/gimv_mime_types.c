@@ -105,7 +105,7 @@ sysdef_check_enable (const gchar *ext)
          for (i = 0; sysdef_disables[i]; i++)
             if (*sysdef_disables[i]) {
                g_strstrip (sysdef_disables[i]);
-               g_strdown (sysdef_disables[i]);
+               g_ascii_strdown (sysdef_disables[i], -1);
             }
       old_conf = conf.imgtype_disables;
    }
@@ -139,11 +139,11 @@ gimv_mime_types_add_extension (const gchar *mime_type,
    g_return_val_if_fail (len < MAX_EXT_LEN, FALSE);
 
    strcpy(ext, extension);
-   g_strdown (ext);
+   g_ascii_strdown (ext, -1);
 
    if (!g_list_find_custom (mtype->extensions_list,
                             (gpointer) ext,
-                            (GCompareFunc) g_strcasecmp))
+                            (GCompareFunc) g_ascii_strcasecmp))
    {
       const gchar *known_mimetype;
 
@@ -239,10 +239,10 @@ gimv_mime_types_update_userdef_ext_list (void)
       if (!*sections[0]) goto ERROR;
       /* if (filter_check_duplicate (sections[0], -1, FALSE)) goto ERROR; */
 
-      if (!*sections[2] || g_strcasecmp (sections[2], "ENABLE")) goto ERROR;
+      if (!*sections[2] || g_ascii_strcasecmp (sections[2], "ENABLE")) goto ERROR;
 
       ext = g_strdup (sections[0]);
-      g_strdown (ext);
+      g_ascii_strdown (ext, -1);
       if (!*sections[1])
          type = g_strdup ("UNKNOWN");
       else
@@ -300,7 +300,7 @@ gimv_mime_types_get_type_from_ext (const gchar *extension)
    g_return_val_if_fail (len < MAX_EXT_LEN, NULL);
 
    strcpy(ext, extension);
-   g_strdown (ext);
+   g_ascii_strdown (ext, -1);
 
    if (!known_enabled_ext_list)
       gimv_mime_types_update_known_enabled_ext_list ();
@@ -357,5 +357,5 @@ gimv_mime_types_extension_is (const gchar *filename, const gchar *ext)
 
    if (len1 < len2) return FALSE;
 
-   return !g_strcasecmp (filename + len1 - len2, ext);
+   return !g_ascii_strcasecmp (filename + len1 - len2, ext);
 }

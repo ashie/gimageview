@@ -453,7 +453,7 @@ store_config (gpointer data, gchar *val, DataType type)
       break;
    case D_BOOL:
       if (!val) break;
-      if (!g_strcasecmp (val, "TRUE"))
+      if (!g_ascii_strcasecmp (val, "TRUE"))
          *((gboolean *) data) = TRUE;
       else
          *((gboolean *) data) = FALSE;
@@ -534,7 +534,7 @@ prefs_load_rc (gchar *filename, PrefsSection *sections)
       for (j = 0; sections[j].section_name; j++) {
          ConfParam *param = sections[j].param;
          for (i = 0; param[i].keyname; i++) {
-            if (!g_strcasecmp (param[i].keyname, pair[0])) {
+            if (!g_ascii_strcasecmp (param[i].keyname, pair[0])) {
                store_config (param[i].data, pair[1], param[i].data_type);
                break;
             }
