@@ -13,7 +13,7 @@ archiver_plugin_LTLIBRARIES = \
 
 archiver_plugindir = $(DESTDIR)$(plugindir)/$(ARCHIVER_PLUGIN_DIR)
 
-INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/src $(GTK_CFLAGS)
+AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src $(GTK_CFLAGS)
 
 libgimv_lha_extarc_la_LDFLAGS = -module -avoid-version $(no_undefined) $(GIMV_LIBS)
 libgimv_lha_extarc_la_SOURCES = lha-ext.c lha-ext.h

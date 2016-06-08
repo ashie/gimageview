@@ -14,7 +14,7 @@ thumbnail_plugin_LTLIBRARIES = \
 
 thumbnail_plugindir = $(DESTDIR)$(plugindir)/$(THUMBNAIL_PLUGIN_DIR)
 
-INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/src $(GTK_CFLAGS)
+AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src $(GTK_CFLAGS)
 
 libgimv_thumb_la_LDFLAGS = -module -avoid-version $(no_undefined) $(GIMV_LIBS)
 libgimv_thumb_la_SOURCES = gimv_thumb.c
