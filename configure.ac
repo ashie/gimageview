@@ -257,7 +257,8 @@ if test x"$enable_mng" = x"yes"; then
       AC_CHECK_HEADER(libmng.h, [
          AC_CHECK_LIB(mng, mng_initialize, [
             AC_MSG_CHECKING([for libmng functions])
-            AC_TRY_COMPILE([ #include <libmng.h> ],
+            AC_TRY_COMPILE([ #include <stdio.h>
+                             #include <libmng.h> ],
                [ mng_handle handle;
                  mng_version_text();
                  handle = mng_initialize(NULL, NULL, NULL, MNG_NULL);
