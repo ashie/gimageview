@@ -111,11 +111,9 @@ G_DEFINE_TYPE (GimvZAlbum, gimv_zalbum, GIMV_TYPE_ZLIST)
 static void
 gimv_zalbum_class_init (GimvZAlbumClass *klass) {
    GObjectClass *gobject_class;
-   GtkWidgetClass *widget_class;
    GimvZListClass *zlist_class;
 
    gobject_class = (GObjectClass *) klass;
-   widget_class  = (GtkWidgetClass *) klass;
    zlist_class   = (GimvZListClass *) klass;
 
    gobject_class->finalize          = gimv_zalbum_finalize;

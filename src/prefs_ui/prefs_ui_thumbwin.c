@@ -1045,17 +1045,6 @@ gboolean
 prefs_ui_thumbwin_tab_apply (GimvPrefsWinAction action)
 {
    GList *node;
-   Config *dest;
-
-   switch (action) {
-   case GIMV_PREFS_WIN_ACTION_OK:
-   case GIMV_PREFS_WIN_ACTION_APPLY:
-      dest = config_changed;
-      break;
-   default:
-      dest = config_prechanged;
-      break;
-   }
 
    /* tab label */
    for (node = gimv_thumb_view_get_list(); node; node = g_list_next (node)) {
@@ -1070,18 +1059,6 @@ prefs_ui_thumbwin_tab_apply (GimvPrefsWinAction action)
 gboolean
 prefs_ui_dirview_apply (GimvPrefsWinAction action)
 {
-   Config *dest;
-
-   switch (action) {
-   case GIMV_PREFS_WIN_ACTION_OK:
-   case GIMV_PREFS_WIN_ACTION_APPLY:
-      dest = config_changed;
-      break;
-   default:
-      dest = config_prechanged;
-      break;
-   }
-
    return FALSE;
 }
 

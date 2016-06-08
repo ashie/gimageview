@@ -240,13 +240,11 @@ gimv_nav_win_key_press (GtkWidget *widget,
    gboolean move = FALSE;
    gint mx, my;
    guint keyval;
-   GdkModifierType modval;
 
    mx = priv->view_pos_x;
    my = priv->view_pos_y;
 
    keyval = event->keyval;
-   modval = event->state;
 
    if (keyval == GDK_Left) {
       mx -= 10;

@@ -56,11 +56,6 @@ static GHashTable *link_table       = NULL;
 static void
 gimv_image_info_class_init (GimvImageInfoClass *klass)
 {
-   GObjectClass *object_class;
-
-   object_class = (GObjectClass *) klass;
-
-   /*object_class->dispose  = gimv_image_info_dispose;*/
 }
 
 

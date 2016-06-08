@@ -1131,7 +1131,6 @@ comp_func_spel (gconstpointer data1, gconstpointer data2)
    const gchar *filename1, *filename2;
    gboolean ignore_dir;
    gint comp;
-   GimvSortItem item;
    GimvSortFlag flags;
 
    thumb1 = (GimvThumb *) data1;
@@ -1142,7 +1141,7 @@ comp_func_spel (gconstpointer data1, gconstpointer data2)
 
    tv = gimv_thumb_get_parent_thumbview (thumb1);
    g_return_val_if_fail(GIMV_IS_THUMB_VIEW (tv), 0);
-   item = gimv_thumb_win_get_sort_type (tv->tw, &flags);
+   gimv_thumb_win_get_sort_type (tv->tw, &flags);
    ignore_dir = flags & GIMV_SORT_DIR_INSENSITIVE;
 
    if (!filename1 || !*filename1)
@@ -2117,10 +2116,8 @@ gimv_thumb_view_open_image (GimvThumbView *tv, GimvThumb *thumb, gint type)
                         G_CALLBACK (cb_imageview_thumbnail_created), tv);
       node = g_list_find (tv->priv->related_image_view, iv);
       if (!node) {
-         gint num;
          tv->priv->related_image_view
             = g_list_append (tv->priv->related_image_view, iv);
-         num = g_list_length (tv->priv->related_image_view);
       }
    }
 
@@ -2140,7 +2137,6 @@ gimv_thumb_view_popup_menu (GimvThumbView *tv, GimvThumb *thumb,
    gchar *dirname;
    guint button;
    guint32 time;
-   GtkMenuPositionFunc pos_fn = NULL;
 
    g_return_if_fail (GIMV_IS_THUMB_VIEW (tv));
 
@@ -2150,7 +2146,6 @@ gimv_thumb_view_popup_menu (GimvThumbView *tv, GimvThumb *thumb,
    } else {
       button = 0;
       time = GDK_CURRENT_TIME;
-      pos_fn = menu_calc_popup_position;
    }
 
    if (tv->popup_menu) {

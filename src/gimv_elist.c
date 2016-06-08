@@ -1390,14 +1390,11 @@ cb_editlist_entry_changed (GtkEntry *entry, gpointer data)
 {
    GimvEListEntryData *entry_data = data;
    GimvEList *editlist;
-   const gchar *text;
 
    g_return_if_fail (entry_data);
    g_return_if_fail (GIMV_IS_ELIST (entry_data->editlist));
 
    editlist = entry_data->editlist;
-
-   text = gtk_entry_get_text (entry);
 
    gimv_elist_edit_area_set_value_changed (editlist);
 }
