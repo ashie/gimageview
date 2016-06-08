@@ -140,7 +140,7 @@ gimv_nav_win_init (GimvNavWin *navwin)
 {
    GimvNavWinPrivate *priv = GIMV_NAV_WIN_GET_PRIVATE (navwin);
 
-   priv->fix_x_pos = priv->fix_x_pos = 1;
+   priv->fix_x_pos = priv->fix_y_pos = 1;
 
    priv->gc           = NULL;
    priv->pixmap       = NULL;
