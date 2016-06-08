@@ -9,7 +9,7 @@ noinst_LTLIBRARIES = libdllloader.la
 endif
 endif
 
-INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/lib
+AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/lib
 
 libdllloader_la_SOURCES = \
 	compat.h common.h \

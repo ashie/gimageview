@@ -17,7 +17,7 @@ endif
 io_stream_plugindir = $(DESTDIR)$(plugindir)/$(IO_STREAM_PLUGIN_DIR)
 gimv_bz_io_plugindir = $(DESTDIR)$(plugindir)/$(IO_STREAM_PLUGIN_DIR)
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(GTK_CFLAGS) \
 	$(ZLIB_CLAGS) \
 	$(BZLIB_CFLAGS) \

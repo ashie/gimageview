@@ -14,7 +14,7 @@ image_saver_plugin_LTLIBRARIES = \
 
 image_saver_plugindir = $(DESTDIR)$(plugindir)/$(IMAGE_SAVER_PLUGIN_DIR)
 
-INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/src $(GTK_CFLAGS)
+AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src $(GTK_CFLAGS)
 
 libgimv_png_saver_la_LDFLAGS = -module -avoid-version $(no_undefined) $(GIMV_LIBS)
 libgimv_png_saver_la_SOURCES = png_saver.c

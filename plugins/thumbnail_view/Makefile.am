@@ -12,7 +12,7 @@ thumbview_plugin_LTLIBRARIES = \
 
 thumbview_plugindir = $(DESTDIR)$(plugindir)/$(THUMBNAIL_VIEW_PLUGIN_DIR)
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(GTK_CFLAGS) \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/src

@@ -47,7 +47,7 @@ gimv_spi_loader_plugindir = $(DESTDIR)$(plugindir)/$(IMAGE_LOADER_PLUGIN_DIR)
 gimv_rsvg_loader_plugindir = $(DESTDIR)$(plugindir)/$(IMAGE_LOADER_PLUGIN_DIR)
 gimv_wmf_loader_plugindir = $(DESTDIR)$(plugindir)/$(IMAGE_LOADER_PLUGIN_DIR)
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(GTK_CFLAGS) \
 	$(ZLIB_CFLAGS) \
 	$(PNG_CFLAGS) \

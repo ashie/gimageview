@@ -21,7 +21,7 @@ gimv_xine_plugindir = $(DESTDIR)$(plugindir)/$(IMAGE_VIEW_PLUGIN_DIR)
 CPPFLAGS= \
 	-DDATADIR=\""$(gimv_datadir)"\"
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(GTK_CFLAGS) \
 	$(XINE_CFLAGS) \
 	-I$(top_srcdir) \

@@ -4,7 +4,7 @@ CLEANFILES = *~ .*.swp .*.swo
 
 noinst_LTLIBRARIES = libgimv_prefs_ui.la
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(GTK_CFLAGS) \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/src
