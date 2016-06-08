@@ -189,7 +189,7 @@ get_file_charset ()
    const gchar *lang;
 
    if (conf.comment_charset && *conf.comment_charset
-       && g_strcasecmp (conf.comment_charset, "default"))
+       && g_ascii_strcasecmp (conf.comment_charset, "default"))
    {
       return conf.comment_charset;
    }

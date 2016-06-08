@@ -94,7 +94,7 @@ text_to_boolean (gchar *text)
 {
    g_return_val_if_fail (text && *text, FALSE);
 
-   if (!g_strcasecmp (text, "TRUE") || !g_strcasecmp (text, "ENABLE"))
+   if (!g_ascii_strcasecmp (text, "TRUE") || !g_ascii_strcasecmp (text, "ENABLE"))
       return TRUE;
    else
       return FALSE;
@@ -1274,7 +1274,7 @@ gtkutil_comp_casespel (gconstpointer data1, gconstpointer data2)
    const gchar *str1 = data1;
    const gchar *str2 = data2;
 
-   return g_strcasecmp (str1, str2);
+   return g_ascii_strcasecmp (str1, str2);
 }
 
 

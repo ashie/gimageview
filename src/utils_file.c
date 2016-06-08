@@ -591,5 +591,5 @@ fileutil_extension_is (const char *filename, const char *ext)
 
    if (len1 < len2) return FALSE;
 
-   return !g_strcasecmp (filename + len1 - len2, ext);
+   return !g_ascii_strcasecmp (filename + len1 - len2, ext);
 }

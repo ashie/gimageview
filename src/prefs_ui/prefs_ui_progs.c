@@ -62,7 +62,7 @@ set_default_progs_list (GimvEList *editlist)
       if (pair[0] && pair[1]) {
          data[0] = charset_locale_to_internal (pair[0]);
          data[1] = charset_locale_to_internal (pair[1]);
-         if (pair[2] && !g_strcasecmp ("TRUE", pair[2]))
+         if (pair[2] && !g_ascii_strcasecmp ("TRUE", pair[2]))
             data[2] = _("TRUE");
          else
             data[2] = _("FALSE");

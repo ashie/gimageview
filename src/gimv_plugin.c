@@ -511,7 +511,7 @@ gimv_plugin_get_list (const gchar *type)
 {
    PluginTypeEntry *entry;
 
-   if (!type || !g_strcasecmp(type, "all")) {
+   if (!type || !g_ascii_strcasecmp(type, "all")) {
       return all_plugin_list;
    } else {
       entry = g_hash_table_lookup(plugin_types_table, type);
@@ -597,7 +597,7 @@ gimv_plugin_prefs_load_value (const gchar *pname,
       *((gfloat *) data) = atof (value);
       break;
    case GIMV_PLUGIN_PREFS_BOOL:
-      if (!g_strcasecmp (value, "TRUE"))
+      if (!g_ascii_strcasecmp (value, "TRUE"))
          *((gboolean *) data) = TRUE;
       else
          *((gboolean *) data) = FALSE;

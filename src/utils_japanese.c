@@ -77,17 +77,17 @@ japanese_locale_charset (const gchar *locale)
 
    n_locale_euc = sizeof (locale_euc) / sizeof (gchar*);
    for (i = 0; i < n_locale_euc; i++)
-      if (!g_strcasecmp (locale_euc[i], locale))
+      if (!g_ascii_strcasecmp (locale_euc[i], locale))
          return CHARSET_EUC_JP;
 
    n_locale_jis = sizeof (locale_jis) / sizeof (gchar*);
    for (i = 0; i < n_locale_jis; i++)
-      if (!g_strcasecmp (locale_jis[i], locale))
+      if (!g_ascii_strcasecmp (locale_jis[i], locale))
          return CHARSET_JIS;
 
    n_locale_sjis = sizeof (locale_sjis) / sizeof (gchar*);
    for (i = 0; i < n_locale_sjis; i++)
-      if (!g_strcasecmp (locale_sjis[i], locale))
+      if (!g_ascii_strcasecmp (locale_sjis[i], locale))
          return CHARSET_SJIS;
 
    return NULL;

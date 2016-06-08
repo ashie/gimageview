@@ -490,8 +490,8 @@ gimv_image_info_is_movie (GimvImageInfo *info)
    type = gimv_mime_types_get_type_from_ext (ext);
 
    if (type 
-       && (!g_strncasecmp (type, "video", 5))
-       && g_strcasecmp (type, "video/x-mng")) /* FIXME!! */
+       && (!g_ascii_strncasecmp (type, "video", 5))
+       && g_ascii_strcasecmp (type, "video/x-mng")) /* FIXME!! */
    {
       return TRUE;
    }
@@ -511,7 +511,7 @@ gimv_image_info_is_audio (GimvImageInfo *info)
    ext  = gimv_mime_types_get_extension (info->filename);
    type = gimv_mime_types_get_type_from_ext (ext);
 
-   if (type && !g_strncasecmp (type, "audio", 5))
+   if (type && !g_ascii_strncasecmp (type, "audio", 5))
       return TRUE;
 
    return FALSE;

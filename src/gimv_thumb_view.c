@@ -439,7 +439,7 @@ cb_open_image_by_external (GtkWidget *menuitem, GimvThumbView *tv)
       } else {
          cmd = g_strdup (pair[1]);
       }
-      if (pair[2] && !g_strcasecmp (pair[2], "TRUE"))
+      if (pair[2] && !g_ascii_strcasecmp (pair[2], "TRUE"))
          show_dialog = TRUE;
       g_strfreev (pair);
    } else {
@@ -1160,7 +1160,7 @@ comp_func_spel (gconstpointer data1, gconstpointer data2)
       comp = 1;
    } else {
       if (flags & GIMV_SORT_CASE_INSENSITIVE)
-         comp = g_strcasecmp ((gchar *) filename1, (gchar *) filename2);
+         comp = g_ascii_strcasecmp ((gchar *) filename1, (gchar *) filename2);
       else
          comp = strcmp ((gchar *) filename1, (gchar *) filename2);
    }
@@ -1302,14 +1302,14 @@ comp_func_type (gconstpointer data1, gconstpointer data2)
       ext2 = NULL;
 
    if ((!ext1 || !*ext1) && (!ext2 || !*ext2)) {
-      return g_strcasecmp (file1, file2);
+      return g_ascii_strcasecmp (file1, file2);
    } else if (!ext1 || !*ext1) {
       return -1;
    } else if (!ext2 || !*ext2) {
       return 1;
    }
 
-   retval = g_strcasecmp (ext1, ext2);
+   retval = g_ascii_strcasecmp (ext1, ext2);
 
    if (retval == 0)
       return comp_func_spel (data1, data2);
@@ -2268,7 +2268,7 @@ gimv_thumb_view_popup_menu (GimvThumbView *tv, GimvThumb *thumb,
       const gchar *format = gimv_image_detect_type_by_ext (img_name);
       menuitem = gtk_item_factory_get_item (ifactory, "/Scan EXIF Data...");
 #warning FIXME!!
-      if (!format || !*format || g_strcasecmp(format, "image/jpeg")) {
+      if (!format || !*format || g_ascii_strcasecmp(format, "image/jpeg")) {
          gtk_widget_hide (menuitem);
       }
       if (g_list_length (thumblist) > 1
