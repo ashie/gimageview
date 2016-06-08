@@ -720,16 +720,12 @@ gimv_zlist_draw_selection_region (GimvZList *list, GdkRectangle *area)
 {
    GtkWidget *widget;
    GimvScrolled *scrolled;
-   GtkAdjustment *hadj, *vadj;
    GdkRectangle widget_area, region_area, draw_area;
    gint ds_vx, ds_vy, de_vx, de_vy;
    gchar dash[] = {2, 1};
 
    widget = GTK_WIDGET (list);
    scrolled = GIMV_SCROLLED (list);
-
-   hadj = scrolled->h_adjustment;
-   vadj = scrolled->v_adjustment;
 
    ds_vx = scrolled->drag_start_vx;
    ds_vy = scrolled->drag_start_vy;
@@ -864,7 +860,6 @@ static gint
 gimv_zlist_button_press (GtkWidget *widget, GdkEventButton *event)
 {
    GimvZList *list;
-   gpointer *cell;
    gint retval = FALSE, idx;
 
    list = GIMV_ZLIST(widget);
@@ -903,9 +898,6 @@ gimv_zlist_button_press (GtkWidget *widget, GdkEventButton *event)
       }
 
    } else {
-      /* get the selected cell */
-      cell = GIMV_ZLIST_CELL_FROM_INDEX (list, idx);
-
       /* set focus */
       if (list->focus != idx) {
          if (list->focus > -1)
@@ -972,7 +964,6 @@ static gint
 gimv_zlist_button_release (GtkWidget *widget, GdkEventButton *event)
 {
    GimvZList *list;
-   gpointer *cell;
    gint retval = FALSE, index;
 
    list = GIMV_ZLIST(widget);
@@ -989,8 +980,6 @@ gimv_zlist_button_release (GtkWidget *widget, GdkEventButton *event)
   
    index = gimv_zlist_cell_index_from_xy (list, event->x, event->y);
    if (index < 0) goto FUNC_END;
-
-   cell = GIMV_ZLIST_CELL_FROM_INDEX (list, index);
 
    switch (list->selection_mode) {
    case GTK_SELECTION_SINGLE:
@@ -1049,7 +1038,6 @@ gimv_zlist_motion_notify (GtkWidget *widget, GdkEventMotion *event)
 {
    GimvScrolled *scrolled;
    GimvZList *list;
-   gpointer *cell;
    gint index, x, y, retval = FALSE;
 
    gint start_x, start_y, end_x, end_y, prev_x = 0, prev_y = 0;
@@ -1098,9 +1086,6 @@ gimv_zlist_motion_notify (GtkWidget *widget, GdkEventMotion *event)
 
    index = gimv_zlist_cell_index_from_xy (list, x, y);
    if (index < 0) return retval || FALSE;
-
-
-   cell = GIMV_ZLIST_CELL_FROM_INDEX (list, index);
 
    if (gdk_pointer_is_grabbed() && GTK_WIDGET_HAS_GRAB(widget)) {
 
@@ -1644,10 +1629,7 @@ gimv_zlist_set_selection_mode (GimvZList *list, GtkSelectionMode mode)
 gint    
 gimv_zlist_cell_index_from_xy (GimvZList *list, gint x, gint y)
 {
-   GimvScrolled *scr;
    gint row, column, cell_x, cell_y, index;
-
-   scr = GIMV_SCROLLED(list);
 
    if (!list->cell_count || x < list->x_pad || y < list->y_pad)
       return -1;

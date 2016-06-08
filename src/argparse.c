@@ -225,19 +225,13 @@ arg_help (char *argv[], FILE *stream) {
  */
 static arg_error_t
 parse_long_opt (char *argv) {
-   int i, arglen, optlen;
+   int i, optlen;
    char *argval;
    arg_error_t retval;
    gchar *tmpstr;
 
    for (i = 0; options[i].name; i++) {
-      arglen = strlen(argv);
       optlen = strlen(options[i].name);
-
-      /*
-        if (arglen != optlen)
-        continue;
-      */
 
       if (!strncmp (argv, options[i].name, optlen)) {
          if (options[i].arg == NULL) {

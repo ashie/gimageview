@@ -560,12 +560,7 @@ gimv_comment_view_set_sensitive_all (GimvCommentView *cv, gboolean sensitive)
 static void
 gimv_comment_view_set_sensitive (GimvCommentView *cv)
 {
-   const gchar *key_str, *value_str;
-
    g_return_if_fail (cv);
-
-   key_str   = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (cv->key_combo)->entry));
-   value_str = gtk_entry_get_text (GTK_ENTRY (cv->value_entry));
 
    if (!cv->comment || !GTK_WIDGET_VISIBLE (cv->button_area)) {
       gimv_comment_view_set_sensitive_all (cv, FALSE);

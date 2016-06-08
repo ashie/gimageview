@@ -221,7 +221,7 @@ set_copyleft_str (void)
    buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (info_win.text_box));
    gtk_text_buffer_set_text (buffer, "\0", -1);
 
-   if (buf && *buf)
+   if (*buf)
       gtk_text_buffer_set_text (buffer, buf, -1);
 }
 

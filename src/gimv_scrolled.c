@@ -93,11 +93,9 @@ gimv_scrolled_class_init (GimvScrolledClass *klass)
 {
    GObjectClass *gobject_class;
    GtkWidgetClass *widget_class;
-   GtkContainerClass *container_class;
 
    gobject_class   = (GObjectClass*) klass;
    widget_class    = (GtkWidgetClass*) klass;
-   container_class = (GtkContainerClass*) klass;
 
    widget_class->set_scroll_adjustments_signal =
       g_signal_new ("set_scroll_adjustments",
@@ -620,11 +618,7 @@ static void
 setup_drag_scroll (GimvScrolled *scrolled,
                    gint x, gint y)
 {
-   GtkAdjustment *hadj, *vadj;
    gboolean desirable;
-
-   hadj = scrolled->h_adjustment;
-   vadj = scrolled->v_adjustment;
 
    cancel_auto_scroll (scrolled);
 

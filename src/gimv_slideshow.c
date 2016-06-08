@@ -263,11 +263,6 @@ gimv_slideshow_dispose (GObject *object)
 {
    GimvSlideshow *slideshow = GIMV_SLIDESHOW (object);
    GimvSlideshowPrivate *priv = GIMV_SLIDESHOW_GET_PRIVATE (slideshow);
-   GimvImageWin *iw;
-   GimvImageView *iv;
-
-   iw = priv->iw;
-   iv = iw->iv;
 
    g_list_foreach (priv->filelist, (GFunc) gimv_image_info_unref, NULL);
    g_list_free (g_list_first (priv->filelist));

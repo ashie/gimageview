@@ -893,7 +893,6 @@ cb_filebrowser_add_thumbnail (GtkWidget *widget, FileSel *filesel)
 static void
 cb_filebrowser_ok_sel (GtkWidget *widget, FileSel *filesel)
 {
-   GimvImageWin *iw;
    gchar *filename;
    struct stat st;
 
@@ -921,7 +920,7 @@ cb_filebrowser_ok_sel (GtkWidget *widget, FileSel *filesel)
       {
          GimvImageInfo *info = gimv_image_info_get (filename);
          if (info)
-            iw = gimv_image_win_open_window_auto (info);
+            gimv_image_win_open_window_auto (info);
       } else {
          g_print (_("Not an image (or unsupported) file!!\n"));
       }

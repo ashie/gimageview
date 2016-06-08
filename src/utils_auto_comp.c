@@ -268,10 +268,7 @@ ac_window_button_press_cb (GtkWidget *widget,
                            GdkEventButton *event,
                            gpointer *data)
 {
-   GtkWidget *event_widget;
    gint x, y, w, h;
-    
-   event_widget = gtk_get_event_widget ((GdkEvent *)event);
 
    gdk_window_get_origin (ac_window->window, &x, &y);
    gdk_window_get_size (ac_window->window, &w, &h);
@@ -355,7 +352,7 @@ auto_compl_show_alternatives (GtkWidget *entry)
 {
    gint x, y, w, h;
    GList *scan;
-   gint n, width;
+   gint n;
    GtkTreeIter iter;
 
    if (ac_window == NULL) {
@@ -406,7 +403,6 @@ auto_compl_show_alternatives (GtkWidget *entry)
    }
 
    ac_entry = entry;
-   width = 0;
    n = 0;
 
    gtk_list_store_clear (ac_list_store);

@@ -1079,35 +1079,12 @@ cb_tool_submenu_hide (GtkWidget *widget, GimvThumbWin *tw)
 static void
 cb_view_submenu_show (GtkWidget *widget, GimvThumbWin *tw)
 {
-   GimvThumbView *tv;
-   /*
-     GtkItemFactory *ifactory;
-     GtkWidget *menuitem;
-   */
-
-   tv = gimv_thumb_win_find_thumbtable (tw, GIMV_THUMB_WIN_CURRENT_PAGE);
-
-   /*
-     if (!tv || tv->mode == THUMB_VIEW_MODE_ARCHIVE) {
-     ifactory = gtk_item_factory_from_widget (tw->view_menu);
-     menuitem = gtk_item_factory_get_item (ifactory, "/Slideshow");
-     gtk_widget_set_sensitive (menuitem, FALSE);
-     }
-   */
 }
 
 
 static void
 cb_view_submenu_hide (GtkWidget *widget, GimvThumbWin *tw)
 {
-   /*
-     GtkItemFactory *ifactory;
-     GtkWidget *menuitem;
-
-     ifactory = gtk_item_factory_from_widget (tw->view_menu);
-     menuitem = gtk_item_factory_get_item (ifactory, "/Slideshow");
-     gtk_widget_set_sensitive (menuitem, TRUE);
-   */
 }
 
 
@@ -3570,13 +3547,11 @@ gimv_thumb_win_create_tab_container (GimvThumbWin *tw)
    GtkWidget *hbox, *pixmap, *button;
    GtkWidget *tablabel;
    GtkWidget *scrolled_window;
-   GtkScrolledWindow *scrollwin;
    gint pagenum;
    gchar buf[BUF_SIZE];
 
    /* page container */
    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-   scrollwin = GTK_SCROLLED_WINDOW (scrolled_window);
    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW(scrolled_window),
                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
    gtk_widget_show (scrolled_window);

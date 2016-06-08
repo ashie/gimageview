@@ -1159,7 +1159,6 @@ static GtkWidget *
 dirview_create_toolbar (GimvDirView *dv)
 {
    GtkWidget *toolbar;
-   GtkWidget *button;
    GtkWidget *iconw;   
 
    g_return_val_if_fail (dv, NULL);
@@ -1168,43 +1167,43 @@ dirview_create_toolbar (GimvDirView *dv)
 
    /* file open button */
    iconw = gimv_icon_stock_get_widget ("small_home");
-   button = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
-                                     _("Home"),
-                                     _("Home"),
-                                     _("Home"),
-                                     iconw,
-                                     G_CALLBACK (cb_home_button),
-                                     dv);
+   gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
+                            _("Home"),
+                            _("Home"),
+                            _("Home"),
+                            iconw,
+                            G_CALLBACK (cb_home_button),
+                            dv);
 
    /* preference button */
    iconw = gimv_icon_stock_get_widget ("small_up");
-   button = gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
-                                     _("Up"),
-                                     _("Up"),
-                                     _("Up"),
-                                     iconw,
-                                     G_CALLBACK (cb_up_button),
-                                     dv);
+   gtk_toolbar_append_item (GTK_TOOLBAR (toolbar),
+                            _("Up"),
+                            _("Up"),
+                            _("Up"),
+                            iconw,
+                            G_CALLBACK (cb_up_button),
+                            dv);
 
    /* refresh button */
    iconw = gimv_icon_stock_get_widget ("small_refresh");
-   button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
-                                    _("Refresh"),
-                                    _("Refresh"),
-                                    _("Refresh"),
-                                    iconw,
-                                    G_CALLBACK (cb_refresh_button),
-                                    dv);
+   gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
+                           _("Refresh"),
+                           _("Refresh"),
+                           _("Refresh"),
+                           iconw,
+                           G_CALLBACK (cb_refresh_button),
+                           dv);
 
    /* preference button */
    iconw = gimv_icon_stock_get_widget ("dotfile");
-   button = gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
-                                    _("Dotfile"),
-                                    _("Show/Hide dotfile"),
-                                    _("Show/Hide dotfile"),
-                                    iconw,
-                                    G_CALLBACK (cb_dotfile_button),
-                                    dv);
+   gtk_toolbar_append_item(GTK_TOOLBAR (toolbar),
+                           _("Dotfile"),
+                           _("Show/Hide dotfile"),
+                           _("Show/Hide dotfile"),
+                           iconw,
+                           G_CALLBACK (cb_dotfile_button),
+                           dv);
 
    gtk_widget_show_all (toolbar);
    gtk_toolbar_set_style (GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
@@ -1363,7 +1362,6 @@ get_iter_from_path (GimvDirView *dv, const gchar *str, GtkTreeIter *iter)
    GtkTreeModel *model;
    GtkTreeIter parent_iter, child_iter;
    GtkTreePath *treepath;
-   GtkTreeSelection *selection;
    gchar *destpath;
    gint len_src, len_dest;
    gboolean go_next, retval = FALSE;
@@ -1382,7 +1380,6 @@ get_iter_from_path (GimvDirView *dv, const gchar *str, GtkTreeIter *iter)
    }
 
    model = gtk_tree_view_get_model (GTK_TREE_VIEW (dv->dirtree));
-   selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (dv->dirtree));
 
    go_next = gtk_tree_model_get_iter_from_string (model, &parent_iter, "0");
    if (!go_next) goto ERROR;
@@ -1870,10 +1867,9 @@ gimv_dir_view_chroot_to_parent (GimvDirView *dv)
 void
 gimv_dir_view_change_dir (GimvDirView *dv, const gchar *str)
 {
-   GtkTreeModel *model;
    GtkTreeIter iter;
    gchar *destpath;
-  gboolean success;
+   gboolean success;
 
    g_return_if_fail (dv);
 
@@ -1892,7 +1888,6 @@ gimv_dir_view_change_dir (GimvDirView *dv, const gchar *str)
    success = get_iter_from_path (dv, destpath, &iter);
 
    if (success) {
-      model = gtk_tree_view_get_model (GTK_TREE_VIEW (dv->dirtree));
       adjust_tree_idle (dv, &iter);
    } else {
       gimv_dir_view_chroot (dv, str);

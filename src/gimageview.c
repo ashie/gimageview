@@ -368,7 +368,6 @@ show_splash ()
 gint
 main (gint argc, gchar *argv[])
 {
-   GimvImageWin *iw = NULL;
    GimvThumbWin *tw = NULL;
    gint remaining;
    gboolean open_thumbwin = FALSE;
@@ -392,7 +391,7 @@ main (gint argc, gchar *argv[])
       tw = gimv_thumb_win_open_window ();
    }
    if (args_val.open_imagewin) {
-      iw = gimv_image_win_open_window (NULL);
+      gimv_image_win_open_window (NULL);
    }
 
    /* set FilesLoader struct data for opening files */
