@@ -86,7 +86,7 @@ gimv_image_dispose (GObject *object)
    rawimage = (GimvRawImage *) image->image;
 
    if (rawimage)
-      gdk_pixbuf_unref (rawimage);
+      g_object_unref (rawimage);
    image->image = NULL;
 
    gimv_image_free_comments (image);
@@ -251,7 +251,7 @@ gimv_image_rotate_90 (GimvImage *image,
    src_rawimage = (GimvRawImage *) image->image;
 
    dest_rawimage = pixbuf_copy_rotate_90 (src_rawimage, counter_clockwise);
-   gdk_pixbuf_unref (src_rawimage);
+   g_object_unref (src_rawimage);
 
    image->image = dest_rawimage;
 
@@ -280,7 +280,7 @@ gimv_image_rotate_180 (GimvImage *image)
    src_rawimage = (GimvRawImage *) image->image;
 
    dest_rawimage = pixbuf_copy_mirror (src_rawimage, TRUE, TRUE);
-   gdk_pixbuf_unref (src_rawimage);
+   g_object_unref (src_rawimage);
 
    image->image = dest_rawimage;
 

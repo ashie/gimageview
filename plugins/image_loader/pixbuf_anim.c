@@ -94,9 +94,9 @@ gimv_anim_gdk_pixbuf_iterate (GimvAnim *anim)
    if (gdk_pixbuf_animation_iter_advance (iter, NULL)) {
       GimvImageAngle angle;
       anim->current_frame_idx++;
-      gdk_pixbuf_unref (image->image);
+      g_object_unref (image->image);
       image->image = gdk_pixbuf_animation_iter_get_pixbuf (iter);
-      gdk_pixbuf_ref (image->image);
+      g_object_ref (image->image);
 
       /* restore angle */
       angle = image->angle;
@@ -158,7 +158,7 @@ gimv_anim_new_from_gdk_pixbuf_animation (GdkPixbufAnimation *pixbuf_anim)
    }
 
    if (image->image) {
-      gdk_pixbuf_ref (image->image);
+      g_object_ref (image->image);
    } else {
       g_object_unref (G_OBJECT (image));
       return NULL;
