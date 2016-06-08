@@ -391,6 +391,7 @@ gimv_nav_win_show (GimvNavWin *navwin, gint x_root, gint y_root)
 
    gtk_widget_show (GTK_WIDGET (navwin));
    navwin_grab_pointer (navwin);
+   navwin_update_view(navwin);
 }
 
 
