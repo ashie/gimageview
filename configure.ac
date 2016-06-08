@@ -3,6 +3,7 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
 AC_INIT(gimageview, 0.3.0)
+AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE(1.6)
 AM_CONFIG_HEADER(config.h)
 AM_SILENT_RULES([yes])

@@ -1,5 +1,7 @@
 # -*- Mode: Makefile; tab-width: 8; indent-tabs-mode: t; -*-
 
+ACLOCAL_AMFLAGS = -I m4
+
 SUBDIRS = doc etc m4 po lib src plugins
 
 CLEANFILES = *~ .*.swp .*.swo
