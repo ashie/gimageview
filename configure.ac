@@ -96,7 +96,6 @@ AC_SUBST(XINE_REQUIRED)
 dnl ******************************
 dnl Check for GTK
 dnl ******************************
-enable_gtk2=yes
 PKG_CHECK_MODULES(GTK,
    [glib-2.0       >= $GLIB2_REQUIRED
     gmodule-2.0    >= $GMODULE2_REQUIRED
