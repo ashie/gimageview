@@ -99,7 +99,7 @@ save_png (GimvImageSaver *saver,
           const gchar    *format)
 {
    FILE *handle;
-   gchar *buffer;
+   guchar *buffer;
    gboolean has_alpha;
    gint width, height, depth, rowstride;
    guchar *pixels;
@@ -173,8 +173,8 @@ save_png (GimvImageSaver *saver,
       } else {
          /* expand RGB to RGBA using an opaque alpha value */
          gint x;
-         gchar *buffer_ptr = buffer;
-         gchar *source_ptr = pixels;
+         guchar *buffer_ptr = buffer;
+         guchar *source_ptr = pixels;
          for (x = 0; x < width; x++) {
             *buffer_ptr++ = *source_ptr++;
             *buffer_ptr++ = *source_ptr++;
