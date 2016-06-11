@@ -139,7 +139,7 @@ static gchar *
 get_path (const gchar *filename, const gchar *cache_type)
 {
    const gchar *image_name;
-   gchar *abspath, *image_dir, *dir;
+   gchar *abspath, *image_dir;
    gchar buf[MAX_PATH_LEN];
 
    g_return_val_if_fail (filename, NULL);
@@ -154,7 +154,7 @@ get_path (const gchar *filename, const gchar *cache_type)
    if (!image_name) goto ERROR;
 
    /* get dir name */
-   dir = image_dir = g_dirname (abspath);
+   image_dir = g_dirname (abspath);
    if (!image_dir) goto ERROR;
 
    g_snprintf (buf, MAX_PATH_LEN, "%s/%s/%s",
