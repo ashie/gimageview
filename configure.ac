@@ -143,39 +143,9 @@ AC_SUBST(BZLIB_LIBS)
 dnl ********************
 dnl Test for libpng
 dnl ********************
-PNG_CFLAGS=""
-PNG_LIBS=""
-AC_CHECK_LIB(png, png_read_info, [
-   AC_CHECK_HEADER(png.h,
-      [ png_ok=yes ],
-      [ png_ok=no ])
-], [
-   AC_MSG_ERROR(*** (PNG library is not found) ***)
-], -lz -lm)
-
-if test x"$png_ok" = xyes; then
-   AC_MSG_CHECKING([for png_structp in png.h])
-   AC_TRY_COMPILE([ #include <png.h> ],
-      [ png_structp pp;
-        png_infop info;
-        png_colorp cmap;
-        png_get_header_ver(NULL);
-        png_create_read_struct; ],
-      [ png_ok=yes ],
-      [ png_ok=no ])
-   AC_MSG_RESULT($png_ok)
-   if test x"$png_ok" = xyes; then
-      PNG_LIBS="-lpng -lz"
-   else
-      AC_MSG_ERROR(*** PNG library (libpng) is too old ***)
-   fi
-else
-   AC_MSG_ERROR(*** PNG library (libpng) required ***)
-fi
-
-AC_SUBST(PNG_CFLAGS)
-AC_SUBST(PNG_LIBS)
-AM_CONDITIONAL(HAVE_PNG, test "x$PNG_LIBS" != x)
+PKG_CHECK_MODULES(PNG,
+   [libpng], ,
+   [AC_MSG_ERROR(*** (PNG library is not found) ***)])
 
 
 dnl ********************
