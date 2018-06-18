@@ -25,7 +25,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <png.h>
+#ifdef PNG_SETJMP_SUPPORTED
 #include <setjmp.h>
+#endif /* PNG_SETJMP_SUPPORTED */
 
 #include "png_loader.h"
 #include "gimv_plugin.h"
@@ -255,7 +257,9 @@ gimv_png_load (GimvImageLoader *loader, gpointer data)
       return NULL;
    }
 
-   if (setjmp (png_ptr->jmpbuf)) goto ERROR;
+#ifdef PNG_SETJMP_SUPPORTED
+   if (setjmp (png_jmpbuf (png_ptr))) goto ERROR;
+#endif /* PNG_SETJMP_SUPPORTED */
 
    context.gio = gio;
    context.bytes_read = 0;
