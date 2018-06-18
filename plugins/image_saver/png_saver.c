@@ -23,6 +23,9 @@
 
 #include <stdio.h>
 #include <png.h>
+#ifdef PNG_SETJMP_SUPPORTED
+#include <setjmp.h>
+#endif /* PNG_SETJMP_SUPPORTED */
 
 #include "gimv_image.h"
 
@@ -130,11 +133,13 @@ save_png (GimvImageSaver *saver,
       return FALSE;
    }
 
-   if (setjmp (png_ptr->jmpbuf)) {
+#ifdef PNG_SETJMP_SUPPORTED
+   if (setjmp (png_jmpbuf (png_ptr))) {
       png_destroy_write_struct (&png_ptr, &info_ptr);
       fclose (handle);
       return FALSE;
    }
+#endif /* PNG_SETJMP_SUPPORTED */
 
    png_init_io (png_ptr, handle);
 
