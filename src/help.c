@@ -331,7 +331,7 @@ get_dirlist_sub_menu (const gchar *dir, gpointer func, GList **filelist)
 
       if (!filename) continue;
 
-      menuitem = gtk_menu_item_new_with_label (g_basename(filename));
+      menuitem = gtk_menu_item_new_with_label (g_path_get_basename(filename));
       g_signal_connect (G_OBJECT (menuitem), "activate",
                         G_CALLBACK (func), filename);
       gtk_menu_append (GTK_MENU (menu), menuitem);

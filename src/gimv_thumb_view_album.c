@@ -355,7 +355,7 @@ thumbalbum_append_thumb_frame (GimvThumbView *tv, GimvThumb *thumb,
 
    pos = g_list_index (tv->thumblist, thumb);
 
-   filename = g_basename(gimv_image_info_get_path (thumb->info));
+   filename = g_path_get_basename(gimv_image_info_get_path (thumb->info));
 
    if (!strcmp (dest_mode, THUMBALBUM3_LABEL)) {
       label = album_create_label_str (thumb);
@@ -705,7 +705,7 @@ label_filename (GimvThumb *thumb)
 
    g_return_val_if_fail (GIMV_IS_THUMB (thumb), NULL);
 
-   filename = g_basename(gimv_image_info_get_path (thumb->info));
+   filename = g_path_get_basename(gimv_image_info_get_path (thumb->info));
 
    tmpstr = gimv_filename_to_internal (filename);
 

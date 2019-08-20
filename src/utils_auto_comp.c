@@ -125,7 +125,7 @@ auto_compl_get_n_alternatives (const gchar *path)
 
    if (path == NULL) return 0;
 
-   filename = g_basename (path);
+   filename = g_path_get_basename (path);
    if (filename && filename[0] == '.') {
       show_dot = TRUE;
       flags = flags | GETDIR_READ_DOT;
@@ -410,7 +410,7 @@ auto_compl_show_alternatives (GtkWidget *entry)
    for (scan = ac_alternatives; scan; scan = scan->next) {
       gtk_list_store_append (ac_list_store, &iter);
       gtk_list_store_set (ac_list_store, &iter,
-                          0, g_basename (scan->data),
+                          0, g_path_get_basename (scan->data),
                           -1);
 
       if (n == 0) {
