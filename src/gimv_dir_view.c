@@ -500,13 +500,13 @@ cb_tree_expand (GtkTreeView *treeview,
       gchar *path = node->data;
       gboolean dot_file_check;
 
-      dot_file_check = g_basename(path)[0] != '.'
-         || (dv->show_dotfile && g_basename(path)[0] == '.')
-         || (conf.dirview_show_current_dir && !strcmp (g_basename(path), "."))
-         || (conf.dirview_show_parent_dir  && !strcmp (g_basename(path), ".."));
+      dot_file_check = g_path_get_basename(path)[0] != '.'
+         || (dv->show_dotfile && g_path_get_basename(path)[0] == '.')
+         || (conf.dirview_show_current_dir && !strcmp (g_path_get_basename(path), "."))
+         || (conf.dirview_show_parent_dir  && !strcmp (g_path_get_basename(path), ".."));
 
       if (isdir (path) && dot_file_check) {
-         insert_row (store, &iter, parent_iter, g_basename (path), path);
+         insert_row (store, &iter, parent_iter, g_path_get_basename (path), path);
       }
    }
    g_list_foreach (subdir_list, (GFunc) g_free, NULL);

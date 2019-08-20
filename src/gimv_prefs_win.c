@@ -220,7 +220,7 @@ prefs_win_create_page (GimvPrefsWinPagePrivate *priv)
 
    /* translate page title */
    if (priv->page->path)
-      title = g_basename (_(priv->page->path));
+      title = g_path_get_basename (_(priv->page->path));
 
    /* create page */
    if (priv->page->create_page_fn) {
@@ -505,7 +505,7 @@ prefs_win_create_navtree (void)
       if (!page || !page->path) continue;
 
       /* translate page title */
-      title = g_basename (_(page->path));
+      title = g_path_get_basename (_(page->path));
 
       /* get node icon */
       get_icon (page->icon,      &pixmap,  &mask);

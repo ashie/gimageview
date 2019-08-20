@@ -150,7 +150,7 @@ get_path (const gchar *filename, const gchar *cache_type)
    abspath = relpath2abs (filename);
 
    /* get filename */
-   image_name = g_basename (abspath);
+   image_name = g_path_get_basename (abspath);
    if (!image_name) goto ERROR;
 
    /* get dir name */
