@@ -347,11 +347,14 @@ column_data_filename (GimvThumb *thumb)
       gchar *retval;
 
       if (tv->mode == GIMV_THUMB_VIEW_MODE_DIR)
+      {
          filename = g_path_get_basename (gimv_image_info_get_path (thumb->info));
-      else
+         retval = gimv_filename_to_internal (filename);
+         g_free (filename);
+      } else {
          filename = gimv_image_info_get_path (thumb->info);
-
-      retval = gimv_filename_to_internal (filename);
+         retval = gimv_filename_to_internal (filename);
+      }
 
       return retval;
    }

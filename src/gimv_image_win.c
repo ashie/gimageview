@@ -1142,6 +1142,7 @@ gimv_image_win_set_window_title (GimvImageWin *iw)
 
    g_free (tmpstr1);
    g_free (tmpstr2);
+   g_free (filename);
    g_free (dirname);
 }
 
