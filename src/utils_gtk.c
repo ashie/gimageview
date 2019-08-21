@@ -451,6 +451,7 @@ overwrite_confirm_rename (OverWriteDialog *dialog)
    g_return_if_fail (*dirname);
 
    filename = charset_internal_to_locale (filename_internal);
+   g_free (filename_internal);
    g_return_if_fail (filename);
    if (!*filename) g_free (filename);
    g_return_if_fail (*filename);
@@ -633,10 +634,12 @@ gtkutil_overwrite_confirm_dialog (const gchar *title, const gchar *message,
    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
    g_signal_connect (G_OBJECT (entry), "activate",
                      G_CALLBACK (cb_confirm_rename_enter), &dialog);
-   filename = charset_to_internal (g_path_get_basename (src_file),
+   const gchar *bn = g_path_get_basename (src_file);
+   filename = charset_to_internal (bn,
                                    conf.charset_filename,
                                    conf.charset_auto_detect_fn,
                                    conf.charset_filename_mode);
+   g_free (bn);
    gtk_entry_set_text (GTK_ENTRY (entry), filename);
    g_free (filename);
    filename = NULL;

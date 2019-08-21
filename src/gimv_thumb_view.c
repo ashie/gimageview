@@ -1149,9 +1149,11 @@ comp_func_spel (gconstpointer data1, gconstpointer data2)
    else if (!filename2 || !*filename2)
       return 1;
 
-   if (filename1 && !strcmp ("..", g_path_get_basename (filename1))) {
+   const gchar *bn1 = g_path_get_basename (filename1);
+   const gchar *bn2 = g_path_get_basename (filename2);
+   if (filename1 && !strcmp ("..", bn1)) {
       comp = -1;
-   } else if (filename2 && !strcmp ("..", g_path_get_basename (filename2))) {
+   } else if (filename2 && !strcmp ("..", bn2)) {
       comp = 1;
    } else if (!ignore_dir && isdir (filename1) && !isdir (filename2)) {
       comp = -1;
@@ -1163,6 +1165,8 @@ comp_func_spel (gconstpointer data1, gconstpointer data2)
       else
          comp = strcmp ((gchar *) filename1, (gchar *) filename2);
    }
+   g_free (bn1);
+   g_free (bn2);
 
    return comp;
 }
@@ -2038,7 +2042,8 @@ gimv_thumb_view_open_image (GimvThumbView *tv, GimvThumb *thumb, gint type)
    g_return_if_fail (image_name && *image_name);
    filename = g_strdup (image_name);
 
-   if (!strcmp ("..", g_path_get_basename (filename))) {
+   const gchar *bn = g_path_get_basename (filename);
+   if (!strcmp ("..", bn)) {
       tmpstr = filename;
       filename = g_dirname (filename);
       g_free (tmpstr);
@@ -2049,6 +2054,7 @@ gimv_thumb_view_open_image (GimvThumbView *tv, GimvThumb *thumb, gint type)
       }
       tmpstr = NULL;
    }
+   g_free (bn);
 
    /* open directory */
    if (isdir (filename)) {
@@ -2353,7 +2359,7 @@ gimv_thumb_view_rename_file (GimvThumbView *tv)
    {   /********** convert charset **********/
       gchar *tmpstr, *src_file_internal;
 
-      src_file = g_path_get_basename(gimv_image_info_get_path (thumb->info));
+      src_file = g_path_get_basename (gimv_image_info_get_path (thumb->info));
       src_file_internal = charset_to_internal (src_file,
                                                conf.charset_filename,
                                                conf.charset_auto_detect_fn,
@@ -2375,8 +2381,10 @@ gimv_thumb_view_rename_file (GimvThumbView *tv)
    if (!strcmp (src_file, dest_file)) goto ERROR0;
 
    dirname = g_dirname (gimv_image_info_get_path (thumb->info));
-   dest_path = g_strconcat (dirname, "/", g_path_get_basename (dest_file), NULL);
+   const gchar *bn = g_path_get_basename (dest_file);
+   dest_path = g_strconcat (dirname, "/", bn, NULL);
    g_free (dirname);
+   g_free (bn);
    exist = !lstat(dest_path, &dest_st);
    if (exist) {
       {   /********** convert charset **********/
@@ -2398,6 +2406,8 @@ gimv_thumb_view_rename_file (GimvThumbView *tv)
                                         GTK_WINDOW (tv->tw));
       if (confirm == CONFIRM_NO) goto ERROR1;
    }
+
+   g_free (src_file);
 
    /* rename file!! */
    if (rename (gimv_image_info_get_path (thumb->info), dest_path) < 0) {
@@ -2537,10 +2547,12 @@ create_scripts_submenu (GimvThumbView *tv)
 
       if (!filename || !*filename || !isexecutable(filename)) continue;
 
+      const gchar *bn = g_path_get_basename (filename);
       if (conf.scripts_show_dialog)
-         label = g_strconcat (g_path_get_basename (filename), "...", NULL);
+         label = g_strconcat (bn, "...", NULL);
       else
-         label = g_strdup (g_path_get_basename (filename));
+         label = g_strdup (bn);
+      g_free (bn);
 
       menu_item = gtk_menu_item_new_with_label (label);
       g_object_set_data_full (G_OBJECT (menu_item),
@@ -3448,7 +3460,9 @@ gimv_thumb_view_reset_tab_label (GimvThumbView *tv, const gchar *title)
          tmpstr = fileutil_home2tilde (filename);
       } else {
          if (tv->mode == GIMV_THUMB_VIEW_MODE_ARCHIVE) {
-            tmpstr = g_strdup (g_path_get_basename (filename));
+            const gchar *bn = g_path_get_basename (filename);
+            tmpstr = g_strdup (bn);
+            g_free (bn);
          } else {
             gchar *dirname = g_dirname (filename);
             tmpstr = fileutil_dir_basename (dirname);

@@ -230,6 +230,8 @@ prefs_win_create_page (GimvPrefsWinPagePrivate *priv)
                                 vbox, label);
       priv->widget = vbox;
    }
+
+   g_free (title);
 }
 
 
@@ -531,6 +533,8 @@ prefs_win_create_navtree (void)
                           COLUMN_NAME,            title,
                           COLUMN_PRIV_DATA,       priv,
                           COLUMN_TERMINATOR);
+
+      g_free (title);
    }
 
    return tree;

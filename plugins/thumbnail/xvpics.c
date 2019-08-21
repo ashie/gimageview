@@ -161,6 +161,7 @@ get_path (const gchar *filename, const gchar *cache_type)
                image_dir, XV_THUMNAIL_DIRECTORY, image_name);
 
    g_free (abspath);
+   g_free (image_name);
    g_free (image_dir);
    return g_strdup (buf);
 

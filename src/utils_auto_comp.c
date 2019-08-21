@@ -132,6 +132,7 @@ auto_compl_get_n_alternatives (const gchar *path)
    } else {
       show_dot = FALSE;
    }
+   g_free (filename);
 
    if (strcmp (path, "/") == 0)
       dir = g_strdup ("/");
@@ -408,10 +409,12 @@ auto_compl_show_alternatives (GtkWidget *entry)
    gtk_list_store_clear (ac_list_store);
 
    for (scan = ac_alternatives; scan; scan = scan->next) {
+      const gchar *bn = g_path_get_basename (scan->data);
       gtk_list_store_append (ac_list_store, &iter);
       gtk_list_store_set (ac_list_store, &iter,
-                          0, g_path_get_basename (scan->data),
+                          0, bn,
                           -1);
+      g_free (bn);
 
       if (n == 0) {
          GtkTreeSelection *selection;
