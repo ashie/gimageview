@@ -167,6 +167,8 @@ get_path (const gchar *filename, const gchar *cache_type)
 
 ERROR:
    g_free (abspath);
+   g_free (image_name);
+   g_free (image_dir);
    return NULL;
 }
 
