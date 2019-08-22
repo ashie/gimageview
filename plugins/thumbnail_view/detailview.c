@@ -343,7 +343,7 @@ column_data_filename (GimvThumb *thumb)
    */
 
    {
-      const gchar *filename;
+      gchar *filename;
       gchar *retval;
 
       if (tv->mode == GIMV_THUMB_VIEW_MODE_DIR) {

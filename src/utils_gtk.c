@@ -634,12 +634,12 @@ gtkutil_overwrite_confirm_dialog (const gchar *title, const gchar *message,
    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
    g_signal_connect (G_OBJECT (entry), "activate",
                      G_CALLBACK (cb_confirm_rename_enter), &dialog);
-   const gchar *bn = g_path_get_basename (src_file);
-   filename = charset_to_internal (bn,
+   gchar *basename = g_path_get_basename (src_file);
+   filename = charset_to_internal (basename,
                                    conf.charset_filename,
                                    conf.charset_auto_detect_fn,
                                    conf.charset_filename_mode);
-   g_free (bn);
+   g_free (basename);
    gtk_entry_set_text (GTK_ENTRY (entry), filename);
    g_free (filename);
    filename = NULL;

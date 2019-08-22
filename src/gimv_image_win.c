@@ -1095,7 +1095,7 @@ static void
 gimv_image_win_set_window_title (GimvImageWin *iw)
 {
    gchar buf[BUF_SIZE];
-   const gchar *filename = NULL;
+   gchar *filename = NULL;
    gchar *dirname = NULL, *tmpstr1, *tmpstr2;
    gboolean keep_buffer;
 

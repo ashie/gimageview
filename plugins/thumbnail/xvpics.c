@@ -138,7 +138,7 @@ ERROR:
 static gchar *
 get_path (const gchar *filename, const gchar *cache_type)
 {
-   const gchar *image_name;
+   gchar *image_name;
    gchar *abspath, *image_dir;
    gchar buf[MAX_PATH_LEN];
 

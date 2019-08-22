@@ -499,17 +499,17 @@ cb_tree_expand (GtkTreeView *treeview,
    for (node = subdir_list; node; node = g_list_next (node)) {
       gchar *path = node->data;
       gboolean dot_file_check;
-      const gchar *bn = g_path_get_basename (path);
+      gchar *basename = g_path_get_basename (path);
 
-      dot_file_check = bn[0] != '.'
-         || (dv->show_dotfile && bn[0] == '.')
-         || (conf.dirview_show_current_dir && !strcmp (bn, "."))
-         || (conf.dirview_show_parent_dir  && !strcmp (bn, ".."));
+      dot_file_check = basename[0] != '.'
+         || (dv->show_dotfile && basename[0] == '.')
+         || (conf.dirview_show_current_dir && !strcmp (basename, "."))
+         || (conf.dirview_show_parent_dir  && !strcmp (basename, ".."));
 
       if (isdir (path) && dot_file_check) {
-         insert_row (store, &iter, parent_iter, bn, path);
+         insert_row (store, &iter, parent_iter, basename, path);
       }
-      g_free (bn);
+      g_free (basename);
    }
 
    g_list_foreach (subdir_list, (GFunc) g_free, NULL);

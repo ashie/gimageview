@@ -212,7 +212,7 @@ prefs_win_free_strings (gboolean value_changed)
 static void
 prefs_win_create_page (GimvPrefsWinPagePrivate *priv)
 {
-   const gchar *title = NULL;
+   gchar *title = NULL;
    GtkWidget *vbox, *label;
 
    if (!priv || !priv->page) return;
@@ -498,7 +498,7 @@ prefs_win_create_navtree (void)
    /* create pages */
    for (node = get_page_entries_list(); node; node = g_list_next (node)) {
       GimvPrefsWinPage *page = node->data;
-      const gchar *title;
+      gchar *title;
       GdkPixmap *pixmap = NULL, *opixmap = NULL;
       GdkBitmap *mask = NULL, *omask = NULL;
       GimvPrefsWinPagePrivate *priv;

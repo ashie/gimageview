@@ -116,7 +116,7 @@ gint
 auto_compl_get_n_alternatives (const gchar *path)
 {
    gchar *dir;
-   const gchar *filename;
+   gchar *filename;
    gint path_len;
    GList *scan;
    gint n;
@@ -409,12 +409,12 @@ auto_compl_show_alternatives (GtkWidget *entry)
    gtk_list_store_clear (ac_list_store);
 
    for (scan = ac_alternatives; scan; scan = scan->next) {
-      const gchar *bn = g_path_get_basename (scan->data);
+      gchar *basename = g_path_get_basename (scan->data);
       gtk_list_store_append (ac_list_store, &iter);
       gtk_list_store_set (ac_list_store, &iter,
-                          0, bn,
+                          0, basename,
                           -1);
-      g_free (bn);
+      g_free (basename);
 
       if (n == 0) {
          GtkTreeSelection *selection;

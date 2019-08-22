@@ -700,7 +700,7 @@ static const gchar *data_order = DEFAULT_DATA_ORDER;
 static gchar *
 label_filename (GimvThumb *thumb)
 {
-   const gchar *filename;
+   gchar *filename;
    gchar *tmpstr;
    gchar buf[BUF_SIZE];
 
