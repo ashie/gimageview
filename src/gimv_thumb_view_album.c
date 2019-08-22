@@ -706,7 +706,7 @@ label_filename (GimvThumb *thumb)
 
    g_return_val_if_fail (GIMV_IS_THUMB (thumb), NULL);
 
-   *filename = g_path_get_basename (gimv_image_info_get_path (thumb->info));
+   filename = g_path_get_basename (gimv_image_info_get_path (thumb->info));
    tmpstr = gimv_filename_to_internal (filename);
    g_free (filename);
 
