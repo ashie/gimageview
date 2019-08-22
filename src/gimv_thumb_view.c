@@ -1149,11 +1149,11 @@ comp_func_spel (gconstpointer data1, gconstpointer data2)
    else if (!filename2 || !*filename2)
       return 1;
 
-   const gchar *bn1 = g_path_get_basename (filename1);
-   const gchar *bn2 = g_path_get_basename (filename2);
-   if (filename1 && !strcmp ("..", bn1)) {
+   gchar *basename1 = g_path_get_basename (filename1);
+   gchar *basename2 = g_path_get_basename (filename2);
+   if (filename1 && !strcmp ("..", basename1)) {
       comp = -1;
-   } else if (filename2 && !strcmp ("..", bn2)) {
+   } else if (filename2 && !strcmp ("..", basename2)) {
       comp = 1;
    } else if (!ignore_dir && isdir (filename1) && !isdir (filename2)) {
       comp = -1;
@@ -1165,8 +1165,8 @@ comp_func_spel (gconstpointer data1, gconstpointer data2)
       else
          comp = strcmp ((gchar *) filename1, (gchar *) filename2);
    }
-   g_free (bn1);
-   g_free (bn2);
+   g_free (basename1);
+   g_free (basename2);
 
    return comp;
 }
@@ -2042,8 +2042,8 @@ gimv_thumb_view_open_image (GimvThumbView *tv, GimvThumb *thumb, gint type)
    g_return_if_fail (image_name && *image_name);
    filename = g_strdup (image_name);
 
-   const gchar *bn = g_path_get_basename (filename);
-   if (!strcmp ("..", bn)) {
+   gchar *basename = g_path_get_basename (filename);
+   if (!strcmp ("..", basename)) {
       tmpstr = filename;
       filename = g_dirname (filename);
       g_free (tmpstr);
@@ -2054,7 +2054,7 @@ gimv_thumb_view_open_image (GimvThumbView *tv, GimvThumb *thumb, gint type)
       }
       tmpstr = NULL;
    }
-   g_free (bn);
+   g_free (basename);
 
    /* open directory */
    if (isdir (filename)) {
@@ -2335,7 +2335,7 @@ gimv_thumb_view_rename_file (GimvThumbView *tv)
    GimvThumb *thumb;
    const gchar *cache_type;
    GList *thumblist;
-   const gchar *src_file;
+   gchar *src_file;
    gchar *dest_file, *dest_path;
    gchar *src_cache_path, *dest_cache_path;
    gchar *src_comment, *dest_comment;
@@ -2381,10 +2381,10 @@ gimv_thumb_view_rename_file (GimvThumbView *tv)
    if (!strcmp (src_file, dest_file)) goto ERROR0;
 
    dirname = g_dirname (gimv_image_info_get_path (thumb->info));
-   const gchar *bn = g_path_get_basename (dest_file);
-   dest_path = g_strconcat (dirname, "/", bn, NULL);
+   gchar *basename = g_path_get_basename (dest_file);
+   dest_path = g_strconcat (dirname, "/", basename, NULL);
    g_free (dirname);
-   g_free (bn);
+   g_free (basename);
    exist = !lstat(dest_path, &dest_st);
    if (exist) {
       {   /********** convert charset **********/
@@ -2547,12 +2547,12 @@ create_scripts_submenu (GimvThumbView *tv)
 
       if (!filename || !*filename || !isexecutable(filename)) continue;
 
-      const gchar *bn = g_path_get_basename (filename);
+      gchar *basename = g_path_get_basename (filename);
       if (conf.scripts_show_dialog)
-         label = g_strconcat (bn, "...", NULL);
+         label = g_strconcat (basename, "...", NULL);
       else
-         label = g_strdup (bn);
-      g_free (bn);
+         label = g_strdup (basename);
+      g_free (basename);
 
       menu_item = gtk_menu_item_new_with_label (label);
       g_object_set_data_full (G_OBJECT (menu_item),
@@ -3460,9 +3460,9 @@ gimv_thumb_view_reset_tab_label (GimvThumbView *tv, const gchar *title)
          tmpstr = fileutil_home2tilde (filename);
       } else {
          if (tv->mode == GIMV_THUMB_VIEW_MODE_ARCHIVE) {
-            const gchar *bn = g_path_get_basename (filename);
-            tmpstr = g_strdup (bn);
-            g_free (bn);
+            gchar *basename = g_path_get_basename (filename);
+            tmpstr = g_strdup (basename);
+            g_free (basename);
          } else {
             gchar *dirname = g_dirname (filename);
             tmpstr = fileutil_dir_basename (dirname);
