@@ -2547,12 +2547,13 @@ create_scripts_submenu (GimvThumbView *tv)
 
       if (!filename || !*filename || !isexecutable(filename)) continue;
 
-      gchar *basename = g_path_get_basename (filename);
-      if (conf.scripts_show_dialog)
+      if (conf.scripts_show_dialog) {
+         gchar *basename = g_path_get_basename (filename);
          label = g_strconcat (basename, "...", NULL);
-      else
-         label = g_strdup (basename);
-      g_free (basename);
+         g_free (basename);
+      } else {
+         label = g_path_get_basename (filename);
+      }
 
       menu_item = gtk_menu_item_new_with_label (label);
       g_object_set_data_full (G_OBJECT (menu_item),
@@ -3460,9 +3461,7 @@ gimv_thumb_view_reset_tab_label (GimvThumbView *tv, const gchar *title)
          tmpstr = fileutil_home2tilde (filename);
       } else {
          if (tv->mode == GIMV_THUMB_VIEW_MODE_ARCHIVE) {
-            gchar *basename = g_path_get_basename (filename);
-            tmpstr = g_strdup (basename);
-            g_free (basename);
+            tmpstr = g_path_get_basename (filename);
          } else {
             gchar *dirname = g_dirname (filename);
             tmpstr = fileutil_dir_basename (dirname);
