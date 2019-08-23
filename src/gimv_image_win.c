@@ -1095,7 +1095,7 @@ static void
 gimv_image_win_set_window_title (GimvImageWin *iw)
 {
    gchar buf[BUF_SIZE];
-   const gchar *filename = NULL;
+   gchar *filename = NULL;
    gchar *dirname = NULL, *tmpstr1, *tmpstr2;
    gboolean keep_buffer;
 
@@ -1106,7 +1106,7 @@ gimv_image_win_set_window_title (GimvImageWin *iw)
    if (!g_list_find (gimv_image_view_get_list(), iw->iv)) return;
 
    if (iw->iv->info && gimv_image_info_get_path (iw->iv->info)) {
-      filename = g_basename (iw->iv->info->filename);
+      filename = g_path_get_basename (iw->iv->info->filename);
       dirname = g_dirname (iw->iv->info->filename);
    } else {
       gtk_window_set_title (GTK_WINDOW (iw), GIMV_PROG_NAME);
@@ -1142,6 +1142,7 @@ gimv_image_win_set_window_title (GimvImageWin *iw)
 
    g_free (tmpstr1);
    g_free (tmpstr2);
+   g_free (filename);
    g_free (dirname);
 }
 

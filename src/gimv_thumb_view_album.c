@@ -355,13 +355,14 @@ thumbalbum_append_thumb_frame (GimvThumbView *tv, GimvThumb *thumb,
 
    pos = g_list_index (tv->thumblist, thumb);
 
-   filename = g_basename(gimv_image_info_get_path (thumb->info));
+   filename = g_path_get_basename (gimv_image_info_get_path (thumb->info));
 
    if (!strcmp (dest_mode, THUMBALBUM3_LABEL)) {
       label = album_create_label_str (thumb);
    } else {
       label = gimv_filename_to_internal (filename);
    }
+   g_free (filename);
 
    idx = gimv_zalbum_insert (GIMV_ZALBUM (tv_data->album), pos, label);
    g_free (label);
@@ -699,15 +700,15 @@ static const gchar *data_order = DEFAULT_DATA_ORDER;
 static gchar *
 label_filename (GimvThumb *thumb)
 {
-   const gchar *filename;
+   gchar *filename;
    gchar *tmpstr;
    gchar buf[BUF_SIZE];
 
    g_return_val_if_fail (GIMV_IS_THUMB (thumb), NULL);
 
-   filename = g_basename(gimv_image_info_get_path (thumb->info));
-
+   filename = g_path_get_basename (gimv_image_info_get_path (thumb->info));
    tmpstr = gimv_filename_to_internal (filename);
+   g_free (filename);
 
    if (show_data_title)
       g_snprintf (buf, BUF_SIZE, _("Name : %s"), tmpstr);
