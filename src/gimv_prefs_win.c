@@ -212,7 +212,7 @@ prefs_win_free_strings (gboolean value_changed)
 static void
 prefs_win_create_page (GimvPrefsWinPagePrivate *priv)
 {
-   const gchar *title = NULL;
+   gchar *title = NULL;
    GtkWidget *vbox, *label;
 
    if (!priv || !priv->page) return;
@@ -220,7 +220,7 @@ prefs_win_create_page (GimvPrefsWinPagePrivate *priv)
 
    /* translate page title */
    if (priv->page->path)
-      title = g_basename (_(priv->page->path));
+      title = g_path_get_basename (_(priv->page->path));
 
    /* create page */
    if (priv->page->create_page_fn) {
@@ -230,6 +230,8 @@ prefs_win_create_page (GimvPrefsWinPagePrivate *priv)
                                 vbox, label);
       priv->widget = vbox;
    }
+
+   g_free (title);
 }
 
 
@@ -496,7 +498,7 @@ prefs_win_create_navtree (void)
    /* create pages */
    for (node = get_page_entries_list(); node; node = g_list_next (node)) {
       GimvPrefsWinPage *page = node->data;
-      const gchar *title;
+      gchar *title;
       GdkPixmap *pixmap = NULL, *opixmap = NULL;
       GdkBitmap *mask = NULL, *omask = NULL;
       GimvPrefsWinPagePrivate *priv;
@@ -505,7 +507,7 @@ prefs_win_create_navtree (void)
       if (!page || !page->path) continue;
 
       /* translate page title */
-      title = g_basename (_(page->path));
+      title = g_path_get_basename (_(page->path));
 
       /* get node icon */
       get_icon (page->icon,      &pixmap,  &mask);
@@ -531,6 +533,8 @@ prefs_win_create_navtree (void)
                           COLUMN_NAME,            title,
                           COLUMN_PRIV_DATA,       priv,
                           COLUMN_TERMINATOR);
+
+      g_free (title);
    }
 
    return tree;
