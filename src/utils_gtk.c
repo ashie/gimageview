@@ -438,7 +438,7 @@ cb_show_image2 (GtkButton *button, OverWriteDialog *dialog)
 static void
 overwrite_confirm_rename (OverWriteDialog *dialog)
 {
-   const gchar *filename_internal
+   gchar *filename_internal
       = g_path_get_basename (gtk_entry_get_text (GTK_ENTRY (dialog->entry)));
    gchar *dirname, *filename;
 
