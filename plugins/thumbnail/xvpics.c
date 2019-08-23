@@ -141,6 +141,7 @@ get_path (const gchar *filename, const gchar *cache_type)
    gchar *image_name;
    gchar *abspath, *image_dir;
    gchar buf[MAX_PATH_LEN];
+   gchar *result;
 
    g_return_val_if_fail (filename, NULL);
    g_return_val_if_fail (cache_type, NULL);
@@ -149,27 +150,24 @@ get_path (const gchar *filename, const gchar *cache_type)
 
    abspath = relpath2abs (filename);
 
-   /* get filename */
    image_name = g_path_get_basename (abspath);
-   if (!image_name) goto ERROR;
-
    /* get dir name */
    image_dir = g_dirname (abspath);
-   if (!image_dir) goto ERROR;
-
-   g_snprintf (buf, MAX_PATH_LEN, "%s/%s/%s",
-               image_dir, XV_THUMNAIL_DIRECTORY, image_name);
 
    g_free (abspath);
-   g_free (image_name);
-   g_free (image_dir);
-   return g_strdup (buf);
 
-ERROR:
-   g_free (abspath);
+   if (image_name && image_dir) {
+      g_snprintf (buf, MAX_PATH_LEN, "%s/%s/%s",
+                  image_dir, XV_THUMNAIL_DIRECTORY, image_name);
+      result = g_strdup (buf);
+   } else {
+      result = NULL;
+   }
+
    g_free (image_name);
    g_free (image_dir);
-   return NULL;
+
+   return result;
 }
 
 
