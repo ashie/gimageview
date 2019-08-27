@@ -137,7 +137,7 @@ auto_compl_get_n_alternatives (const gchar *path)
    if (strcmp (path, "/") == 0)
       dir = g_strdup ("/");
    else
-      dir = g_dirname (path);
+      dir = g_path_get_dirname (path);
 
    if (!isdir (dir)) {
       g_free (dir);

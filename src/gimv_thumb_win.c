@@ -2627,7 +2627,7 @@ cb_location_entry_key_press (GtkWidget *widget,
             gimv_dir_view_change_dir (tw->dv, text);
          } else {
             gtk_entry_set_text (GTK_ENTRY (widget), text);
-            dirname = g_dirname (text);
+            dirname = g_path_get_dirname (text);
             if (tw->show_dirview)
                gimv_dir_view_change_dir (tw->dv, dirname);
             g_free (dirname);
@@ -2873,9 +2873,9 @@ cb_thumb_notebook_switch_page (GtkNotebook *notebook, GtkNotebookPage *page,
          if (path && isdir (path)) {
             gimv_dir_view_change_dir (tw->dv, path);
          } else if (path && isfile (path)) {
-            gchar *dirname = g_dirname (path);
+            gchar *dirname = g_path_get_dirname (path);
             gimv_dir_view_change_dir (tw->dv, dirname);
-            g_free(dirname);
+            g_free (dirname);
          }
       }
 
@@ -3680,9 +3680,9 @@ gimv_thumb_win_detach_tab (GimvThumbWin *tw_dest, GimvThumbWin *tw_src,
       if (isdir(path)) {
          gimv_dir_view_change_dir (tw_dest->dv, path);
       } else if (isfile(path)) {
-         gchar *dirname = g_dirname (path);
+         gchar *dirname = g_path_get_dirname (path);
          gimv_dir_view_change_dir (tw_dest->dv, dirname);
-         g_free(dirname);
+         g_free (dirname);
       }
    }
 
@@ -3814,7 +3814,7 @@ location_entry_set_text (GimvThumbWin  *tw,
          if (path && isdir (path))
             text = g_strdup (path);
          else if (path && isfile (path))
-            text = g_dirname (path);
+            text = g_path_get_dirname (path);
          else
             text = g_strdup (g_getenv ("HOME"));
       } else {
@@ -4042,7 +4042,7 @@ gimv_thumb_win_change_layout (GimvThumbWin *tw, gint layout)
          if (path && isdir (path)) {
             gimv_dir_view_change_dir (tw->dv, path);
          } else if (path && isfile (path)) {
-            gchar *dirname = g_dirname (path);
+            gchar *dirname = g_path_get_dirname (path);
             gimv_dir_view_change_dir (tw->dv, dirname);
             g_free (dirname);
          }

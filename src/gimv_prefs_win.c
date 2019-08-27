@@ -352,7 +352,7 @@ prefs_win_navtree_get_parent (GimvPrefsWinPagePrivate *priv, GtkTreeIter *iter)
    g_return_val_if_fail (priv->page, FALSE);
    g_return_val_if_fail (priv->page->path, FALSE);
 
-   node.path = g_dirname (priv->page->path);
+   node.path = g_path_get_dirname (priv->page->path);
    node.priv  = NULL;
 
    model = gtk_tree_view_get_model (GTK_TREE_VIEW (prefs_win.tree));
