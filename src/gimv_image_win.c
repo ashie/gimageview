@@ -1107,7 +1107,7 @@ gimv_image_win_set_window_title (GimvImageWin *iw)
 
    if (iw->iv->info && gimv_image_info_get_path (iw->iv->info)) {
       filename = g_path_get_basename (iw->iv->info->filename);
-      dirname = g_dirname (iw->iv->info->filename);
+      dirname = g_path_get_dirname (iw->iv->info->filename);
    } else {
       gtk_window_set_title (GTK_WINDOW (iw), GIMV_PROG_NAME);
       return;
