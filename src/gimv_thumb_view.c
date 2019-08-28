@@ -2045,11 +2045,11 @@ gimv_thumb_view_open_image (GimvThumbView *tv, GimvThumb *thumb, gint type)
    gchar *basename = g_path_get_basename (filename);
    if (!strcmp ("..", basename)) {
       tmpstr = filename;
-      filename = g_dirname (filename);
+      filename = g_path_get_dirname (filename);
       g_free (tmpstr);
       if (filename) {
          tmpstr = filename;
-         filename = g_dirname (filename);
+         filename = g_path_get_dirname (filename);
          g_free (tmpstr);
       }
       tmpstr = NULL;
@@ -2232,7 +2232,7 @@ gimv_thumb_view_popup_menu (GimvThumbView *tv, GimvThumb *thumb,
       gtk_widget_set_sensitive (menuitem, FALSE);
    }
 
-   dirname = g_dirname (gimv_image_info_get_path (thumb->info));
+   dirname = g_path_get_dirname (gimv_image_info_get_path (thumb->info));
    if (g_list_length (thumblist) < 1 || !iswritable (dirname)
        || tv->mode == GIMV_THUMB_VIEW_MODE_ARCHIVE)
    {
@@ -2380,7 +2380,7 @@ gimv_thumb_view_rename_file (GimvThumbView *tv)
 
    if (!strcmp (src_file, dest_file)) goto ERROR0;
 
-   dirname = g_dirname (gimv_image_info_get_path (thumb->info));
+   dirname = g_path_get_dirname (gimv_image_info_get_path (thumb->info));
    gchar *basename = g_path_get_basename (dest_file);
    dest_path = g_strconcat (dirname, "/", basename, NULL);
    g_free (dirname);
@@ -3463,7 +3463,7 @@ gimv_thumb_view_reset_tab_label (GimvThumbView *tv, const gchar *title)
          if (tv->mode == GIMV_THUMB_VIEW_MODE_ARCHIVE) {
             tmpstr = g_path_get_basename (filename);
          } else {
-            gchar *dirname = g_dirname (filename);
+            gchar *dirname = g_path_get_dirname (filename);
             tmpstr = fileutil_dir_basename (dirname);
             g_free (dirname);
          }

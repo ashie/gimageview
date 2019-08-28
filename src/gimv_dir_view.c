@@ -645,7 +645,7 @@ cb_rename_dir (GimvDirView *dv, guint action, GtkWidget *menuitem)
       GtkTreeIter iter;
 
       tmp_path = remove_slash (path);
-      parent_dir = g_dirname (tmp_path);
+      parent_dir = g_path_get_dirname (tmp_path);
 
       if (get_iter_from_path (dv, parent_dir, &iter))
          refresh_dir_tree (dv, &iter);
@@ -675,7 +675,7 @@ cb_delete_dir (GimvDirView *dv, guint action, GtkWidget *menuitem)
    delete_dir (path, GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (dv))));
    g_free (path);
 
-   parent_dir = g_dirname (path);
+   parent_dir = g_path_get_dirname (path);
 
    /* refresh dir tree */
    if (get_iter_from_path (dv, parent_dir, &iter))
@@ -1613,7 +1613,7 @@ dirview_popup_menu (GimvDirView *dv, GdkEventButton *event)
                        COLUMN_TERMINATOR);
 
    tmpstr = remove_slash (path);
-   parent = g_dirname (tmpstr);
+   parent = g_path_get_dirname (tmpstr);
    g_free (tmpstr);
 
    if (event) {

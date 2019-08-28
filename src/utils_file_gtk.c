@@ -72,7 +72,7 @@ remove_slash (const gchar *path)
    g_return_val_if_fail (*path, g_strdup (path));
 
    if (path[strlen (path) - 1] == '/')
-      return g_dirname (path);
+      return g_path_get_dirname (path);
    else
       return g_strdup (path);
 }
@@ -482,7 +482,7 @@ move_file_check_path (const gchar *from_path,
    /*******************
     * check source dir
     *******************/
-   from_dir = g_dirname (from_path);
+   from_dir = g_path_get_dirname (from_path);
    if (!iswritable (from_dir)) {
       if (show_error) {
          gchar *from_dir_internal;
@@ -1808,7 +1808,7 @@ delete_files (GList *filelist, ConfirmType confirm, GtkWindow *window)
                                          message, NULL, progress);
       }
 
-      dirname = g_dirname (filename);
+      dirname = g_path_get_dirname (filename);
       dirname_internal =  charset_to_internal (dirname,
                                                conf.charset_filename,
                                                conf.charset_auto_detect_fn,
@@ -1941,7 +1941,7 @@ rename_dir_dialog (const gchar *dir, GtkWindow *window)
    }
 
    src_path = remove_slash (path);
-   parent_dir = g_dirname (src_path);
+   parent_dir = g_path_get_dirname (src_path);
 
    /* popup rename directory dialog */
    gchar *basename = g_path_get_basename (src_path);
