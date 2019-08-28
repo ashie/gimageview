@@ -445,7 +445,7 @@ overwrite_confirm_rename (OverWriteDialog *dialog)
    if (!filename_internal && *filename_internal) return;
    g_return_if_fail (dialog->new_path && dialog->new_path_len > 0);
 
-   dirname = g_dirname (gimv_image_info_get_path (dialog->info1));
+   dirname = g_path_get_dirname (gimv_image_info_get_path (dialog->info1));
    g_return_if_fail (dirname);
    if (!*dirname) g_free (dirname);
    g_return_if_fail (*dirname);
