@@ -2031,8 +2031,7 @@ gimv_thumb_view_open_image (GimvThumbView *tv, GimvThumb *thumb, gint type)
    GimvImageView   *iv = NULL;
    GList *current, *node;
    const gchar *image_name, *ext;
-   gchar *filepath, *tmpstr;
-   gchar *basename, *dirname;
+   gchar *filename, *tmpstr;
 
    g_return_if_fail (GIMV_IS_THUMB_VIEW (tv) && thumb);
 
@@ -2041,31 +2040,27 @@ gimv_thumb_view_open_image (GimvThumbView *tv, GimvThumb *thumb, gint type)
 
    image_name = gimv_image_info_get_path (thumb->info);
    g_return_if_fail (image_name && *image_name);
-   filepath = g_strdup (image_name);
+   filename = g_strdup (image_name);
 
-   basename = g_path_get_basename (filepath);
-   dirname = g_path_get_dirname (filepath);
-   g_free (filepath);
-
+   gchar *basename = g_path_get_basename (filename);
    if (!strcmp ("..", basename)) {
-      tmpstr = dirname;
-      dirname = g_path_get_dirname (dirname);
+      tmpstr = filename;
+      filename = g_path_get_dirname (filename);
       g_free (tmpstr);
-      if (dirname) {
-         tmpstr = dirname;
-         dirname = g_path_get_dirname (dirname);
+      if (filename) {
+         tmpstr = filename;
+         filename = g_path_get_dirname (filename);
          g_free (tmpstr);
       }
       tmpstr = NULL;
    }
-
    g_free (basename);
 
    /* open directory */
-   if (isdir (dirname)) {
+   if (isdir (filename)) {
 #warning FIXME!!!! Use this tab?
-      open_dir_images (dirname, tw, NULL, LOAD_CACHE, conf.scan_dir_recursive);
-      g_free (dirname);
+      open_dir_images (filename, tw, NULL, LOAD_CACHE, conf.scan_dir_recursive);
+      g_free (filename);
       return;
    }
 
@@ -2073,16 +2068,16 @@ gimv_thumb_view_open_image (GimvThumbView *tv, GimvThumb *thumb, gint type)
    if (tv->mode == GIMV_THUMB_VIEW_MODE_ARCHIVE) {
       gboolean success = gimv_thumb_view_extract_archive_file (thumb);
       if (!success) {
-         g_free (dirname);
+         g_free (filename);
          return;
       }
    }
 
    /* open archive */
-   ext = fr_archive_utils_get_file_name_ext (dirname);
+   ext = fr_archive_utils_get_file_name_ext (filename);
    if (ext) {
-      open_archive_images (dirname, tw, NULL, LOAD_CACHE);
-      g_free (dirname);
+      open_archive_images (filename, tw, NULL, LOAD_CACHE);
+      g_free (filename);
       return;
    }
 
@@ -2132,7 +2127,7 @@ gimv_thumb_view_open_image (GimvThumbView *tv, GimvThumb *thumb, gint type)
       }
    }
 
-   g_free (dirname);
+   g_free (filename);
 }
 
 
