@@ -2032,7 +2032,7 @@ gimv_thumb_view_open_image (GimvThumbView *tv, GimvThumb *thumb, gint type)
    GList *current, *node;
    const gchar *image_name, *ext;
    gchar *path, *tmpstr;
-   gchar *basename = g_path_get_basename (path);
+   gchar *basename;
 
    g_return_if_fail (GIMV_IS_THUMB_VIEW (tv) && thumb);
 
@@ -2042,6 +2042,7 @@ gimv_thumb_view_open_image (GimvThumbView *tv, GimvThumb *thumb, gint type)
    image_name = gimv_image_info_get_path (thumb->info);
    g_return_if_fail (image_name && *image_name);
    path = g_strdup (image_name);
+   basename = g_path_get_basename (path);
 
    if (!strcmp ("..", basename)) {
       tmpstr = path;
